@@ -76,8 +76,8 @@
                 <a href="tutorials.html">Tutorials</a>
                 <a href="#partners">Partners</a>
                 <a href="#pricing">Pricing</a>
-                <a id="login" href="#contact" class="btn btn-secondary">Login</a>
-                <a id="getstarted" href="#waitlist" class="btn btn-primary">Get Started</a>
+                <a id="login" href="https://api.swipies.app" class="btn btn-secondary">Login</a>
+                <a id="getstarted" href="https://api.swipies.app" class="btn btn-primary">Get Started</a>
             </nav>
             <button class="mobile-menu-btn" aria-label="Toggle Menu">
                 <span></span>
@@ -97,8 +97,8 @@
                     <p>Transform your data into conversational AI. The most intuitive platform for creating, managing,
                         and deploying custom chatbots.</p>
                     <div class="hero-btns">
-                        <a id="startBuild" href="#waitlist" class="btn btn-primary btn-lg">Start Building Free</a>
-                        <a id="demo" href="#demo" target="_blank" class="btn btn-outline btn-lg">View Demo</a>
+                        <a id="startBuild" href="https://api.swipies.app" class="btn btn-primary btn-lg">Start Building Free</a>
+                        <a id="demo" href="https://youtu.be/FEoZmNUkuXs?si=Hec8oQyuLNR5SHs3" target="_blank" class="btn btn-outline btn-lg">View Demo</a>
                     </div>
                 </div>
 
@@ -352,7 +352,7 @@
                 <div class="hero-content fade-in-up">
                     <h2>Ready to revolutionize your customer support?</h2>
                     <p>Join thousands of creators building with Swipies AI today.</p>
-                    <a href="#waitlist" class="btn btn-primary btn-lg">Get Started Now</a>
+                    <a href="https://api.swipies.app" class="btn btn-primary btn-lg">Get Started Now</a>
                 </div>
             </div>
         </section>
@@ -400,27 +400,27 @@
     <script src="config.js"></script>
     <script src="script.js"></script>
 
+    <iframe src="https://api.swipies.app/next-chats/widget?shared_id=88584bb6d5fa11f0968c96bf0244a63a&from=chat&auth=mCQGqjz_JIx2xnhDBDkFqkmwzy9xWSaZ&mode=master&streaming=false"
+  style="position:fixed;bottom:0;right:0;width:100px;height:100px;border:none;background:transparent;z-index:9999"
+  frameborder="0" allow="microphone;camera"></iframe>
+<script>
+window.addEventListener('message',e=>{
+  if(e.origin!=='https://api.swipies.app')return;
+  if(e.data.type==='CREATE_CHAT_WINDOW'){
+    if(document.getElementById('chat-win'))return;
+    const i=document.createElement('iframe');
+    i.id='chat-win';i.src=e.data.src;
+    i.style.cssText='position:fixed;bottom:104px;right:24px;width:380px;height:500px;border:none;background:transparent;z-index:9998;display:none';
+    i.frameBorder='0';i.allow='microphone;camera';
+    document.body.appendChild(i);
+  }else if(e.data.type==='TOGGLE_CHAT'){
+    const w=document.getElementById('chat-win');
+    if(w)w.style.display=e.data.isOpen?'block':'none';
+  }else if(e.data.type==='SCROLL_PASSTHROUGH')window.scrollBy(0,e.data.deltaY);
+});
+</script>
 
-    <iframe
-        src="https://api.swipies.app/next-chats/widget?shared_id=88584bb6d5fa11f0968c96bf0244a63a&from=chat&auth=mCQGqjz_JIx2xnhDBDkFqkmwzy9xWSaZ&mode=master&streaming=false"
-        style="position:fixed;bottom:0;right:0;width:100px;height:100px;border:none;background:transparent;z-index:9999"
-        frameborder="0" allow="microphone;camera"></iframe>
-    <script>
-        window.addEventListener('message', e => {
-            if (e.origin !== 'https://api.swipies.app') return;
-            if (e.data.type === 'CREATE_CHAT_WINDOW') {
-                if (document.getElementById('chat-win')) return;
-                const i = document.createElement('iframe');
-                i.id = 'chat-win'; i.src = e.data.src;
-                i.style.cssText = 'position:fixed;bottom:104px;right:24px;width:380px;height:500px;border:none;background:transparent;z-index:9998;display:none';
-                i.frameBorder = '0'; i.allow = 'microphone;camera';
-                document.body.appendChild(i);
-            } else if (e.data.type === 'TOGGLE_CHAT') {
-                const w = document.getElementById('chat-win');
-                if (w) w.style.display = e.data.isOpen ? 'block' : 'none';
-            } else if (e.data.type === 'SCROLL_PASSTHROUGH') window.scrollBy(0, e.data.deltaY);
-        });
-    </script>
+
 </body>
 
 </html>
