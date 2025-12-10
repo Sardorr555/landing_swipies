@@ -73,7 +73,6 @@
             <a href="#" class="logo">Swipies<span class="highlight">AI</span></a>
             <nav class="nav-links">
                 <a href="#features">Features</a>
-                <a href="#platforms">Platforms</a>
                 <a href="tutorials.html">Tutorials</a>
                 <a href="#partners">Partners</a>
                 <a href="#pricing">Pricing</a>
@@ -400,6 +399,28 @@
 
     <script src="config.js"></script>
     <script src="script.js"></script>
+
+
+    <iframe
+        src="https://api.swipies.app/next-chats/widget?shared_id=88584bb6d5fa11f0968c96bf0244a63a&from=chat&auth=mCQGqjz_JIx2xnhDBDkFqkmwzy9xWSaZ&mode=master&streaming=false"
+        style="position:fixed;bottom:0;right:0;width:100px;height:100px;border:none;background:transparent;z-index:9999"
+        frameborder="0" allow="microphone;camera"></iframe>
+    <script>
+        window.addEventListener('message', e => {
+            if (e.origin !== 'https://api.swipies.app') return;
+            if (e.data.type === 'CREATE_CHAT_WINDOW') {
+                if (document.getElementById('chat-win')) return;
+                const i = document.createElement('iframe');
+                i.id = 'chat-win'; i.src = e.data.src;
+                i.style.cssText = 'position:fixed;bottom:104px;right:24px;width:380px;height:500px;border:none;background:transparent;z-index:9998;display:none';
+                i.frameBorder = '0'; i.allow = 'microphone;camera';
+                document.body.appendChild(i);
+            } else if (e.data.type === 'TOGGLE_CHAT') {
+                const w = document.getElementById('chat-win');
+                if (w) w.style.display = e.data.isOpen ? 'block' : 'none';
+            } else if (e.data.type === 'SCROLL_PASSTHROUGH') window.scrollBy(0, e.data.deltaY);
+        });
+    </script>
 </body>
 
 </html>
