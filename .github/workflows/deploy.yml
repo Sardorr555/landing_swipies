@@ -1,0 +1,44 @@
+name: Deploy Swipies Website
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to server (with git pull)
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            echo "=== DEPLOY STARTED ==="
+
+            echo "1) Go to repo folder"
+            cd ~/landing_swipies
+
+            echo "2) Reset local repo to avoid merge conflicts"
+            git reset --hard
+
+            echo "3) Pull latest changes from GitHub"
+            git pull origin main
+
+            echo "4) Cleaning LIVE directory"
+            sudo rm -rf /var/www/swipies/*
+            sudo mkdir -p /var/www/swipies
+
+            echo "5) Copy updated website"
+            cp -r ~/landing_swipies/* /var/www/swipies/
+
+            echo "6) Restart Nginx"
+            sudo systemctl restart nginx
+
+            echo "=== DEPLOY FINISHED ==="
