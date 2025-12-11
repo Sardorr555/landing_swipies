@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
    <url>
-      <loc>https://api.swipies.app/</loc>
+      <loc>https://swipies.app/</loc>
       <priority>1.0</priority>
    </url>
    <url>
-      <loc>https://api.swipies.app/#features</loc>
+      <loc>https://swipies.app/#features</loc>
       <priority>0.8</priority>
    </url>
    <url>
-      <loc>https://api.swipies.app/#platforms</loc>
+      <loc>https://swipies.app/#platforms</loc>
       <priority>0.8</priority>
    </url>
    <url>
-      <loc>https://api.swipies.app/#providers</loc>
+      <loc>https://swipies.app/#providers</loc>
       <priority>0.8</priority>
    </url>
    <url>
-      <loc>https://api.swipies.app/#pricing</loc>
+      <loc>https://swipies.app/#pricing</loc>
       <priority>0.8</priority>
    </url>
    <url>
-      <loc>https://api.swipies.app/#contact</loc>
+      <loc>https://swipies.app/#contact</loc>
       <priority>0.7</priority>
    </url>
    <url>
-      <loc>https://api.swipies.app/#waitlist</loc>
+      <loc>https://swipies.app/#waitlist</loc>
       <priority>0.7</priority>
    </url>
 </urlset>
