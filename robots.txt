@@ -3,4 +3,4 @@ Disallow: /admin/
 Disallow: /private/
 Allow: /
 
-Sitemap: https://api.swipies.app/sitemap.xml
+Sitemap: https://swipies.app/sitemap.xml

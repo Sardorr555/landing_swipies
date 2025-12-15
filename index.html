@@ -16,6 +16,10 @@
     <link rel="manifest" href="favicon/site.webmanifest" />
 
 
+    <link rel="icon" href="https://swipies.app/favicon/favicon.ico" sizes="any">
+    <link rel="icon" href="https://swipies.app/favicon/favicon.svg" type="image/svg+xml">
+
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -49,8 +53,20 @@
     <meta name="title" content="Swipies AI – Create Powerful AI Chatbots Instantly">
     <meta name="description"
         content="Build intelligent chatbots using OpenAI, Anthropic, Grok, and Ollama. Swipies AI allows you to create fast, customizable, and powerful AI assistants for any platform.">
-    <meta name="keywords"
-        content="AI chatbot, chatbot builder, OpenAI API, Anthropic Claude, Grok xAI, Ollama, AI tools, chatbot platform, Swipies AI, AI assistant">
+        <meta name="keywords" content="
+        Swipies,
+        Swipies AI,
+        Swipies chatbot,
+        Swipies platform,
+        Swipies assistant,
+        AI chatbot,
+        chatbot builder,
+        OpenAI API,
+        Anthropic Claude,
+        Grok xAI,
+        Ollama,
+        AI tools
+        ">        
     <meta name="author" content="Swipies AI Team">
 
     <!-- Robots -->
@@ -60,6 +76,23 @@
 
     <!-- Canonical URL -->
     <link rel="canonical" href="https://swipies.app">
+
+    <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "SoftwareApplication",
+          "name": "Swipies",
+          "alternateName": "Swipies AI",
+          "url": "https://swipies.app",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web",
+          "publisher": {
+            "@type": "Organization",
+            "name": "Swipies"
+          }
+        }
+        </script>
+        
 
 
 
@@ -97,8 +130,10 @@
                     <p>Transform your data into conversational AI. The most intuitive platform for creating, managing,
                         and deploying custom chatbots.</p>
                     <div class="hero-btns">
-                        <a id="startBuild" href="https://api.swipies.app" class="btn btn-primary btn-lg">Start Building Free</a>
-                        <a id="demo" href="https://youtu.be/FEoZmNUkuXs?si=Hec8oQyuLNR5SHs3" target="_blank" class="btn btn-outline btn-lg">View Demo</a>
+                        <a id="startBuild" href="https://api.swipies.app" class="btn btn-primary btn-lg">Start Building
+                            Free</a>
+                        <a id="demo" href="https://youtu.be/FEoZmNUkuXs?si=Hec8oQyuLNR5SHs3" target="_blank"
+                            class="btn btn-outline btn-lg">View Demo</a>
                     </div>
                 </div>
 
@@ -400,25 +435,26 @@
     <script src="config.js"></script>
     <script src="script.js"></script>
 
-    <iframe src="https://api.swipies.app/next-chats/widget?shared_id=88584bb6d5fa11f0968c96bf0244a63a&from=chat&auth=mCQGqjz_JIx2xnhDBDkFqkmwzy9xWSaZ&mode=master&streaming=false"
-  style="position:fixed;bottom:0;right:0;width:100px;height:100px;border:none;background:transparent;z-index:9999"
-  frameborder="0" allow="microphone;camera"></iframe>
-<script>
-window.addEventListener('message',e=>{
-  if(e.origin!=='https://api.swipies.app')return;
-  if(e.data.type==='CREATE_CHAT_WINDOW'){
-    if(document.getElementById('chat-win'))return;
-    const i=document.createElement('iframe');
-    i.id='chat-win';i.src=e.data.src;
-    i.style.cssText='position:fixed;bottom:104px;right:24px;width:380px;height:500px;border:none;background:transparent;z-index:9998;display:none';
-    i.frameBorder='0';i.allow='microphone;camera';
-    document.body.appendChild(i);
-  }else if(e.data.type==='TOGGLE_CHAT'){
-    const w=document.getElementById('chat-win');
-    if(w)w.style.display=e.data.isOpen?'block':'none';
-  }else if(e.data.type==='SCROLL_PASSTHROUGH')window.scrollBy(0,e.data.deltaY);
-});
-</script>
+    <iframe
+        src="https://api.swipies.app/next-chats/widget?shared_id=88584bb6d5fa11f0968c96bf0244a63a&from=chat&auth=mCQGqjz_JIx2xnhDBDkFqkmwzy9xWSaZ&mode=master&streaming=false"
+        style="position:fixed;bottom:0;right:0;width:100px;height:100px;border:none;background:transparent;z-index:9999"
+        frameborder="0" allow="microphone;camera"></iframe>
+    <script>
+        window.addEventListener('message', e => {
+            if (e.origin !== 'https://api.swipies.app') return;
+            if (e.data.type === 'CREATE_CHAT_WINDOW') {
+                if (document.getElementById('chat-win')) return;
+                const i = document.createElement('iframe');
+                i.id = 'chat-win'; i.src = e.data.src;
+                i.style.cssText = 'position:fixed;bottom:104px;right:24px;width:380px;height:500px;border:none;background:transparent;z-index:9998;display:none';
+                i.frameBorder = '0'; i.allow = 'microphone;camera';
+                document.body.appendChild(i);
+            } else if (e.data.type === 'TOGGLE_CHAT') {
+                const w = document.getElementById('chat-win');
+                if (w) w.style.display = e.data.isOpen ? 'block' : 'none';
+            } else if (e.data.type === 'SCROLL_PASSTHROUGH') window.scrollBy(0, e.data.deltaY);
+        });
+    </script>
 
 
 </body>
