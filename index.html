@@ -487,15 +487,23 @@ window.addEventListener('message',e=>{
 
 <script>
     function trackCTA(action, location) {
-      if (typeof gtag !== 'function') return;
+      // Google Analytics
+      if (typeof gtag === 'function') {
+        gtag('event', action, {
+          event_category: 'cta',
+          event_label: location
+        });
+      }
     
-      gtag('event', action, {
-        event_category: 'cta',
-        event_label: location
-      });
+      // Yandex Metrika
+      if (typeof ym === 'function') {
+        ym(XXXXXXXX, 'reachGoal', action);
+      }
+    
+      console.log('CTA tracked:', action, location);
     }
     </script>
-
+    
 
 </body>
 
