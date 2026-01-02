@@ -120,8 +120,8 @@
                 <a href="tutorials.html">Tutorials</a>
                 <a href="#partners">Partners</a>
                 <a href="#pricing">Pricing</a>
-                <a id="login" href="https://api.swipies.app" class="btn btn-secondary">Login</a>
-                <a id="getstarted" href="https://api.swipies.app" class="btn btn-primary">Get Started</a>
+                <a id="login" href="https://api.swipies.app" class="btn btn-secondary" onclick="trackCTA('login_click', 'navbar')" >Login</a>
+                <a id="getstarted" href="https://api.swipies.app" class="btn btn-primary"  onclick="trackCTA('get_started', 'navbar')" >Get Started</a>
             </nav>
             <button class="mobile-menu-btn" aria-label="Toggle Menu">
                 <span></span>
@@ -141,10 +141,10 @@
                     <p>Transform your data into conversational AI. The most intuitive platform for creating, managing,
                         and deploying custom chatbots.</p>
                     <div class="hero-btns">
-                        <a id="startBuild" href="https://api.swipies.app" class="btn btn-primary btn-lg">Start Building
+                        <a id="startBuild" href="https://api.swipies.app" class="btn btn-primary btn-lg"  onclick="trackCTA('start_build', 'hero')" >Start Building
                             Free</a>
                         <a id="demo" href="https://youtu.be/FEoZmNUkuXs?si=Hec8oQyuLNR5SHs3" target="_blank"
-                            class="btn btn-outline btn-lg">View Demo</a>
+                            class="btn btn-outline btn-lg" onclick="trackCTA('view_demo', 'hero')" >View Demo</a>
                     </div>
                 </div>
 
@@ -398,7 +398,7 @@
                 <div class="hero-content fade-in-up">
                     <h2>Ready to revolutionize your customer support?</h2>
                     <p>Join thousands of creators building with Swipies AI today.</p>
-                    <a href="https://api.swipies.app" class="btn btn-primary btn-lg">Get Started Now</a>
+                    <a href="https://api.swipies.app" class="btn btn-primary btn-lg"  onclick="trackCTA('get_started', 'footer_cta')" >Get Started Now</a>
                 </div>
             </div>
         </section>
@@ -465,6 +465,18 @@ window.addEventListener('message',e=>{
   }else if(e.data.type==='SCROLL_PASSTHROUGH')window.scrollBy(0,e.data.deltaY);
 });
 </script>
+
+
+<script>
+    function trackCTA(action, location) {
+      if (typeof gtag !== 'function') return;
+    
+      gtag('event', action, {
+        event_category: 'cta',
+        event_label: location
+      });
+    }
+    </script>
 
 
 </body>
