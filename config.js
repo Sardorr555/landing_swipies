@@ -1,6 +1,6 @@
 const CONFIG = {
     links: {
-        youtube: "https://www.youtube.com/watch?v=HqzDsvQYQCE",
+        youtube: "https://www.youtube.com/watch?v=MhHvElzppOI&t=99s",
         platform: "https://api.swipies.app",
         demo: "https://api.swipies.app",
         github: "https://github.com/Sardorr555/swipies__ai_",

@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
         updateLink('freeTrial', CONFIG.links.platform);
         updateLink('getStarted', CONFIG.links.platform);
 
-        
+
         // Update Contact Info
         const updateText = (id, text) => {
             const el = document.getElementById(id);
@@ -98,6 +98,25 @@ document.addEventListener('DOMContentLoaded', () => {
                     top: offsetPosition,
                     behavior: "smooth"
                 });
+            }
+        });
+    });
+    // FAQ Accordion
+    const faqItems = document.querySelectorAll('.faq-item');
+
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        question.addEventListener('click', () => {
+            const isActive = item.classList.contains('active');
+
+            // Close all other items
+            faqItems.forEach(otherItem => {
+                otherItem.classList.remove('active');
+            });
+
+            // Toggle current item
+            if (!isActive) {
+                item.classList.add('active');
             }
         });
     });
