@@ -366,7 +366,7 @@
                     <div class="pricing-card popular fade-in-up delay-100">
                         <div class="popular-badge">Most Popular</div>
                         <h3>Soon</h3>
-                        <div class="price">$20 <span>/month</span></div>
+                        <div class="price">$20 / 200 000 uzs <span>/month</span></div>
                         <p>For growing businesses</p>
                         <ul class="pricing-features">
                             <li><span class="check">✔</span> 5 AI assistants</li>
@@ -380,7 +380,7 @@
                     <!-- Enterprise Plan -->
                     <div class="pricing-card fade-in-up delay-200">
                         <h3>Soon</h3>
-                        <div class="price">$40 <span>/month</span></div>
+                        <div class="price">$40 / 400 000 uzs <span>/month</span></div>
                         <p>For large organizations</p>
                         <ul class="pricing-features">
                             <li><span class="check">✔</span> Unlimited AI assistants</li>
@@ -590,107 +590,111 @@
     <script src="config.js"></script>
     <script src="script.js"></script>
 
-    <iframe src="https://api.swipies.app/next-chats/widget?shared_id=18fde164ddd811f0ad813e7fd1df3f1d&from=chat&auth=wDNyEkCv3euk9lYVn7PEVvKx-CxFW8ko&mode=master&streaming=false"
-  id="chat-widget-icon"
-  style="position:fixed;bottom:20px;right:20px;width:100px;height:100px;border:none;background:transparent;z-index:9999;overflow:visible"
-  frameborder="0" allow="microphone;camera"></iframe>
 
-<style>
-  /* Адаптивные стили для виджета чата */
-  @media (max-width: 768px) {
-    #chat-widget-icon {
-      bottom: 20px !important;
-      right: 20px !important;
-      width: 90px !important;
-      height: 90px !important;
-    }
-    
-    #chat-win {
-      bottom: 120px !important;
-      right: 0 !important;
-      left: 0 !important;
-      width: 100% !important;
-      max-width: 100% !important;
-      height: calc(100vh - 140px) !important;
-      max-height: 650px !important;
-      margin: 0 !important;
-      border-radius: 16px 16px 0 0 !important;
-    }
-  }
-  
-  @media (max-width: 480px) {
-    #chat-widget-icon {
-      bottom: 20px !important;
-      right: 20px !important;
-      width: 85px !important;
-      height: 85px !important;
-    }
-    
-    #chat-win {
-      bottom: 115px !important;
-      height: calc(100vh - 135px) !important;
-    }
-  }
-</style>
+    <iframe
+        src="https://api.swipies.app/next-chats/widget?shared_id=18fde164ddd811f0ad813e7fd1df3f1d&from=chat&auth=wDNyEkCv3euk9lYVn7PEVvKx-CxFW8ko&mode=master&streaming=false"
+        id="chat-widget-icon"
+        style="position:fixed;bottom:20px;right:20px;width:100px;height:100px;border:none;background:transparent;z-index:9999;overflow:visible"
+        frameborder="0" allow="microphone;camera"></iframe>
 
-<script>
-window.addEventListener('message', e => {
-  if(e.origin !== 'https://api.swipies.app') return;
-  
-  if(e.data.type === 'CREATE_CHAT_WINDOW') {
-    if(document.getElementById('chat-win')) return;
-    
-    const i = document.createElement('iframe');
-    i.id = 'chat-win';
-    i.src = e.data.src;
-    
-    // Определяем стили в зависимости от размера экрана
-    const isMobile = window.innerWidth <= 768;
-    
-    if(isMobile) {
-      i.style.cssText = 'position:fixed;bottom:120px;right:0;left:0;width:100%;height:calc(100vh - 140px);max-height:650px;border:none;background:transparent;z-index:9998;display:none;border-radius:16px 16px 0 0;box-shadow:0 -4px 20px rgba(0,0,0,0.1)';
-    } else {
-      i.style.cssText = 'position:fixed;bottom:130px;right:20px;width:420px;height:700px;max-height:calc(100vh - 150px);border:none;background:transparent;z-index:9998;display:none;border-radius:16px;box-shadow:0 8px 32px rgba(0,0,0,0.15)';
-    }
-    
-    i.frameBorder = '0';
-    i.allow = 'microphone;camera';
-    document.body.appendChild(i);
-    
-  } else if(e.data.type === 'TOGGLE_CHAT') {
-    const w = document.getElementById('chat-win');
-    if(w) {
-      w.style.display = e.data.isOpen ? 'block' : 'none';
-      // Блокируем скролл на мобильных когда чат открыт
-      if(window.innerWidth <= 768) {
-        document.body.style.overflow = e.data.isOpen ? 'hidden' : '';
-      }
-    }
-    
-  } else if(e.data.type === 'SCROLL_PASSTHROUGH') {
-    window.scrollBy(0, e.data.deltaY);
-  }
-});
+    <style>
+        /* Адаптивные стили для виджета чата */
+        @media (max-width: 768px) {
+            #chat-widget-icon {
+                bottom: 20px !important;
+                right: 20px !important;
+                width: 90px !important;
+                height: 90px !important;
+            }
 
-// Обработка изменения ориентации экрана
-window.addEventListener('resize', () => {
-  const w = document.getElementById('chat-win');
-  if(!w) return;
-  
-  const currentDisplay = w.style.display;
-  const isMobile = window.innerWidth <= 768;
-  
-  if(isMobile) {
-    w.style.cssText = 'position:fixed;bottom:120px;right:0;left:0;width:100%;height:calc(100vh - 140px);max-height:650px;border:none;background:transparent;z-index:9998;display:' + currentDisplay + ';border-radius:16px 16px 0 0;box-shadow:0 -4px 20px rgba(0,0,0,0.1)';
-    if(currentDisplay === 'block') {
-      document.body.style.overflow = 'hidden';
-    }
-  } else {
-    w.style.cssText = 'position:fixed;bottom:130px;right:20px;width:420px;height:700px;max-height:calc(100vh - 150px);border:none;background:transparent;z-index:9998;display:' + currentDisplay + ';border-radius:16px;box-shadow:0 8px 32px rgba(0,0,0,0.15)';
-    document.body.style.overflow = '';
-  }
-});
-</script>                    
+            #chat-win {
+                bottom: 120px !important;
+                right: 0 !important;
+                left: 0 !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                height: calc(100vh - 140px) !important;
+                max-height: 650px !important;
+                margin: 0 !important;
+                border-radius: 16px 16px 0 0 !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #chat-widget-icon {
+                bottom: 20px !important;
+                right: 20px !important;
+                width: 85px !important;
+                height: 85px !important;
+            }
+
+            #chat-win {
+                bottom: 115px !important;
+                height: calc(100vh - 135px) !important;
+            }
+        }
+    </style>
+
+    <script>
+        window.addEventListener('message', e => {
+            if (e.origin !== 'https://api.swipies.app') return;
+
+            if (e.data.type === 'CREATE_CHAT_WINDOW') {
+                if (document.getElementById('chat-win')) return;
+
+                const i = document.createElement('iframe');
+                i.id = 'chat-win';
+                i.src = e.data.src;
+
+                // Определяем стили в зависимости от размера экрана
+                const isMobile = window.innerWidth <= 768;
+
+                if (isMobile) {
+                    i.style.cssText = 'position:fixed;bottom:120px;right:0;left:0;width:100%;height:calc(100vh - 140px);max-height:650px;border:none;background:transparent;z-index:9998;display:none;border-radius:16px 16px 0 0;box-shadow:0 -4px 20px rgba(0,0,0,0.1)';
+                } else {
+                    i.style.cssText = 'position:fixed;bottom:130px;right:20px;width:420px;height:700px;max-height:calc(100vh - 150px);border:none;background:transparent;z-index:9998;display:none;border-radius:16px;box-shadow:0 8px 32px rgba(0,0,0,0.15)';
+                }
+
+                i.frameBorder = '0';
+                i.allow = 'microphone;camera';
+                document.body.appendChild(i);
+
+            } else if (e.data.type === 'TOGGLE_CHAT') {
+                const w = document.getElementById('chat-win');
+                if (w) {
+                    w.style.display = e.data.isOpen ? 'block' : 'none';
+                    // Блокируем скролл на мобильных когда чат открыт
+                    if (window.innerWidth <= 768) {
+                        document.body.style.overflow = e.data.isOpen ? 'hidden' : '';
+                    }
+                }
+
+            } else if (e.data.type === 'SCROLL_PASSTHROUGH') {
+                window.scrollBy(0, e.data.deltaY);
+            }
+        });
+
+        // Обработка изменения ориентации экрана
+        window.addEventListener('resize', () => {
+            const w = document.getElementById('chat-win');
+            if (!w) return;
+
+            const currentDisplay = w.style.display;
+            const isMobile = window.innerWidth <= 768;
+
+            if (isMobile) {
+                w.style.cssText = 'position:fixed;bottom:120px;right:0;left:0;width:100%;height:calc(100vh - 140px);max-height:650px;border:none;background:transparent;z-index:9998;display:' + currentDisplay + ';border-radius:16px 16px 0 0;box-shadow:0 -4px 20px rgba(0,0,0,0.1)';
+                if (currentDisplay === 'block') {
+                    document.body.style.overflow = 'hidden';
+                }
+            } else {
+                w.style.cssText = 'position:fixed;bottom:130px;right:20px;width:420px;height:700px;max-height:calc(100vh - 150px);border:none;background:transparent;z-index:9998;display:' + currentDisplay + ';border-radius:16px;box-shadow:0 8px 32px rgba(0,0,0,0.15)';
+                document.body.style.overflow = '';
+            }
+        });
+
+    </script>
+
 
     <script>
         function trackCTA(action, location) {
