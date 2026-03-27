@@ -21,25 +21,18 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             echo "=== DEPLOY STARTED ==="
-            echo "1) Go to repo folder"
+
             cd ~/landing_swipies
-          
-            echo "2) Reset local repo to avoid merge conflicts"
+        
+            echo "Pull latest changes"
             git reset --hard
-          
-            echo "3) Pull latest changes from GitHub"
             git pull origin main
-          
-            echo "4) Cleaning LIVE directory"
-            sudo rm -rf /var/www/swipies.app/*
-          
-            echo "5) Copy updated website"
-            sudo cp -r ~/landing_swipies/* /var/www/swipies.app/
-          
-            echo "6) Set correct permissions"
-            sudo chown -R www-data:www-data /var/www/swipies.app
-            sudo chmod -R 755 /var/www/swipies.app
-          
-            echo "7) Restart Nginx"
+        
+            echo "Set permissions"
+            sudo chown -R www-data:www-data ~/landing_swipies
+            sudo chmod -R 755 ~/landing_swipies
+        
+            echo "Restart Nginx"
             sudo systemctl restart nginx
+        
             echo "=== DEPLOY FINISHED ==="
