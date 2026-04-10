@@ -1,8 +1,8 @@
 const CONFIG = {
     links: {
         youtube: "https://www.youtube.com/watch?v=hVew7fePeTk",
-        platform: "https://api.swipies.app",
-        demo: "https://api.swipies.app",
+        platform: "https://api.swipies.app/login",
+        demo: "https://api.swipies.app/login",
         github: "https://github.com/Sardorr555/swipies__ai_",
         instagram: "https://instagram.com/albakiev.s",
         email: "mailto:albakiev.sardobek@gmail.com"
