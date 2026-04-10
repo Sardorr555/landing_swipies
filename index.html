@@ -637,7 +637,7 @@
 
     <script>
         window.addEventListener('message', e => {
-            if (e.origin !== 'https://api.swipies.app/login`') return;
+            if (e.origin !== 'https://api.swipies.app') return;
 
             if (e.data.type === 'CREATE_CHAT_WINDOW') {
                 if (document.getElementById('chat-win')) return;
