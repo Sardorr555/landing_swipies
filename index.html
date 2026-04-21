@@ -127,6 +127,271 @@
 
 
 
+    <!-- B2B Sections Styles -->
+    <style>
+        /* ── B2B Section Background ── */
+        .b2b-section {
+            background: linear-gradient(180deg, rgba(99, 102, 241, 0.04) 0%, rgba(139, 92, 246, 0.06) 50%, rgba(99, 102, 241, 0.04) 100%);
+            position: relative;
+        }
+
+        .b2b-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.3), rgba(236, 72, 153, 0.3), transparent);
+        }
+
+        .b2b-section::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.3), rgba(236, 72, 153, 0.3), transparent);
+        }
+
+        /* ── B2B Badge ── */
+        .b2b-badge {
+            display: inline-block;
+            padding: 0.5rem 1.2rem;
+            background: rgba(139, 92, 246, 0.12);
+            color: #a78bfa;
+            border: 1px solid rgba(139, 92, 246, 0.25);
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(4px);
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.1);
+            animation: float 6s ease-in-out infinite;
+            letter-spacing: 0.02em;
+        }
+
+        /* ── B2B Section Header ── */
+        .b2b-section .section-header {
+            max-width: 800px;
+        }
+
+        .b2b-section .section-header p {
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ── B2B Feature Cards ── */
+        .b2b-feature-card {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 2.5rem 2rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
+
+        .b2b-feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at top center, rgba(139, 92, 246, 0.12), transparent 60%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .b2b-feature-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-8px);
+            border-color: rgba(139, 92, 246, 0.4);
+            box-shadow: 0 10px 40px -10px rgba(139, 92, 246, 0.25);
+        }
+
+        .b2b-feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .b2b-feature-card .b2b-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .b2b-feature-card:hover .b2b-icon {
+            transform: scale(1.15) rotate(5deg);
+        }
+
+        .b2b-feature-card h3 {
+            font-size: 1.35rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            font-family: 'Outfit', sans-serif;
+            color: var(--text-main);
+        }
+
+        .b2b-feature-card p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        /* ── B2B CTA Banner ── */
+        .b2b-cta-banner {
+            margin-top: 4rem;
+            padding: 3rem 2.5rem;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.08) 50%, rgba(236, 72, 153, 0.06) 100%);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 24px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .b2b-cta-banner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .b2b-cta-banner p {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: var(--text-main);
+            margin-bottom: 1.5rem;
+            font-family: 'Outfit', sans-serif;
+            position: relative;
+        }
+
+        .b2b-cta-banner .btn {
+            position: relative;
+        }
+
+        /* ── B2B Pricing Cards ── */
+        .b2b-pricing-card {
+            background: var(--bg-card);
+            padding: 3rem 2rem;
+            border-radius: 24px;
+            border: 1px solid var(--border-color);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+        }
+
+        .b2b-pricing-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .b2b-pricing-card.b2b-popular {
+            border-color: var(--accent);
+            background: linear-gradient(145deg, rgba(139, 92, 246, 0.08) 0%, rgba(15, 15, 18, 0.6) 100%);
+            box-shadow: 0 0 30px rgba(139, 92, 246, 0.15);
+        }
+
+        .b2b-pricing-card.b2b-popular:hover {
+            box-shadow: 0 0 50px rgba(139, 92, 246, 0.25);
+        }
+
+        .b2b-popular-badge {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.5);
+            white-space: nowrap;
+            color: #fff;
+        }
+
+        .b2b-pricing-card h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .b2b-pricing-card .price {
+            font-size: 3rem;
+            font-weight: 700;
+            margin: 1.5rem 0;
+            color: var(--text-main);
+        }
+
+        .b2b-pricing-card .price span {
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--text-muted);
+        }
+
+        .b2b-pricing-card .price-from {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .b2b-pricing-card .pricing-features {
+            margin: 2rem 0;
+            flex-grow: 1;
+        }
+
+        .b2b-pricing-card .pricing-features li {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-muted);
+            font-size: 1.02rem;
+        }
+
+        .b2b-pricing-card .btn {
+            width: 100%;
+            margin-top: auto;
+        }
+
+        /* ── B2B Responsive ── */
+        @media (max-width: 768px) {
+            .b2b-feature-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .b2b-cta-banner {
+                padding: 2rem 1.5rem;
+            }
+
+            .b2b-cta-banner p {
+                font-size: 1.1rem;
+            }
+
+            .b2b-pricing-card {
+                padding: 2rem;
+            }
+
+            .b2b-pricing-card .price {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+
 </head>
 
 <body>
@@ -141,6 +406,7 @@
                 <a href="tutorials.html">Tutorials</a>
                 <a href="#partners">Partners</a>
                 <a href="#pricing">Pricing</a>
+                <a href="#b2b">For Business</a>
                 <a id="login" href="https://api.swipies.app/login" class="btn btn-secondary"
                     onclick="trackCTA('login_click', 'navbar')">Login</a>
                 <a id="getstarted" href="https://api.swipies.app/login" class="btn btn-primary"
@@ -389,6 +655,108 @@
                             <li><span class="check">✔</span> SLA guarantee</li>
                         </ul>
                         <a href="#contact" class="btn btn-outline">Contact Sales</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- B2B Offering Section -->
+        <section id="b2b" class="b2b-section">
+            <div class="container">
+                <div class="section-header fade-in-up" style="text-align: center;">
+                    <div class="b2b-badge">🏢 For Business</div>
+                    <h2>Swipies AI for Enterprise & Business</h2>
+                    <p>We don't just give you a platform — we set everything up for you.<br>From deployment to your
+                        first integration, our team is with you every step.</p>
+                </div>
+                <div class="grid-3">
+                    <div class="b2b-feature-card fade-in-up">
+                        <span class="b2b-icon">🚀</span>
+                        <h3>Full Deployment Support</h3>
+                        <p>We handle the technical deployment of your AI assistant directly to your servers and
+                            infrastructure. Zero headaches for your team.</p>
+                    </div>
+                    <div class="b2b-feature-card fade-in-up delay-100">
+                        <span class="b2b-icon">🔌</span>
+                        <h3>First Integration Included</h3>
+                        <p>Our engineers connect Swipies AI to your first service — website, WhatsApp Business, CRM, or
+                            internal tool — as part of your onboarding package.</p>
+                    </div>
+                    <div class="b2b-feature-card fade-in-up delay-200">
+                        <span class="b2b-icon">🤝</span>
+                        <h3>Dedicated Account Manager</h3>
+                        <p>Every B2B client gets a personal manager who ensures your assistant runs smoothly, handles
+                            updates, and is available for ongoing support.</p>
+                    </div>
+                </div>
+                <div class="b2b-cta-banner fade-in-up">
+                    <p>Ready to bring AI to your business infrastructure? Let's talk.</p>
+                    <a href="#contact" class="btn btn-primary btn-lg"
+                        onclick="trackCTA('b2b_contact', 'b2b_section')">Contact Our B2B Team</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- B2B Pricing Section -->
+        <section id="b2b-pricing" class="b2b-section">
+            <div class="container">
+                <div class="section-header fade-in-up" style="text-align: center;">
+                    <div class="b2b-badge">🏢 For Business</div>
+                    <h2>Enterprise Pricing</h2>
+                    <p>Every project is unique. We build a custom package based on your needs — starting from
+                        $700/month.</p>
+                </div>
+                <div class="grid-3">
+                    <!-- Starter Package -->
+                    <div class="b2b-pricing-card fade-in-up">
+                        <h3>Starter Package</h3>
+                        <div class="price"><span class="price-from">from </span>$700 <span>/ month</span></div>
+                        <p style="color: var(--text-muted);">The minimum entry point for businesses</p>
+                        <ul class="pricing-features">
+                            <li><span class="check">✔</span> Full deployment to your servers</li>
+                            <li><span class="check">✔</span> First integration setup included</li>
+                            <li><span class="check">✔</span> Dedicated account manager</li>
+                            <li><span class="check">✔</span> Priority support</li>
+                            <li><span class="check">✔</span> Analytics dashboard</li>
+                        </ul>
+                        <a href="#contact" class="btn btn-outline"
+                            onclick="trackCTA('b2b_starter', 'b2b_pricing')">Contact Us</a>
+                    </div>
+
+                    <!-- Custom Solution -->
+                    <div class="b2b-pricing-card b2b-popular fade-in-up delay-100">
+                        <div class="b2b-popular-badge">Recommended</div>
+                        <h3>Custom Solution</h3>
+                        <div class="price">Tailored <span>for you</span></div>
+                        <p style="color: var(--text-muted);">Built around your specific requirements</p>
+                        <ul class="pricing-features">
+                            <li><span class="check">✔</span> Everything in Starter</li>
+                            <li><span class="check">✔</span> Custom number of AI assistants</li>
+                            <li><span class="check">✔</span> Multiple integrations as needed</li>
+                            <li><span class="check">✔</span> White-label branding options</li>
+                            <li><span class="check">✔</span> DevOps & infrastructure support</li>
+                            <li><span class="check">✔</span> SLA guarantee</li>
+                        </ul>
+                        <a href="#contact" class="btn btn-primary" onclick="trackCTA('b2b_custom', 'b2b_pricing')">Let's
+                            Discuss</a>
+                    </div>
+
+                    <!-- Enterprise -->
+                    <div class="b2b-pricing-card fade-in-up delay-200">
+                        <h3>Enterprise</h3>
+                        <div class="price">Custom <span>pricing</span></div>
+                        <p style="color: var(--text-muted);">For large-scale deployments</p>
+                        <ul class="pricing-features">
+                            <li><span class="check">✔</span> Everything in Custom Solution</li>
+                            <li><span class="check">✔</span> On-premise deployment available</li>
+                            <li><span class="check">✔</span> 24/7 dedicated support team</li>
+                            <li><span class="check">✔</span> Custom SLA & contracts</li>
+                            <li><span class="check">✔</span> Full white-label solution</li>
+                            <li><span class="check">✔</span> API access & custom development</li>
+                        </ul>
+                        <a href="#contact" class="btn btn-outline"
+                            onclick="trackCTA('b2b_enterprise', 'b2b_pricing')">Contact Sales</a>
                     </div>
                 </div>
             </div>
