@@ -2,19 +2,14 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-G9BZDJNSS2"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
-
         gtag('config', 'G-G9BZDJNSS2');
     </script>
-
-    <!-- Yandex.Metrika counter -->
     <script type="text/javascript">
         (function (m, e, t, r, i, k, a) {
             m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments) };
@@ -22,217 +17,677 @@
             for (var j = 0; j < document.scripts.length; j++) { if (document.scripts[j].src === r) { return; } }
             k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
         })(window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js?id=106098534', 'ym');
-
         ym(106098534, 'init', { ssr: true, webvisor: true, clickmap: true, ecommerce: "dataLayer", accurateTrackBounce: true, trackLinks: true });
     </script>
     <noscript>
         <div><img src="https://mc.yandex.ru/watch/106098534" style="position:absolute; left:-9999px;" alt="" /></div>
     </noscript>
-    <!-- /Yandex.Metrika counter -->
-
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Swipies AI - Tutorials</title>
-    <meta name="description" content="Learn how to build powerful AI assistants with Swipies AI tutorials.">
+    <title>Tutorials — Swipies AI</title>
+    <meta name="description"
+        content="Step-by-step video guides for deploying and using Swipies AI enterprise platform.">
 
-    <!-- Favicon -->
     <link rel="icon" type="image/png" href="favicon/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg" />
     <link rel="shortcut icon" href="favicon/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png" />
     <link rel="manifest" href="favicon/site.webmanifest" />
 
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
 
-    <!-- Styles -->
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        :root {
+            --navy-950: #020617;
+            --navy-900: #0a0f1e;
+            --navy-800: #0f172a;
+            --slate-400: #94a3b8;
+            --slate-300: #cbd5e1;
+            --white: #f8fafc;
+            --accent: #3b82f6;
+            --accent-light: #60a5fa;
+            --border: rgba(148, 163, 184, .1);
+            --border-hover: rgba(148, 163, 184, .2);
+            --card-bg: rgba(15, 23, 42, .6);
+            --container: 1200px;
+            --nav-h: 72px;
+            --radius: 16px;
+            --radius-sm: 12px;
+        }
+
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--navy-950);
+            color: var(--slate-300);
+            line-height: 1.7;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: 'Outfit', sans-serif;
+            color: var(--white);
+            line-height: 1.15;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: all .25s ease;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            max-width: var(--container);
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: .85rem 2rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: .95rem;
+            transition: all .3s cubic-bezier(.4, 0, .2, 1);
+            cursor: pointer;
+            border: none;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(59, 130, 246, .3);
+        }
+
+        .btn-primary:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(59, 130, 246, .4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border-hover);
+            color: var(--white);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: rgba(59, 130, 246, .05);
+        }
+
+        .btn-sm {
+            padding: .65rem 1.5rem;
+            font-size: .9rem;
+        }
+
+        .btn-lg {
+            padding: 1rem 2.5rem;
+            font-size: 1.05rem;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--nav-h);
+            background: rgba(2, 6, 23, .85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+            font-family: 'Outfit', sans-serif;
+            color: var(--white);
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            font-size: .9rem;
+            font-weight: 500;
+            color: var(--slate-400);
+        }
+
+        .nav-links a:not(.btn):hover {
+            color: var(--white);
+        }
+
+        .nav-links a.btn-primary {
+            color: #fff !important;
+        }
+
+        .nav-links a.active {
+            color: var(--white);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 5px;
+            z-index: 1001;
+        }
+
+        .mobile-menu-btn span {
+            width: 22px;
+            height: 2px;
+            background: var(--white);
+            transition: .3s;
+            border-radius: 2px;
+        }
+
+        /* Hero */
+        .hero {
+            padding: calc(var(--nav-h) + 80px) 0 60px;
+            position: relative;
+            text-align: center;
+            background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(59, 130, 246, .12), transparent 70%);
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: .5rem 1.2rem;
+            background: rgba(59, 130, 246, .08);
+            border: 1px solid rgba(59, 130, 246, .25);
+            border-radius: 30px;
+            font-size: .8rem;
+            font-weight: 600;
+            color: var(--accent-light);
+            margin-bottom: 2rem;
+            letter-spacing: .04em;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: -.03em;
+        }
+
+        .hero h1 .accent {
+            color: var(--accent-light);
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: var(--slate-400);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Section */
+        section {
+            padding: 80px 0;
+            position: relative;
+        }
+
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: .75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .1em;
+            color: var(--accent-light);
+            margin-bottom: 1rem;
+        }
+
+        .section-label::before {
+            content: '';
+            width: 20px;
+            height: 1px;
+            background: var(--accent);
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -.02em;
+        }
+
+        .section-header p {
+            font-size: 1.05rem;
+            color: var(--slate-400);
+        }
+
+        /* Grids */
+        .g-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        /* Video Card */
+        .video-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            transition: all .35s ease;
+            backdrop-filter: blur(12px);
+        }
+
+        .video-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-4px);
+            background: rgba(15, 23, 42, .8);
+        }
+
+        .video-wrap {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+        }
+
+        .video-wrap iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-card-body {
+            padding: 1.5rem;
+        }
+
+        .video-card-body h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: .5rem;
+        }
+
+        .video-card-body p {
+            color: var(--slate-400);
+            font-size: .9rem;
+            line-height: 1.6;
+        }
+
+        /* Footer CTA */
+        .footer-cta {
+            text-align: center;
+            padding: 80px 0;
+            background: linear-gradient(180deg, var(--navy-950) 0%, var(--navy-900) 100%);
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-cta h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-cta p {
+            color: var(--slate-400);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--navy-900);
+            padding: 60px 0 30px;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand p {
+            color: var(--slate-400);
+            margin-top: 1rem;
+            font-size: .9rem;
+            line-height: 1.6;
+        }
+
+        .footer-col h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+            color: var(--white);
+        }
+
+        .footer-col a {
+            display: block;
+            color: var(--slate-400);
+            margin-bottom: .7rem;
+            font-size: .9rem;
+        }
+
+        .footer-col a:hover {
+            color: var(--accent-light);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--slate-400);
+            font-size: .85rem;
+        }
+
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border-hover), transparent);
+        }
+
+        /* Animations */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity .7s ease, transform .7s ease;
+        }
+
+        .fade-up.vis {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .d1 {
+            transition-delay: .1s;
+        }
+
+        .d2 {
+            transition-delay: .2s;
+        }
+
+        .d3 {
+            transition-delay: .3s;
+        }
+
+        /* Responsive */
+        @media (max-width:1024px) {
+            .g-2 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width:768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: var(--nav-h);
+                left: 0;
+                width: 100%;
+                background: rgba(2, 6, 23, .97);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1.2rem;
+                border-bottom: 1px solid var(--border);
+                text-align: center;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links a {
+                font-size: 1.1rem;
+                color: var(--white);
+                width: 100%;
+                padding: .5rem 0;
+            }
+
+            .nav-links .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .hero {
+                padding-top: calc(var(--nav-h) + 40px);
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .g-2,
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                text-align: center;
+                gap: 2rem;
+            }
+        }
+    </style>
 </head>
 
 <body>
+
     <!-- Navbar -->
     <header class="navbar">
         <div class="container">
-            <a href="index.html" class="logo">Swipies<span class="highlight">AI</span></a>
-            <nav class="nav-links">
-                <a href="index.html#features">Features</a>
-                <a href="index.html#platforms">Platforms</a>
+            <a href="index.html" class="logo">Swipies<span>AI</span></a>
+            <nav class="nav-links" id="navLinks">
+                <a href="index.html#solution">Solution</a>
+                <a href="index.html#how-it-works">How It Works</a>
+                <a href="index.html#use-cases">Use Cases</a>
                 <a href="tutorials.html" class="active">Tutorials</a>
                 <a href="index.html#pricing">Pricing</a>
-                <a id="login" href="https://api.swipies.app" class="btn btn-secondary">Login</a>
-                <a id="getstarted" href="https://api.swipies.app" class="btn btn-primary">Get Started</a>
+                <a href="https://api.swipies.app/login" class="btn btn-primary btn-sm" target="_blank">Try Demo</a>
             </nav>
-            <button class="mobile-menu-btn" aria-label="Toggle Menu">
-                <span></span>
-                <span></span>
-                <span></span>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle Menu">
+                <span></span><span></span><span></span>
             </button>
         </div>
     </header>
 
     <main>
 
-        <!-- Hero Section -->
-        <section class="hero" style="padding-bottom: 4rem;">
+        <!-- Hero -->
+        <section class="hero">
             <div class="container">
-                <div class="hero-content fade-in-up">
-                    <div class="badge">Master the Platform</div>
-                    <h1>Swipies AI <span class="text-gradient">Tutorials</span></h1>
-                    <p>Step-by-step guides to help you build, customize, and deploy your intelligent AI assistants.</p>
+                <div class="fade-up">
+                    <div class="hero-badge">Knowledge Base</div>
+                    <h1>Swipies AI <span class="accent">Tutorials</span></h1>
+                    <p>Step-by-step video guides to help you deploy, integrate, and get the most out of the Swipies AI
+                        platform.</p>
                 </div>
             </div>
         </section>
 
         <!-- Tutorials Grid -->
-        <section id="tutorials" style="padding: 4rem 0;">
+        <section id="tutorials">
             <div class="container">
-                <div class="grid-2"> <!-- Using grid-2 for larger video display -->
-                    <!-- Video 1 -->
-                    <div class="feature-card fade-in-up">
-                        <div class="video-container"
-                            style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; margin-bottom: 1.5rem;">
+                <div class="section-header fade-up">
+                    <div class="section-label">Video Guides</div>
+                    <h2>Platform Tutorials</h2>
+                    <p>Learn how to deploy and integrate Swipies AI with your infrastructure.</p>
+                </div>
+                <div class="g-2">
+                    <div class="video-card fade-up">
+                        <div class="video-wrap">
                             <iframe src="https://www.youtube.com/embed/hVew7fePeTk"
-                                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen>
-                            </iframe>
+                                allowfullscreen></iframe>
                         </div>
-                        <h3>How to Build Your Own Personal AI (Step-by-Step)</h3>
-                        <p>Learn the basics of setting up your account and creating your first AI assistant in minutes.
-                        </p>
+                        <div class="video-card-body">
+                            <h3>How to Build Your Own Personal AI (Step-by-Step)</h3>
+                            <p>Learn the basics of setting up your account and creating your first AI assistant in
+                                minutes.</p>
+                        </div>
                     </div>
 
-                    <!-- Video 2 -->
-                    <div class="feature-card fade-in-up delay-100">
-                        <div class="video-container"
-                            style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; margin-bottom: 1.5rem;">
+                    <div class="video-card fade-up d1">
+                        <div class="video-wrap">
                             <iframe src="https://www.youtube.com/embed/hVew7fePeTk"
-                                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen>
-                            </iframe>
+                                allowfullscreen></iframe>
                         </div>
-                        <h3>Building a Voice-Enabled AI Assistant</h3>
-                        <p>Learn how to add voice capabilities to your AI assistant for a more natural interaction.</p>
+                        <div class="video-card-body">
+                            <h3>Building a Voice-Enabled AI Assistant</h3>
+                            <p>Learn how to add voice capabilities to your AI assistant for a more natural interaction.
+                            </p>
+                        </div>
                     </div>
 
-
-                    <!-- Video 3 -->
-                    <div class="feature-card fade-in-up delay-200">
-                        <div class="video-container"
-                            style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; margin-bottom: 1.5rem;">
+                    <div class="video-card fade-up d2">
+                        <div class="video-wrap">
                             <iframe src="https://www.youtube.com/embed/XQGU42kfP7A"
-                                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen>
-                            </iframe>
+                                allowfullscreen></iframe>
                         </div>
-                        <h3>How to connect AI to Telegram</h3>
-                        <p>Learn how to connect AI to telegram bot through Swipies AI.</p>
+                        <div class="video-card-body">
+                            <h3>How to Connect AI to Telegram</h3>
+                            <p>Learn how to connect AI to a Telegram bot through Swipies AI.</p>
+                        </div>
                     </div>
 
-
-                    <!-- Video 4 -->
-                    <div class="feature-card fade-in-up delay-200">
-                        <div class="video-container"
-                            style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; margin-bottom: 1.5rem;">
+                    <div class="video-card fade-up d3">
+                        <div class="video-wrap">
                             <iframe src="https://www.youtube.com/embed/_FS8015g4PI"
-                                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen>
-                            </iframe>
+                                allowfullscreen></iframe>
                         </div>
-                        <h3>How to Add AI to an Android App</h3>
-                        <p>Learn How to Add AI to an Android App through Swipies AI.</p>
+                        <div class="video-card-body">
+                            <h3>How to Add AI to an Android App</h3>
+                            <p>Learn how to add AI to an Android app through Swipies AI.</p>
+                        </div>
                     </div>
 
-
-                    
-                    <!-- Video 5 -->
-                    <div class="feature-card fade-in-up delay-200">
-                        <div class="video-container"
-                            style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; margin-bottom: 1.5rem;">
+                    <div class="video-card fade-up">
+                        <div class="video-wrap">
                             <iframe src="https://www.youtube.com/embed/jYAtGC36fWM"
-                                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen>
-                            </iframe>
+                                allowfullscreen></iframe>
                         </div>
-                        <h3>Add AI to Your Website in 12 Minutes</h3>
-                        <p> In this video, I show exactly how to connect AI to any website using simple tools and APIs. </p>
+                        <div class="video-card-body">
+                            <h3>Add AI to Your Website in 12 Minutes</h3>
+                            <p>How to connect AI to any website using simple tools and APIs.</p>
+                        </div>
                     </div>
-
-
-
-
-
                 </div>
             </div>
         </section>
 
-        <!-- Hero Section (Investors) -->
-        <section class="hero" style="padding-bottom: 4rem;">
-            <div class="container">
-                <div class="hero-content fade-in-up">
-                    <div class="badge">For investors</div>
-                    <h1>Swipies AI <span class="text-gradient">Tutorials</span></h1>
-                    <p>Step-by-step guides to help you understand Swipies AI business model and how to invest in it.</p>
-                </div>
-            </div>
-        </section>
+        <div class="divider"></div>
 
-        <!-- Investors Grid -->
-        <section id="investors" style="padding: 4rem 0;">
+        <!-- Investor Section -->
+        <section id="investors">
             <div class="container">
-                <div class="grid-2"> <!-- Using grid-2 for larger video display -->
-                    <!-- Video 1 -->
-                    <div class="feature-card fade-in-up">
-                        <div class="video-container"
-                            style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; margin-bottom: 1.5rem;">
+                <div class="section-header fade-up">
+                    <div class="section-label">For Investors</div>
+                    <h2>Presentations & Demos</h2>
+                    <p>Understand the Swipies AI business model and deployment strategy.</p>
+                </div>
+                <div class="g-2">
+                    <div class="video-card fade-up">
+                        <div class="video-wrap">
                             <iframe src="https://www.youtube.com/embed/50nTQn0LuSg"
-                                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen>
-                            </iframe>
+                                allowfullscreen></iframe>
                         </div>
-                        <h3>Presentation and Demo video (EN)</h3>
-                        <p>Learn everything about Swipies AI business model and how to invest in it.</p>
+                        <div class="video-card-body">
+                            <h3>Presentation and Demo Video (EN)</h3>
+                            <p>Learn everything about Swipies AI business model and how to invest in it.</p>
+                        </div>
                     </div>
 
-                    <!-- Video 1 -->
-                    <div class="feature-card fade-in-up">
-                        <div class="video-container"
-                            style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; margin-bottom: 1.5rem;">
+                    <div class="video-card fade-up d1">
+                        <div class="video-wrap">
                             <iframe src="https://www.youtube.com/embed/FBPJ_FOx3XM"
-                                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen>
-                            </iframe>
+                                allowfullscreen></iframe>
                         </div>
-                        <h3>Presentation and Demo video (UZ)</h3>
-                        <p>Learn everything about Swipies AI business model and how to invest in it.</p>
+                        <div class="video-card-body">
+                            <h3>Presentation and Demo Video (UZ)</h3>
+                            <p>Learn everything about Swipies AI business model and how to invest in it.</p>
+                        </div>
                     </div>
-
-
-
                 </div>
             </div>
         </section>
 
-        <!-- CTA Section -->
-        <section class="cta-section">
-            <div class="container">
-                <div class="hero-content fade-in-up">
-                    <h2>Ready to start building?</h2>
-                    <p>Apply what you've learned and create your first AI assistant today.</p>
-                    <a href="https://api.swipies.app" class="btn btn-primary btn-lg">Get Started Now</a>
-                </div>
+        <!-- Footer CTA -->
+        <section class="footer-cta">
+            <div class="container fade-up">
+                <h2>Ready to Deploy AI on Your Infrastructure?</h2>
+                <p>Book a demo and see Swipies AI in action on your data.</p>
+                <a href="https://api.swipies.app/login" class="btn btn-primary btn-lg" target="_blank">Try Demo</a>
             </div>
         </section>
+
     </main>
 
     <!-- Footer -->
@@ -240,32 +695,31 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-brand">
-                    <a href="index.html" class="logo">Swipies<span class="highlight">AI</span></a>
-                    <p>The next generation of AI assistants.</p>
-                    <div style="margin-top: 1rem; color: var(--text-muted); font-size: 0.9rem;">
-                        <p id="footer-address">Uzbekistan, Andijan</p>
-                        <p id="footer-phone">+998 (90) 625-3986</p>
+                    <a href="index.html" class="logo">Swipies<span>AI</span></a>
+                    <p>Enterprise on-premise AI platform. Deploy RAG pipelines on your own servers with complete data
+                        sovereignty.</p>
+                    <div style="margin-top:1rem; font-size:.85rem; color:var(--slate-400);">
+                        <p>Uzbekistan, Andijan</p>
+                        <p>+998 (90) 625-3986</p>
                     </div>
                 </div>
-                <div class="footer-links">
-                    <h4>Product</h4>
-                    <a href="index.html#features">Features</a>
+                <div class="footer-col">
+                    <h4>Platform</h4>
+                    <a href="index.html#solution">Solution</a>
+                    <a href="index.html#how-it-works">How It Works</a>
+                    <a href="index.html#use-cases">Use Cases</a>
                     <a href="index.html#pricing">Pricing</a>
-                    <a href="index.html#platforms">Platforms</a>
                     <a href="tutorials.html">Tutorials</a>
                 </div>
-                <div class="footer-links">
+                <div class="footer-col">
                     <h4>Company</h4>
-                    <a href="index.html#about">About</a>
-                    <a href="index.html#press">Press</a>
+                    <a href="terms.html">Terms of Use</a>
                     <a href="https://help.swipies.app/docs/dev/">Documentation</a>
-                    <a href="terms.html"> Terms of use</a>
                 </div>
-                <div class="footer-links">
-                    <h4>Connect</h4> <a href="albakiev.sardorbek@gmail.com" id="footer-email">Email</a>
-                    <a href="https://github.com/Sardorr555/swipies__ai_.git" id="footer-github"
-                        target="_blank">GitHub</a>
-                    <a href="#" id="footer-instagram" target="_blank">Instagram</a>
+                <div class="footer-col">
+                    <h4>Connect</h4>
+                    <a href="mailto:albakiev.sardobek@gmail.com">Email</a>
+                    <a href="https://github.com/Sardorr555/swipies__ai_" target="_blank">GitHub</a>
                 </div>
             </div>
             <div class="footer-bottom">
@@ -274,8 +728,28 @@
         </div>
     </footer>
 
-    <script src="config.js"></script>
-    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const btn = document.getElementById('mobileMenuBtn');
+            const nav = document.getElementById('navLinks');
+            btn.addEventListener('click', () => {
+                nav.classList.toggle('active');
+                const s = btn.querySelectorAll('span');
+                if (nav.classList.contains('active')) {
+                    s[0].style.transform = 'rotate(45deg) translate(5px,5px)'; s[1].style.opacity = '0'; s[2].style.transform = 'rotate(-45deg) translate(6px,-6px)';
+                } else { s[0].style.transform = 'none'; s[1].style.opacity = '1'; s[2].style.transform = 'none'; }
+            });
+            nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+                nav.classList.remove('active');
+                const s = btn.querySelectorAll('span'); s[0].style.transform = 'none'; s[1].style.opacity = '1'; s[2].style.transform = 'none';
+            }));
+            const obs = new IntersectionObserver(entries => {
+                entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); obs.unobserve(e.target); } });
+            }, { threshold: .1, rootMargin: '0px 0px -40px 0px' });
+            document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+        });
+    </script>
+
 </body>
 
 </html>

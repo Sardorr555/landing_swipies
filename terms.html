@@ -4,286 +4,674 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Terms of Use – Swipies AI</title>
+    <title>Terms of Use — Swipies AI</title>
+    <meta name="description" content="Terms of Use for Swipies AI enterprise platform.">
+
+    <link rel="icon" type="image/png" href="favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg" />
+    <link rel="shortcut icon" href="favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png" />
+    <link rel="manifest" href="favicon/site.webmanifest" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
     <style>
         :root {
-            --bg-color: #ffffff;
-            --text-color: #1a1a1a;
-            --heading-color: #000000;
-            --accent-color: #2563eb;
-            --secondary-text: #4b5563;
-            --border-color: #e5e7eb;
+            --navy-950: #020617;
+            --navy-900: #0a0f1e;
+            --navy-800: #0f172a;
+            --slate-400: #94a3b8;
+            --slate-300: #cbd5e1;
+            --white: #f8fafc;
+            --accent: #3b82f6;
+            --accent-light: #60a5fa;
+            --border: rgba(148, 163, 184, .1);
+            --border-hover: rgba(148, 163, 184, .2);
+            --card-bg: rgba(15, 23, 42, .6);
+            --container: 1200px;
+            --nav-h: 72px;
+            --radius: 16px;
+            --radius-sm: 12px;
         }
 
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --bg-color: #0f172a;
-                --text-color: #e2e8f0;
-                --heading-color: #ffffff;
-                --accent-color: #3b82f6;
-                --secondary-text: #94a3b8;
-                --border-color: #1e293b;
-            }
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            line-height: 1.6;
-            color: var(--text-color);
-            background-color: var(--bg-color);
-            margin: 0;
-            padding: 0;
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--navy-950);
+            color: var(--slate-300);
+            line-height: 1.7;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: 'Outfit', sans-serif;
+            color: var(--white);
+            line-height: 1.15;
+        }
+
+        a {
+            color: var(--accent-light);
+            text-decoration: none;
+            transition: all .25s ease;
+        }
+
+        a:hover {
+            color: var(--accent);
         }
 
         .container {
+            max-width: var(--container);
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: .85rem 2rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: .95rem;
+            transition: all .3s cubic-bezier(.4, 0, .2, 1);
+            cursor: pointer;
+            border: none;
+            font-family: 'Inter', sans-serif;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #fff !important;
+            box-shadow: 0 4px 20px rgba(59, 130, 246, .3);
+        }
+
+        .btn-primary:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(59, 130, 246, .4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border-hover);
+            color: var(--white) !important;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--accent);
+            color: var(--accent) !important;
+            background: rgba(59, 130, 246, .05);
+        }
+
+        .btn-sm {
+            padding: .65rem 1.5rem;
+            font-size: .9rem;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--nav-h);
+            background: rgba(2, 6, 23, .85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+            font-family: 'Outfit', sans-serif;
+            color: var(--white) !important;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            font-size: .9rem;
+            font-weight: 500;
+            color: var(--slate-400) !important;
+        }
+
+        .nav-links a:not(.btn):hover {
+            color: var(--white) !important;
+        }
+
+        .nav-links a.btn-primary {
+            color: #fff !important;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 5px;
+            z-index: 1001;
+        }
+
+        .mobile-menu-btn span {
+            width: 22px;
+            height: 2px;
+            background: var(--white);
+            transition: .3s;
+            border-radius: 2px;
+        }
+
+        /* Hero */
+        .hero {
+            padding: calc(var(--nav-h) + 80px) 0 40px;
+            text-align: center;
+            background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(59, 130, 246, .12), transparent 70%);
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: -.03em;
+        }
+
+        .hero h1 .accent {
+            color: var(--accent-light);
+        }
+
+        .hero .updated {
+            font-size: .9rem;
+            color: var(--slate-400);
+            margin-top: .5rem;
+        }
+
+        /* Content */
+        .terms-content {
             max-width: 800px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 60px 2rem 80px;
         }
 
-        h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--heading-color);
-            margin-bottom: 1rem;
-            letter-spacing: -0.025em;
-        }
-
-        h2 {
-            font-size: 1.5rem;
+        .terms-content h2 {
+            font-size: 1.4rem;
             font-weight: 600;
-            color: var(--heading-color);
-            margin-top: 2.5rem;
+            margin-top: 3rem;
             margin-bottom: 1rem;
-            letter-spacing: -0.015em;
+            padding-bottom: .5rem;
+            border-bottom: 1px solid var(--border);
         }
 
-        h3 {
-            font-size: 1.15rem;
+        .terms-content h3 {
+            font-size: 1.1rem;
             font-weight: 600;
-            color: var(--heading-color);
             margin-top: 1.5rem;
-            margin-bottom: 0.75rem;
+            margin-bottom: .75rem;
         }
 
-        p {
+        .terms-content p {
             margin-bottom: 1.25rem;
-            color: var(--secondary-text);
+            color: var(--slate-400);
+            line-height: 1.8;
         }
 
-        ul {
+        .terms-content ul {
             margin-bottom: 1.25rem;
             padding-left: 1.5rem;
-            color: var(--secondary-text);
+            color: var(--slate-400);
+            list-style: disc;
         }
 
-        li {
-            margin-bottom: 0.5rem;
+        .terms-content li {
+            margin-bottom: .5rem;
+            line-height: 1.7;
         }
 
-        .last-updated {
-            font-size: 0.875rem;
-            color: var(--secondary-text);
-            margin-bottom: 3rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid var(--border-color);
+        .terms-content strong {
+            color: var(--slate-300);
         }
 
         .disclaimer-box {
-            background-color: rgba(37, 99, 235, 0.05);
-            border: 1px solid var(--accent-color);
-            border-radius: 8px;
-            padding: 1.5rem;
+            background: rgba(59, 130, 246, .05);
+            border: 1px solid rgba(59, 130, 246, .2);
+            border-radius: var(--radius-sm);
+            padding: 1.5rem 2rem;
             margin: 2rem 0;
         }
 
         .disclaimer-box h2 {
             margin-top: 0;
-            color: var(--accent-color);
-            font-size: 1.25rem;
+            color: var(--accent-light);
+            font-size: 1.2rem;
+            border: none;
+            padding-bottom: 0;
         }
 
         .disclaimer-box p {
             margin-bottom: 0;
-            color: var(--text-color);
+            color: var(--slate-300);
         }
 
+        /* Footer */
         footer {
-            margin-top: 4rem;
-            padding-top: 2rem;
-            border-top: 1px solid var(--border-color);
+            background: var(--navy-900);
+            padding: 60px 0 30px;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand p {
+            color: var(--slate-400);
+            margin-top: 1rem;
+            font-size: .9rem;
+            line-height: 1.6;
+        }
+
+        .footer-col h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+            color: var(--white);
+        }
+
+        .footer-col a {
+            display: block;
+            color: var(--slate-400) !important;
+            margin-bottom: .7rem;
+            font-size: .9rem;
+        }
+
+        .footer-col a:hover {
+            color: var(--accent-light) !important;
+        }
+
+        .footer-bottom {
             text-align: center;
-            font-size: 0.875rem;
-            color: var(--secondary-text);
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--slate-400);
+            font-size: .85rem;
         }
 
-        a {
-            color: var(--accent-color);
-            text-decoration: none;
+        /* Responsive */
+        @media (max-width:1024px) {
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
-        a:hover {
-            text-decoration: underline;
+        @media (max-width:768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: var(--nav-h);
+                left: 0;
+                width: 100%;
+                background: rgba(2, 6, 23, .97);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1.2rem;
+                border-bottom: 1px solid var(--border);
+                text-align: center;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links a {
+                font-size: 1.1rem;
+                color: var(--white) !important;
+                width: 100%;
+                padding: .5rem 0;
+            }
+
+            .nav-links .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .hero {
+                padding-top: calc(var(--nav-h) + 40px);
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 2rem;
+            }
+
+            .terms-content {
+                padding: 40px 1rem 60px;
+            }
         }
     </style>
 </head>
 
 <body>
-    <div class="container">
-        <h1>Terms of Use</h1>
-        <div class="last-updated">Last updated: January 5, 2026</div>
 
-        <p>Welcome to Swipies AI. By accessing or using our website, platform, or AI-powered services (collectively, the
-            "Service"), you agree to be bound by these Terms of Use ("Terms"). If you do not agree to these Terms, do
-            not use the Service.</p>
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">Swipies<span>AI</span></a>
+            <nav class="nav-links" id="navLinks">
+                <a href="index.html#solution">Solution</a>
+                <a href="index.html#how-it-works">How It Works</a>
+                <a href="index.html#use-cases">Use Cases</a>
+                <a href="tutorials.html">Tutorials</a>
+                <a href="index.html#pricing">Pricing</a>
+                <a href="https://api.swipies.app/login" class="btn btn-primary btn-sm" target="_blank">Try Demo</a>
+            </nav>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
 
-        <h2>1. Eligibility</h2>
-        <p>By using the Service, you represent and warrant that:</p>
-        <ul>
-            <li>You are at least 18 years of age, or the age of majority in your jurisdiction.</li>
-            <li>If you are under 18, you are using the Service under the supervision of a parent or legal guardian who
-                agrees to be bound by these Terms.</li>
-            <li>You have the full right, power, and authority to enter into this agreement and to perform your
-                obligations hereunder.</li>
-            <li>You are not located in a country that is subject to a government embargo, or that has been designated by
-                the government as a "terrorist supporting" country.</li>
-        </ul>
+    <main>
 
-        <h2>2. Accounts and Registration</h2>
-        <p>To access certain features of the Service, you may be required to register for an account.</p>
-        <ul>
-            <li><strong>Account Security:</strong> You are responsible for maintaining the confidentiality of your
-                account credentials and for all activities that occur under your account.</li>
-            <li><strong>Accuracy:</strong> You agree to provide accurate, current, and complete information during the
-                registration process.</li>
-            <li><strong>Prohibited Sharing:</strong> You may not share your account credentials with any third party.
-            </li>
-        </ul>
+        <!-- Hero -->
+        <section class="hero">
+            <div class="container">
+                <h1>Terms of <span class="accent">Use</span></h1>
+                <p class="updated">Last updated: January 5, 2026</p>
+            </div>
+        </section>
 
-        <div class="disclaimer-box">
-            <h2>3. Service Provided "AS IS"</h2>
-            <p>Swipies AI is provided on an "AS IS" and "AS AVAILABLE" basis. We make no warranties, expressed or
-                implied, regarding the accuracy, reliability, availability, merchantability, or fitness for a particular
-                purpose of the Service.</p>
+        <!-- Content -->
+        <div class="terms-content">
+
+            <p>Welcome to Swipies AI. By accessing or using our website, platform, or AI-powered services (collectively,
+                the
+                "Service"), you agree to be bound by these Terms of Use ("Terms"). If you do not agree to these Terms,
+                do
+                not use the Service.</p>
+
+            <h2>1. Eligibility</h2>
+            <p>By using the Service, you represent and warrant that:</p>
+            <ul>
+                <li>You are at least 18 years of age, or the age of majority in your jurisdiction.</li>
+                <li>If you are under 18, you are using the Service under the supervision of a parent or legal guardian
+                    who
+                    agrees to be bound by these Terms.</li>
+                <li>You have the full right, power, and authority to enter into this agreement and to perform your
+                    obligations hereunder.</li>
+                <li>You are not located in a country that is subject to a government embargo, or that has been
+                    designated by
+                    the government as a "terrorist supporting" country.</li>
+            </ul>
+
+            <h2>2. Accounts and Registration</h2>
+            <p>To access certain features of the Service, you may be required to register for an account.</p>
+            <ul>
+                <li><strong>Account Security:</strong> You are responsible for maintaining the confidentiality of your
+                    account credentials and for all activities that occur under your account.</li>
+                <li><strong>Accuracy:</strong> You agree to provide accurate, current, and complete information during
+                    the
+                    registration process.</li>
+                <li><strong>Prohibited Sharing:</strong> You may not share your account credentials with any third
+                    party.</li>
+            </ul>
+
+            <div class="disclaimer-box">
+                <h2>3. Service Provided "AS IS"</h2>
+                <p>Swipies AI is provided on an "AS IS" and "AS AVAILABLE" basis. We make no warranties, expressed or
+                    implied, regarding the accuracy, reliability, availability, merchantability, or fitness for a
+                    particular
+                    purpose of the Service.</p>
+            </div>
+
+            <h2>4. Acceptable Use Policy</h2>
+            <p>You agree not to use the Service to:</p>
+            <ul>
+                <li>Generate content that is illegal, harmful, threatening, abusive, harassing, defamatory, vulgar,
+                    obscene,
+                    or invasive of another's privacy.</li>
+                <li>Create "deepfakes" or impersonate any person or entity without their consent.</li>
+                <li>Engage in any activity that interferes with or disrupts the Service (or the servers and networks
+                    which
+                    are connected to the Service).</li>
+                <li>Attempt to reverse engineer, decompile, or disassemble any part of the Service.</li>
+                <li>Scrape, harvest, or extract data from the Service without our express written consent.</li>
+                <li>Use the Service for any purpose that violates applicable local, state, national, or international
+                    law.</li>
+            </ul>
+
+            <h2>5. Fees and Payment</h2>
+            <p>If you choose to purchase a subscription or paid service:</p>
+            <ul>
+                <li><strong>Payment:</strong> You agree to pay all fees associated with your selected plan in accordance
+                    with the billing terms in effect at the time the fee becomes payable.</li>
+                <li><strong>Changes:</strong> We reserve the right to change our pricing and to institute new charges at
+                    any
+                    time, upon notice to you (which may be sent by email or posted on the Service).</li>
+                <li><strong>Refunds:</strong> Except as required by law, all fees paid are non-refundable.</li>
+            </ul>
+
+            <h2>6. Limitation of Liability</h2>
+            <p>To the fullest extent permitted by law, Swipies AI and its creators, affiliates, officers, employees,
+                agents,
+                and partners shall not be liable for any direct, indirect, incidental, special, consequential, or
+                exemplary
+                damages, including but not limited to:</p>
+            <ul>
+                <li>Loss of data, profits, goodwill, use, or other intangible losses.</li>
+                <li>Errors, inaccuracies, or omissions in the AI-generated content.</li>
+                <li>Business, financial, medical, or legal decisions made based on the Service's output.</li>
+                <li>Service interruptions, downtime, or technical failures.</li>
+                <li>Unauthorized access to or alteration of your transmissions or data.</li>
+            </ul>
+
+            <h2>7. Indemnification</h2>
+            <p>You agree to indemnify, defend, and hold harmless Swipies AI and its affiliates, officers, agents, and
+                employees from and against any and all claims, liabilities, damages, losses, costs, expenses, or fees
+                (including reasonable attorneys' fees) arising from:</p>
+            <ul>
+                <li>Your use of or access to the Service.</li>
+                <li>Your violation of these Terms.</li>
+                <li>Your violation of any third-party right, including without limitation any intellectual property
+                    right,
+                    publicity, confidentiality, property, or privacy right.</li>
+                <li>Any content generated by you using the Service.</li>
+            </ul>
+
+            <h2>8. User Responsibility & AI Output</h2>
+            <p>You acknowledge that Swipies AI uses artificial intelligence to generate responses. These responses may
+                not
+                always be accurate, complete, or suitable for your specific needs.</p>
+            <ul>
+                <li>You are solely responsible for evaluating and verifying any output generated by the Service before
+                    using it.</li>
+                <li>The Service should not be relied upon as a substitute for professional advice (legal, medical,
+                    financial, etc.).</li>
+                <li>You retain ownership of the specific outputs generated for you, subject to these Terms and
+                    applicable
+                    laws, but you grant Swipies AI a worldwide, non-exclusive license to host and use such content to
+                    provide the Service.</li>
+            </ul>
+
+            <h2>9. Data & Privacy</h2>
+            <p>We value your privacy, but please be aware of the nature of AI services:</p>
+            <ul>
+                <li>We do not guarantee the permanent storage or availability of any data you input.</li>
+                <li>You should not input sensitive, confidential, or personally identifiable information (PII) into the
+                    Service.</li>
+                <li>We may use anonymized usage data to improve our models and services.</li>
+            </ul>
+
+            <h2>10. Intellectual Property</h2>
+            <p>The Swipies AI platform, including its code, design, branding, and algorithms, is the exclusive property
+                of
+                Swipies. All rights reserved. Nothing in these Terms gives you a right to use the Swipies AI name or any
+                of
+                the Swipies trademarks, logos, domain names, and other distinctive brand features.</p>
+            <p><strong>Feedback:</strong> If you provide us with any feedback or suggestions regarding the Service, you
+                hereby assign to Swipies AI all rights in such feedback and agree that we shall have the right to use
+                and
+                fully exploit such feedback and related information in any manner we deem appropriate.</p>
+
+            <h2>11. Third-Party Links and Services</h2>
+            <p>The Service may contain links to third-party websites or services that are not owned or controlled by
+                Swipies
+                AI. We have no control over, and assume no responsibility for, the content, privacy policies, or
+                practices
+                of any third-party websites or services. You acknowledge and agree that Swipies AI shall not be
+                responsible
+                or liable, directly or indirectly, for any damage or loss caused or alleged to be caused by or in
+                connection
+                with the use of any such content, goods, or services available on or through any such websites or
+                services.</p>
+
+            <h2>12. Termination</h2>
+            <p>We reserve the right to suspend or terminate your access to Swipies AI at any time, for any reason,
+                without
+                prior notice or liability, including for violation of these Terms. Upon termination, your right to use
+                the
+                Service will immediately cease.</p>
+
+            <h2>13. General Provisions</h2>
+            <ul>
+                <li><strong>Severability:</strong> If any provision of these Terms is held to be invalid or
+                    unenforceable,
+                    such provision will be limited or eliminated to the minimum extent necessary, and the remaining
+                    provisions of these Terms will remain in full force and effect.</li>
+                <li><strong>Waiver:</strong> No waiver of any term of these Terms shall be deemed a further or
+                    continuing
+                    waiver of such term or any other term, and Swipies AI's failure to assert any right or provision
+                    under
+                    these Terms shall not constitute a waiver of such right or provision.</li>
+                <li><strong>Entire Agreement:</strong> These Terms constitute the entire agreement between you and
+                    Swipies
+                    AI regarding the Service and supersede all prior and contemporaneous written or oral agreements
+                    between
+                    you and Swipies AI.</li>
+            </ul>
+
+            <h2>14. Changes to Terms</h2>
+            <p>We may update these Terms of Use from time to time. If we make significant changes, we will notify users
+                through the platform or by updating the date at the top of this page. Your continued use of Swipies AI
+                after
+                any changes constitutes your acceptance of the new Terms.</p>
+
+            <h2>15. Governing Law</h2>
+            <p>These Terms shall be governed by and construed in accordance with applicable laws, without regard to
+                conflict
+                of law provisions.</p>
+
         </div>
 
-        <h2>4. Acceptable Use Policy</h2>
-        <p>You agree not to use the Service to:</p>
-        <ul>
-            <li>Generate content that is illegal, harmful, threatening, abusive, harassing, defamatory, vulgar, obscene,
-                or invasive of another's privacy.</li>
-            <li>Create "deepfakes" or impersonate any person or entity without their consent.</li>
-            <li>Engage in any activity that interferes with or disrupts the Service (or the servers and networks which
-                are connected to the Service).</li>
-            <li>Attempt to reverse engineer, decompile, or disassemble any part of the Service.</li>
-            <li>Scrape, harvest, or extract data from the Service without our express written consent.</li>
-            <li>Use the Service for any purpose that violates applicable local, state, national, or international law.
-            </li>
-        </ul>
+    </main>
 
-        <h2>5. Fees and Payment</h2>
-        <p>If you choose to purchase a subscription or paid service:</p>
-        <ul>
-            <li><strong>Payment:</strong> You agree to pay all fees associated with your selected plan in accordance
-                with the billing terms in effect at the time the fee becomes payable.</li>
-            <li><strong>Changes:</strong> We reserve the right to change our pricing and to institute new charges at any
-                time, upon notice to you (which may be sent by email or posted on the Service).</li>
-            <li><strong>Refunds:</strong> Except as required by law, all fees paid are non-refundable.</li>
-        </ul>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo">Swipies<span>AI</span></a>
+                    <p>Enterprise on-premise AI platform. Deploy RAG pipelines on your own servers with complete data
+                        sovereignty.</p>
+                    <div style="margin-top:1rem; font-size:.85rem; color:var(--slate-400);">
+                        <p>Uzbekistan, Andijan</p>
+                        <p>+998 (90) 625-3986</p>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Platform</h4>
+                    <a href="index.html#solution">Solution</a>
+                    <a href="index.html#how-it-works">How It Works</a>
+                    <a href="index.html#use-cases">Use Cases</a>
+                    <a href="index.html#pricing">Pricing</a>
+                    <a href="tutorials.html">Tutorials</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <a href="terms.html">Terms of Use</a>
+                    <a href="https://help.swipies.app/docs/dev/">Documentation</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Connect</h4>
+                    <a href="mailto:albakiev.sardobek@gmail.com">Email</a>
+                    <a href="https://github.com/Sardorr555/swipies__ai_" target="_blank">GitHub</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Swipies AI. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
 
-        <h2>6. Limitation of Liability</h2>
-        <p>To the fullest extent permitted by law, Swipies AI and its creators, affiliates, officers, employees, agents,
-            and partners shall not be liable for any direct, indirect, incidental, special, consequential, or exemplary
-            damages, including but not limited to:</p>
-        <ul>
-            <li>Loss of data, profits, goodwill, use, or other intangible losses.</li>
-            <li>Errors, inaccuracies, or omissions in the AI-generated content.</li>
-            <li>Business, financial, medical, or legal decisions made based on the Service's output.</li>
-            <li>Service interruptions, downtime, or technical failures.</li>
-            <li>Unauthorized access to or alteration of your transmissions or data.</li>
-        </ul>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const btn = document.getElementById('mobileMenuBtn');
+            const nav = document.getElementById('navLinks');
+            btn.addEventListener('click', () => {
+                nav.classList.toggle('active');
+                const s = btn.querySelectorAll('span');
+                if (nav.classList.contains('active')) {
+                    s[0].style.transform = 'rotate(45deg) translate(5px,5px)'; s[1].style.opacity = '0'; s[2].style.transform = 'rotate(-45deg) translate(6px,-6px)';
+                } else { s[0].style.transform = 'none'; s[1].style.opacity = '1'; s[2].style.transform = 'none'; }
+            });
+            nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+                nav.classList.remove('active');
+                const s = btn.querySelectorAll('span'); s[0].style.transform = 'none'; s[1].style.opacity = '1'; s[2].style.transform = 'none';
+            }));
+        });
+    </script>
 
-        <h2>7. Indemnification</h2>
-        <p>You agree to indemnify, defend, and hold harmless Swipies AI and its affiliates, officers, agents, and
-            employees from and against any and all claims, liabilities, damages, losses, costs, expenses, or fees
-            (including reasonable attorneys' fees) arising from:</p>
-        <ul>
-            <li>Your use of or access to the Service.</li>
-            <li>Your violation of these Terms.</li>
-            <li>Your violation of any third-party right, including without limitation any intellectual property right,
-                publicity, confidentiality, property, or privacy right.</li>
-            <li>Any content generated by you using the Service.</li>
-        </ul>
-
-        <h2>8. User Responsibility & AI Output</h2>
-        <p>You acknowledge that Swipies AI uses artificial intelligence to generate responses. These responses may not
-            always be accurate, complete, or suitable for your specific needs.</p>
-        <ul>
-            <li>You are solely responsible for evaluating and verifying any output generated by the Service before using
-                it.</li>
-            <li>The Service should not be relied upon as a substitute for professional advice (legal, medical,
-                financial, etc.).</li>
-            <li>You retain ownership of the specific outputs generated for you, subject to these Terms and applicable
-                laws, but you grant Swipies AI a worldwide, non-exclusive license to host and use such content to
-                provide the Service.</li>
-        </ul>
-
-        <h2>9. Data & Privacy</h2>
-        <p>We value your privacy, but please be aware of the nature of AI services:</p>
-        <ul>
-            <li>We do not guarantee the permanent storage or availability of any data you input.</li>
-            <li>You should not input sensitive, confidential, or personally identifiable information (PII) into the
-                Service.</li>
-            <li>We may use anonymized usage data to improve our models and services.</li>
-        </ul>
-
-        <h2>10. Intellectual Property</h2>
-        <p>The Swipies AI platform, including its code, design, branding, and algorithms, is the exclusive property of
-            Swipies. All rights reserved. Nothing in these Terms gives you a right to use the Swipies AI name or any of
-            the Swipies trademarks, logos, domain names, and other distinctive brand features.</p>
-        <p><strong>Feedback:</strong> If you provide us with any feedback or suggestions regarding the Service, you
-            hereby assign to Swipies AI all rights in such feedback and agree that we shall have the right to use and
-            fully exploit such feedback and related information in any manner we deem appropriate.</p>
-
-        <h2>11. Third-Party Links and Services</h2>
-        <p>The Service may contain links to third-party websites or services that are not owned or controlled by Swipies
-            AI. We have no control over, and assume no responsibility for, the content, privacy policies, or practices
-            of any third-party websites or services. You acknowledge and agree that Swipies AI shall not be responsible
-            or liable, directly or indirectly, for any damage or loss caused or alleged to be caused by or in connection
-            with the use of any such content, goods, or services available on or through any such websites or services.
-        </p>
-
-        <h2>12. Termination</h2>
-        <p>We reserve the right to suspend or terminate your access to Swipies AI at any time, for any reason, without
-            prior notice or liability, including for violation of these Terms. Upon termination, your right to use the
-            Service will immediately cease.</p>
-
-        <h2>13. General Provisions</h2>
-        <ul>
-            <li><strong>Severability:</strong> If any provision of these Terms is held to be invalid or unenforceable,
-                such provision will be limited or eliminated to the minimum extent necessary, and the remaining
-                provisions of these Terms will remain in full force and effect.</li>
-            <li><strong>Waiver:</strong> No waiver of any term of these Terms shall be deemed a further or continuing
-                waiver of such term or any other term, and Swipies AI's failure to assert any right or provision under
-                these Terms shall not constitute a waiver of such right or provision.</li>
-            <li><strong>Entire Agreement:</strong> These Terms constitute the entire agreement between you and Swipies
-                AI regarding the Service and supersede all prior and contemporaneous written or oral agreements between
-                you and Swipies AI.</li>
-        </ul>
-
-        <h2>14. Changes to Terms</h2>
-        <p>We may update these Terms of Use from time to time. If we make significant changes, we will notify users
-            through the platform or by updating the date at the top of this page. Your continued use of Swipies AI after
-            any changes constitutes your acceptance of the new Terms.</p>
-
-        <h2>15. Governing Law</h2>
-        <p>These Terms shall be governed by and construed in accordance with applicable laws, without regard to conflict
-            of law provisions.</p>
-
-        <footer>
-            <p>&copy; 2026 Swipies AI. All rights reserved.</p>
-        </footer>
-    </div>
 </body>
 
 </html>
