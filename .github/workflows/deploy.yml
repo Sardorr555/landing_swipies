@@ -29,13 +29,13 @@ jobs:
             git checkout swipies_25 || git checkout -b swipies_25 origin/swipies_25
             git reset --hard origin/swipies_25
         
-            echo "Copying files to web root /var/www/landing"
-            sudo mkdir -p /var/www/landing
-            sudo cp -r ~/landing_swipies/. /var/www/landing/
+            echo "Copying files to web root /var/www/html"
+            sudo mkdir -p /var/www/html
+            sudo cp -r ~/landing_swipies/. /var/www/html/
             
             echo "Set permissions on web root"
-            sudo chown -R www-data:www-data /var/www/landing
-            sudo chmod -R 755 /var/www/landing
+            sudo chown -R www-data:www-data /var/www/html
+            sudo chmod -R 755 /var/www/html
         
             echo "Restart Nginx"
             sudo systemctl restart nginx
