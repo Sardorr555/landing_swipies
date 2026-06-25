@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://swipies.app/sitemap.xml
