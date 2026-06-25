@@ -24,13 +24,18 @@ jobs:
 
             cd ~/landing_swipies
         
-            echo "Pull latest changes"
-            git reset --hard
-            git pull origin main
+            echo "Pull latest changes from swipies_25"
+            git fetch origin
+            git checkout swipies_25 || git checkout -b swipies_25 origin/swipies_25
+            git reset --hard origin/swipies_25
         
-            echo "Set permissions"
-            sudo chown -R www-data:www-data ~/landing_swipies
-            sudo chmod -R 755 ~/landing_swipies
+            echo "Copying files to web root /var/www/landing"
+            sudo mkdir -p /var/www/landing
+            sudo cp -r ~/landing_swipies/. /var/www/landing/
+            
+            echo "Set permissions on web root"
+            sudo chown -R www-data:www-data /var/www/landing
+            sudo chmod -R 755 /var/www/landing
         
             echo "Restart Nginx"
             sudo systemctl restart nginx

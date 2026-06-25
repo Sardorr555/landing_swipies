@@ -330,8 +330,18 @@
     "semantic_hash": ""
   },
   "index.html": {
-    "mtime": 1780999991.969632,
-    "ast_hash": "c74c340569f89d3138d85ff7595c1c99",
+    "mtime": 1782389682.035452,
+    "ast_hash": "d9ba7cdb8f5d769819a5871e6a547c16",
+    "semantic_hash": ""
+  },
+  ".github/workflows/deploy.yml": {
+    "mtime": 1782389519.5098138,
+    "ast_hash": "0aa1634ad6194f85601a07837f0f6d26",
+    "semantic_hash": ""
+  },
+  "robots.txt": {
+    "mtime": 1782389675.4292994,
+    "ast_hash": "382381aa6f4e4e08f59c716db5dbab10",
     "semantic_hash": ""
   }
 }
