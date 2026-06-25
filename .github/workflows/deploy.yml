@@ -25,9 +25,9 @@ jobs:
             cd ~/landing_swipies
         
             echo "Pull latest changes from swipies_25"
-            git fetch origin
-            git checkout swipies_25 || git checkout -b swipies_25 origin/swipies_25
-            git reset --hard origin/swipies_25
+            git fetch origin swipies_25
+            git checkout -B swipies_25 FETCH_HEAD
+            git reset --hard FETCH_HEAD
         
             echo "Copying files to web root /var/www/html"
             sudo mkdir -p /var/www/html
