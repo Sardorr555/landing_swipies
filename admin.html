@@ -1081,6 +1081,14 @@ input:checked + .slider:before { transform: translateX(20px); }
     <!-- ================= OVERVIEW PAGE ================= -->
     <section class="dashboard-section active" id="overviewTab">
       
+      <!-- GA4 Connection Status Banner -->
+      <div id="ga4WarningBanner" style="display:none; background:rgba(232, 168, 32, 0.08); border:1px solid rgba(232, 168, 32, 0.2); border-radius:var(--radius); padding:1rem; margin-bottom:1.5rem; display:flex; align-items:center; gap:0.75rem;">
+        <svg style="width:20px;height:20px;color:var(--accent);flex-shrink:0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+        <div style="font-size:0.9rem">
+          <strong>Google Analytics 4 is not connected.</strong> Connect GA4 in <a href="#" onclick="switchTab('settings')" style="color:var(--accent);text-decoration:underline">Settings</a> to view live traffic statistics.
+        </div>
+      </div>
+      
       <!-- STAT CARDS -->
       <div class="stats-grid">
         <div class="stat-card">
@@ -1647,6 +1655,15 @@ function refreshDashboardData() {
   const loader = document.getElementById('loadingOverview');
   if (loader) loader.classList.add('loading');
   
+  const gaId = localStorage.getItem('swipies_ga_measurement_id');
+  const serviceKey = localStorage.getItem('swipies_ga_service_key');
+  const isConfigured = gaId && serviceKey;
+  
+  const banner = document.getElementById('ga4WarningBanner');
+  if (banner) {
+    banner.style.display = isConfigured ? 'none' : 'flex';
+  }
+  
   // Simulate network latency (250ms) to provide a realistic loading skeleton experience
   setTimeout(() => {
     try {
@@ -1663,6 +1680,56 @@ function refreshDashboardData() {
 
 // Generate highly realistic, dynamic simulated values matched to select date periods
 function generateDataForPeriod(period) {
+  const gaId = localStorage.getItem('swipies_ga_measurement_id');
+  const serviceKey = localStorage.getItem('swipies_ga_service_key');
+  const isConfigured = gaId && serviceKey;
+
+  if (!isConfigured) {
+    const labels = [];
+    const today = new Date();
+    let days = 30;
+    if (period === 'today') days = 1;
+    else if (period === '7days') days = 7;
+    else if (period === '30days') days = 30;
+    else if (period === '90days') days = 90;
+    else if (period === 'custom') {
+      const start = new Date(document.getElementById('customStart').value);
+      const end = new Date(document.getElementById('customEnd').value);
+      const diffTime = Math.abs(end - start);
+      days = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) || 1;
+    }
+    for (let i = days - 1; i >= 0; i--) {
+      const d = new Date(today);
+      d.setDate(today.getDate() - i);
+      labels.push(d.toLocaleDateString(undefined, { month: 'short', day: 'numeric' }));
+    }
+    return {
+      users: 0,
+      sessions: 0,
+      bounce: '0.0%',
+      duration: '0s',
+      views: 0,
+      timeline: { labels, users: Array(days).fill(0), sessions: Array(days).fill(0) },
+      channels: {
+        labels: ['Organic Search', 'Direct Traffic', 'Referrals', 'Social Media'],
+        data: [0, 0, 0, 0]
+      },
+      devices: {
+        labels: ['Desktop', 'Mobile', 'Tablet'],
+        data: [0, 0, 0]
+      },
+      conversions: {
+        demo: 0,
+        sales: 0,
+        submit: databaseSubmissions.length
+      },
+      languages: {
+        labels: ['Russian (RU)', 'English (EN)', 'Uzbek (UZ)'],
+        data: [0, 0, 0]
+      }
+    };
+  }
+
   let multiplier = 1.0;
   let days = 30;
   
@@ -1726,7 +1793,7 @@ function generateDataForPeriod(period) {
     conversions: {
       demo: Math.round(baseSessions * 0.124),
       sales: Math.round(baseSessions * 0.068),
-      submit: Math.round(baseSessions * 0.042)
+      submit: databaseSubmissions.length
     },
     languages: {
       labels: ['Russian (RU)', 'English (EN)', 'Uzbek (UZ)'],
@@ -1742,6 +1809,15 @@ function populateDashboardUI(data) {
   document.getElementById('statBounce').textContent = data.bounce;
   document.getElementById('statDuration').textContent = data.duration;
   
+  // Toggle trend indicators visibility based on GA4 configuration
+  const gaId = localStorage.getItem('swipies_ga_measurement_id');
+  const serviceKey = localStorage.getItem('swipies_ga_service_key');
+  const isConfigured = gaId && serviceKey;
+  const trends = document.querySelectorAll('.stat-trend');
+  trends.forEach(t => {
+    t.style.display = isConfigured ? 'block' : 'none';
+  });
+
   // Overview Labels
   const labelsText = activeDateRange === 'today' ? 'Today' : `Last ${activeDateRange.replace('days', '')} Days`;
   document.getElementById('visitorsChartLabel').textContent = activeDateRange === 'custom' ? 'Custom Range' : labelsText;
@@ -1752,9 +1828,9 @@ function populateDashboardUI(data) {
   document.getElementById('convFormSubmits').textContent = data.conversions.submit.toLocaleString();
   
   // Conversions conversion rates
-  const demoRate = ((data.conversions.demo / data.sessions) * 100).toFixed(1);
-  const salesRate = ((data.conversions.sales / data.sessions) * 100).toFixed(1);
-  const formRate = ((data.conversions.submit / data.sessions) * 100).toFixed(1);
+  const demoRate = data.sessions > 0 ? ((data.conversions.demo / data.sessions) * 100).toFixed(1) : '0.0';
+  const salesRate = data.sessions > 0 ? ((data.conversions.sales / data.sessions) * 100).toFixed(1) : '0.0';
+  const formRate = data.sessions > 0 ? ((data.conversions.submit / data.sessions) * 100).toFixed(1) : '0.0';
   
   document.getElementById('convDemoRate').textContent = `${demoRate}% Conversion Rate`;
   document.getElementById('convSalesRate').textContent = `${salesRate}% Conversion Rate`;
@@ -2070,43 +2146,6 @@ function initializeSubmissions() {
   } catch (err) {
     console.error(err);
     databaseSubmissions = [];
-  }
-  
-  // Seed demo records if database is empty on first install to keep visual aesthetics premium
-  if (databaseSubmissions.length === 0) {
-    databaseSubmissions = [
-      {
-        id: 'sub_demo_1',
-        name: 'Alexander Volkov',
-        company: 'VTB Security Tech',
-        email: 'volkov.a@vtb-security.ru',
-        phone: '+7 (495) 123-4567',
-        message: 'Looking to deploy fully private LLM models to analyze classified financial transactions on-premise. Can we setup a proof-of-concept next week?',
-        date: new Date(Date.now() - 3600000 * 2).toISOString(), // 2 hours ago
-        read: false
-      },
-      {
-        id: 'sub_demo_2',
-        name: 'Sardor Qodirov',
-        company: 'Apex Bank UZ',
-        email: 's.qodirov@apexbank.uz',
-        phone: '+998 (90) 111-2233',
-        message: 'Bizga o\'zimizning ichki kredit shartnomalarimizni tahlil qiladigan lokal RAG pipeline kerak. Ollama va Llama 3 modellarini qo\'llab-quvvatlaysizlarmi?',
-        date: new Date(Date.now() - 3600000 * 28).toISOString(), // 28 hours ago
-        read: false
-      },
-      {
-        id: 'sub_demo_3',
-        name: 'Elena Rostova',
-        company: 'MedData Consulting',
-        email: 'rostova.e@meddata.io',
-        phone: '+7 (911) 987-6543',
-        message: 'We require a customized HIPAA-compliant white-label solution of Swipies AI to embed inside our medical ERP software. Please call me back on this number.',
-        date: new Date(Date.now() - 3600000 * 74).toISOString(), // 3 days ago
-        read: true
-      }
-    ];
-    localStorage.setItem('swipies_submissions', JSON.stringify(databaseSubmissions));
   }
   
   renderSubmissionsTable();

@@ -184,7 +184,7 @@ document.getElementById('app-sections').innerHTML = `
 <div class="footer-grid">
 <div class="footer-brand"><div class="nav-logo">Swipies<span>AI</span></div><p data-i18n="footer_desc">Enterprise on-premise AI platform. Deploy RAG pipelines on your own servers with complete data sovereignty.</p><p class="muted" style="margin-top:0.5rem;font-size:var(--t-small)">Uzbekistan, Andijan · +998 (90) 625-3986</p></div>
 <div class="footer-col"><h4 data-i18n="footer_platform">Platform</h4><a href="#solution" data-i18n="nav_solution">Solution</a><a href="#how" data-i18n="nav_how">How It Works</a><a href="#cases" data-i18n="nav_cases">Use Cases</a><a href="#pricing" data-i18n="nav_pricing">Pricing</a><a href="https://swipies.app/tutorials.html" target="_blank" data-i18n="footer_tutorials">Tutorials</a></div>
-<div class="footer-col"><h4 data-i18n="footer_company">Company</h4><a href="https://swipies.app/terms.html" target="_blank" data-i18n="footer_terms">Terms of Use</a><a href="https://help.swipies.app/docs/dev/" target="_blank" data-i18n="footer_docs">Documentation</a></div>
+<div class="footer-col"><h4 data-i18n="footer_company">Company</h4><a href="terms.html" data-i18n="footer_terms">Terms of Use</a><a href="privacy.html" data-i18n="footer_privacy">Privacy Policy</a><a href="https://help.swipies.app/docs/dev/" target="_blank" data-i18n="footer_docs">Documentation</a></div>
 <div class="footer-col"><h4 data-i18n="footer_connect">Connect</h4><a href="mailto:albakiev.sardobek@gmail.com">Email</a><a href="https://github.com/Sardorr555/swipies__ai_" target="_blank">GitHub</a></div>
 </div>
 <div class="footer-bottom"><p data-i18n="footer_copy">© 2025 Swipies AI. All rights reserved.</p></div>

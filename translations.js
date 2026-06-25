@@ -134,6 +134,7 @@ const T = {
     footer_connect: "Connect",
     footer_tutorials: "Tutorials",
     footer_terms: "Terms of Use",
+    footer_privacy: "Privacy Policy",
     footer_docs: "Documentation",
     footer_copy: "© 2025 Swipies AI. All rights reserved."
   },
@@ -272,6 +273,7 @@ const T = {
     footer_connect: "Связь",
     footer_tutorials: "Обучение",
     footer_terms: "Условия",
+    footer_privacy: "Политика конфиденциальности",
     footer_docs: "Документация",
     footer_copy: "© 2025 Swipies AI. Все права защищены."
   },
@@ -410,6 +412,7 @@ const T = {
     footer_connect: "Aloqa",
     footer_tutorials: "Qo'llanmalar",
     footer_terms: "Foydalanish shartlari",
+    footer_privacy: "Maxfiylik siyosati",
     footer_docs: "Hujjatlar",
     footer_copy: "© 2025 Swipies AI. Barcha huquqlar himoyalangan."
   }

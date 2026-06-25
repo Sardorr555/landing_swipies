@@ -823,7 +823,7 @@ section { padding: 3.5rem 0; border-bottom: 1px solid var(--border); }
         <button data-lang="ru">RU</button>
         <button data-lang="uz">UZ</button>
       </div>
-      <a href="https://api.swipies.app/login" target="_blank" class="btn-primary" data-i18n="nav_cta">Try Demo</a>
+      <a href="login.html" class="btn-primary" data-i18n="nav_cta">Try Demo</a>
     </div>
     <button class="nav-hamburger" id="hamburger" aria-label="Menu">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
@@ -840,7 +840,7 @@ section { padding: 3.5rem 0; border-bottom: 1px solid var(--border); }
     <h1 data-i18n="hero_h1">Enterprise AI. Your Infrastructure. Your Data.</h1>
     <p class="hero-sub" data-i18n="hero_sub">Deploy on-premise RAG pipelines powered by any LLM — directly on your servers. Your data never leaves your environment. Ever.</p>
     <div class="hero-ctas">
-      <a href="https://api.swipies.app/login" target="_blank" class="btn-primary" data-i18n="hero_cta1">Try Demo</a>
+      <a href="login.html" class="btn-primary" data-i18n="hero_cta1">Try Demo</a>
       <a href="#contact" class="btn-secondary" data-i18n="hero_cta2">Talk to Sales</a>
     </div>
   </div>
@@ -1045,7 +1045,7 @@ docker compose up -d --build</code></pre>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="starter_f3">Standard support</span></li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="starter_f4">Managed infrastructure</span></li>
         </ul>
-        <a href="https://api.swipies.app/login" target="_blank" class="btn-secondary" style="display:inline-block;text-align:center" data-i18n="starter_cta">Start Building</a>
+        <a href="login.html" class="btn-secondary" style="display:inline-block;text-align:center" data-i18n="starter_cta">Start Building</a>
       </div>
       <div class="price-card">
         <div class="price-name" data-i18n="license">Self-Hosted License</div>
@@ -1209,7 +1209,7 @@ docker compose up -d --build</code></pre>
   <div class="container">
     <h2 data-i18n="fcta_h">Ready to Bring AI Inside Your Infrastructure?</h2>
     <p data-i18n="fcta_p">Deploy enterprise-grade AI on your servers. Your data stays yours.</p>
-    <a href="https://api.swipies.app/login" target="_blank" class="btn-primary" data-i18n="hero_cta1">Try Demo</a>
+    <a href="login.html" class="btn-primary" data-i18n="hero_cta1">Try Demo</a>
   </div>
 </div>
 
@@ -1232,7 +1232,8 @@ docker compose up -d --build</code></pre>
       </div>
       <div class="footer-col">
         <h4 data-i18n="footer_company">Company</h4>
-        <a href="https://swipies.app/terms.html" target="_blank" data-i18n="footer_terms">Terms of Use</a>
+        <a href="terms.html" data-i18n="footer_terms">Terms of Use</a>
+        <a href="privacy.html" data-i18n="footer_privacy">Privacy Policy</a>
         <a href="https://help.swipies.app/docs/dev/" target="_blank" data-i18n="footer_docs">Documentation</a>
       </div>
       <div class="footer-col">
@@ -1385,6 +1386,7 @@ const T = {
     footer_connect: "Connect",
     footer_tutorials: "Tutorials",
     footer_terms: "Terms of Use",
+    footer_privacy: "Privacy Policy",
     footer_docs: "Documentation",
     footer_copy: "© 2025 Swipies AI. All rights reserved."
   },
@@ -1523,6 +1525,7 @@ const T = {
     footer_connect: "Связь",
     footer_tutorials: "Обучение",
     footer_terms: "Условия",
+    footer_privacy: "Политика конфиденциальности",
     footer_docs: "Документация",
     footer_copy: "© 2025 Swipies AI. Все права защищены."
   },
@@ -1661,6 +1664,7 @@ const T = {
     footer_connect: "Aloqa",
     footer_tutorials: "Qo'llanmalar",
     footer_terms: "Foydalanish shartlari",
+    footer_privacy: "Maxfiylik siyosati",
     footer_docs: "Hujjatlar",
     footer_copy: "© 2025 Swipies AI. Barcha huquqlar himoyalangan."
   }
@@ -1797,8 +1801,7 @@ function initializeMobileMenu() {
   menuFooter.className = 'mobile-menu-footer';
   
   const tryDemoBtn = document.createElement('a');
-  tryDemoBtn.href = 'https://api.swipies.app/login';
-  tryDemoBtn.target = '_blank';
+  tryDemoBtn.href = 'login.html';
   tryDemoBtn.className = 'btn-primary';
   tryDemoBtn.setAttribute('data-i18n', 'nav_cta');
   tryDemoBtn.textContent = 'Try Demo';
