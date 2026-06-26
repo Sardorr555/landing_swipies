@@ -121,63 +121,54 @@
 
 <!-- MAIN CONTENT -->
 <main class="login-container">
-  <div class="login-box">
+  <div class="login-box" style="text-align: center;">
     <div class="login-header">
       <div class="nav-logo-center">Swipies<span>AI</span></div>
-      <h1 data-i18n="login_h1">Select Login Destination</h1>
-      <p data-i18n="login_sub">Choose the environment you want to access below.</p>
+      <h1 data-i18n="login_redirect">Redirecting to login...</h1>
+      <p data-i18n="login_redirect_sub">Please wait while we take you to the Cloud Console.</p>
     </div>
     
-    <div class="login-options">
-      <!-- Option 1: Cloud -->
-      <a href="https://api.swipies.app/login" target="_blank" class="login-option-card">
-        <h3 data-i18n="login_cloud_h">Cloud Console <span>&rarr;</span></h3>
-        <p data-i18n="login_cloud_p">Access the managed cloud platform, deploy RAG pipelines, and configure cloud LLM endpoints.</p>
-      </a>
-      
-      <!-- Option 2: On-Premise -->
-      <a href="admin.html" class="login-option-card">
-        <h3 data-i18n="login_premise_h">On-Premise Admin Panel <span>&rarr;</span></h3>
-        <p data-i18n="login_premise_p">Access the local admin dashboard on this server instance to check form submissions and analytics.</p>
-      </a>
+    <div style="margin: 2rem 0;">
+      <svg class="spinner" viewBox="0 0 50 50" style="animation: rotate 2s linear infinite; margin: 0 auto; width: 50px; height: 50px;">
+        <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5" stroke="var(--accent)" style="stroke-linecap: round; animation: dash 1.5s ease-in-out infinite;"></circle>
+      </svg>
     </div>
-    
+
     <div class="login-footer">
       <a href="/" data-i18n="login_back">&larr; Back to Homepage</a>
     </div>
   </div>
 </main>
 
+<style>
+@keyframes rotate {
+  100% { transform: rotate(360deg); }
+}
+@keyframes dash {
+  0% { stroke-dasharray: 1, 150; stroke-dashoffset: 0; }
+  50% { stroke-dasharray: 90, 150; stroke-dashoffset: -35; }
+  100% { stroke-dasharray: 90, 150; stroke-dashoffset: -124; }
+}
+</style>
+
 <script>
 const T = {
   en: {
-    login_title_page: "Login — Swipies AI",
-    login_h1: "Select Login Destination",
-    login_sub: "Choose the environment you want to access below.",
-    login_cloud_h: "Cloud Console &rarr;",
-    login_cloud_p: "Access the managed cloud platform, deploy RAG pipelines, and configure cloud LLM endpoints.",
-    login_premise_h: "On-Premise Admin Panel &rarr;",
-    login_premise_p: "Access the local admin dashboard on this server instance to check form submissions and analytics.",
+    login_title_page: "Redirecting — Swipies AI",
+    login_redirect: "Redirecting to Cloud Console...",
+    login_redirect_sub: "Please wait while we take you to the secure login page.",
     login_back: "&larr; Back to Homepage"
   },
   ru: {
-    login_title_page: "Вход — Swipies AI",
-    login_h1: "Выберите способ входа",
-    login_sub: "Выберите среду, к которой вы хотите получить доступ.",
-    login_cloud_h: "Облачная Консоль &rarr;",
-    login_cloud_p: "Доступ к управляемой облачной платформе, развертывание RAG-пайплайнов и настройка LLM.",
-    login_premise_h: "Локальная Панель Управления &rarr;",
-    login_premise_p: "Доступ к локальной панели управления на этом сервере для проверки заявок и аналитики.",
+    login_title_page: "Перенаправление — Swipies AI",
+    login_redirect: "Перенаправление в Облако...",
+    login_redirect_sub: "Пожалуйста, подождите, мы перенаправляем вас на страницу входа.",
     login_back: "&larr; На главную"
   },
   uz: {
-    login_title_page: "Kirish — Swipies AI",
-    login_h1: "Kirish yo'nalishini tanlang",
-    login_sub: "Kirishni xohlagan muhitingizni tanlang.",
-    login_cloud_h: "Bulutli Konsol &rarr;",
-    login_cloud_p: "Boshqariladigan bulut platformasiga kirish, RAG pipeline'larni joylashtirish va LLM-larni sozlash.",
-    login_premise_h: "Lokal Boshqaruv Paneli &rarr;",
-    login_premise_p: "Ushbu serverdagi lokal boshqaruv paneliga kirish (arizalar va analitikani tekshirish).",
+    login_title_page: "Yo'naltirilmoqda — Swipies AI",
+    login_redirect: "Bulutli konsolga yo'naltirilmoqda...",
+    login_redirect_sub: "Iltimos, xavfsiz kirish sahifasiga o'tilguncha kuting.",
     login_back: "&larr; Bosh sahifaga qaytish"
   }
 };
@@ -221,6 +212,11 @@ document.getElementById('langSwitch').addEventListener('click', (e) => {
 document.addEventListener('DOMContentLoaded', () => {
   const savedLang = localStorage.getItem('swipies_lang') || 'en';
   setLanguage(savedLang);
+
+  // Immediate redirect to secure cloud console
+  setTimeout(() => {
+    window.location.href = "https://api.swipies.app/login";
+  }, 800);
 });
 </script>
 </body>
