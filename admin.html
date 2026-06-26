@@ -1004,6 +1004,10 @@ input:checked + .slider:before { transform: translateX(20px); }
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
         <span>Submissions</span>
       </a>
+      <a class="nav-item" data-tab="users">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <span>Users & Referrals</span>
+      </a>
       <a class="nav-item" data-tab="languages">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
         <span>Language Stats</span>
@@ -1045,6 +1049,10 @@ input:checked + .slider:before { transform: translateX(20px); }
     <div class="mobile-nav-item" data-tab="submissions">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg>
       <span>Forms</span>
+    </div>
+    <div class="mobile-nav-item" data-tab="users">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+      <span>Users</span>
     </div>
     <div class="mobile-nav-item" data-tab="settings">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09"/></svg>
@@ -1298,6 +1306,47 @@ input:checked + .slider:before { transform: translateX(20px); }
       </div>
     </section>
 
+    <!-- ================= USERS & REFERRALS PAGE ================= -->
+    <section class="dashboard-section" id="usersTab">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+            Registered Users & Referral Analytics
+          </h3>
+          <div style="display:flex; gap:0.75rem">
+            <button class="btn-secondary-dashboard" onclick="loadUsersFromDB()">
+              <svg style="width:14px;height:14px" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+              Refresh List
+            </button>
+          </div>
+        </div>
+        
+        <div class="table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>User Account</th>
+                <th>Nickname</th>
+                <th>Date Registered</th>
+                <th>Referred By</th>
+                <th style="text-align: center;">Referrals Count</th>
+                <th style="width: 140px; text-align:right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="usersTableBody">
+              <!-- Populated via Javascript -->
+            </tbody>
+          </table>
+        </div>
+        
+        <div id="usersEmptyState" class="empty-state" style="display:none">
+          <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 21v-2a4 4 0 00-3-3.87m4-12a4 4 0 010 7.75M9 21h.01M3 21h.01M12 21h.01M12 17h.01M9 17h.01M6 17h.01M6 13h.01M9 13h.01M12 13h.01M6 9h.01M9 9h.01M12 9h.01M3 17h.01M3 13h.01M3 9h.01M3 5h.01M6 5h.01M9 5h.01M12 5h.01"/></svg>
+          <p>No registered users found on the database.</p>
+        </div>
+      </div>
+    </section>
+
     <!-- ================= LANGUAGE STATS PAGE ================= -->
     <section class="dashboard-section" id="languagesTab">
       <div class="dashboard-grid equal">
@@ -1505,10 +1554,15 @@ function switchTab(tabId) {
     visitors: 'Visitors & Traffic',
     conversions: 'Conversions & Goals',
     submissions: 'Form Submissions',
+    users: 'Users & Referral Program',
     languages: 'Language Stats',
     settings: 'Dashboard Settings'
   };
   document.getElementById('tabTitle').textContent = displayNames[tabId] || 'Dashboard';
+  
+  if (tabId === 'users') {
+    loadUsersFromDB();
+  }
   
   // Resize charts to prevent render overlap spacing bugs
   if (tabId === 'visitors') {
@@ -2135,27 +2189,67 @@ function renderTopPagesTable(totalUsers) {
 }
 
 /* ========================================================================
-   SUBMISSIONS MANAGER & LOCAL STORAGE CONTROLLER
+   SUBMISSIONS & USERS DATABASE INTEGRATION CONTROLLER
 ========================================================================
 */
 
+let usingDB = false;
+let databaseUsers = [];
+
 function initializeSubmissions() {
-  // Load submissions from localStorage
-  try {
-    databaseSubmissions = JSON.parse(localStorage.getItem('swipies_submissions') || '[]');
-  } catch (err) {
-    console.error(err);
-    databaseSubmissions = [];
-  }
-  
-  renderSubmissionsTable();
-  renderLatestOverviewSubmissions();
+  loadLeadsFromDB();
+}
+
+function mapDatabaseLeads(leads) {
+  return leads.map(sub => ({
+    id: sub.id,
+    company: sub.company || '',
+    name: sub.name || '',
+    email: sub.email || '',
+    phone: sub.phone || '',
+    message: sub.message || '',
+    referralCode: sub.referral_code || '',
+    date: sub.create_date || new Date().toISOString(),
+    read: sub.status !== '1'
+  }));
+}
+
+function loadLeadsFromDB() {
+  fetch('/api/v1/leads')
+    .then(res => {
+      if (res.status === 401 || res.status === 403) {
+        throw new Error('Unauthorized');
+      }
+      return res.json();
+    })
+    .then(res => {
+      if (res && res.code === 0 && Array.isArray(res.data)) {
+        usingDB = true;
+        databaseSubmissions = mapDatabaseLeads(res.data);
+        renderSubmissionsTable();
+        renderLatestOverviewSubmissions();
+      } else {
+        throw new Error('API returned error');
+      }
+    })
+    .catch(err => {
+      console.warn('Could not load submissions from DB, falling back to localStorage:', err.message);
+      usingDB = false;
+      try {
+        databaseSubmissions = JSON.parse(localStorage.getItem('swipies_submissions') || '[]');
+      } catch (e) {
+        databaseSubmissions = [];
+      }
+      renderSubmissionsTable();
+      renderLatestOverviewSubmissions();
+    });
 }
 
 function renderSubmissionsTable() {
   const body = document.getElementById('submissionsTableBody');
   const emptyState = document.getElementById('submissionsEmptyState');
   
+  if (!body) return;
   body.innerHTML = '';
   
   if (databaseSubmissions.length === 0) {
@@ -2179,12 +2273,16 @@ function renderSubmissionsTable() {
       
     const readBtnLabel = sub.read ? 'Mark Unread' : 'Mark Read';
 
+    const refBadge = sub.referralCode 
+      ? ` <span style="background:rgba(var(--accent-rgb), 0.12);color:var(--accent);padding:2px 6px;border-radius:4px;font-size:0.7rem;font-family:var(--font-mono);font-weight:600;border:1px solid rgba(var(--accent-rgb), 0.3);margin-left:0.5rem">Ref: ${sub.referralCode}</span>` 
+      : '';
+
     const row = document.createElement('tr');
     row.id = `row_${sub.id}`;
     row.innerHTML = `
       <td>${statusBadge}</td>
       <td>
-        <div style="font-weight:600">${sub.name}</div>
+        <div style="font-weight:600;display:flex;align-items:center">${sub.name}${refBadge}</div>
         <div style="font-size:0.8rem;color:var(--text-muted)">${sub.company}</div>
       </td>
       <td class="mono-val" style="font-size:0.85rem">
@@ -2208,6 +2306,7 @@ function renderSubmissionsTable() {
 
 function renderLatestOverviewSubmissions() {
   const container = document.getElementById('overviewLatestSubs');
+  if (!container) return;
   container.innerHTML = '';
   
   const latest = databaseSubmissions.slice(0, 3);
@@ -2231,13 +2330,17 @@ function renderLatestOverviewSubmissions() {
       ? `<span style="width:8px; height:8px; background:var(--accent); border-radius:50%; flex-shrink:0" title="New message"></span>`
       : ``;
 
+    const refBadge = sub.referralCode 
+      ? ` <span style="background:rgba(var(--accent-rgb), 0.12);color:var(--accent);padding:2px 6px;border-radius:4px;font-size:0.7rem;font-family:var(--font-mono);font-weight:600;border:1px solid rgba(var(--accent-rgb), 0.3);margin-left:0.5rem">Ref: ${sub.referralCode}</span>` 
+      : '';
+
     const subCard = document.createElement('div');
     subCard.style.cssText = 'background:var(--bg3); border:1px solid var(--border); border-radius:var(--radius); padding:1rem; display:flex; align-items:center; justify-content:space-between; gap:1rem;';
     subCard.innerHTML = `
       <div style="display:flex; align-items:center; gap:0.75rem; overflow:hidden">
         ${unreadIndicator}
         <div style="overflow:hidden">
-          <div style="font-weight:600; font-size:0.9rem">${sub.name}</div>
+          <div style="font-weight:600; font-size:0.9rem; display:flex; align-items:center">${sub.name}${refBadge}</div>
           <div style="font-size:0.75rem; color:var(--text-muted); text-overflow:ellipsis; overflow:hidden; white-space:nowrap">${sub.company} · ${sub.message}</div>
         </div>
       </div>
@@ -2248,37 +2351,93 @@ function renderLatestOverviewSubmissions() {
 }
 
 function toggleReadStatus(id) {
-  databaseSubmissions = databaseSubmissions.map(sub => {
-    if (sub.id === id) {
-      sub.read = !sub.read;
-      showToast('Status Updated', `Submission marked as ${sub.read ? 'read' : 'unread'}.`, 'success');
-    }
-    return sub;
-  });
-  localStorage.setItem('swipies_submissions', JSON.stringify(databaseSubmissions));
-  renderSubmissionsTable();
-  renderLatestOverviewSubmissions();
-}
-
-function deleteSubmission(id) {
-  databaseSubmissions = databaseSubmissions.filter(sub => sub.id !== id);
-  localStorage.setItem('swipies_submissions', JSON.stringify(databaseSubmissions));
-  showToast('Record Deleted', 'Submission deleted from local storage database.', 'success');
-  renderSubmissionsTable();
-  renderLatestOverviewSubmissions();
-}
-
-function clearAllSubmissions() {
-  if (confirm("Are you sure you want to delete ALL submission records? This action is permanent!")) {
-    databaseSubmissions = [];
-    localStorage.removeItem('swipies_submissions');
-    showToast('Database Purged', 'All contact requests deleted.', 'error');
+  if (usingDB) {
+    const sub = databaseSubmissions.find(s => s.id === id);
+    if (!sub) return;
+    const newRead = !sub.read;
+    const newStatus = newRead ? '2' : '1';
+    fetch(`/api/v1/leads/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ status: newStatus })
+    }).then(res => res.json())
+      .then(res => {
+        if (res && res.code === 0) {
+          showToast('Status Updated', `Submission marked as ${newRead ? 'read' : 'unread'}.`, 'success');
+          loadLeadsFromDB();
+        } else {
+          showToast('Update Failed', res.message || 'Error updating status in database.', 'error');
+        }
+      })
+      .catch(err => {
+        showToast('Update Failed', 'Network error updating database.', 'error');
+      });
+  } else {
+    databaseSubmissions = databaseSubmissions.map(sub => {
+      if (sub.id === id) {
+        sub.read = !sub.read;
+        showToast('Status Updated', `Submission marked as ${sub.read ? 'read' : 'unread'}.`, 'success');
+      }
+      return sub;
+    });
+    localStorage.setItem('swipies_submissions', JSON.stringify(databaseSubmissions));
     renderSubmissionsTable();
     renderLatestOverviewSubmissions();
   }
 }
 
-// Full Export to CSV Generation and Dynamic Download trigger
+function deleteSubmission(id) {
+  if (usingDB) {
+    if (confirm("Are you sure you want to delete this submission from the database?")) {
+      fetch(`/api/v1/leads/${id}`, {
+        method: 'DELETE'
+      }).then(res => res.json())
+        .then(res => {
+          if (res && res.code === 0) {
+            showToast('Record Deleted', 'Submission deleted from database.', 'success');
+            loadLeadsFromDB();
+          } else {
+            showToast('Delete Failed', res.message || 'Error deleting from database.', 'error');
+          }
+        })
+        .catch(err => {
+          showToast('Delete Failed', 'Network error deleting from database.', 'error');
+        });
+    }
+  } else {
+    databaseSubmissions = databaseSubmissions.filter(sub => sub.id !== id);
+    localStorage.setItem('swipies_submissions', JSON.stringify(databaseSubmissions));
+    showToast('Record Deleted', 'Submission deleted from local storage database.', 'success');
+    renderSubmissionsTable();
+    renderLatestOverviewSubmissions();
+  }
+}
+
+function clearAllSubmissions() {
+  if (confirm("Are you sure you want to delete ALL submission records? This action is permanent!")) {
+    if (usingDB) {
+      const deletePromises = databaseSubmissions.map(sub => 
+        fetch(`/api/v1/leads/${sub.id}`, { method: 'DELETE' }).then(res => res.json())
+      );
+      Promise.all(deletePromises)
+        .then(() => {
+          showToast('Database Purged', 'All contact requests deleted from database.', 'error');
+          loadLeadsFromDB();
+        })
+        .catch(() => {
+          showToast('Purge Failed', 'Error deleting some records from database.', 'error');
+          loadLeadsFromDB();
+        });
+    } else {
+      databaseSubmissions = [];
+      localStorage.removeItem('swipies_submissions');
+      showToast('Database Purged', 'All contact requests deleted.', 'error');
+      renderSubmissionsTable();
+      renderLatestOverviewSubmissions();
+    }
+  }
+}
+
 function exportSubmissionsToCSV() {
   if (databaseSubmissions.length === 0) {
     showToast('Export Cancelled', 'No submission records to export.', 'error');
@@ -2286,13 +2445,13 @@ function exportSubmissionsToCSV() {
   }
 
   let csvContent = "data:text/csv;charset=utf-8,";
-  csvContent += "ID,Name,Company,Email,Phone,Message,Date,Read Status\n";
+  csvContent += "ID,Name,Company,Email,Phone,Message,Date,Read Status,Referral Code\n";
 
   databaseSubmissions.forEach(sub => {
-    // Sanitize quotes in message
     const cleanMsg = sub.message.replace(/"/g, '""');
     const readLabel = sub.read ? "READ" : "UNREAD";
-    csvContent += `"${sub.id}","${sub.name}","${sub.company}","${sub.email}","${sub.phone}","${cleanMsg}","${sub.date}","${readLabel}"\n`;
+    const refVal = sub.referralCode || "";
+    csvContent += `"${sub.id}","${sub.name}","${sub.company}","${sub.email}","${sub.phone}","${cleanMsg}","${sub.date}","${readLabel}","${refVal}"\n`;
   });
 
   const encodedUri = encodeURI(csvContent);
@@ -2305,6 +2464,144 @@ function exportSubmissionsToCSV() {
   document.body.removeChild(downloadLink);
   
   showToast('Export Complete', 'Generated CSV download file successfully.', 'success');
+}
+
+/* ========================================================================
+   PLATFORM USERS & REFERRALS SYSTEM
+========================================================================
+*/
+
+function loadUsersFromDB() {
+  const body = document.getElementById('usersTableBody');
+  const emptyState = document.getElementById('usersEmptyState');
+  if (!body) return;
+  
+  body.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--text-muted)">Loading platform users from main database...</td></tr>';
+  if (emptyState) emptyState.style.display = 'none';
+
+  fetch('/api/v1/admin/users')
+    .then(res => {
+      if (res.status === 401 || res.status === 403) {
+        throw new Error('Unauthorized');
+      }
+      return res.json();
+    })
+    .then(res => {
+      if (res && res.code === 0 && Array.isArray(res.data)) {
+        databaseUsers = res.data;
+        renderUsersTable();
+      } else {
+        throw new Error((res && res.message) || 'Failed to retrieve users');
+      }
+    })
+    .catch(err => {
+      console.error('Error fetching users from DB:', err);
+      body.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--red)">
+        Failed to load users: ${err.message}. Ensure you are logged in to the Swipies platform as an administrator.
+      </td></tr>`;
+    });
+}
+
+function renderUsersTable() {
+  const body = document.getElementById('usersTableBody');
+  const emptyState = document.getElementById('usersEmptyState');
+  if (!body) return;
+  body.innerHTML = '';
+
+  if (databaseUsers.length === 0) {
+    if (emptyState) emptyState.style.display = 'flex';
+    return;
+  }
+
+  if (emptyState) emptyState.style.display = 'none';
+
+  databaseUsers.forEach(user => {
+    const formattedDate = user.create_date 
+      ? new Date(user.create_date.replace(/-/g, '/')).toLocaleString(undefined, {
+          month: 'short',
+          day: 'numeric',
+          year: 'numeric'
+        })
+      : '—';
+
+    const isActive = user.is_active !== 0;
+    const statusBadge = isActive 
+      ? `<span class="badge-read" style="background:rgba(46,204,113,0.15);color:#2ecc71">Active</span>` 
+      : `<span class="badge-unread" style="background:rgba(231,76,60,0.15);color:#e74c3c">Suspended</span>`;
+
+    const toggleBtnLabel = isActive ? 'Suspend' : 'Activate';
+    const toggleActionClass = isActive ? 'delete' : '';
+    
+    const isSuper = user.is_superuser ? '<span style="background:var(--accent);color:var(--bg);font-size:0.65rem;padding:1px 4px;border-radius:3px;margin-left:0.4rem;font-weight:700">ADMIN</span>' : '';
+
+    const referrerInfo = user.referred_by_email 
+      ? `<div style="font-size:0.8rem;color:var(--text-muted)">${user.referred_by_email}</div>`
+      : `<div style="font-size:0.8rem;color:var(--text-dim)">Direct / Organic</div>`;
+
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>
+        <div style="font-weight:600;display:flex;align-items:center">${user.email}${isSuper}</div>
+        <div style="font-size:0.75rem;color:var(--text-dim);font-family:var(--font-mono)">ID: ${user.id}</div>
+      </td>
+      <td>
+        <div style="font-weight:500">${user.nickname || '—'}</div>
+      </td>
+      <td class="mono-val" style="font-size:0.85rem">${formattedDate}</td>
+      <td>
+        ${referrerInfo}
+      </td>
+      <td style="text-align: center; font-weight: 700; font-size: 1rem; color: var(--accent);">
+        ${user.referrals_count || 0}
+      </td>
+      <td style="text-align:right">
+        <div style="display:flex; gap:0.5rem; justify-content:flex-end">
+          <button class="btn-action ${toggleActionClass}" onclick="toggleUserStatus('${user.email}', ${isActive})">${toggleBtnLabel}</button>
+          <button class="btn-action delete" onclick="deleteUser('${user.email}')">Delete</button>
+        </div>
+      </td>
+    `;
+    body.appendChild(row);
+  });
+}
+
+function toggleUserStatus(email, currentlyActive) {
+  const newStatus = currentlyActive ? 'off' : 'on';
+  fetch(`/api/v1/admin/users/${email}/activate`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ activate_status: newStatus })
+  }).then(res => res.json())
+    .then(res => {
+      if (res && res.code === 0) {
+        showToast('User Status Updated', `User account ${email} status set to ${newStatus === 'on' ? 'active' : 'suspended'}.`, 'success');
+        loadUsersFromDB();
+      } else {
+        showToast('Update Failed', res.message || 'Error updating status.', 'error');
+      }
+    })
+    .catch(err => {
+      showToast('Update Failed', 'Network error calling admin API.', 'error');
+    });
+}
+
+function deleteUser(email) {
+  if (confirm(`Are you sure you want to delete user ${email}? This will delete all user data from the platform database!`)) {
+    fetch(`/api/v1/admin/users/${email}`, {
+      method: 'DELETE'
+    }).then(res => res.json())
+      .then(res => {
+        if (res && res.code === 0) {
+          showToast('User Deleted', `User ${email} deleted successfully.`, 'success');
+          loadUsersFromDB();
+        } else {
+          showToast('Delete Failed', res.message || 'Error deleting user.', 'error');
+        }
+      })
+      .catch(err => {
+        showToast('Delete Failed', 'Network error calling admin API.', 'error');
+      });
+  }
 }
 
 /* ========================================================================
