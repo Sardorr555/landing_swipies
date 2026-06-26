@@ -91,15 +91,34 @@
 }
 </script>
 
-  <!-- Google Analytics GA4 (Dynamic Integration with Swipies AI Admin Settings) -->
+  <!-- Analytics Integration: GA4 & Yandex Metrika (Dynamic configurations) -->
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
+    window.ym = window.ym || function() { (ym.a = ym.a || []).push(arguments) }; ym.l = 1 * new Date();
+
+    // Universal Helper for Event Tracking
+    window.trackAnalyticsEvent = function (eventName, params = {}) {
+      const isTrackingEnabled = localStorage.getItem('swipies_analytics_enabled') !== 'false';
+      if (!isTrackingEnabled) return;
+
+      // Google Analytics Event
+      if (typeof gtag === 'function') {
+        gtag('event', eventName, params);
+      }
+
+      // Yandex Metrika Goal
+      if (typeof ym === 'function') {
+        const ymId = localStorage.getItem('swipies_ym_counter_id') || '97561823';
+        ym(parseInt(ymId), 'reachGoal', eventName, params);
+      }
+    };
 
     // Connect with local configurations managed by the Swipies AI Admin Panel
     (function () {
       const isTrackingEnabled = localStorage.getItem('swipies_analytics_enabled') !== 'false';
       if (isTrackingEnabled) {
+        // 1. Google Analytics 4 (GA4)
         const measurementId = localStorage.getItem('swipies_ga_measurement_id') || 'G-SWIPIES2025';
         gtag('js', new Date());
         gtag('config', measurementId);
@@ -108,6 +127,20 @@
         gaScript.async = true;
         gaScript.src = `https://www.googletagmanager.com/gtag/js?id=${measurementId}`;
         document.head.appendChild(gaScript);
+
+        // 2. Yandex Metrika Counter
+        const ymId = localStorage.getItem('swipies_ym_counter_id') || '97561823';
+        ym(parseInt(ymId), "init", {
+          clickmap: true,
+          trackLinks: true,
+          accurateTrackBounce: true,
+          webvisor: true
+        });
+
+        const ymScript = document.createElement('script');
+        ymScript.async = true;
+        ymScript.src = "https://mc.yandex.ru/metrika/tag.js";
+        document.head.appendChild(ymScript);
       }
     })();
   </script>
@@ -2518,9 +2551,9 @@ docker compose up -d --build</code></pre>
       if (!T[lang]) return;
       currentLang = lang;
 
-      // Trigger GA4 event if actively switched by user
-      if (activeClick && typeof gtag === 'function') {
-        gtag('event', 'language_switch', { language: lang });
+      // Trigger GA4 and Yandex Metrika event if actively switched by user
+      if (activeClick) {
+        trackAnalyticsEvent('language_switch', { language: lang });
       }
 
       // Update language selector buttons globally across all desktop & mobile switchers
@@ -2767,10 +2800,8 @@ docker compose up -d --build</code></pre>
           console.error('Error posting lead to main database:', err);
         });
 
-      // Trigger Google Analytics 4 form submission event
-      if (typeof gtag === 'function') {
-        gtag('event', 'form_submit');
-      }
+      // Trigger GA4 & Yandex Metrika form submission event
+      trackAnalyticsEvent('form_submit');
 
       const submitBtn = event.target.querySelector('button[type="submit"]');
       submitBtn.disabled = true;
@@ -2789,7 +2820,7 @@ docker compose up -d --build</code></pre>
       return false;
     };
 
-    // Global CTA Click Event Tracking Delegate for GA4
+    // Global CTA Click Event Tracking Delegate for GA4 & Yandex Metrika
     document.addEventListener('click', (e) => {
       const link = e.target.closest('a');
       if (!link) return;
@@ -2798,10 +2829,10 @@ docker compose up -d --build</code></pre>
       const isDemo = href.includes('api.swipies.app') || link.getAttribute('data-i18n') === 'nav_cta' || link.getAttribute('data-i18n') === 'hero_cta1' || link.getAttribute('data-i18n') === 'starter_cta';
       const isSales = href === '#contact' || link.getAttribute('data-i18n') === 'hero_cta2' || link.getAttribute('data-i18n') === 'ent_cta';
 
-      if (isDemo && typeof gtag === 'function') {
-        gtag('event', 'demo_click');
-      } else if (isSales && typeof gtag === 'function') {
-        gtag('event', 'sales_click');
+      if (isDemo) {
+        trackAnalyticsEvent('demo_click');
+      } else if (isSales) {
+        trackAnalyticsEvent('sales_click');
       }
     });
 

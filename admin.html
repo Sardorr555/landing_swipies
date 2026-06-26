@@ -1406,11 +1406,17 @@ input:checked + .slider:before { transform: translateX(20px); }
                 <label>Site URL Reference</label>
                 <input type="text" id="settingSiteUrl" value="https://swipies.app" readonly>
               </div>
+
+              <div class="form-group" style="margin-top:0.5rem">
+                <label>Yandex Metrika Counter ID</label>
+                <input type="text" id="settingYmId" placeholder="e.g. 97561823">
+                <span style="font-size:0.75rem; color:var(--text-dim)">Injects tag.js and fires reachGoal events.</span>
+              </div>
               
-              <div class="toggle-group" style="border-bottom: 1px solid var(--border); padding-bottom:1rem">
+              <div class="toggle-group" style="border-bottom: 1px solid var(--border); padding-bottom:1.5rem">
                 <div class="toggle-info">
-                  <span class="toggle-label">Enable GA4 Site Tracking</span>
-                  <span class="toggle-desc">Inject scripts and fire events on the public landing page.</span>
+                  <span class="toggle-label">Enable Analytics Site Tracking</span>
+                  <span class="toggle-desc">Inject scripts and fire events (GA4 & Yandex Metrika) on the public landing page.</span>
                 </div>
                 <label class="switch">
                   <input type="checkbox" id="settingAnalyticsToggle" checked>
@@ -2611,6 +2617,7 @@ function deleteUser(email) {
 
 function loadSettings() {
   document.getElementById('settingGaId').value = localStorage.getItem('swipies_ga_measurement_id') || 'G-SWIPIES2025';
+  document.getElementById('settingYmId').value = localStorage.getItem('swipies_ym_counter_id') || '97561823';
   document.getElementById('settingServiceEmail').value = localStorage.getItem('swipies_ga_service_email') || '';
   document.getElementById('settingServiceKey').value = localStorage.getItem('swipies_ga_service_key') || '';
   document.getElementById('settingAnalyticsToggle').checked = localStorage.getItem('swipies_analytics_enabled') !== 'false';
@@ -2620,6 +2627,7 @@ function saveSettings(event) {
   event.preventDefault();
   
   const gaId = document.getElementById('settingGaId').value.trim();
+  const ymId = document.getElementById('settingYmId').value.trim();
   const serviceEmail = document.getElementById('settingServiceEmail').value.trim();
   const serviceKey = document.getElementById('settingServiceKey').value.trim();
   const analyticsToggle = document.getElementById('settingAnalyticsToggle').checked;
@@ -2627,6 +2635,7 @@ function saveSettings(event) {
 
   // Persist configurations
   localStorage.setItem('swipies_ga_measurement_id', gaId);
+  localStorage.setItem('swipies_ym_counter_id', ymId);
   localStorage.setItem('swipies_ga_service_email', serviceEmail);
   localStorage.setItem('swipies_ga_service_key', serviceKey);
   localStorage.setItem('swipies_analytics_enabled', analyticsToggle ? 'true' : 'false');
