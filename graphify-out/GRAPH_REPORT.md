@@ -1,16 +1,16 @@
-# Graph Report - new site for swipies  (2026-06-12)
+# Graph Report - new site for swipies  (2026-06-25)
 
 ## Corpus Check
-- 65 files · ~164,229 words
+- 65 files · ~167,787 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 2179 nodes · 2142 edges · 89 communities (71 shown, 18 thin omitted)
+- 2178 nodes · 2142 edges · 88 communities (71 shown, 17 thin omitted)
 - Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 33 edges (avg confidence: 0.89)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `b4b9ad98`
+- Built from commit: `45e0ac2b`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -26,7 +26,6 @@
 - [[_COMMUNITY_Community 8|Community 8]]
 - [[_COMMUNITY_Community 9|Community 9]]
 - [[_COMMUNITY_Community 10|Community 10]]
-- [[_COMMUNITY_Community 11|Community 11]]
 - [[_COMMUNITY_Community 12|Community 12]]
 - [[_COMMUNITY_Community 13|Community 13]]
 - [[_COMMUNITY_Community 14|Community 14]]
@@ -132,7 +131,7 @@
 ## Import Cycles
 - None detected.
 
-## Communities (89 total, 18 thin omitted)
+## Communities (88 total, 17 thin omitted)
 
 ### Community 0 - "Community 0"
 Cohesion: 0.06
@@ -419,9 +418,9 @@ Cohesion: 0.67
 Nodes (3): 9. Agent Prompt Guide, Example Component Prompts, Quick Color Reference
 
 ## Knowledge Gaps
-- **1577 isolated node(s):** `icons`, `revealObserver`, `T`, `🚫 Banned colors`, `🚫 Banned typography` (+1572 more)
+- **1576 isolated node(s):** `icons`, `revealObserver`, `T`, `🚫 Banned colors`, `🚫 Banned typography` (+1571 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **18 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **17 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
@@ -434,8 +433,8 @@ _Questions this graph is uniquely positioned to answer:_
   _High betweenness centrality (0.012) - this node is a cross-community bridge._
 - **Are the 13 inferred relationships involving `Design System: Composio` (e.g. with `Design System: Cursor` and `Design System: ElevenLabs`) actually correct?**
   _`Design System: Composio` has 13 INFERRED edges - model-reasoned connections that need verification._
-- **What connects `BM25 ranking algorithm for text search`, `Lowercase, split, remove punctuation, filter short words`, `Build BM25 index from documents` to the rest of the system?**
-  _1616 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **What connects `icons`, `revealObserver`, `T` to the rest of the system?**
+  _1615 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Community 0` be split into smaller, more focused modules?**
   _Cohesion score 0.05520614954577219 - nodes in this community are weakly interconnected._
 - **Should `Community 1` be split into smaller, more focused modules?**

@@ -805,11 +805,15 @@
         grid-template-columns: 1fr 1fr;
         gap: 1.25rem;
       }
+
+      .feature-card:nth-child(5) {
+        grid-column: span 2;
+      }
     }
 
     @media (min-width: 1024px) {
       .feature-grid {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(6, 1fr);
         gap: 1px;
         background: var(--border2);
         border: 1px solid var(--border2);
@@ -819,6 +823,17 @@
         border: none;
         border-radius: 0;
         padding: 2.25rem;
+      }
+
+      .feature-card:nth-child(1),
+      .feature-card:nth-child(2) {
+        grid-column: span 3;
+      }
+
+      .feature-card:nth-child(3),
+      .feature-card:nth-child(4),
+      .feature-card:nth-child(5) {
+        grid-column: span 2;
       }
     }
 
@@ -1690,6 +1705,16 @@
           <p data-i18n="sol4_p">Embed Swipies AI into your own product under your brand. Offer AI-powered features to
             your clients — powered by their data, on your infrastructure.</p>
         </div>
+        <div class="feature-card">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+              <circle cx="12" cy="10" r="3" />
+            </svg>
+          </div>
+          <h3 data-i18n="sol5_h">Uzbekistan Local Deployment</h3>
+          <p data-i18n="sol5_p">Deploy AI models on secure high-performance servers physically located within the Republic of Uzbekistan, ensuring compliance with local data localization laws.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -2001,6 +2026,18 @@ docker compose up -d --build</code></pre>
               without external internet connection.</div>
           </div>
         </div>
+        <div class="faq-item">
+          <button class="faq-question" data-i18n="faq7_q">
+            Can we deploy AI models on servers in Uzbekistan?
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="12" y1="5" x2="12" y2="19" />
+              <line x1="5" y1="12" x2="19" y2="12" />
+            </svg>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner" data-i18n="faq7_a">Yes, absolutely. We support deploying LLMs and RAG pipelines directly on servers located in Uzbekistan. This ensures 100% compliance with local data localization laws (such as Article 27.1 of the Law of the Republic of Uzbekistan 'On Personal Data'), keeping all sensitive data inside the national border.</div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -2158,6 +2195,8 @@ docker compose up -d --build</code></pre>
         sol3_p: "Support for OpenAI, Anthropic Claude, xAI Grok, and fully local models via Ollama. Switch models without changing infrastructure.",
         sol4_h: "Full White-Label for SaaS",
         sol4_p: "Embed Swipies AI into your own product under your brand. Offer AI-powered features to your clients — powered by their data, on your infrastructure.",
+        sol5_h: "Uzbekistan Local Deployment",
+        sol5_p: "Deploy AI models on secure high-performance servers physically located within the Republic of Uzbekistan, ensuring compliance with local data localization laws.",
         how_num: "03 — How It Works",
         how_title: "Deployed in 10 Business Days",
         how1_h: "Infrastructure Audit",
@@ -2238,6 +2277,8 @@ docker compose up -d --build</code></pre>
         faq5_a: "RAG (Retrieval-Augmented Generation) is a technique where AI retrieves relevant information from your specific data before generating an answer. Unlike generic AI, RAG ensures responses are grounded in your actual documents and knowledge — making it accurate, relevant, and trustworthy for enterprise use.",
         faq6_q: "How does the self-hosted license work?",
         faq6_a: "You can download our Docker Compose or Kubernetes Helm charts, install Swipies AI on your local servers, and enter the purchased license key in the web interface. This unlocks the full platform capability, removes limits, and enables offline operation without external internet connection.",
+        faq7_q: "Can we deploy AI models on servers in Uzbekistan?",
+        faq7_a: "Yes, absolutely. We support deploying LLMs and RAG pipelines directly on servers located in Uzbekistan. This ensures 100% compliance with local data localization laws (such as Article 27.1 of the Law of the Republic of Uzbekistan 'On Personal Data'), keeping all sensitive data inside the national border.",
         contact_num: "09 — Contact",
         contact_title: "Let's Talk About Your Deployment",
         form_company: "Company Name",
@@ -2297,6 +2338,8 @@ docker compose up -d --build</code></pre>
         sol3_p: "Поддержка OpenAI, Anthropic Claude, xAI Grok и полностью локальных моделей через Ollama. Переключайте модели без изменения инфраструктуры.",
         sol4_h: "Полный White-Label для SaaS",
         sol4_p: "Встройте Swipies AI в свой продукт под своим брендом. Предлагайте AI-функции клиентам — на вашей инфраструктуре.",
+        sol5_h: "Локальные серверы в Узбекистане",
+        sol5_p: "Развертывание моделей ИИ на высокопроизводительных серверах, физически расположенных на территории Республики Узбекистан в полном соответствии с местным законодательством.",
         how_num: "03 — Как это работает",
         how_title: "Развёртывание за 10 рабочих дней",
         how1_h: "Аудит инфраструктуры",
@@ -2377,6 +2420,8 @@ docker compose up -d --build</code></pre>
         faq5_a: "RAG (Retrieval-Augmented Generation) — технология, при которой AI извлекает релевантную информацию из ваших данных перед генерацией ответа. Ответы основаны на ваших документах — точные и достоверные.",
         faq6_q: "Как работает лицензия self-hosted?",
         faq6_a: "Вы загружаете наши Docker Compose или Kubernetes Helm-чарты, устанавливаете Swipies AI на собственные серверы и вводите купленный лицензионный ключ в веб-интерфейсе. Это разблокирует все возможности платформы, снимает ограничения и позволяет работать локально без подключения к интернету.",
+        faq7_q: "Можно ли развернуть модели ИИ на серверах в Узбекистане?",
+        faq7_a: "Да, конечно. Мы поддерживаем развертывание языковых моделей (LLM) и RAG-систем на серверах, физически расположенных на территории Узбекистана. Это гарантирует 100% соответствие требованиям законодательства Республики Узбекистан (в частности, статье 27.1 Закона «О персональных данных»).",
         contact_num: "09 — Контакты",
         contact_title: "Обсудим ваше развертывание",
         form_company: "Компания",
@@ -2436,6 +2481,8 @@ docker compose up -d --build</code></pre>
         sol3_p: "OpenAI, Anthropic Claude, xAI Grok va Ollama orqali to'liq lokal modellar qo'llab-quvvatlanadi.",
         sol4_h: "SaaS uchun to'liq White-Label",
         sol4_p: "Swipies AI'ni o'z brendingiz ostida mahsulotingizga joylashtiring. Mijozlaringizga AI imkoniyatlarini taklif qiling.",
+        sol5_h: "O'zbekistondagi lokal serverlar",
+        sol5_p: "AI modellarini O'zbekiston Respublikasi hududida joylashgan yuqori unumdorlikka ega serverlarda ishga tushiring va mahalliy ma'lumotlarni saqlash qonunlariga mosligini ta'minlang.",
         how_num: "03 — Qanday ishlaydi",
         how_title: "10 ish kunida joylashtiriladi",
         how1_h: "Infratuzilma auditi",
@@ -2516,6 +2563,8 @@ docker compose up -d --build</code></pre>
         faq5_a: "RAG — javob yaratishdan oldin AI sizning ma'lumotlaringizdan tegishli axborotni oladi. Javoblar haqiqiy hujjatlarga asoslangan — aniq va ishonchli.",
         faq6_q: "Self-hosted litsenziya qanday ishlaydi?",
         faq6_a: "Siz bizning Docker Compose yoki Kubernetes Helm-chartlarimizni yuklab olasiz, Swipies AI-ni o'z serverlaringizga o'rnatasiz va sotib olingan litsenziya kalitini veb-interfeysda kiritasiz. Bu platformaning barcha imkoniyatlarini ochadi, cheklovlarni olib tashlaydi va internetga ulanmasdan lokal ishlash imkonini beradi.",
+        faq7_q: "AI modellarini O'zbekistondagi serverlarga o'rnatish mumkinmi?",
+        faq7_a: "Albatta. Biz LLM va RAG tizimlarini to'g'ridan-to'g'ri O'zbekiston hududida joylashgan serverlarda ishga tushirishni to'liq qo'llab-quvvatlaymiz. Bu shaxsiy ma'lumotlarni saqlashga oid qonunchilik talablariga (xususan, 'Shaxsiy ma'lumotlar to'g'risida'gi qonunning 27.1-moddasiga) to'liq mos kelishini ta'minlaydi.",
         contact_num: "09 — Aloqa",
         contact_title: "Joylashtirishingizni muhokama qilaylik",
         form_company: "Kompaniya nomi",

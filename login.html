@@ -132,6 +132,7 @@
       <svg class="spinner" viewBox="0 0 50 50" style="animation: rotate 2s linear infinite; margin: 0 auto; width: 50px; height: 50px;">
         <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5" stroke="var(--accent)" style="stroke-linecap: round; animation: dash 1.5s ease-in-out infinite;"></circle>
       </svg>
+      <div id="referralStatus" style="font-size:0.8rem; color:var(--accent); margin-top:1.5rem; font-family:var(--font-mono); display:none;"></div>
     </div>
 
     <div class="login-footer">
@@ -213,10 +214,30 @@ document.addEventListener('DOMContentLoaded', () => {
   const savedLang = localStorage.getItem('swipies_lang') || 'en';
   setLanguage(savedLang);
 
+  // Capture referral parameter in login page too
+  const urlParams = new URLSearchParams(window.location.search);
+  const refCode = urlParams.get('ref') || urlParams.get('aff') || urlParams.get('promo') || urlParams.get('referrer');
+  if (refCode) {
+    localStorage.setItem('swipies_ref', refCode);
+  }
+
+  const activeRef = localStorage.getItem('swipies_ref');
+  if (activeRef) {
+    const statusDiv = document.getElementById('referralStatus');
+    if (statusDiv) {
+      statusDiv.textContent = `Applying referral partner: ${activeRef}`;
+      statusDiv.style.display = 'block';
+    }
+  }
+
   // Immediate redirect to secure cloud console
   setTimeout(() => {
-    window.location.href = "https://api.swipies.app/login";
-  }, 800);
+    let redirectUrl = "https://api.swipies.app/login";
+    if (activeRef) {
+      redirectUrl += "?ref=" + encodeURIComponent(activeRef);
+    }
+    window.location.href = redirectUrl;
+  }, 1000);
 });
 </script>
 </body>
