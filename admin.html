@@ -2829,10 +2829,35 @@ function deleteUser(email) {
 
 /* ========================================================================
    SETTINGS PERSISTENCE & ANALYTICS TOGGLES
-========================================function loadSettings() {
-  let propertyId = localStorage.getItem('swipies_ga_property_id') || '';
-  let measurementId = localStorage.getItem('swipies_ga_measurement_id') || 'G-SWIPIES2025';
+========================================================================
+*/
+
+function loadSettings() {
+  let propertyId = localStorage.getItem('swipies_ga_property_id');
+  let measurementId = localStorage.getItem('swipies_ga_measurement_id');
+  let serviceEmail = localStorage.getItem('swipies_ga_service_email');
+  let serviceKey = localStorage.getItem('swipies_ga_service_key');
   
+  const defaultServiceKeyBase64 = "eyJ0eXBlIjogInNlcnZpY2VfYWNjb3VudCIsICJwcm9qZWN0X2lkIjogImJldG1hcmtldC1iMjg3OSIsICJwcml2YXRlX2tleV9pZCI6ICI3ZDRlM2I2NGU0ZGQ3OTBlMmEyNDI1ZjQwYjlmZTg5MjFjMjkxZjQ3IiwgInByaXZhdGVfa2V5IjogIi0tLS0tQkVHSU4gUFJJVkFURSBLRVktLS0tLVxuTUlJRXZnSUJBREFOQmdrcWhraUc5dzBCQVFFRkFBU0NCS2d3Z2dTa0FnRUFBb0lCQVFETERWU0E4UVhHaDBVTFxuK1hIYitZWk1TRm1ScWRUUWdWQkpKS2tYNVlsajkrQWdxdjFsek5vajA3ZFk4cXZINEV3ODNwWXJDRUJTWlRFM1xucmRiRFdONVNCcnJsa2owVkFpOERtYXR6aDVXWElVVDAwR0tYb05ESHNXYlZtRGl4UGo3UlZhOVBlRUI3REpKN1xuNXZPYnEzQlY0M0pyQzU0MS9vMUMzZjhMRjFtRTRIWlFwUGIyUGFrZ2VWNjlXc2puVG1ZYWxncDJ2ZFdYK3lRK1xuZHc5RW9aOXhLbmNYZmhXeENDdzNvL0lDMmUrNlZXMWNGR3NvT3g5ODdwbVJEWEVqSlZGQjM3ejZBd3hsUk10MVxuajFuSDJ0WlA3cVZPemd3eVIzVnIzcXZtRXFibDd5OVZ3MDdKNUlsVTZDbkZBQkJMUmJIVkhZd3A1R25NczBEMlxuV3AyU1BoQUZBZ01CQUFFQ2dnRUFIRjZ6d2RoQWNGUG5YUnhGd1BCYUhUKzJsQUxnamNsT013b0E2TlVwOUdKbVxuV1pUS2JDREtad1c3c1BKOFRIbVZsL2p1NDZXaGZHR2x3TVowZCtnV0YrdlhkOHFPUE9pSWg3NCt3RU9LQTdXaVxuOFhtZXdpOWhQRkFZWFhEZWxaVVcweDlmcTlZblhEU09KWldkSlNZM2xIM1U0Z2xHTDZadDRqdldMZkhkNWhIelxuNkVOSWxQcHZtcUE0SGtWcDJhc24vMThLOXlwRDNRWkZyTFFIbDVkeGJDeFAvb0VTdmk5TWF0MmY4amNGelM4UlxuYUNXTjRvZURMeTVBdTZCQjBrMTFKNUxqNFF6NDdTTVNLci9GdC9BeG5iWlVvQUJiSGcwTmluVEFNemYwN0NJUFxuN1VUS05XcnZyYlJsTnVVUGVsMUo4UldreThnRzZ1SmQ2YS9NWGowcHVRS0JnUURRVVZPTUZ5QlZjZDkvTjJVbFxub1dmR05reTFhWjQ2TG5JajJIR1ZKaGkyUWw2OWVTYVJSUkVNVnVyMmZZd3dSempPaFdZQ1JvUDJQV25DdEpNRlxubVZNUmk5VDhlMGdXa2JTM3JmVEFNU1lsVHErb1ZIdVZvMUZobEZvUjg2QWRSMGtCcTNjcWlpWFRJM0o2YlZVNVxuQjdjSWI1Z0RleTdSWTRNZllMN1dYZDBZS3dLQmdRRDVoM1V1QnpJNUY2dmJiWUFRQ1NyR3ZRRXhGMzFHTGZaeVxuTFpMWGh3ZlpHOFgyQ2xkQ1BRMFFXT3ZUQmhHWjFOUHVzSGJQWkNWZzhIT1FWaVF4OHNhNkVCQ1ZHeklLMlB5WFxuYmJaSW9ZNU8vTS9EUTRHOGhCdmVneDFZSXFScENYNnVnMnFFc3BCQXBBd1hOMUprQlBkaUNiT0V1b0RQYUFQaFxuTkpwbHVXQ3dqd0tCZ1FDbFhXbXM4MDYvaFQyZGh5UEwwMnpGYzZWQS9TNlZrUGthYTE3K3Z0Y3ZGMUNOcC9adFxucXgzMVphbnZNWXB2YUpvM2xyMTdZTzZ3TWVBYXA2MXQ3R0I4dFR2RmtUZVFjdW02UldUY2pDZHp4aHE2elJXdFxubTQrbW5sVkJtdHVuWWtjYUJEcjhrZDJrMWFheWVNZ0dGWkcrS0pmTGE2V21vaEFjZ0hmOVExV1hNUUtCZ1FDUlxuTVlhM3I2eERtRWlCdDZlS3JTcmMxV0Y2SlViWnJTajNxeGtFbkNldTV3QTdlQ3pwK0FnLytOM1B2bnBEWHBtclxuQzdjMldmbDkvS3ZoMHAzaENua2tEdkQzTWduZVVnQTRSTGlLYnFjVnd2bEpqMkJRUnpiSU5OYkFUL2dHdm1XZVxuT2cyakJSdjI0UDNBRElxK2REMVdLSHJ5d21ydFJJTHRhZVJsU0liQWRRS0JnRTFsb2pqYWlkcTlUa0dzVk9UQlxuRTF6QkE2Z25zWnJKR2hTc0p2SVV1VHpyR2hwZVZVRFB0aVY0MFA3MFF4TURtRHZYSm5DdXhKN2phYnM5ekRDUVxucnliOWFxSkFXNFJiajFHenByR1RFVC9QYkY4Q3BoVUpwVVAzR3hIV1hzYTc0MzYxdzNlU1pEVEFIM3NjK2NBQVxuVXdXdVM5YzA3Q0FuS0lsVzFhZGhiWm1EXG4tLS0tLUVORCBQUklWQVRFIEtFWS0tLS0tXG4iLCAiY2xpZW50X2VtYWlsIjogImJldG1hcmtldC1iMjg3OUBhcHBzcG90LmdzZXJ2aWNlYWNjb3VudC5jb20iLCAiY2xpZW50X2lkIjogIjExNDIxODgwMzUzMjM0MjcyMjEzOCIsICJhdXRoX3VyaSI6ICJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20vby9vYXV0aDIvYXV0aCIsICJ0b2tlbl91cmkiOiAiaHR0cHM6Ly9vYXV0aDIuZ29vZ2xlYXBpcy5jb20vdG9rZW4iLCAiYXV0aF9wcm92aWRlcl94NTA5X2NlcnRfdXJsIjogImh0dHBzOi8vd3d3Lmdvb2dsZWFwaXMuY29tL29hdXRoMi92MS9jZXJ0cyIsICJjbGllbnRfeDUwOV9jZXJ0X3VybCI6ICJodHRwczovL3d3dy5nb29nbGVhcGlzLmNvbS9yb2JvdC92MS9tZXRhZGF0YS94NTA5L2JldG1hcmtldC1iMjg3OSU0MGFwcHNwb3QuZ3NlcnZpY2VhY2NvdW50LmNvbSIsICJ1bml2ZXJzZV9kb21haW4iOiAiZ29vZ2xlYXBpcy5jb20ifQ==";
+  const defaultServiceKey = atob(defaultServiceKeyBase64);
+
+  if (propertyId === null || propertyId === '') {
+    propertyId = '470471775';
+    localStorage.setItem('swipies_ga_property_id', propertyId);
+  }
+  if (measurementId === null || measurementId === 'G-SWIPIES2025' || measurementId === '') {
+    measurementId = 'G-G9BZDJNSS2';
+    localStorage.setItem('swipies_ga_measurement_id', measurementId);
+  }
+  if (serviceEmail === null || serviceEmail === '') {
+    serviceEmail = 'betmarket-b2879@appspot.gserviceaccount.com';
+    localStorage.setItem('swipies_ga_service_email', serviceEmail);
+  }
+  if (serviceKey === null || serviceKey === '') {
+    serviceKey = defaultServiceKey;
+    localStorage.setItem('swipies_ga_service_key', serviceKey);
+  }
+
   // Backwards compatibility: If propertyId is empty but measurementId is numeric, migrate it
   if (!propertyId && measurementId && !isNaN(measurementId.replace('G-', '').trim())) {
     propertyId = measurementId.replace('G-', '').trim();
@@ -2842,8 +2867,8 @@ function deleteUser(email) {
   document.getElementById('settingGaId').value = propertyId;
   document.getElementById('settingGaMeasurementId').value = measurementId;
   document.getElementById('settingYmId').value = localStorage.getItem('swipies_ym_counter_id') || '97561823';
-  document.getElementById('settingServiceEmail').value = localStorage.getItem('swipies_ga_service_email') || '';
-  document.getElementById('settingServiceKey').value = localStorage.getItem('swipies_ga_service_key') || '';
+  document.getElementById('settingServiceEmail').value = serviceEmail;
+  document.getElementById('settingServiceKey').value = serviceKey;
   document.getElementById('settingAnalyticsToggle').checked = localStorage.getItem('swipies_analytics_enabled') !== 'false';
 }
 
