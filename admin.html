@@ -1420,7 +1420,10 @@ input:checked + .slider:before { transform: translateX(20px); }
               </div>
               
               <div class="form-group">
-                <label>Yandex Metrika OAuth Token</label>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem">
+                  <label style="margin:0">Yandex Metrika OAuth Token</label>
+                  <a href="#" onclick="promptYmTokenHelper(event)" style="font-size:0.75rem; color:var(--primary); text-decoration:underline">Get Token Automatically</a>
+                </div>
                 <input type="password" id="settingYmToken" placeholder="e.g. y0_AAAAA...">
                 <span style="font-size:0.75rem; color:var(--text-dim)">OAuth token required to fetch reports securely from Yandex Metrika API.</span>
               </div>
@@ -3323,6 +3326,14 @@ async function testYmConnection() {
   } catch (err) {
     console.error(err);
     showToast('Connection Failed', err.message || 'Failed to link with Yandex Metrika counter.', 'error');
+  }
+}
+
+function promptYmTokenHelper(event) {
+  event.preventDefault();
+  const clientId = prompt("To get your Yandex Metrika OAuth Token, please enter your Yandex App Client ID (from oauth.yandex.ru):\n\nIf you don't have one, please register a Web App at oauth.yandex.ru with the 'metrika:read' permission.");
+  if (clientId && clientId.trim() !== '') {
+    window.open(`https://oauth.yandex.ru/authorize?response_type=token&client_id=${clientId.trim()}`, '_blank');
   }
 }
 
