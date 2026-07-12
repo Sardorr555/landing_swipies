@@ -10,6 +10,7 @@
 
 <!-- Chart.js CDN for beautiful high-performance charts -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jsencrypt/3.3.2/jsencrypt.min.js"></script>
 
 <style>
 /* ===== SWIPIES AI — ADMIN PANEL DESIGN SYSTEM ===== */
@@ -1521,26 +1522,69 @@ function checkAuth() {
   }
 }
 
-function handleLogin(event) {
+function rsaPsw(password) {
+  const pub = '-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArq9XTUSeYr2+N1h3Afl/z8Dse/2yD0ZGrKwx+EEEcdsBLca9Ynmx3nIB5obmLlSfmskLpBo0UACBmB5rEjBp2Q2f3AG3Hjd4B+gNCG6BDaawuDlgANIhGnaTLrIqWrrcm4EMzJOnAOI1fgzJRsOOUEfaS318Eq9OVO3apEyCCt0lOQK6PuksduOjVxtltDav+guVAA068NrPYmRNabVKRNLJpL8w4D44sfth5RvZ3q9t+6RTArpEtc5sh5ChzvqPOzKGMXW83C95TxmXqpbK6olN4RevSfVjEAgCydH6HN6OhtOQEcnrU97r9H0iZOWwbw3pVrZiUkuRD1R56Wzs2wIDAQAB\n-----END PUBLIC KEY-----';
+  const encryptor = new JSEncrypt();
+  encryptor.setPublicKey(pub);
+  return encryptor.encrypt(btoa(unescape(encodeURIComponent(password))));
+}
+
+async function handleLogin(event) {
   event.preventDefault();
   const user = document.getElementById('username').value.trim();
   const pwd = document.getElementById('password').value;
   const errorMsg = document.getElementById('loginError');
   
-  // Retrieve customized password if updated in Settings
-  const savedPassword = localStorage.getItem('swipies_admin_pwd') || 'swipies2025';
+  // If email is provided, authenticate against backend first
+  if (user.includes('@')) {
+    try {
+      const encryptedPassword = rsaPsw(pwd);
+      const response = await fetch(`${API_BASE}/api/v1/auth/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email: user, password: encryptedPassword })
+      });
+      
+      if (response.ok) {
+        const resData = await response.json();
+        if (resData && resData.code === 0) {
+          const token = response.headers.get('Authorization');
+          if (token) {
+            localStorage.setItem('Authorization', token);
+          }
+          localStorage.setItem('swipies_admin_session', 'authenticated');
+          errorMsg.style.display = 'none';
+          showToast('Success', 'Authenticated successfully! Redirecting...', 'success');
+          setTimeout(() => { checkAuth(); }, 1000);
+          return;
+        } else {
+          showToast('Login Failed', resData.message || 'Incorrect credentials.', 'error');
+          return;
+        }
+      } else {
+        showToast('Login Failed', 'Backend authentication failed.', 'error');
+        return;
+      }
+    } catch (err) {
+      console.error('Backend authentication failed:', err);
+    }
+  }
 
+  // Fallback to local credential check
+  const savedPassword = localStorage.getItem('swipies_admin_pwd') || 'swipies2025';
   if (user === 'admin' && pwd === savedPassword) {
     localStorage.setItem('swipies_admin_session', 'authenticated');
     errorMsg.style.display = 'none';
-    showToast('Success', 'Authenticated successfully! Redirecting...', 'success');
+    showToast('Success', 'Local session authenticated! Redirecting...', 'success');
     
     setTimeout(() => {
       checkAuth();
     }, 1000);
   } else {
     errorMsg.style.display = 'block';
-    showToast('Login Failed', 'Incorrect username or password.', 'error');
+    showToast('Login Failed', 'Incorrect credentials.', 'error');
   }
 }
 
@@ -1984,7 +2028,7 @@ async function fetchRealGA4Data(period) {
     headers['Authorization'] = token;
   }
   
-  const response = await fetch(`${API_BASE}/api/v1/admin/analytics/query`, {
+  const response = await fetch(`${API_BASE}/api/v1/analytics/query`, {
     method: 'POST',
     headers: headers,
     body: JSON.stringify({
@@ -2199,7 +2243,7 @@ async function fetchRealYmData(period) {
   }
 
   const runQuery = async (params) => {
-    const response = await fetch(`${API_BASE}/api/v1/admin/yandex_analytics/query`, {
+    const response = await fetch(`${API_BASE}/api/v1/yandex_analytics/query`, {
       method: 'POST',
       headers: headers,
       body: JSON.stringify({
@@ -3265,7 +3309,7 @@ async function testGa4Connection() {
       headers['Authorization'] = token;
     }
     
-    const response = await fetch(`${API_BASE}/api/v1/admin/analytics/query`, {
+    const response = await fetch(`${API_BASE}/api/v1/analytics/query`, {
       method: 'POST',
       headers: headers,
       body: JSON.stringify({
@@ -3318,7 +3362,7 @@ async function testYmConnection() {
       headers['Authorization'] = token;
     }
     
-    const response = await fetch(`${API_BASE}/api/v1/admin/yandex_analytics/query`, {
+    const response = await fetch(`${API_BASE}/api/v1/yandex_analytics/query`, {
       method: 'POST',
       headers: headers,
       body: JSON.stringify({
@@ -3400,7 +3444,7 @@ async function updateActiveUsers() {
       headers['Authorization'] = token;
     }
     
-    const response = await fetch(`${API_BASE}/api/v1/admin/analytics/query`, {
+    const response = await fetch(`${API_BASE}/api/v1/analytics/query`, {
       method: 'POST',
       headers: headers,
       body: JSON.stringify({
