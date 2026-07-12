@@ -15,13 +15,13 @@
     "semantic_hash": "b1b950ac688b71ddfbbf4092c058cafa"
   },
   "app.js": {
-    "mtime": 1783343040.962216,
-    "ast_hash": "61b58c44efa5e8151c929442367a2a38",
-    "semantic_hash": ""
+    "mtime": 1780168373.8969724,
+    "ast_hash": "fee7be87e97de7c602984ab75a8c7247",
+    "semantic_hash": "fee7be87e97de7c602984ab75a8c7247"
   },
   "translations.js": {
-    "mtime": 1783009411.2315056,
-    "ast_hash": "68271f876deb41085a31af7cfe397676",
+    "mtime": 1781000012.5012386,
+    "ast_hash": "568ec4f098a726a6af795d4610779112",
     "semantic_hash": ""
   },
   ".agent/skills/anti-slop-design/SKILL.md": {
@@ -325,58 +325,23 @@
     "semantic_hash": ""
   },
   "admin.html": {
-    "mtime": 1783859506.06848,
-    "ast_hash": "4669c3ca80c41e62a8dc401b0ae67ad9",
+    "mtime": 1780172375.97085,
+    "ast_hash": "d81c2e6d028ae477fee1df9d726405f8",
     "semantic_hash": ""
   },
   "index.html": {
-    "mtime": 1783854526.1804504,
-    "ast_hash": "3dcb601d0a7fd7a8b3a1384c1c56e59e",
+    "mtime": 1782389682.035452,
+    "ast_hash": "d9ba7cdb8f5d769819a5871e6a547c16",
     "semantic_hash": ""
   },
   ".github/workflows/deploy.yml": {
-    "mtime": 1782391889.6844938,
+    "mtime": 1782391445.340223,
     "ast_hash": "8e4b08999fcd1873f00d337c2e8bb273",
     "semantic_hash": ""
   },
   "robots.txt": {
-    "mtime": 1782396445.5041006,
-    "ast_hash": "b359c6b45626a5b1afcf680affaab6f4",
-    "semantic_hash": ""
-  },
-  "login.html": {
-    "mtime": 1782469477.8788242,
-    "ast_hash": "aee748cbde94d80e3898e043230542d7",
-    "semantic_hash": ""
-  },
-  "privacy.html": {
-    "mtime": 1782396489.6941829,
-    "ast_hash": "3a3d6dba014a17fb4a569ef75fd6863e",
-    "semantic_hash": ""
-  },
-  "terms.html": {
-    "mtime": 1782396479.4207249,
-    "ast_hash": "b7cac3eaed347876359be85b677c9a94",
-    "semantic_hash": ""
-  },
-  "betmarket-b2879-7d4e3b64e4dd.json": {
-    "mtime": 1783854328.0688362,
-    "ast_hash": "ca744a2a2fffa78053a0325b35a86c7f",
-    "semantic_hash": ""
-  },
-  "git_helper.py": {
-    "mtime": 1783668270.7826376,
-    "ast_hash": "ac132fb89db951568c1dd941591a2995",
-    "semantic_hash": ""
-  },
-  "test_lic.py": {
-    "mtime": 1783668232.0633879,
-    "ast_hash": "bea3671047fd13cf22d8d82c472676ea",
-    "semantic_hash": ""
-  },
-  "test_license_db.py": {
-    "mtime": 1783668222.178657,
-    "ast_hash": "46016325b5c1c8dcac569710cfd43564",
+    "mtime": 1782389675.4292994,
+    "ast_hash": "382381aa6f4e4e08f59c716db5dbab10",
     "semantic_hash": ""
   }
 }

@@ -15,8 +15,8 @@
     "semantic_hash": "b1b950ac688b71ddfbbf4092c058cafa"
   },
   "app.js": {
-    "mtime": 1783343040.962216,
-    "ast_hash": "61b58c44efa5e8151c929442367a2a38",
+    "mtime": 1783009442.6322024,
+    "ast_hash": "155859d579a598ea8cfb86b8ac355a4e",
     "semantic_hash": ""
   },
   "translations.js": {
@@ -325,13 +325,13 @@
     "semantic_hash": ""
   },
   "admin.html": {
-    "mtime": 1783859506.06848,
-    "ast_hash": "4669c3ca80c41e62a8dc401b0ae67ad9",
+    "mtime": 1782480273.9927773,
+    "ast_hash": "01e3af1811c0510d1447b4bb7cdf5f00",
     "semantic_hash": ""
   },
   "index.html": {
-    "mtime": 1783854526.1804504,
-    "ast_hash": "3dcb601d0a7fd7a8b3a1384c1c56e59e",
+    "mtime": 1783009433.0736234,
+    "ast_hash": "24560c928fe9707f43c5077f0710c990",
     "semantic_hash": ""
   },
   ".github/workflows/deploy.yml": {
@@ -357,26 +357,6 @@
   "terms.html": {
     "mtime": 1782396479.4207249,
     "ast_hash": "b7cac3eaed347876359be85b677c9a94",
-    "semantic_hash": ""
-  },
-  "betmarket-b2879-7d4e3b64e4dd.json": {
-    "mtime": 1783854328.0688362,
-    "ast_hash": "ca744a2a2fffa78053a0325b35a86c7f",
-    "semantic_hash": ""
-  },
-  "git_helper.py": {
-    "mtime": 1783668270.7826376,
-    "ast_hash": "ac132fb89db951568c1dd941591a2995",
-    "semantic_hash": ""
-  },
-  "test_lic.py": {
-    "mtime": 1783668232.0633879,
-    "ast_hash": "bea3671047fd13cf22d8d82c472676ea",
-    "semantic_hash": ""
-  },
-  "test_license_db.py": {
-    "mtime": 1783668222.178657,
-    "ast_hash": "46016325b5c1c8dcac569710cfd43564",
     "semantic_hash": ""
   }
 }
