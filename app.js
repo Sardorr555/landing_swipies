@@ -109,6 +109,20 @@ document.getElementById('app-sections').innerHTML = `
 </ul>
 <a href="https://api.swipies.app/login" target="_blank" class="btn-secondary" style="display:inline-block;text-align:center" data-i18n="starter_cta">Start Building</a>
 </div>
+<div class="price-card">
+<div class="price-name" data-i18n="license">Self-Hosted License</div>
+<div class="price-amount"><span data-i18n="license_price">From $190</span><span data-i18n="license_period">/month</span></div>
+<p class="price-desc" data-i18n="license_desc">Purchase a license key and run Swipies AI on your own infrastructure. You install, we power up.</p>
+<ul class="price-features">
+<li>${icons.check}<span data-i18n="license_f1">Self-hosted (Docker/k8s)</span></li>
+<li>${icons.check}<span data-i18n="license_f2">Activate via License Key</span></li>
+<li>${icons.check}<span data-i18n="license_f3">No ingestion or team limits</span></li>
+<li>${icons.check}<span data-i18n="license_f4">GPU & Vector acceleration</span></li>
+<li>${icons.check}<span data-i18n="license_f5">Offline / Air-gapped mode</span></li>
+<li>${icons.check}<span data-i18n="license_f6">Regular updates</span></li>
+</ul>
+<a href="https://api.swipies.app/login" target="_blank" class="btn-primary" style="display:inline-block;text-align:center" data-i18n="license_cta">Purchase Key</a>
+</div>
 <div class="price-card featured">
 <div class="price-name" data-i18n="enterprise">Enterprise</div>
 <div class="price-amount"><span data-i18n="ent_price">From $700</span><span data-i18n="ent_period">/month</span></div>
@@ -230,6 +244,65 @@ function setLanguage(lang) {
 
   // Save selection
   localStorage.setItem('swipies_lang', lang);
+
+  updateAuthStatus();
+}
+
+function updateAuthStatus() {
+  const isLoggedIn = !!(localStorage.getItem('Authorization') && (localStorage.getItem('UserInfo') || localStorage.getItem('userInfo') || localStorage.getItem('token')));
+  const savedLang = localStorage.getItem('swipies_lang') || 'en';
+
+  const consoleTexts = {
+    en: 'Go to Console',
+    ru: 'Панель управления',
+    uz: 'Konsolga o‘tish'
+  };
+
+  document.querySelectorAll('[data-i18n="nav_cta"]').forEach(el => {
+    if (isLoggedIn) {
+      el.textContent = consoleTexts[savedLang] || 'Console';
+      el.href = 'https://api.swipies.app/';
+      el.target = '_self';
+    } else {
+      el.textContent = T[savedLang].nav_cta;
+      el.href = 'login.html';
+      el.target = '_self';
+    }
+  });
+
+  document.querySelectorAll('[data-i18n="hero_cta1"]').forEach(el => {
+    if (isLoggedIn) {
+      el.textContent = consoleTexts[savedLang] || 'Console';
+      el.href = 'https://api.swipies.app/';
+      el.target = '_self';
+    } else {
+      el.textContent = T[savedLang].hero_cta1;
+      el.href = 'login.html';
+      el.target = '_self';
+    }
+  });
+
+  const starterBtn = document.querySelector('[data-i18n="starter_cta"]');
+  if (starterBtn) {
+    if (isLoggedIn) {
+      starterBtn.href = 'https://api.swipies.app/pricing?plan=plus';
+      starterBtn.target = '_self';
+    } else {
+      starterBtn.href = 'https://api.swipies.app/login?redirect=%2Fpricing%3Fplan%3Dplus';
+      starterBtn.target = '_self';
+    }
+  }
+
+  const licenseBtn = document.querySelector('[data-i18n="license_cta"]');
+  if (licenseBtn) {
+    if (isLoggedIn) {
+      licenseBtn.href = 'https://api.swipies.app/pricing?plan=license';
+      licenseBtn.target = '_self';
+    } else {
+      licenseBtn.href = 'https://api.swipies.app/login?redirect=%2Fpricing%3Fplan%3Dlicense';
+      licenseBtn.target = '_self';
+    }
+  }
 }
 
 // Language Switch Event Listeners
@@ -279,6 +352,7 @@ mobileCta.style.marginTop = '1rem';
 mobileCta.setAttribute('data-i18n', 'nav_cta');
 mobileCta.textContent = T[currentLang].nav_cta;
 mobileMenu.appendChild(mobileCta);
+updateAuthStatus();
 
 // Toggle mobile menu
 hamburger.addEventListener('click', () => {

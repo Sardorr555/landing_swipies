@@ -27,7 +27,7 @@
       "label": "revealCallback()",
       "file_type": "code",
       "source_file": "app.js",
-      "source_location": "L348",
+      "source_location": "L351",
       "_origin": "ast",
       "id": "app_revealcallback",
       "community": 7,
@@ -37,7 +37,7 @@
       "label": "revealObserver",
       "file_type": "code",
       "source_file": "app.js",
-      "source_location": "L357",
+      "source_location": "L360",
       "_origin": "ast",
       "id": "app_revealobserver",
       "community": 7,
@@ -43360,5 +43360,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "45e0ac2bd919052167be03020225b9625ac92aac"
+  "built_at_commit": "7fddc0f87611eb55ac6c80291a80a342019f5a18"
 }

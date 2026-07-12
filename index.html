@@ -2634,6 +2634,64 @@ docker compose up -d --build</code></pre>
 
       // Save selection
       localStorage.setItem('swipies_lang', lang);
+      updateAuthStatus();
+    }
+
+    function updateAuthStatus() {
+      const isLoggedIn = !!(localStorage.getItem('Authorization') && (localStorage.getItem('UserInfo') || localStorage.getItem('userInfo') || localStorage.getItem('token')));
+      const savedLang = localStorage.getItem('swipies_lang') || 'en';
+
+      const consoleTexts = {
+        en: 'Go to Console',
+        ru: 'Панель управления',
+        uz: 'Konsolga o‘tish'
+      };
+
+      document.querySelectorAll('[data-i18n="nav_cta"]').forEach(el => {
+        if (isLoggedIn) {
+          el.textContent = consoleTexts[savedLang] || 'Console';
+          el.href = 'https://api.swipies.app/';
+          el.target = '_self';
+        } else {
+          el.textContent = T[savedLang].nav_cta;
+          el.href = 'login.html';
+          el.target = '_self';
+        }
+      });
+
+      document.querySelectorAll('[data-i18n="hero_cta1"]').forEach(el => {
+        if (isLoggedIn) {
+          el.textContent = consoleTexts[savedLang] || 'Console';
+          el.href = 'https://api.swipies.app/';
+          el.target = '_self';
+        } else {
+          el.textContent = T[savedLang].hero_cta1;
+          el.href = 'login.html';
+          el.target = '_self';
+        }
+      });
+
+      const starterBtn = document.querySelector('[data-i18n="starter_cta"]');
+      if (starterBtn) {
+        if (isLoggedIn) {
+          starterBtn.href = 'https://api.swipies.app/pricing?plan=plus';
+          starterBtn.target = '_self';
+        } else {
+          starterBtn.href = 'https://api.swipies.app/login?redirect=%2Fpricing%3Fplan%3Dplus';
+          starterBtn.target = '_self';
+        }
+      }
+
+      const licenseBtn = document.querySelector('[data-i18n="license_cta"]');
+      if (licenseBtn) {
+        if (isLoggedIn) {
+          licenseBtn.href = 'https://api.swipies.app/pricing?plan=license';
+          licenseBtn.target = '_self';
+        } else {
+          licenseBtn.href = 'https://api.swipies.app/login?redirect=%2Fpricing%3Fplan%3Dlicense';
+          licenseBtn.target = '_self';
+        }
+      }
     }
 
     // Global Language Switch Event Delegate

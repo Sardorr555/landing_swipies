@@ -1,7 +1,7 @@
-# Graph Report - new site for swipies  (2026-06-25)
+# Graph Report - new site for swipies  (2026-07-02)
 
 ## Corpus Check
-- 65 files · ~167,787 words
+- 65 files · ~170,833 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
@@ -10,7 +10,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `45e0ac2b`
+- Built from commit: `7fddc0f8`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
