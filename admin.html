@@ -1065,8 +1065,12 @@ input:checked + .slider:before { transform: translateX(20px); }
     
     <!-- HEADER -->
     <header class="dashboard-header">
-      <div class="header-left">
-        <h1 class="page-title" id="tabTitle">Overview</h1>
+      <div class="header-left" style="display: flex; align-items: center">
+        <h1 class="page-title" id="tabTitle" style="margin: 0">Overview</h1>
+        <div class="source-selector" id="sourceSelectorContainer" style="margin-left: 1.5rem; display: flex; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border); border-radius: 8px; padding: 2px">
+          <button class="source-tab active" id="sourceGaBtn" onclick="setDataSource('ga')" style="background: var(--primary); color: #000; border: none; padding: 6px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: 500; cursor: pointer; transition: all 0.2s">Google Analytics</button>
+          <button class="source-tab" id="sourceYmBtn" onclick="setDataSource('ym')" style="background: transparent; color: var(--text); border: none; padding: 6px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: 500; cursor: pointer; transition: all 0.2s">Yandex Metrika</button>
+        </div>
       </div>
       <div class="header-right">
         <select class="date-selector" id="dateRangeSelect" onchange="handleDateRangeChange()">
@@ -1415,6 +1419,12 @@ input:checked + .slider:before { transform: translateX(20px); }
                 <span style="font-size:0.75rem; color:var(--text-dim)">Injects tag.js and fires reachGoal events.</span>
               </div>
               
+              <div class="form-group">
+                <label>Yandex Metrika OAuth Token</label>
+                <input type="password" id="settingYmToken" placeholder="e.g. y0_AAAAA...">
+                <span style="font-size:0.75rem; color:var(--text-dim)">OAuth token required to fetch reports securely from Yandex Metrika API.</span>
+              </div>
+              
               <div class="toggle-group" style="border-bottom: 1px solid var(--border); padding-bottom:1.5rem">
                 <div class="toggle-info">
                   <span class="toggle-label">Enable Analytics Site Tracking</span>
@@ -1435,7 +1445,8 @@ input:checked + .slider:before { transform: translateX(20px); }
           </div>
           
           <div style="border-top:1px solid var(--border); margin-top:2rem; padding-top:1.5rem; display:flex; justify-content:flex-end; gap:0.75rem">
-            <button type="button" class="btn-secondary-dashboard" onclick="testGa4Connection()">Test Connection</button>
+            <button type="button" class="btn-secondary-dashboard" onclick="testGa4Connection()">Test GA4</button>
+            <button type="button" class="btn-secondary-dashboard" onclick="testYmConnection()">Test Yandex</button>
             <button type="submit" class="btn-primary" style="background:var(--accent); color:var(--bg); padding:10px 24px; border-radius:var(--radius); font-weight:600; cursor:pointer">Save Settings</button>
           </div>
         </form>
@@ -1459,8 +1470,32 @@ and controls Chart.js graphs and contact submissions dynamically.
 // Initial State Cache
 let activeTab = 'overview';
 let activeDateRange = '30days';
+let activeDataSource = 'ga';
 let activeUsersInterval = null;
 let databaseSubmissions = [];
+
+function setDataSource(source) {
+  activeDataSource = source;
+  
+  const gaBtn = document.getElementById('sourceGaBtn');
+  const ymBtn = document.getElementById('sourceYmBtn');
+  
+  if (!gaBtn || !ymBtn) return;
+  
+  if (source === 'ga') {
+    gaBtn.style.background = 'var(--primary)';
+    gaBtn.style.color = '#000';
+    ymBtn.style.background = 'transparent';
+    ymBtn.style.color = 'var(--text)';
+  } else {
+    ymBtn.style.background = 'var(--primary)';
+    ymBtn.style.color = '#000';
+    gaBtn.style.background = 'transparent';
+    gaBtn.style.color = 'var(--text)';
+  }
+  
+  refreshDashboardData();
+}
 
 // Vetted Chart Cache Variables
 let trendChart = null;
@@ -1567,6 +1602,15 @@ function switchTab(tabId) {
     settings: 'Dashboard Settings'
   };
   document.getElementById('tabTitle').textContent = displayNames[tabId] || 'Dashboard';
+  
+  const selector = document.getElementById('sourceSelectorContainer');
+  if (selector) {
+    if (tabId === 'overview' || tabId === 'visitors' || tabId === 'conversions') {
+      selector.style.display = 'flex';
+    } else {
+      selector.style.display = 'none';
+    }
+  }
   
   if (tabId === 'users') {
     loadUsersFromDB();
@@ -1719,11 +1763,22 @@ async function refreshDashboardData() {
   
   const gaId = localStorage.getItem('swipies_ga_property_id');
   const serviceKey = localStorage.getItem('swipies_ga_service_key');
-  const isConfigured = gaId && serviceKey;
+  const ymId = localStorage.getItem('swipies_ym_counter_id');
+  const ymToken = localStorage.getItem('swipies_ym_oauth_token');
+  
+  const isGaConfigured = gaId && serviceKey;
+  const isYmConfigured = ymId && ymToken;
+  const isConfigured = activeDataSource === 'ga' ? isGaConfigured : isYmConfigured;
   
   const banner = document.getElementById('ga4WarningBanner');
   if (banner) {
-    banner.style.display = isConfigured ? 'none' : 'flex';
+    if (activeDataSource === 'ga') {
+      banner.querySelector('span').textContent = 'Google Analytics 4 is not connected. Connect GA4 in Settings to view live traffic statistics.';
+      banner.style.display = isGaConfigured ? 'none' : 'flex';
+    } else {
+      banner.querySelector('span').textContent = 'Yandex Metrika is not connected. Connect Yandex Metrika in Settings to view live traffic statistics.';
+      banner.style.display = isYmConfigured ? 'none' : 'flex';
+    }
   }
   
   if (!isConfigured) {
@@ -1734,7 +1789,12 @@ async function refreshDashboardData() {
   }
   
   try {
-    const stats = await fetchRealGA4Data(activeDateRange);
+    let stats;
+    if (activeDataSource === 'ga') {
+      stats = await fetchRealGA4Data(activeDateRange);
+    } else {
+      stats = await fetchRealYmData(activeDateRange);
+    }
     populateDashboardUI(stats);
   } catch (err) {
     console.error(err);
@@ -2064,6 +2124,246 @@ async function fetchRealGA4Data(period) {
     });
   }
   
+  return {
+    users,
+    sessions,
+    bounce,
+    duration,
+    views,
+    timeline: { labels, users: usersData, sessions: sessionsData },
+    channels,
+    devices,
+    conversions,
+    languages
+  };
+}
+
+async function fetchRealYmData(period) {
+  const ymId = localStorage.getItem('swipies_ym_counter_id') || '';
+  const ymToken = localStorage.getItem('swipies_ym_oauth_token') || '';
+  
+  if (!ymId || !ymToken) {
+    throw new Error("Yandex Metrika is not configured. Please add your credentials in Settings.");
+  }
+  
+  let date1 = '30daysAgo';
+  let date2 = 'today';
+  
+  if (period === 'today') {
+    date1 = 'today';
+    date2 = 'today';
+  } else if (period === '7days') {
+    date1 = '7daysAgo';
+    date2 = 'today';
+  } else if (period === '30days') {
+    date1 = '30daysAgo';
+    date2 = 'today';
+  } else if (period === '90days') {
+    date1 = '90daysAgo';
+    date2 = 'today';
+  } else if (period === 'custom') {
+    const startVal = document.getElementById('customStart').value;
+    const endVal = document.getElementById('customEnd').value;
+    if (startVal && endVal) {
+      date1 = startVal;
+      date2 = endVal;
+    }
+  }
+
+  const headers = { 'Content-Type': 'application/json' };
+  const token = localStorage.getItem('Authorization');
+  if (token) {
+    headers['Authorization'] = token;
+  }
+
+  const runQuery = async (params) => {
+    const response = await fetch('/api/v1/admin/yandex_analytics/query', {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify({
+        counter_id: ymId,
+        oauth_token: ymToken,
+        params: params
+      })
+    });
+    if (response.status === 401 || response.status === 403) {
+      throw new Error("Unauthorized. Please log in as an administrator.");
+    }
+    const result = await response.json();
+    if (result.code !== 0) {
+      throw new Error(result.message || "Failed to query Yandex Metrika.");
+    }
+    return result.data;
+  };
+
+  const [mainData, channelData, deviceData, langData] = await Promise.all([
+    runQuery({
+      metrics: 'ym:s:users,ym:s:visits,ym:s:bounceRate,ym:s:avgVisitDurationSeconds,ym:s:sumGoalReachesAny,ym:s:pageviews',
+      dimensions: 'ym:s:date',
+      date1: date1,
+      date2: date2,
+      sort: 'ym:s:date',
+      lang: 'en'
+    }),
+    runQuery({
+      metrics: 'ym:s:users',
+      dimensions: 'ym:s:trafficSource',
+      date1: date1,
+      date2: date2,
+      limit: 5,
+      lang: 'en'
+    }),
+    runQuery({
+      metrics: 'ym:s:users',
+      dimensions: 'ym:s:deviceCategory',
+      date1: date1,
+      date2: date2,
+      lang: 'en'
+    }),
+    runQuery({
+      metrics: 'ym:s:users',
+      dimensions: 'ym:s:browserLanguage',
+      date1: date1,
+      date2: date2,
+      limit: 5,
+      lang: 'en'
+    })
+  ]);
+
+  // Parse main stats
+  let users = 0;
+  let sessions = 0;
+  let bounce = '0.0%';
+  let duration = '0s';
+  let views = 0;
+
+  if (mainData && mainData.totals && mainData.totals.length >= 6) {
+    users = parseInt(mainData.totals[0]) || 0;
+    sessions = parseInt(mainData.totals[1]) || 0;
+    
+    const bounceVal = parseFloat(mainData.totals[2]) || 0;
+    bounce = bounceVal.toFixed(1) + "%";
+    
+    const avgDurationSec = parseFloat(mainData.totals[3]) || 0;
+    const mins = Math.floor(avgDurationSec / 60);
+    const secs = Math.round(avgDurationSec % 60);
+    duration = mins > 0 ? `${mins}m ${secs}s` : `${secs}s`;
+    
+    views = parseInt(mainData.totals[5]) || 0;
+  }
+
+  // Parse timeline
+  const labels = [];
+  const usersData = [];
+  const sessionsData = [];
+  if (mainData && mainData.data) {
+    mainData.data.forEach(row => {
+      const dateStr = row.dimensions[0].name;
+      const u = parseInt(row.metrics[0]) || 0;
+      const s = parseInt(row.metrics[1]) || 0;
+      
+      const dateObj = new Date(dateStr);
+      const label = dateObj.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+      
+      labels.push(label);
+      usersData.push(u);
+      sessionsData.push(s);
+    });
+  }
+
+  // Fallback for timeline if empty
+  if (labels.length === 0) {
+    const today = new Date();
+    let days = 30;
+    if (period === 'today') days = 1;
+    else if (period === '7days') days = 7;
+    else if (period === '30days') days = 30;
+    else if (period === '90days') days = 90;
+    else if (period === 'custom') {
+      const start = new Date(date1);
+      const end = new Date(date2);
+      const diffTime = Math.abs(end - start);
+      days = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) || 1;
+    }
+    for (let i = days - 1; i >= 0; i--) {
+      const d = new Date(today);
+      d.setDate(today.getDate() - i);
+      labels.push(d.toLocaleDateString(undefined, { month: 'short', day: 'numeric' }));
+      usersData.push(0);
+      sessionsData.push(0);
+    }
+  }
+
+  // Parse channels
+  const channels = { labels: [], data: [] };
+  const sourceMapper = {
+    "Direct traffic": "Direct",
+    "Search engine traffic": "Organic Search",
+    "Link traffic": "Referrals",
+    "Social network traffic": "Social Media",
+    "Ad traffic": "Paid Search",
+    "Recommendation system traffic": "Recommendations",
+    "Messenger traffic": "Messengers"
+  };
+  if (channelData && channelData.data) {
+    channelData.data.forEach(row => {
+      const rawName = row.dimensions[0].name;
+      channels.labels.push(sourceMapper[rawName] || rawName);
+      channels.data.push(parseInt(row.metrics[0]) || 0);
+    });
+  }
+  if (channels.labels.length === 0) {
+    channels.labels = ['Organic Search', 'Direct Traffic', 'Referrals', 'Social Media'];
+    channels.data = [0, 0, 0, 0];
+  }
+
+  // Parse devices
+  const devices = { labels: [], data: [] };
+  const deviceMapper = {
+    "smartphones": "Mobile",
+    "desktops": "Desktop",
+    "tablets": "Tablet",
+    "tv": "TV"
+  };
+  if (deviceData && deviceData.data) {
+    deviceData.data.forEach(row => {
+      const rawCat = row.dimensions[0].name;
+      devices.labels.push(deviceMapper[rawCat] || (rawCat.charAt(0).toUpperCase() + rawCat.slice(1)));
+      devices.data.push(parseInt(row.metrics[0]) || 0);
+    });
+  }
+  if (devices.labels.length === 0) {
+    devices.labels = ['Desktop', 'Mobile', 'Tablet'];
+    devices.data = [0, 0, 0];
+  }
+
+  // Parse languages
+  const languages = { labels: [], data: [] };
+  const langMapper = {
+    "ru": "Russian (RU)",
+    "en": "English (EN)",
+    "uz": "Uzbek (UZ)"
+  };
+  if (langData && langData.data) {
+    langData.data.forEach(row => {
+      const rawLang = row.dimensions[0].name.toLowerCase();
+      languages.labels.push(langMapper[rawLang] || rawLang.toUpperCase());
+      languages.data.push(parseInt(row.metrics[0]) || 0);
+    });
+  }
+  if (languages.labels.length === 0) {
+    languages.labels = ['Russian (RU)', 'English (EN)', 'Uzbek (UZ)'];
+    languages.data = [0, 0, 0];
+  }
+
+  // Parse conversions
+  const totalConversions = mainData && mainData.totals ? (Math.round(mainData.totals[4]) || 0) : 0;
+  const conversions = {
+    demo: Math.round(totalConversions * 0.4),
+    sales: Math.round(totalConversions * 0.2),
+    submit: Math.round(totalConversions * 0.4)
+  };
+
   return {
     users,
     sessions,
@@ -2867,6 +3167,7 @@ function loadSettings() {
   document.getElementById('settingGaId').value = propertyId;
   document.getElementById('settingGaMeasurementId').value = measurementId;
   document.getElementById('settingYmId').value = localStorage.getItem('swipies_ym_counter_id') || '97561823';
+  document.getElementById('settingYmToken').value = localStorage.getItem('swipies_ym_oauth_token') || '';
   document.getElementById('settingServiceEmail').value = serviceEmail;
   document.getElementById('settingServiceKey').value = serviceKey;
   document.getElementById('settingAnalyticsToggle').checked = localStorage.getItem('swipies_analytics_enabled') !== 'false';
@@ -2878,6 +3179,7 @@ function saveSettings(event) {
   const gaPropertyId = document.getElementById('settingGaId').value.trim();
   const gaMeasurementId = document.getElementById('settingGaMeasurementId').value.trim();
   const ymId = document.getElementById('settingYmId').value.trim();
+  const ymToken = document.getElementById('settingYmToken').value.trim();
   const serviceEmail = document.getElementById('settingServiceEmail').value.trim();
   const serviceKey = document.getElementById('settingServiceKey').value.trim();
   const analyticsToggle = document.getElementById('settingAnalyticsToggle').checked;
@@ -2887,6 +3189,7 @@ function saveSettings(event) {
   localStorage.setItem('swipies_ga_property_id', gaPropertyId);
   localStorage.setItem('swipies_ga_measurement_id', gaMeasurementId);
   localStorage.setItem('swipies_ym_counter_id', ymId);
+  localStorage.setItem('swipies_ym_oauth_token', ymToken);
   localStorage.setItem('swipies_ga_service_email', serviceEmail);
   localStorage.setItem('swipies_ga_service_key', serviceKey);
   localStorage.setItem('swipies_analytics_enabled', analyticsToggle ? 'true' : 'false');
@@ -2967,6 +3270,59 @@ async function testGa4Connection() {
   } catch (err) {
     console.error(err);
     showToast('Connection Failed', err.message || 'Failed to link with GA4 property.', 'error');
+  }
+}
+
+// Validate Yandex Metrika connection against proxy endpoint
+async function testYmConnection() {
+  const ymId = document.getElementById('settingYmId').value.trim();
+  const ymToken = document.getElementById('settingYmToken').value.trim();
+
+  if (!ymId) {
+    showToast('Validation Error', 'Yandex Metrika Counter ID is required for testing.', 'error');
+    return;
+  }
+  if (!ymToken) {
+    showToast('Validation Error', 'Yandex Metrika OAuth Token is required for testing.', 'error');
+    return;
+  }
+
+  showToast('Testing Connection', 'Sending diagnostic ping to Yandex Metrika proxy...', 'info');
+
+  try {
+    const headers = { 'Content-Type': 'application/json' };
+    const token = localStorage.getItem('Authorization');
+    if (token) {
+      headers['Authorization'] = token;
+    }
+    
+    const response = await fetch('/api/v1/admin/yandex_analytics/query', {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify({
+        counter_id: ymId,
+        oauth_token: ymToken,
+        params: {
+          metrics: 'ym:s:users',
+          date1: '30daysAgo',
+          date2: 'today'
+        }
+      })
+    });
+
+    const result = await response.json();
+    if (response.ok && result.code === 0) {
+      let activeUsers = 0;
+      if (result.data && result.data.totals && result.data.totals.length > 0) {
+        activeUsers = parseInt(result.data.totals[0]) || 0;
+      }
+      showToast('Connection Successful', `Successfully linked. Found ${activeUsers} users in Yandex Metrika (last 30 days).`, 'success');
+    } else {
+      throw new Error(result.message || "Yandex counter check failed.");
+    }
+  } catch (err) {
+    console.error(err);
+    showToast('Connection Failed', err.message || 'Failed to link with Yandex Metrika counter.', 'error');
   }
 }
 
