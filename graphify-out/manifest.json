@@ -335,8 +335,8 @@
     "semantic_hash": ""
   },
   ".github/workflows/deploy.yml": {
-    "mtime": 1782391889.6844938,
-    "ast_hash": "8e4b08999fcd1873f00d337c2e8bb273",
+    "mtime": 1783879587.4667654,
+    "ast_hash": "5a8e68edba918083fa773015cf414b5c",
     "semantic_hash": ""
   },
   "robots.txt": {
@@ -377,6 +377,26 @@
   "test_license_db.py": {
     "mtime": 1783668222.178657,
     "ast_hash": "46016325b5c1c8dcac569710cfd43564",
+    "semantic_hash": ""
+  },
+  "get_deploy_logs.py": {
+    "mtime": 1783879283.133961,
+    "ast_hash": "ab945f758370e4b7fce5936a8ac89e14",
+    "semantic_hash": ""
+  },
+  "list_zip.py": {
+    "mtime": 1783879463.006121,
+    "ast_hash": "ab5207ff2bff8a85f5c3141ec68112cd",
+    "semantic_hash": ""
+  },
+  "parse_logs.py": {
+    "mtime": 1783879471.729397,
+    "ast_hash": "f375f617e173e42e39b288eba251c87e",
+    "semantic_hash": ""
+  },
+  "deploy_log.txt": {
+    "mtime": 1783879478.8273807,
+    "ast_hash": "db62db81db4fa0e7901030315adf287c",
     "semantic_hash": ""
   }
 }
