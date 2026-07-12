@@ -1,16 +1,16 @@
 # Graph Report - new site for swipies  (2026-07-12)
 
 ## Corpus Check
-- 69 files · ~173,972 words
+- 72 files · ~174,183 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 2197 nodes · 2157 edges · 92 communities (75 shown, 17 thin omitted)
+- 2204 nodes · 2157 edges · 99 communities (82 shown, 17 thin omitted)
 - Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 33 edges (avg confidence: 0.89)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `591f0b4e`
+- Built from commit: `c37e8c6b`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -132,7 +132,7 @@
 ## Import Cycles
 - None detected.
 
-## Communities (92 total, 17 thin omitted)
+## Communities (99 total, 17 thin omitted)
 
 ### Community 0 - "Community 0"
 Cohesion: 0.06
@@ -431,10 +431,10 @@ Nodes (3): 9. Agent Prompt Guide, Example Component Prompts, Quick Color Referen
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `Design System: Composio` connect `Community 79` to `Community 1`, `Community 27`, `Community 38`, `Community 39`, `Community 40`, `Community 45`, `Community 49`, `Community 54`, `Community 55`, `Community 67`, `Community 70`, `Community 72`, `Community 77`, `Community 80`, `Community 81`, `Community 82`, `Community 83`, `Community 85`, `Community 86`?**
-  _High betweenness centrality (0.055) - this node is a cross-community bridge._
-- **Why does `Design System: Lovable` connect `Community 39` to `Community 79`?**
-  _High betweenness centrality (0.013) - this node is a cross-community bridge._
+  _High betweenness centrality (0.056) - this node is a cross-community bridge._
 - **Why does `Design System: Linear` connect `Community 38` to `Community 79`?**
+  _High betweenness centrality (0.019) - this node is a cross-community bridge._
+- **Why does `Design System: Expo` connect `Community 45` to `Community 79`?**
   _High betweenness centrality (0.013) - this node is a cross-community bridge._
 - **Are the 13 inferred relationships involving `Design System: Composio` (e.g. with `Design System: Cursor` and `Design System: ElevenLabs`) actually correct?**
   _`Design System: Composio` has 13 INFERRED edges - model-reasoned connections that need verification._

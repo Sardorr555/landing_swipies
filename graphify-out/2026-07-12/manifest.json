@@ -15,8 +15,8 @@
     "semantic_hash": "b1b950ac688b71ddfbbf4092c058cafa"
   },
   "app.js": {
-    "mtime": 1783009442.6322024,
-    "ast_hash": "155859d579a598ea8cfb86b8ac355a4e",
+    "mtime": 1783343040.962216,
+    "ast_hash": "61b58c44efa5e8151c929442367a2a38",
     "semantic_hash": ""
   },
   "translations.js": {
@@ -325,13 +325,13 @@
     "semantic_hash": ""
   },
   "admin.html": {
-    "mtime": 1782480273.9927773,
-    "ast_hash": "01e3af1811c0510d1447b4bb7cdf5f00",
+    "mtime": 1783864105.176212,
+    "ast_hash": "bcf6db984482d8cd08c0d190dba0cfef",
     "semantic_hash": ""
   },
   "index.html": {
-    "mtime": 1783009433.0736234,
-    "ast_hash": "24560c928fe9707f43c5077f0710c990",
+    "mtime": 1783854526.1804504,
+    "ast_hash": "3dcb601d0a7fd7a8b3a1384c1c56e59e",
     "semantic_hash": ""
   },
   ".github/workflows/deploy.yml": {
@@ -357,6 +357,66 @@
   "terms.html": {
     "mtime": 1782396479.4207249,
     "ast_hash": "b7cac3eaed347876359be85b677c9a94",
+    "semantic_hash": ""
+  },
+  "betmarket-b2879-7d4e3b64e4dd.json": {
+    "mtime": 1783854328.0688362,
+    "ast_hash": "ca744a2a2fffa78053a0325b35a86c7f",
+    "semantic_hash": ""
+  },
+  "git_helper.py": {
+    "mtime": 1783668270.7826376,
+    "ast_hash": "ac132fb89db951568c1dd941591a2995",
+    "semantic_hash": ""
+  },
+  "test_lic.py": {
+    "mtime": 1783668232.0633879,
+    "ast_hash": "bea3671047fd13cf22d8d82c472676ea",
+    "semantic_hash": ""
+  },
+  "test_license_db.py": {
+    "mtime": 1783668222.178657,
+    "ast_hash": "46016325b5c1c8dcac569710cfd43564",
+    "semantic_hash": ""
+  },
+  "check_commits.py": {
+    "mtime": 1783863579.62892,
+    "ast_hash": "4893f5fd33ce3020e4118e21542e022d",
+    "semantic_hash": ""
+  },
+  "check_frontend_runs.py": {
+    "mtime": 1783863943.3334064,
+    "ast_hash": "ac9a718abc95ad3ae0234a6e9f9bf5f8",
+    "semantic_hash": ""
+  },
+  "check_github_actions.py": {
+    "mtime": 1783863513.0840156,
+    "ast_hash": "de3a156bb02714f997438501dd0d8b60",
+    "semantic_hash": ""
+  },
+  "check_logs.py": {
+    "mtime": 1783863542.1014938,
+    "ast_hash": "5128b52f56bc8a610dea81cd6af63c98",
+    "semantic_hash": ""
+  },
+  "check_remote_branch.py": {
+    "mtime": 1783863569.7989838,
+    "ast_hash": "eaa208631c9884d96ca15e504a160fe4",
+    "semantic_hash": ""
+  },
+  "check_run_commit.py": {
+    "mtime": 1783863592.5574975,
+    "ast_hash": "22f4630e8d9f4daaf1c9782a05cc71ab",
+    "semantic_hash": ""
+  },
+  "check_run_status.py": {
+    "mtime": 1783863631.526376,
+    "ast_hash": "d113ffa627ea18ed3021d115c9aa8cd1",
+    "semantic_hash": ""
+  },
+  "wait_deployment.py": {
+    "mtime": 1783863638.2747562,
+    "ast_hash": "482fb9341d1ac324e6f5102790e54ee9",
     "semantic_hash": ""
   }
 }

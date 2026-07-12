@@ -8,3 +8,7 @@ cert.der
 test_lic.py
 test_license_db.py
 git_helper.py
+
+# diagnostic check and wait scripts
+check_*.py
+wait_*.py
