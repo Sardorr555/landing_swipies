@@ -1775,12 +1775,15 @@ async function refreshDashboardData() {
   
   const banner = document.getElementById('ga4WarningBanner');
   if (banner) {
-    if (activeDataSource === 'ga') {
-      banner.querySelector('span').textContent = 'Google Analytics 4 is not connected. Connect GA4 in Settings to view live traffic statistics.';
-      banner.style.display = isGaConfigured ? 'none' : 'flex';
-    } else {
-      banner.querySelector('span').textContent = 'Yandex Metrika is not connected. Connect Yandex Metrika in Settings to view live traffic statistics.';
-      banner.style.display = isYmConfigured ? 'none' : 'flex';
+    const bannerText = banner.querySelector('div');
+    if (bannerText) {
+      if (activeDataSource === 'ga') {
+        bannerText.innerHTML = `<strong>Google Analytics 4 is not connected.</strong> Connect GA4 in <a href="#" onclick="switchTab('settings')" style="color:var(--accent);text-decoration:underline">Settings</a> to view live traffic statistics.`;
+        banner.style.display = isGaConfigured ? 'none' : 'flex';
+      } else {
+        bannerText.innerHTML = `<strong>Yandex Metrika is not connected.</strong> Connect Yandex Metrika in <a href="#" onclick="switchTab('settings')" style="color:var(--accent);text-decoration:underline">Settings</a> to view live traffic statistics.`;
+        banner.style.display = isYmConfigured ? 'none' : 'flex';
+      }
     }
   }
   
