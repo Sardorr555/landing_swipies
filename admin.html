@@ -3331,10 +3331,8 @@ async function testYmConnection() {
 
 function promptYmTokenHelper(event) {
   event.preventDefault();
-  const clientId = prompt("To get your Yandex Metrika OAuth Token, please enter your Yandex App Client ID (from oauth.yandex.ru):\n\nIf you don't have one, please register a Web App at oauth.yandex.ru with the 'metrika:read' permission.");
-  if (clientId && clientId.trim() !== '') {
-    window.open(`https://oauth.yandex.ru/authorize?response_type=token&client_id=${clientId.trim()}`, '_blank');
-  }
+  const defaultClientId = 'be0801d9af884e7da33862dab0f94f58';
+  window.open(`https://oauth.yandex.ru/authorize?response_type=token&client_id=${defaultClientId}`, '_blank');
 }
 
 /* ========================================================================
