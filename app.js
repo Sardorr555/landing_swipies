@@ -404,19 +404,47 @@ window.handleSubmit = function(event) {
   if (!isValid) return false;
   
   const submitBtn = event.target.querySelector('button[type="submit"]');
-  
   submitBtn.disabled = true;
-  submitBtn.style.background = 'var(--green)';
-  submitBtn.style.color = '#fff';
-  submitBtn.textContent = currentLang === 'en' ? 'Success! Message Sent' : currentLang === 'ru' ? 'Успешно отправлено!' : 'Muvaffaqiyatli yuborildi!';
+  submitBtn.style.background = 'var(--border2)';
+  submitBtn.textContent = 'Sending...';
   
-  setTimeout(() => {
-    document.getElementById('contactForm').reset();
-    submitBtn.disabled = false;
-    submitBtn.style.background = 'var(--accent)';
-    submitBtn.style.color = 'var(--bg)';
-    setLanguage(currentLang);
-  }, 3000);
+  fetch('/api/leads', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      company: company.value.trim(),
+      name: name.value.trim(),
+      email: email.value.trim(),
+      phone: phone.value.trim(),
+      message: msg.value.trim()
+    })
+  })
+  .then(res => res.json())
+  .then(data => {
+    submitBtn.style.background = 'var(--green)';
+    submitBtn.style.color = '#fff';
+    submitBtn.textContent = currentLang === 'en' ? 'Success! Message Sent' : currentLang === 'ru' ? 'Успешно отправлено!' : 'Muvaffaqiyatli yuborildi!';
+    
+    setTimeout(() => {
+      document.getElementById('contactForm').reset();
+      submitBtn.disabled = false;
+      submitBtn.style.background = 'var(--accent)';
+      submitBtn.style.color = 'var(--bg)';
+      setLanguage(currentLang);
+    }, 3000);
+  })
+  .catch(err => {
+    console.error('Submission error:', err);
+    submitBtn.style.background = 'var(--red)';
+    submitBtn.textContent = 'Error. Try again';
+    setTimeout(() => {
+      submitBtn.disabled = false;
+      submitBtn.style.background = 'var(--accent)';
+      submitBtn.textContent = T[currentLang].form_submit || 'Send Message';
+    }, 3000);
+  });
   
   return false;
 };

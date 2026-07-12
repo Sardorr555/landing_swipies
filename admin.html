@@ -2782,14 +2782,25 @@ function handleApiUnauthorized() {
 }
 
 function loadLeadsFromDB() {
-  usingDB = false;
-  try {
-    databaseSubmissions = JSON.parse(localStorage.getItem('swipies_submissions') || '[]');
-  } catch (e) {
-    databaseSubmissions = [];
-  }
-  renderSubmissionsTable();
-  renderLatestOverviewSubmissions();
+  fetch('/api/leads')
+    .then(res => safeFetchJson(res))
+    .then(res => {
+      if (res && res.code === 0 && Array.isArray(res.data)) {
+        usingDB = true;
+        databaseSubmissions = mapDatabaseLeads(res.data);
+        renderSubmissionsTable();
+        renderLatestOverviewSubmissions();
+      } else {
+        throw new Error('API returned error');
+      }
+    })
+    .catch(err => {
+      console.warn('Could not load submissions from DB, falling back to empty state:', err.message);
+      usingDB = false;
+      databaseSubmissions = [];
+      renderSubmissionsTable();
+      renderLatestOverviewSubmissions();
+    });
 }
 
 function renderSubmissionsTable() {
@@ -2898,91 +2909,62 @@ function renderLatestOverviewSubmissions() {
 }
 
 function toggleReadStatus(id) {
-  if (usingDB) {
-    const sub = databaseSubmissions.find(s => s.id === id);
-    if (!sub) return;
-    const newRead = !sub.read;
-    const newStatus = newRead ? '2' : '1';
-    fetch(`${API_BASE}/api/v1/leads/${id}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ status: newStatus })
-    }).then(res => safeFetchJson(res))
-      .then(res => {
-        if (res && res.code === 0) {
-          showToast('Status Updated', `Submission marked as ${newRead ? 'read' : 'unread'}.`, 'success');
-          loadLeadsFromDB();
-        } else {
-          showToast('Update Failed', res.message || 'Error updating status in database.', 'error');
-        }
-      })
-      .catch(err => {
-        showToast('Update Failed', 'Network error updating database.', 'error');
-      });
-  } else {
-    databaseSubmissions = databaseSubmissions.map(sub => {
-      if (sub.id === id) {
-        sub.read = !sub.read;
-        showToast('Status Updated', `Submission marked as ${sub.read ? 'read' : 'unread'}.`, 'success');
+  const sub = databaseSubmissions.find(s => s.id === id || s.id === parseInt(id));
+  if (!sub) return;
+  const newRead = !sub.read;
+  const newStatus = newRead ? '2' : '1';
+  
+  fetch(`/api/leads/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ status: newStatus })
+  }).then(res => safeFetchJson(res))
+    .then(res => {
+      if (res && res.code === 0) {
+        showToast('Status Updated', `Submission marked as ${newRead ? 'read' : 'unread'}.`, 'success');
+        loadLeadsFromDB();
+      } else {
+        showToast('Update Failed', res.message || 'Error updating status in database.', 'error');
       }
-      return sub;
+    })
+    .catch(err => {
+      showToast('Update Failed', 'Network error updating database.', 'error');
     });
-    localStorage.setItem('swipies_submissions', JSON.stringify(databaseSubmissions));
-    renderSubmissionsTable();
-    renderLatestOverviewSubmissions();
-  }
 }
 
 function deleteSubmission(id) {
-  if (usingDB) {
-    if (confirm("Are you sure you want to delete this submission from the database?")) {
-      fetch(`${API_BASE}/api/v1/leads/${id}`, {
-        method: 'DELETE',
-        headers: getAuthHeaders()
-      }).then(res => safeFetchJson(res))
-        .then(res => {
-          if (res && res.code === 0) {
-            showToast('Record Deleted', 'Submission deleted from database.', 'success');
-            loadLeadsFromDB();
-          } else {
-            showToast('Delete Failed', res.message || 'Error deleting from database.', 'error');
-          }
-        })
-        .catch(err => {
-          showToast('Delete Failed', 'Network error deleting from database.', 'error');
-        });
-    }
-  } else {
-    databaseSubmissions = databaseSubmissions.filter(sub => sub.id !== id);
-    localStorage.setItem('swipies_submissions', JSON.stringify(databaseSubmissions));
-    showToast('Record Deleted', 'Submission deleted from local storage database.', 'success');
-    renderSubmissionsTable();
-    renderLatestOverviewSubmissions();
+  if (confirm("Are you sure you want to delete this submission from the database?")) {
+    fetch(`/api/leads/${id}`, {
+      method: 'DELETE'
+    }).then(res => safeFetchJson(res))
+      .then(res => {
+        if (res && res.code === 0) {
+          showToast('Record Deleted', 'Submission deleted from database.', 'success');
+          loadLeadsFromDB();
+        } else {
+          showToast('Delete Failed', res.message || 'Error deleting from database.', 'error');
+        }
+      })
+      .catch(err => {
+        showToast('Delete Failed', 'Network error deleting from database.', 'error');
+      });
   }
 }
 
 function clearAllSubmissions() {
   if (confirm("Are you sure you want to delete ALL submission records? This action is permanent!")) {
-    if (usingDB) {
-      const deletePromises = databaseSubmissions.map(sub => 
-        fetch(`${API_BASE}/api/v1/leads/${sub.id}`, { method: 'DELETE', headers: getAuthHeaders() }).then(res => safeFetchJson(res))
-      );
-      Promise.all(deletePromises)
-        .then(() => {
-          showToast('Database Purged', 'All contact requests deleted from database.', 'error');
-          loadLeadsFromDB();
-        })
-        .catch(() => {
-          showToast('Purge Failed', 'Error deleting some records from database.', 'error');
-          loadLeadsFromDB();
-        });
-    } else {
-      databaseSubmissions = [];
-      localStorage.removeItem('swipies_submissions');
-      showToast('Database Purged', 'All contact requests deleted.', 'error');
-      renderSubmissionsTable();
-      renderLatestOverviewSubmissions();
-    }
+    const deletePromises = databaseSubmissions.map(sub => 
+      fetch(`/api/leads/${sub.id}`, { method: 'DELETE' }).then(res => safeFetchJson(res))
+    );
+    Promise.all(deletePromises)
+      .then(() => {
+        showToast('Database Purged', 'All contact requests deleted from database.', 'error');
+        loadLeadsFromDB();
+      })
+      .catch(() => {
+        showToast('Purge Failed', 'Error deleting some records from database.', 'error');
+        loadLeadsFromDB();
+      });
   }
 }
 
