@@ -1535,46 +1535,9 @@ async function handleLogin(event) {
   const pwd = document.getElementById('password').value;
   const errorMsg = document.getElementById('loginError');
   
-  // If email is provided, authenticate against backend first
-  if (user.includes('@')) {
-    try {
-      const encryptedPassword = rsaPsw(pwd);
-      const response = await fetch(`${API_BASE}/api/v1/auth/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ email: user, password: encryptedPassword })
-      });
-      
-      if (response.ok) {
-        const resData = await response.json();
-        if (resData && resData.code === 0) {
-          const token = response.headers.get('Authorization');
-          if (token) {
-            localStorage.setItem('Authorization', token);
-          }
-          localStorage.setItem('swipies_admin_session', 'authenticated');
-          errorMsg.style.display = 'none';
-          showToast('Success', 'Authenticated successfully! Redirecting...', 'success');
-          setTimeout(() => { checkAuth(); }, 1000);
-          return;
-        } else {
-          showToast('Login Failed', resData.message || 'Incorrect credentials.', 'error');
-          return;
-        }
-      } else {
-        showToast('Login Failed', 'Backend authentication failed.', 'error');
-        return;
-      }
-    } catch (err) {
-      console.error('Backend authentication failed:', err);
-    }
-  }
-
-  // Fallback to local credential check
+  // Fallback to local credential check since the landing is now a separate service
   const savedPassword = localStorage.getItem('swipies_admin_pwd') || 'swipies2025';
-  if (user === 'admin' && pwd === savedPassword) {
+  if ((user === 'admin' || user.includes('@')) && pwd === savedPassword) {
     localStorage.setItem('swipies_admin_session', 'authenticated');
     // Note: local login has no backend JWT — API-protected endpoints (leads, analytics) won't be accessible
     errorMsg.style.display = 'none';
@@ -2040,7 +2003,6 @@ async function fetchRealGA4Data(period) {
   });
   
   if (response.status === 401 || response.status === 403) {
-    handleApiUnauthorized();
     throw new Error("Unauthorized. Please log in as an administrator.");
   }
   
@@ -2820,35 +2782,14 @@ function handleApiUnauthorized() {
 }
 
 function loadLeadsFromDB() {
-  fetch(`${API_BASE}/api/v1/leads`, { headers: getAuthHeaders() })
-    .then(res => {
-      if (res.status === 401 || res.status === 403) {
-        handleApiUnauthorized();
-        throw new Error('Unauthorized');
-      }
-      return safeFetchJson(res);
-    })
-    .then(res => {
-      if (res && res.code === 0 && Array.isArray(res.data)) {
-        usingDB = true;
-        databaseSubmissions = mapDatabaseLeads(res.data);
-        renderSubmissionsTable();
-        renderLatestOverviewSubmissions();
-      } else {
-        throw new Error('API returned error');
-      }
-    })
-    .catch(err => {
-      console.warn('Could not load submissions from DB, falling back to localStorage:', err.message);
-      usingDB = false;
-      try {
-        databaseSubmissions = JSON.parse(localStorage.getItem('swipies_submissions') || '[]');
-      } catch (e) {
-        databaseSubmissions = [];
-      }
-      renderSubmissionsTable();
-      renderLatestOverviewSubmissions();
-    });
+  usingDB = false;
+  try {
+    databaseSubmissions = JSON.parse(localStorage.getItem('swipies_submissions') || '[]');
+  } catch (e) {
+    databaseSubmissions = [];
+  }
+  renderSubmissionsTable();
+  renderLatestOverviewSubmissions();
 }
 
 function renderSubmissionsTable() {
@@ -3083,31 +3024,19 @@ function loadUsersFromDB() {
   const emptyState = document.getElementById('usersEmptyState');
   if (!body) return;
   
-  body.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--text-muted)">Loading platform users from main database...</td></tr>';
-  if (emptyState) emptyState.style.display = 'none';
-
-  fetch(`${API_BASE}/api/v1/admin/users`, { headers: getAuthHeaders() })
-    .then(res => {
-      if (res.status === 401 || res.status === 403) {
-        handleApiUnauthorized();
-        throw new Error('Unauthorized');
-      }
-      return safeFetchJson(res);
-    })
-    .then(res => {
-      if (res && res.code === 0 && Array.isArray(res.data)) {
-        databaseUsers = res.data;
-        renderUsersTable();
-      } else {
-        throw new Error((res && res.message) || 'Failed to retrieve users');
-      }
-    })
-    .catch(err => {
-      console.error('Error fetching users from DB:', err);
-      body.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--red)">
-        Failed to load users: ${err.message}. Ensure you are logged in to the Swipies platform as an administrator.
-      </td></tr>`;
-    });
+  // Standalone mode: Load from local storage or show empty
+  try {
+    databaseUsers = JSON.parse(localStorage.getItem('swipies_users') || '[]');
+  } catch (e) {
+    databaseUsers = [];
+  }
+  
+  if (databaseUsers.length === 0) {
+    if (emptyState) emptyState.style.display = 'flex';
+  } else {
+    if (emptyState) emptyState.style.display = 'none';
+  }
+  renderUsersTable();
 }
 
 function renderUsersTable() {
