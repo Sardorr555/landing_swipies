@@ -1576,9 +1576,9 @@ async function handleLogin(event) {
   const savedPassword = localStorage.getItem('swipies_admin_pwd') || 'swipies2025';
   if (user === 'admin' && pwd === savedPassword) {
     localStorage.setItem('swipies_admin_session', 'authenticated');
+    // Note: local login has no backend JWT — API-protected endpoints (leads, analytics) won't be accessible
     errorMsg.style.display = 'none';
-    showToast('Success', 'Local session authenticated! Redirecting...', 'success');
-    
+    showToast('Local Mode', 'Logged in locally. For full API access, use your email address.', 'info');
     setTimeout(() => {
       checkAuth();
     }, 1000);
@@ -2040,6 +2040,7 @@ async function fetchRealGA4Data(period) {
   });
   
   if (response.status === 401 || response.status === 403) {
+    handleApiUnauthorized();
     throw new Error("Unauthorized. Please log in as an administrator.");
   }
   
@@ -2803,10 +2804,26 @@ function mapDatabaseLeads(leads) {
   }));
 }
 
+function getAuthHeaders(extraHeaders = {}) {
+  const headers = { 'Content-Type': 'application/json', ...extraHeaders };
+  const token = localStorage.getItem('Authorization');
+  if (token) headers['Authorization'] = token;
+  return headers;
+}
+
+// Global 401/403 handler — forces re-login when token expires or is missing
+function handleApiUnauthorized() {
+  localStorage.removeItem('swipies_admin_session');
+  localStorage.removeItem('Authorization');
+  showToast('Session Expired', 'Your session has expired. Please log in again.', 'error');
+  setTimeout(() => { checkAuth(); }, 1500);
+}
+
 function loadLeadsFromDB() {
-  fetch(`${API_BASE}/api/v1/leads`)
+  fetch(`${API_BASE}/api/v1/leads`, { headers: getAuthHeaders() })
     .then(res => {
       if (res.status === 401 || res.status === 403) {
+        handleApiUnauthorized();
         throw new Error('Unauthorized');
       }
       return safeFetchJson(res);
@@ -2979,7 +2996,8 @@ function deleteSubmission(id) {
   if (usingDB) {
     if (confirm("Are you sure you want to delete this submission from the database?")) {
       fetch(`${API_BASE}/api/v1/leads/${id}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: getAuthHeaders()
       }).then(res => safeFetchJson(res))
         .then(res => {
           if (res && res.code === 0) {
@@ -3006,7 +3024,7 @@ function clearAllSubmissions() {
   if (confirm("Are you sure you want to delete ALL submission records? This action is permanent!")) {
     if (usingDB) {
       const deletePromises = databaseSubmissions.map(sub => 
-        fetch(`${API_BASE}/api/v1/leads/${sub.id}`, { method: 'DELETE' }).then(res => safeFetchJson(res))
+        fetch(`${API_BASE}/api/v1/leads/${sub.id}`, { method: 'DELETE', headers: getAuthHeaders() }).then(res => safeFetchJson(res))
       );
       Promise.all(deletePromises)
         .then(() => {
@@ -3068,9 +3086,10 @@ function loadUsersFromDB() {
   body.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--text-muted)">Loading platform users from main database...</td></tr>';
   if (emptyState) emptyState.style.display = 'none';
 
-  fetch(`${API_BASE}/api/v1/admin/users`)
+  fetch(`${API_BASE}/api/v1/admin/users`, { headers: getAuthHeaders() })
     .then(res => {
       if (res.status === 401 || res.status === 403) {
+        handleApiUnauthorized();
         throw new Error('Unauthorized');
       }
       return safeFetchJson(res);
