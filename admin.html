@@ -1921,8 +1921,8 @@ async function fetchRealGA4Data(period) {
     }
   }
   
-  // 2. Build Request Payload
-  const payload = {
+  // 2. Build Request Payloads (split into 2 batches to respect Google's limit of 5 requests per batch)
+  const payload1 = {
     requests: [
       // 0: General stats
       {
@@ -1967,7 +1967,12 @@ async function fetchRealGA4Data(period) {
         dateRanges: [{ startDate, endDate }],
         dimensions: [{ name: 'language' }],
         metrics: [{ name: 'activeUsers' }]
-      },
+      }
+    ]
+  };
+
+  const payload2 = {
+    requests: [
       // 5: Conversions (Events)
       {
         dateRanges: [{ startDate, endDate }],
@@ -1990,28 +1995,36 @@ async function fetchRealGA4Data(period) {
   if (token) {
     headers['Authorization'] = token;
   }
+
+  const queryGA4 = async (requestsPayload) => {
+    const response = await fetch('/api/analytics/query', {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify({
+        property_id: propertiesId,
+        service_account_key: serviceKeyRaw,
+        endpoint: 'batchRunReports',
+        payload: { requests: requestsPayload }
+      })
+    });
+    
+    if (response.status === 401 || response.status === 403) {
+      throw new Error("Unauthorized. Please log in as an administrator.");
+    }
+    
+    const result = await safeFetchJson(response);
+    if (result.code !== 0) {
+      throw new Error(result.message || "Failed to query Google Analytics.");
+    }
+    return result.data.reports || [];
+  };
+
+  const [reports1, reports2] = await Promise.all([
+    queryGA4(payload1.requests),
+    queryGA4(payload2.requests)
+  ]);
   
-  const response = await fetch('/api/analytics/query', {
-    method: 'POST',
-    headers: headers,
-    body: JSON.stringify({
-      property_id: propertiesId,
-      service_account_key: serviceKeyRaw,
-      endpoint: 'batchRunReports',
-      payload: payload
-    })
-  });
-  
-  if (response.status === 401 || response.status === 403) {
-    throw new Error("Unauthorized. Please log in as an administrator.");
-  }
-  
-  const result = await safeFetchJson(response);
-  if (result.code !== 0) {
-    throw new Error(result.message || "Failed to query Google Analytics.");
-  }
-  
-  const reports = result.data.reports || [];
+  const reports = [...reports1, ...reports2];
   
   // Parse reports...
   let users = 0;
