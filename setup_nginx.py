@@ -115,6 +115,14 @@ else:
 print("=== AVAILABLE NGINX SITES ===")
 if os.path.exists('/etc/nginx/sites-available'):
     print(os.listdir('/etc/nginx/sites-available'))
+    default_path = '/etc/nginx/sites-available/default'
+    if os.path.exists(default_path):
+        try:
+            with open(default_path, 'r') as f:
+                print("--- Content of default Nginx site ---")
+                print(f.read())
+        except Exception as e:
+            print("Error reading default site:", e)
 else:
     print("No /etc/nginx/sites-available directory")
 
