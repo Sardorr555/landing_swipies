@@ -126,4 +126,12 @@ if os.path.exists('/etc/nginx/sites-available'):
 else:
     print("No /etc/nginx/sites-available directory")
 
+print("=== RUNNING DOCKER CONTAINERS ===")
+import subprocess
+try:
+    docker_ps = subprocess.check_output(['sudo', 'docker', 'ps'], stderr=subprocess.STDOUT).decode('utf-8')
+    print(docker_ps)
+except Exception as e:
+    print("Error running docker ps:", e)
+
 print("Nginx config written successfully. Run: sudo nginx -t && sudo systemctl reload nginx")
