@@ -2881,8 +2881,8 @@ docker compose up -d --build</code></pre>
         console.error('Error saving submission locally:', err);
       }
 
-      // Submit to the main database of the platform
-      fetch('/api/v1/leads', {
+      // Submit to the local Flask database for admin panel visibility
+      fetch('/api/leads', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -2898,13 +2898,13 @@ docker compose up -d --build</code></pre>
       }).then(res => res.json())
         .then(res => {
           if (res && res.code === 0) {
-            console.log('Lead successfully saved in database.');
+            console.log('Lead successfully saved in database. ID:', res.data && res.data.id);
           } else {
             console.warn('Backend responded with error for lead submission:', res);
           }
         })
         .catch(err => {
-          console.error('Error posting lead to main database:', err);
+          console.error('Error posting lead to database:', err);
         });
 
       // Trigger GA4 & Yandex Metrika form submission event
