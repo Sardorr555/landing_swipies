@@ -91,7 +91,7 @@ server {
     ssl_dhparam         /etc/letsencrypt/ssl-dhparams.pem;
 
     location / {
-        proxy_pass         http://127.0.0.1:9380;
+        proxy_pass         http://127.0.0.1:9222;
         proxy_http_version 1.1;
         proxy_set_header   Host $host;
         proxy_set_header   X-Real-IP $remote_addr;
