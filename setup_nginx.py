@@ -98,6 +98,17 @@ else:
 print("=== SSL CERTIFICATES ===")
 if os.path.exists('/etc/letsencrypt/live'):
     print(os.listdir('/etc/letsencrypt/live'))
+    # Print certificate details for swipies.app
+    cert_path = '/etc/letsencrypt/live/swipies.app/fullchain.pem'
+    if os.path.exists(cert_path):
+        import subprocess
+        try:
+            out = subprocess.check_output(['openssl', 'x509', '-in', cert_path, '-text', '-noout'], stderr=subprocess.STDOUT).decode('utf-8')
+            for line in out.split('\n'):
+                if 'DNS:' in line:
+                    print("swipies.app cert covers:", line.strip())
+        except Exception as e:
+            print("Error reading cert:", e)
 else:
     print("No /etc/letsencrypt/live directory")
 
