@@ -131,6 +131,95 @@ def health():
     return jsonify({"code": 0, "status": "ok", "db": DB_FILE})
 
 
+@app.route('/api/analytics/query', methods=['POST'])
+def analytics_query():
+    data = request.json or {}
+    property_id = data.get("property_id")
+    service_key_str = data.get("service_account_key")
+    endpoint = data.get("endpoint", "runReport")
+    payload = data.get("payload")
+    
+    if not property_id or not service_key_str or not payload:
+        return jsonify({"code": 1, "message": "Missing required parameters: property_id, service_account_key, and payload are required."}), 400
+        
+    try:
+        service_account_info = json.loads(service_key_str)
+    except Exception:
+        return jsonify({"code": 1, "message": "Invalid Service Account JSON key format."}), 400
+        
+    try:
+        from google.oauth2 import service_account
+        from google.auth.transport.requests import Request
+        import requests
+        
+        credentials = service_account.Credentials.from_service_account_info(
+            service_account_info,
+            scopes=['https://www.googleapis.com/auth/analytics.readonly']
+        )
+        credentials.refresh(Request())
+        access_token = credentials.token
+        
+        url = f"https://analyticsdata.googleapis.com/v1beta/properties/{property_id}:{endpoint}"
+        
+        headers = {
+            "Authorization": f"Bearer {access_token}",
+            "Content-Type": "application/json"
+        }
+        
+        response = requests.post(url, json=payload, headers=headers, timeout=15)
+        
+        if not response.ok:
+            try:
+                err_msg = response.json().get("error", {}).get("message", "Google Analytics API query failed.")
+            except Exception:
+                err_msg = response.text or "Google Analytics API query failed."
+            return jsonify({"code": 1, "message": err_msg}), 400
+            
+        return jsonify({"code": 0, "data": response.json()})
+        
+    except Exception as e:
+        return jsonify({"code": 1, "message": str(e)}), 500
+
+
+@app.route('/api/yandex_analytics/query', methods=['POST'])
+def yandex_analytics_query():
+    data = request.json or {}
+    counter_id = data.get("counter_id")
+    oauth_token = data.get("oauth_token")
+    params = data.get("params", {})
+    
+    if not counter_id or not oauth_token:
+        return jsonify({"code": 1, "message": "Missing required parameters: counter_id and oauth_token are required."}), 400
+        
+    try:
+        import requests
+        
+        url = "https://api-metrika.yandex.net/stat/v1/data"
+        
+        headers = {
+            "Authorization": f"OAuth {oauth_token}",
+            "Accept": "application/json"
+        }
+        
+        query_params = dict(params)
+        query_params["ids"] = counter_id
+        
+        response = requests.get(url, params=query_params, headers=headers, timeout=15)
+        
+        if not response.ok:
+            try:
+                err_msg = response.json().get("message", "Yandex Metrika API query failed.")
+            except Exception:
+                err_msg = response.text or "Yandex Metrika API query failed."
+            return jsonify({"code": 1, "message": err_msg}), 400
+            
+        return jsonify({"code": 0, "data": response.json()})
+        
+    except Exception as e:
+        return jsonify({"code": 1, "message": str(e)}), 500
+
+
+
 if __name__ == '__main__':
     init_db()
     print(f"Server starting on http://127.0.0.1:5005")

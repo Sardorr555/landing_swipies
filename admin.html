@@ -1991,7 +1991,7 @@ async function fetchRealGA4Data(period) {
     headers['Authorization'] = token;
   }
   
-  const response = await fetch(`${API_BASE}/api/v1/analytics/query`, {
+  const response = await fetch('/api/analytics/query', {
     method: 'POST',
     headers: headers,
     body: JSON.stringify({
@@ -2206,7 +2206,7 @@ async function fetchRealYmData(period) {
   }
 
   const runQuery = async (params) => {
-    const response = await fetch(`${API_BASE}/api/v1/yandex_analytics/query`, {
+    const response = await fetch('/api/yandex_analytics/query', {
       method: 'POST',
       headers: headers,
       body: JSON.stringify({
