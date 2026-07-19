@@ -95,4 +95,16 @@ if not os.path.exists(enabled_path):
 else:
     print(f"Nginx site already enabled: {enabled_path}")
 
+print("=== SSL CERTIFICATES ===")
+if os.path.exists('/etc/letsencrypt/live'):
+    print(os.listdir('/etc/letsencrypt/live'))
+else:
+    print("No /etc/letsencrypt/live directory")
+
+print("=== AVAILABLE NGINX SITES ===")
+if os.path.exists('/etc/nginx/sites-available'):
+    print(os.listdir('/etc/nginx/sites-available'))
+else:
+    print("No /etc/nginx/sites-available directory")
+
 print("Nginx config written successfully. Run: sudo nginx -t && sudo systemctl reload nginx")
