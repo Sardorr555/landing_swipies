@@ -1,10 +1,20 @@
 import sqlite3
-from flask import Flask, request, jsonify
+import os
 import datetime
+import urllib.request
+import urllib.parse
+import json
+from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
-DB_FILE = 'database.sqlite'
+# Use absolute path so the DB is found regardless of working directory
+DB_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'database.sqlite')
+
+# Optional Telegram notification (set these env vars on the server to enable)
+TELEGRAM_BOT_TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN', '')
+TELEGRAM_CHAT_ID   = os.environ.get('TELEGRAM_CHAT_ID', '')
+
 
 def init_db():
     with sqlite3.connect(DB_FILE) as conn:
@@ -24,17 +34,36 @@ def init_db():
         ''')
         conn.commit()
 
+
+def send_telegram(text):
+    """Fire-and-forget Telegram message; silently fails if not configured."""
+    if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
+        return
+    try:
+        url = f'https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage'
+        payload = json.dumps({
+            'chat_id': TELEGRAM_CHAT_ID,
+            'text': text,
+            'parse_mode': 'HTML'
+        }).encode('utf-8')
+        req = urllib.request.Request(url, data=payload,
+                                     headers={'Content-Type': 'application/json'})
+        urllib.request.urlopen(req, timeout=5)
+    except Exception as e:
+        print(f"[Telegram] Failed to send notification: {e}")
+
+
 @app.route('/api/leads', methods=['POST'])
 def create_lead():
-    data = request.json
-    company = data.get('company', '')
-    name = data.get('name', '')
-    email = data.get('email', '')
-    phone = data.get('phone', '')
-    message = data.get('message', '')
+    data = request.json or {}
+    company       = data.get('company', '')
+    name          = data.get('name', '')
+    email         = data.get('email', '')
+    phone         = data.get('phone', '')
+    message       = data.get('message', '')
     referral_code = data.get('referral_code', '')
-    create_date = datetime.datetime.utcnow().isoformat() + "Z"
-    
+    create_date   = datetime.datetime.utcnow().isoformat() + "Z"
+
     with sqlite3.connect(DB_FILE) as conn:
         cursor = conn.cursor()
         cursor.execute('''
@@ -43,8 +72,22 @@ def create_lead():
         ''', (company, name, email, phone, message, referral_code, create_date))
         conn.commit()
         lead_id = cursor.lastrowid
-        
+
+    # Notify admin via Telegram
+    tg_msg = (
+        f"📬 <b>New Lead — Swipies.app</b>\n\n"
+        f"👤 <b>Name:</b> {name}\n"
+        f"🏢 <b>Company:</b> {company}\n"
+        f"📧 <b>Email:</b> {email}\n"
+        f"📞 <b>Phone:</b> {phone or '—'}\n"
+        f"💬 <b>Message:</b> {message or '—'}\n"
+        f"🔗 <b>Ref Code:</b> {referral_code or '—'}\n"
+        f"🕐 <b>Time (UTC):</b> {create_date}"
+    )
+    send_telegram(tg_msg)
+
     return jsonify({"code": 0, "message": "Success", "data": {"id": lead_id}}), 201
+
 
 @app.route('/api/leads', methods=['GET'])
 def get_leads():
@@ -53,23 +96,25 @@ def get_leads():
         cursor = conn.cursor()
         cursor.execute('SELECT * FROM leads ORDER BY id DESC')
         rows = cursor.fetchall()
-        
+
     leads = [dict(row) for row in rows]
     return jsonify({"code": 0, "data": leads})
 
+
 @app.route('/api/leads/<int:lead_id>', methods=['PUT'])
 def update_lead(lead_id):
-    data = request.json
+    data = request.json or {}
     new_status = data.get('status')
     if not new_status:
         return jsonify({"code": 1, "message": "Status required"}), 400
-        
+
     with sqlite3.connect(DB_FILE) as conn:
         cursor = conn.cursor()
         cursor.execute('UPDATE leads SET status = ? WHERE id = ?', (new_status, lead_id))
         conn.commit()
-        
+
     return jsonify({"code": 0, "message": "Updated"})
+
 
 @app.route('/api/leads/<int:lead_id>', methods=['DELETE'])
 def delete_lead(lead_id):
@@ -77,11 +122,17 @@ def delete_lead(lead_id):
         cursor = conn.cursor()
         cursor.execute('DELETE FROM leads WHERE id = ?', (lead_id,))
         conn.commit()
-        
+
     return jsonify({"code": 0, "message": "Deleted"})
+
+
+@app.route('/api/health', methods=['GET'])
+def health():
+    return jsonify({"code": 0, "status": "ok", "db": DB_FILE})
+
 
 if __name__ == '__main__':
     init_db()
-    print(f"Server starting on http://0.0.0.0:5005")
+    print(f"Server starting on http://127.0.0.1:5005")
     print(f"Database file: {DB_FILE}")
-    app.run(host='0.0.0.0', port=5005)
+    app.run(host='127.0.0.1', port=5005, debug=False)
