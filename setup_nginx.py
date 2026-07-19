@@ -72,6 +72,90 @@ server {
     gzip_types text/plain text/css application/json application/javascript text/xml application/xml image/svg+xml;
     gzip_min_length 1000;
 }
+
+server {
+    listen 80;
+    listen [::]:80;
+    server_name api.swipies.app;
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name api.swipies.app;
+
+    ssl_certificate     /etc/letsencrypt/live/swipies.app/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/swipies.app/privkey.pem;
+    include             /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam         /etc/letsencrypt/ssl-dhparams.pem;
+
+    location / {
+        proxy_pass         http://127.0.0.1:9380;
+        proxy_http_version 1.1;
+        proxy_set_header   Host $host;
+        proxy_set_header   X-Real-IP $remote_addr;
+        proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header   X-Forwarded-Proto $scheme;
+
+        # CORS headers
+        add_header 'Access-Control-Allow-Origin'  '*' always;
+        add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, DELETE, OPTIONS' always;
+        add_header 'Access-Control-Allow-Headers' 'Content-Type, Authorization' always;
+        add_header 'Access-Control-Expose-Headers' 'Authorization' always;
+
+        if ($request_method = 'OPTIONS') {
+            add_header 'Access-Control-Allow-Origin'  '*';
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, DELETE, OPTIONS';
+            add_header 'Access-Control-Allow-Headers' 'Content-Type, Authorization';
+            add_header 'Content-Type' 'text/plain charset=UTF-8';
+            add_header 'Content-Length' 0;
+            return 204;
+        }
+    }
+}
+
+server {
+    listen 80;
+    listen [::]:80;
+    server_name app.swipies.app;
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name app.swipies.app;
+
+    ssl_certificate     /etc/letsencrypt/live/swipies.app/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/swipies.app/privkey.pem;
+    include             /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam         /etc/letsencrypt/ssl-dhparams.pem;
+
+    location / {
+        proxy_pass         http://127.0.0.1:9222;
+        proxy_http_version 1.1;
+        proxy_set_header   Host $host;
+        proxy_set_header   X-Real-IP $remote_addr;
+        proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header   X-Forwarded-Proto $scheme;
+
+        # CORS headers
+        add_header 'Access-Control-Allow-Origin'  '*' always;
+        add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, DELETE, OPTIONS' always;
+        add_header 'Access-Control-Allow-Headers' 'Content-Type, Authorization' always;
+        add_header 'Access-Control-Expose-Headers' 'Authorization' always;
+
+        if ($request_method = 'OPTIONS') {
+            add_header 'Access-Control-Allow-Origin'  '*';
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, DELETE, OPTIONS';
+            add_header 'Access-Control-Allow-Headers' 'Content-Type, Authorization';
+            add_header 'Content-Type' 'text/plain charset=UTF-8';
+            add_header 'Content-Length' 0;
+            return 204;
+        }
+    }
+}
 """
 
 conf_path = '/etc/nginx/sites-available/swipies'
@@ -115,23 +199,7 @@ else:
 print("=== AVAILABLE NGINX SITES ===")
 if os.path.exists('/etc/nginx/sites-available'):
     print(os.listdir('/etc/nginx/sites-available'))
-    default_path = '/etc/nginx/sites-available/default'
-    if os.path.exists(default_path):
-        try:
-            with open(default_path, 'r') as f:
-                print("--- Content of default Nginx site ---")
-                print(f.read())
-        except Exception as e:
-            print("Error reading default site:", e)
 else:
     print("No /etc/nginx/sites-available directory")
-
-print("=== RUNNING DOCKER CONTAINERS ===")
-import subprocess
-try:
-    docker_ps = subprocess.check_output(['sudo', 'docker', 'ps'], stderr=subprocess.STDOUT).decode('utf-8')
-    print(docker_ps)
-except Exception as e:
-    print("Error running docker ps:", e)
 
 print("Nginx config written successfully. Run: sudo nginx -t && sudo systemctl reload nginx")
