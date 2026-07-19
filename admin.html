@@ -3239,7 +3239,7 @@ async function testGa4Connection() {
       headers['Authorization'] = token;
     }
     
-    const response = await fetch(`${API_BASE}/api/v1/analytics/query`, {
+    const response = await fetch('/api/analytics/query', {
       method: 'POST',
       headers: headers,
       body: JSON.stringify({
@@ -3292,7 +3292,7 @@ async function testYmConnection() {
       headers['Authorization'] = token;
     }
     
-    const response = await fetch(`${API_BASE}/api/v1/yandex_analytics/query`, {
+    const response = await fetch('/api/yandex_analytics/query', {
       method: 'POST',
       headers: headers,
       body: JSON.stringify({
@@ -3374,7 +3374,7 @@ async function updateActiveUsers() {
       headers['Authorization'] = token;
     }
     
-    const response = await fetch(`${API_BASE}/api/v1/analytics/query`, {
+    const response = await fetch('/api/analytics/query', {
       method: 'POST',
       headers: headers,
       body: JSON.stringify({

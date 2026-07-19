@@ -15,8 +15,8 @@
     "semantic_hash": "b1b950ac688b71ddfbbf4092c058cafa"
   },
   "app.js": {
-    "mtime": 1783343040.962216,
-    "ast_hash": "61b58c44efa5e8151c929442367a2a38",
+    "mtime": 1783884465.404661,
+    "ast_hash": "344ce5d009f2bcc898970206f86a0697",
     "semantic_hash": ""
   },
   "translations.js": {
@@ -325,18 +325,18 @@
     "semantic_hash": ""
   },
   "admin.html": {
-    "mtime": 1783864105.176212,
-    "ast_hash": "bcf6db984482d8cd08c0d190dba0cfef",
+    "mtime": 1784472263.2385259,
+    "ast_hash": "412cf0e8376c7db564b88ae66b9c21fe",
     "semantic_hash": ""
   },
   "index.html": {
-    "mtime": 1783854526.1804504,
-    "ast_hash": "3dcb601d0a7fd7a8b3a1384c1c56e59e",
+    "mtime": 1784469508.5649016,
+    "ast_hash": "d3f1e9c65208096267826ddc3f7ad876",
     "semantic_hash": ""
   },
   ".github/workflows/deploy.yml": {
-    "mtime": 1783879587.4667654,
-    "ast_hash": "5a8e68edba918083fa773015cf414b5c",
+    "mtime": 1784472249.4393237,
+    "ast_hash": "a692621ab47376a6ebecd1af305e047c",
     "semantic_hash": ""
   },
   "robots.txt": {
@@ -397,6 +397,36 @@
   "deploy_log.txt": {
     "mtime": 1783879478.8273807,
     "ast_hash": "db62db81db4fa0e7901030315adf287c",
+    "semantic_hash": ""
+  },
+  "patch_nginx.py": {
+    "mtime": 1783882102.6788392,
+    "ast_hash": "481ab5a4536047a453b00949dd3f4b8b",
+    "semantic_hash": ""
+  },
+  "api.py": {
+    "mtime": 1784472255.9322662,
+    "ast_hash": "4e44bb2068f8a712dce79602331c8b3c",
+    "semantic_hash": ""
+  },
+  "setup_nginx.py": {
+    "mtime": 1784472100.8938541,
+    "ast_hash": "348ca223de35546da0d2150d1efede69",
+    "semantic_hash": ""
+  },
+  "fetch_logs.py": {
+    "mtime": 1784468799.7950356,
+    "ast_hash": "58f4b9a4f6039a736ed86aba7caaa563",
+    "semantic_hash": ""
+  },
+  "read_deploy_log.py": {
+    "mtime": 1784468888.1548376,
+    "ast_hash": "467d78917f375163af80a47fba9d6322",
+    "semantic_hash": ""
+  },
+  "deploy_step_log.txt": {
+    "mtime": 1784472130.49674,
+    "ast_hash": "efe6f6b65cb1915dc1e85d5df3700e44",
     "semantic_hash": ""
   }
 }
