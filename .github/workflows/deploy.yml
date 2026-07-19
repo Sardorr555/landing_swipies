@@ -53,6 +53,18 @@ jobs:
             # ── 5. Write Nginx config (proxy + /admin redirect) ──────────────
             sudo python3 ~/landing_swipies/setup_nginx.py
 
+            echo "=== NGINX SITES ENABLED ==="
+            ls -la /etc/nginx/sites-enabled/ || true
+            for f in /etc/nginx/sites-enabled/*; do
+              if [ -f "$f" ]; then
+                echo "--- Content of $f ---"
+                cat "$f"
+              fi
+            done
+
+            echo "=== SYSTEMD SERVICES ==="
+            systemctl list-units --type=service --state=running || true
+
             # ── 6. Test & reload Nginx ────────────────────────────────────────
             sudo nginx -t && sudo systemctl reload nginx
 
