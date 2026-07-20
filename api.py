@@ -181,11 +181,15 @@ def analytics_query():
         return jsonify({"code": 1, "message": str(e)}), 500
 
 
+DEFAULT_YM_COUNTER_ID = '106098534'
+DEFAULT_YM_OAUTH_TOKEN = 'y0__wgBELnapf8GGITgRSDb2K6tGONdSMrx_H9z1BiPLXe2H5x89ro3'
+
+
 @app.route('/api/yandex_analytics/query', methods=['POST'])
 def yandex_analytics_query():
     data = request.json or {}
-    counter_id = data.get("counter_id")
-    oauth_token = data.get("oauth_token")
+    counter_id = data.get("counter_id") or DEFAULT_YM_COUNTER_ID
+    oauth_token = data.get("oauth_token") or DEFAULT_YM_OAUTH_TOKEN
     params = data.get("params", {})
     
     if not counter_id or not oauth_token:

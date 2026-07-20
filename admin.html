@@ -2181,8 +2181,8 @@ async function fetchRealGA4Data(period) {
 }
 
 async function fetchRealYmData(period) {
-  const ymId = localStorage.getItem('swipies_ym_counter_id') || '';
-  const ymToken = localStorage.getItem('swipies_ym_oauth_token') || '';
+  const ymId = localStorage.getItem('swipies_ym_counter_id') || '106098534';
+  const ymToken = localStorage.getItem('swipies_ym_oauth_token') || 'y0__wgBELnapf8GGITgRSDb2K6tGONdSMrx_H9z1BiPLXe2H5x89ro3';
   
   if (!ymId || !ymToken) {
     throw new Error("Yandex Metrika is not configured. Please add your credentials in Settings.");
@@ -3175,8 +3175,8 @@ function loadSettings() {
   
   document.getElementById('settingGaId').value = propertyId;
   document.getElementById('settingGaMeasurementId').value = measurementId;
-  document.getElementById('settingYmId').value = localStorage.getItem('swipies_ym_counter_id') || '97561823';
-  document.getElementById('settingYmToken').value = localStorage.getItem('swipies_ym_oauth_token') || '';
+  document.getElementById('settingYmId').value = localStorage.getItem('swipies_ym_counter_id') || '106098534';
+  document.getElementById('settingYmToken').value = localStorage.getItem('swipies_ym_oauth_token') || 'y0__wgBELnapf8GGITgRSDb2K6tGONdSMrx_H9z1BiPLXe2H5x89ro3';
   document.getElementById('settingServiceEmail').value = serviceEmail;
   document.getElementById('settingServiceKey').value = serviceKey;
   document.getElementById('settingAnalyticsToggle').checked = localStorage.getItem('swipies_analytics_enabled') !== 'false';
@@ -3284,8 +3284,8 @@ async function testGa4Connection() {
 
 // Validate Yandex Metrika connection against proxy endpoint
 async function testYmConnection() {
-  const ymId = document.getElementById('settingYmId').value.trim();
-  const ymToken = document.getElementById('settingYmToken').value.trim();
+  const ymId = document.getElementById('settingYmId').value.trim() || '106098534';
+  const ymToken = document.getElementById('settingYmToken').value.trim() || 'y0__wgBELnapf8GGITgRSDb2K6tGONdSMrx_H9z1BiPLXe2H5x89ro3';
 
   if (!ymId) {
     showToast('Validation Error', 'Yandex Metrika Counter ID is required for testing.', 'error');
