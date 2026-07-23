@@ -1,16 +1,16 @@
-# Graph Report - new site for swipies  (2026-07-20)
+# Graph Report - new site for swipies  (2026-07-12)
 
 ## Corpus Check
-- 73 files · ~183,034 words
+- 69 files · ~179,554 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 2218 nodes · 2169 edges · 102 communities (85 shown, 17 thin omitted)
+- 2206 nodes · 2158 edges · 100 communities (83 shown, 17 thin omitted)
 - Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 33 edges (avg confidence: 0.89)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `23b483fb`
+- Built from commit: `ccd15556`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -104,7 +104,6 @@
 - [[_COMMUNITY_Community 86|Community 86]]
 - [[_COMMUNITY_Community 87|Community 87]]
 - [[_COMMUNITY_Community 88|Community 88]]
-- [[_COMMUNITY_Community 100|Community 100]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `Design System: Composio` - 23 edges
@@ -133,7 +132,7 @@
 ## Import Cycles
 - None detected.
 
-## Communities (102 total, 17 thin omitted)
+## Communities (100 total, 17 thin omitted)
 
 ### Community 0 - "Community 0"
 Cohesion: 0.06
@@ -356,8 +355,8 @@ Cohesion: 0.08
 Nodes (23): 1. Visual Theme & Atmosphere, 2. Color Palette & Roles, 3. Typography Rules, 4. Component Stylings, 5. Layout Principles, 6. Depth & Elevation, 7. Do's and Don'ts, 8. Responsive Behavior (+15 more)
 
 ### Community 72 - "Community 72"
-Cohesion: 0.14
-Nodes (13): 1. Visual Theme & Atmosphere, 3. Typography Rules, 4. Component Stylings, 6. Depth & Elevation, 7. Do's and Don'ts, 8. Responsive Behavior, Badges, Buttons (+5 more)
+Cohesion: 0.08
+Nodes (23): 1. Visual Theme & Atmosphere, 2. Color Palette & Roles, 3. Typography Rules, 4. Component Stylings, 5. Layout Principles, 6. Depth & Elevation, 7. Do's and Don'ts, 8. Responsive Behavior (+15 more)
 
 ### Community 73 - "Community 73"
 Cohesion: 0.09
@@ -376,8 +375,8 @@ Cohesion: 0.15
 Nodes (12): Anti-Patterns, Brutalist / Raw, Editorial / Magazine, Editorial scale, Luxury / Refined, Luxury scale, Organic / Tactile, Technical / Mono (+4 more)
 
 ### Community 77 - "Community 77"
-Cohesion: 0.08
-Nodes (23): 1. Visual Theme & Atmosphere, 2. Color Palette & Roles, 3. Typography Rules, 4. Component Stylings, 5. Layout Principles, 6. Depth & Elevation, 7. Do's and Don'ts, 8. Responsive Behavior (+15 more)
+Cohesion: 0.17
+Nodes (11): 1. Visual Theme & Atmosphere, 3. Typography Rules, 5. Layout Principles, 6. Depth & Elevation, 7. Do's and Don'ts, 8. Responsive Behavior, Design System: Miro, Do (+3 more)
 
 ### Community 78 - "Community 78"
 Cohesion: 0.18
@@ -404,8 +403,8 @@ Cohesion: 0.40
 Nodes (5): 8. Responsive Behavior, Breakpoints, Collapsing Strategy, Image Behavior, Touch Targets
 
 ### Community 84 - "Community 84"
-Cohesion: 0.20
-Nodes (3): create_lead(), Fire-and-forget Telegram message; silently fails if not configured., send_telegram()
+Cohesion: 0.40
+Nodes (5): 2. Color Palette & Roles, Neutral, Pastel Accents (Light/Dark pairs), Primary, Semantic
 
 ### Community 85 - "Community 85"
 Cohesion: 0.50
@@ -417,18 +416,14 @@ Nodes (4): 9. Agent Prompt Guide, Example Component Prompts, Iteration Guide, Qu
 
 ### Community 87 - "Community 87"
 Cohesion: 0.50
-Nodes (4): 2. Color Palette & Roles, Neutral, Primary, Semantic
+Nodes (4): 4. Component Stylings, Buttons, Cards: 12px–24px radius, pastel backgrounds, Inputs: white bg, `1px solid #e9eaef`, 8px radius, 16px padding
 
 ### Community 88 - "Community 88"
-Cohesion: 0.67
-Nodes (3): 5. Layout Principles, Border Radius: 3px, 6px, 8px, 10px, 12px, 16px, 9999px, 50%, Spacing: 1px, 2px, 3px, 4px, 5px, 6px, 8px, 10px, 12px, 13px, 15px, 16px, 20px, 24px, 25px
-
-### Community 100 - "Community 100"
 Cohesion: 0.67
 Nodes (3): 9. Agent Prompt Guide, Example Component Prompts, Quick Color Reference
 
 ## Knowledge Gaps
-- **1587 isolated node(s):** `icons`, `revealObserver`, `type`, `project_id`, `private_key_id` (+1582 more)
+- **1587 isolated node(s):** `type`, `project_id`, `private_key_id`, `private_key`, `client_email` (+1582 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **17 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
@@ -436,15 +431,15 @@ Nodes (3): 9. Agent Prompt Guide, Example Component Prompts, Quick Color Referen
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `Design System: Composio` connect `Community 79` to `Community 1`, `Community 27`, `Community 38`, `Community 39`, `Community 40`, `Community 45`, `Community 49`, `Community 54`, `Community 55`, `Community 67`, `Community 70`, `Community 72`, `Community 77`, `Community 80`, `Community 81`, `Community 82`, `Community 83`, `Community 85`, `Community 86`?**
-  _High betweenness centrality (0.058) - this node is a cross-community bridge._
+  _High betweenness centrality (0.057) - this node is a cross-community bridge._
 - **Why does `Design System: Linear` connect `Community 38` to `Community 79`?**
   _High betweenness centrality (0.017) - this node is a cross-community bridge._
-- **Why does `Design System: Lovable` connect `Community 39` to `Community 79`?**
+- **Why does `Design System: Expo` connect `Community 45` to `Community 79`?**
   _High betweenness centrality (0.013) - this node is a cross-community bridge._
 - **Are the 13 inferred relationships involving `Design System: Composio` (e.g. with `Design System: Cursor` and `Design System: ElevenLabs`) actually correct?**
   _`Design System: Composio` has 13 INFERRED edges - model-reasoned connections that need verification._
-- **What connects `Fire-and-forget Telegram message; silently fails if not configured.`, `icons`, `revealObserver` to the rest of the system?**
-  _1627 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **What connects `type`, `project_id`, `private_key_id` to the rest of the system?**
+  _1626 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Community 0` be split into smaller, more focused modules?**
   _Cohesion score 0.05520614954577219 - nodes in this community are weakly interconnected._
 - **Should `Community 1` be split into smaller, more focused modules?**

@@ -97,7 +97,7 @@
       "label": "yandex_analytics_query()",
       "file_type": "code",
       "source_file": "api.py",
-      "source_location": "L189",
+      "source_location": "L185",
       "_origin": "ast",
       "id": "api_yandex_analytics_query",
       "community": 84,
@@ -22317,9 +22317,9 @@
       "source_file": "api.py",
       "source_location": "L135",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "api",
-      "target": "api_analytics_query"
+      "target": "api_analytics_query",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -22397,9 +22397,9 @@
       "source_file": "api.py",
       "source_location": "L185",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "api",
-      "target": "api_yandex_analytics_query"
+      "target": "api_yandex_analytics_query",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -44031,5 +44031,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "23b483fb435e61cf149325b33e03e61f576abbcb"
+  "built_at_commit": "eefcf6c4d6cc1126e1a1c6ce41acefde40696139"
 }

@@ -1,16 +1,16 @@
-# Graph Report - new site for swipies  (2026-07-20)
+# Graph Report - new site for swipies  (2026-07-19)
 
 ## Corpus Check
-- 73 files · ~183,034 words
+- 71 files · ~180,316 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 2218 nodes · 2169 edges · 102 communities (85 shown, 17 thin omitted)
+- 2216 nodes · 2167 edges · 102 communities (85 shown, 17 thin omitted)
 - Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 33 edges (avg confidence: 0.89)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `23b483fb`
+- Built from commit: `94f8033f`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -404,7 +404,7 @@ Cohesion: 0.40
 Nodes (5): 8. Responsive Behavior, Breakpoints, Collapsing Strategy, Image Behavior, Touch Targets
 
 ### Community 84 - "Community 84"
-Cohesion: 0.20
+Cohesion: 0.25
 Nodes (3): create_lead(), Fire-and-forget Telegram message; silently fails if not configured., send_telegram()
 
 ### Community 85 - "Community 85"

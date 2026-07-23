@@ -84,26 +84,6 @@
       "norm_label": "health()"
     },
     {
-      "label": "analytics_query()",
-      "file_type": "code",
-      "source_file": "api.py",
-      "source_location": "L135",
-      "_origin": "ast",
-      "id": "api_analytics_query",
-      "community": 84,
-      "norm_label": "analytics_query()"
-    },
-    {
-      "label": "yandex_analytics_query()",
-      "file_type": "code",
-      "source_file": "api.py",
-      "source_location": "L189",
-      "_origin": "ast",
-      "id": "api_yandex_analytics_query",
-      "community": 84,
-      "norm_label": "yandex_analytics_query()"
-    },
-    {
       "label": "Fire-and-forget Telegram message; silently fails if not configured.",
       "file_type": "rationale",
       "source_file": "api.py",
@@ -119,9 +99,9 @@
       "source_file": "setup_nginx.py",
       "source_location": "L1",
       "_origin": "ast",
+      "id": "setup_nginx",
       "community": 101,
-      "norm_label": "setup_nginx.py",
-      "id": "setup_nginx"
+      "norm_label": "setup_nginx.py"
     },
     {
       "label": "app.js",
@@ -22315,16 +22295,6 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "api.py",
-      "source_location": "L135",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "api",
-      "target": "api_analytics_query"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "api.py",
       "source_location": "L28",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -22357,9 +22327,9 @@
       "source_file": "api.py",
       "source_location": "L130",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "api",
-      "target": "api_health"
+      "target": "api_health",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -22377,9 +22347,9 @@
       "source_file": "api.py",
       "source_location": "L38",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "api",
-      "target": "api_send_telegram"
+      "target": "api_send_telegram",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -22392,25 +22362,15 @@
       "target": "api_update_lead"
     },
     {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "api.py",
-      "source_location": "L185",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "api",
-      "target": "api_yandex_analytics_query"
-    },
-    {
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "api.py",
       "source_location": "L87",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "api_create_lead",
-      "target": "api_send_telegram"
+      "target": "api_send_telegram",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
@@ -22418,9 +22378,9 @@
       "source_file": "api.py",
       "source_location": "L39",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "api_rationale_39",
-      "target": "api_send_telegram"
+      "target": "api_send_telegram",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -44031,5 +43991,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "23b483fb435e61cf149325b33e03e61f576abbcb"
+  "built_at_commit": "94f8033f8db072619cba3d65d721f3e439229167"
 }

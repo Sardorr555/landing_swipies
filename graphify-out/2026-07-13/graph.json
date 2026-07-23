@@ -4,174 +4,14 @@
   "graph": {},
   "nodes": [
     {
-      "label": "api.py",
-      "file_type": "code",
-      "source_file": "api.py",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "api",
-      "community": 84,
-      "norm_label": "api.py"
-    },
-    {
-      "label": "init_db()",
-      "file_type": "code",
-      "source_file": "api.py",
-      "source_location": "L19",
-      "_origin": "ast",
-      "id": "api_init_db",
-      "community": 84,
-      "norm_label": "init_db()"
-    },
-    {
-      "label": "send_telegram()",
-      "file_type": "code",
-      "source_file": "api.py",
-      "source_location": "L38",
-      "_origin": "ast",
-      "id": "api_send_telegram",
-      "community": 84,
-      "norm_label": "send_telegram()"
-    },
-    {
-      "label": "create_lead()",
-      "file_type": "code",
-      "source_file": "api.py",
-      "source_location": "L57",
-      "_origin": "ast",
-      "id": "api_create_lead",
-      "community": 84,
-      "norm_label": "create_lead()"
-    },
-    {
-      "label": "get_leads()",
-      "file_type": "code",
-      "source_file": "api.py",
-      "source_location": "L93",
-      "_origin": "ast",
-      "id": "api_get_leads",
-      "community": 84,
-      "norm_label": "get_leads()"
-    },
-    {
-      "label": "update_lead()",
-      "file_type": "code",
-      "source_file": "api.py",
-      "source_location": "L105",
-      "_origin": "ast",
-      "id": "api_update_lead",
-      "community": 84,
-      "norm_label": "update_lead()"
-    },
-    {
-      "label": "delete_lead()",
-      "file_type": "code",
-      "source_file": "api.py",
-      "source_location": "L120",
-      "_origin": "ast",
-      "id": "api_delete_lead",
-      "community": 84,
-      "norm_label": "delete_lead()"
-    },
-    {
-      "label": "health()",
-      "file_type": "code",
-      "source_file": "api.py",
-      "source_location": "L130",
-      "_origin": "ast",
-      "id": "api_health",
-      "community": 84,
-      "norm_label": "health()"
-    },
-    {
-      "label": "analytics_query()",
-      "file_type": "code",
-      "source_file": "api.py",
-      "source_location": "L135",
-      "_origin": "ast",
-      "id": "api_analytics_query",
-      "community": 84,
-      "norm_label": "analytics_query()"
-    },
-    {
-      "label": "yandex_analytics_query()",
-      "file_type": "code",
-      "source_file": "api.py",
-      "source_location": "L189",
-      "_origin": "ast",
-      "id": "api_yandex_analytics_query",
-      "community": 84,
-      "norm_label": "yandex_analytics_query()"
-    },
-    {
-      "label": "Fire-and-forget Telegram message; silently fails if not configured.",
-      "file_type": "rationale",
-      "source_file": "api.py",
-      "source_location": "L39",
-      "_origin": "ast",
-      "id": "api_rationale_39",
-      "community": 84,
-      "norm_label": "fire-and-forget telegram message; silently fails if not configured."
-    },
-    {
-      "label": "setup_nginx.py",
-      "file_type": "code",
-      "source_file": "setup_nginx.py",
-      "source_location": "L1",
-      "_origin": "ast",
-      "community": 101,
-      "norm_label": "setup_nginx.py",
-      "id": "setup_nginx"
-    },
-    {
-      "label": "app.js",
-      "file_type": "code",
-      "source_file": "app.js",
-      "source_location": "L1",
-      "_origin": "ast",
-      "community": 7,
-      "norm_label": "app.js",
-      "id": "app"
-    },
-    {
-      "label": "icons",
-      "file_type": "code",
-      "source_file": "app.js",
-      "source_location": "L3",
-      "_origin": "ast",
-      "community": 7,
-      "norm_label": "icons",
-      "id": "app_icons"
-    },
-    {
-      "label": "revealCallback()",
-      "file_type": "code",
-      "source_file": "app.js",
-      "source_location": "L453",
-      "_origin": "ast",
-      "community": 7,
-      "norm_label": "revealcallback()",
-      "id": "app_revealcallback"
-    },
-    {
-      "label": "revealObserver",
-      "file_type": "code",
-      "source_file": "app.js",
-      "source_location": "L462",
-      "_origin": "ast",
-      "community": 7,
-      "norm_label": "revealobserver",
-      "id": "app_revealobserver"
-    },
-    {
       "label": "patch_nginx.py",
       "file_type": "code",
       "source_file": "patch_nginx.py",
       "source_location": "L1",
       "_origin": "ast",
+      "id": "patch_nginx",
       "community": 99,
-      "norm_label": "patch_nginx.py",
-      "id": "patch_nginx"
+      "norm_label": "patch_nginx.py"
     },
     {
       "label": "repl()",
@@ -179,9 +19,9 @@
       "source_file": "patch_nginx.py",
       "source_location": "L13",
       "_origin": "ast",
+      "id": "patch_nginx_repl",
       "community": 99,
-      "norm_label": "repl()",
-      "id": "patch_nginx_repl"
+      "norm_label": "repl()"
     },
     {
       "label": "check_commits.py",
@@ -442,6 +282,46 @@
       "community": 91,
       "norm_label": "main()",
       "id": "test_license_db_main"
+    },
+    {
+      "label": "app.js",
+      "file_type": "code",
+      "source_file": "app.js",
+      "source_location": "L1",
+      "_origin": "ast",
+      "community": 7,
+      "norm_label": "app.js",
+      "id": "app"
+    },
+    {
+      "label": "icons",
+      "file_type": "code",
+      "source_file": "app.js",
+      "source_location": "L3",
+      "_origin": "ast",
+      "community": 7,
+      "norm_label": "icons",
+      "id": "app_icons"
+    },
+    {
+      "label": "revealCallback()",
+      "file_type": "code",
+      "source_file": "app.js",
+      "source_location": "L351",
+      "_origin": "ast",
+      "community": 7,
+      "norm_label": "revealcallback()",
+      "id": "app_revealcallback"
+    },
+    {
+      "label": "revealObserver",
+      "file_type": "code",
+      "source_file": "app.js",
+      "source_location": "L360",
+      "_origin": "ast",
+      "community": 7,
+      "norm_label": "revealobserver",
+      "id": "app_revealobserver"
     },
     {
       "label": "translations.js",
@@ -8579,7 +8459,7 @@
       "source_file": ".agent/skills/popular-web-designs/templates/kraken.md",
       "source_location": "L28",
       "_origin": "ast",
-      "community": 87,
+      "community": 72,
       "norm_label": "2. color palette & roles",
       "id": "templates_kraken_2_color_palette_roles"
     },
@@ -8589,7 +8469,7 @@
       "source_file": ".agent/skills/popular-web-designs/templates/kraken.md",
       "source_location": "L30",
       "_origin": "ast",
-      "community": 87,
+      "community": 72,
       "norm_label": "primary",
       "id": "templates_kraken_primary"
     },
@@ -8599,7 +8479,7 @@
       "source_file": ".agent/skills/popular-web-designs/templates/kraken.md",
       "source_location": "L37",
       "_origin": "ast",
-      "community": 87,
+      "community": 72,
       "norm_label": "neutral",
       "id": "templates_kraken_neutral"
     },
@@ -8609,7 +8489,7 @@
       "source_file": ".agent/skills/popular-web-designs/templates/kraken.md",
       "source_location": "L43",
       "_origin": "ast",
-      "community": 87,
+      "community": 72,
       "norm_label": "semantic",
       "id": "templates_kraken_semantic"
     },
@@ -8679,7 +8559,7 @@
       "source_file": ".agent/skills/popular-web-designs/templates/kraken.md",
       "source_location": "L105",
       "_origin": "ast",
-      "community": 88,
+      "community": 72,
       "norm_label": "5. layout principles",
       "id": "templates_kraken_5_layout_principles"
     },
@@ -8689,7 +8569,7 @@
       "source_file": ".agent/skills/popular-web-designs/templates/kraken.md",
       "source_location": "L107",
       "_origin": "ast",
-      "community": 88,
+      "community": 72,
       "norm_label": "spacing: 1px, 2px, 3px, 4px, 5px, 6px, 8px, 10px, 12px, 13px, 15px, 16px, 20px, 24px, 25px",
       "id": "templates_kraken_spacing_1px_2px_3px_4px_5px_6px_8px_10px_12px_13px_15px_16px_20px_24px_25px"
     },
@@ -8699,7 +8579,7 @@
       "source_file": ".agent/skills/popular-web-designs/templates/kraken.md",
       "source_location": "L108",
       "_origin": "ast",
-      "community": 88,
+      "community": 72,
       "norm_label": "border radius: 3px, 6px, 8px, 10px, 12px, 16px, 9999px, 50%",
       "id": "templates_kraken_border_radius_3px_6px_8px_10px_12px_16px_9999px_50"
     },
@@ -8759,7 +8639,7 @@
       "source_file": ".agent/skills/popular-web-designs/templates/kraken.md",
       "source_location": "L128",
       "_origin": "ast",
-      "community": 100,
+      "community": 72,
       "norm_label": "9. agent prompt guide",
       "id": "templates_kraken_9_agent_prompt_guide"
     },
@@ -8769,7 +8649,7 @@
       "source_file": ".agent/skills/popular-web-designs/templates/kraken.md",
       "source_location": "L130",
       "_origin": "ast",
-      "community": 100,
+      "community": 72,
       "norm_label": "quick color reference",
       "id": "templates_kraken_quick_color_reference"
     },
@@ -8779,7 +8659,7 @@
       "source_file": ".agent/skills/popular-web-designs/templates/kraken.md",
       "source_location": "L137",
       "_origin": "ast",
-      "community": 100,
+      "community": 72,
       "norm_label": "example component prompts",
       "id": "templates_kraken_example_component_prompts"
     },
@@ -10389,7 +10269,7 @@
       "source_file": ".agent/skills/popular-web-designs/templates/miro.md",
       "source_location": "L32",
       "_origin": "ast",
-      "community": 77,
+      "community": 84,
       "norm_label": "2. color palette & roles",
       "id": "templates_miro_2_color_palette_roles"
     },
@@ -10399,7 +10279,7 @@
       "source_file": ".agent/skills/popular-web-designs/templates/miro.md",
       "source_location": "L34",
       "_origin": "ast",
-      "community": 77,
+      "community": 84,
       "norm_label": "primary",
       "id": "templates_miro_primary"
     },
@@ -10409,7 +10289,7 @@
       "source_file": ".agent/skills/popular-web-designs/templates/miro.md",
       "source_location": "L40",
       "_origin": "ast",
-      "community": 77,
+      "community": 84,
       "norm_label": "pastel accents (light/dark pairs)",
       "id": "templates_miro_pastel_accents_light_dark_pairs"
     },
@@ -10419,7 +10299,7 @@
       "source_file": ".agent/skills/popular-web-designs/templates/miro.md",
       "source_location": "L51",
       "_origin": "ast",
-      "community": 77,
+      "community": 84,
       "norm_label": "semantic",
       "id": "templates_miro_semantic"
     },
@@ -10429,7 +10309,7 @@
       "source_file": ".agent/skills/popular-web-designs/templates/miro.md",
       "source_location": "L54",
       "_origin": "ast",
-      "community": 77,
+      "community": 84,
       "norm_label": "neutral",
       "id": "templates_miro_neutral"
     },
@@ -10469,7 +10349,7 @@
       "source_file": ".agent/skills/popular-web-designs/templates/miro.md",
       "source_location": "L83",
       "_origin": "ast",
-      "community": 77,
+      "community": 87,
       "norm_label": "4. component stylings",
       "id": "templates_miro_4_component_stylings"
     },
@@ -10479,7 +10359,7 @@
       "source_file": ".agent/skills/popular-web-designs/templates/miro.md",
       "source_location": "L85",
       "_origin": "ast",
-      "community": 77,
+      "community": 87,
       "norm_label": "buttons",
       "id": "templates_miro_buttons"
     },
@@ -10489,7 +10369,7 @@
       "source_file": ".agent/skills/popular-web-designs/templates/miro.md",
       "source_location": "L90",
       "_origin": "ast",
-      "community": 77,
+      "community": 87,
       "norm_label": "cards: 12px\u201324px radius, pastel backgrounds",
       "id": "templates_miro_cards_12px_24px_radius_pastel_backgrounds"
     },
@@ -10499,7 +10379,7 @@
       "source_file": ".agent/skills/popular-web-designs/templates/miro.md",
       "source_location": "L91",
       "_origin": "ast",
-      "community": 77,
+      "community": 87,
       "norm_label": "inputs: white bg, `1px solid #e9eaef`, 8px radius, 16px padding",
       "id": "templates_miro_inputs_white_bg_1px_solid_e9eaef_8px_radius_16px_padding"
     },
@@ -10569,7 +10449,7 @@
       "source_file": ".agent/skills/popular-web-designs/templates/miro.md",
       "source_location": "L113",
       "_origin": "ast",
-      "community": 77,
+      "community": 88,
       "norm_label": "9. agent prompt guide",
       "id": "templates_miro_9_agent_prompt_guide"
     },
@@ -10579,7 +10459,7 @@
       "source_file": ".agent/skills/popular-web-designs/templates/miro.md",
       "source_location": "L114",
       "_origin": "ast",
-      "community": 77,
+      "community": 88,
       "norm_label": "quick color reference",
       "id": "templates_miro_quick_color_reference"
     },
@@ -10589,7 +10469,7 @@
       "source_file": ".agent/skills/popular-web-designs/templates/miro.md",
       "source_location": "L120",
       "_origin": "ast",
-      "community": 77,
+      "community": 88,
       "norm_label": "example component prompts",
       "id": "templates_miro_example_component_prompts"
     },
@@ -22314,153 +22194,12 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "api.py",
-      "source_location": "L135",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "api",
-      "target": "api_analytics_query"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "api.py",
-      "source_location": "L28",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "api",
-      "target": "api_create_lead"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "api.py",
-      "source_location": "L75",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "api",
-      "target": "api_delete_lead"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "api.py",
-      "source_location": "L50",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "api",
-      "target": "api_get_leads"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "api.py",
-      "source_location": "L130",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "api",
-      "target": "api_health"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "api.py",
-      "source_location": "L9",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "api",
-      "target": "api_init_db"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "api.py",
-      "source_location": "L38",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "api",
-      "target": "api_send_telegram"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "api.py",
-      "source_location": "L61",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "api",
-      "target": "api_update_lead"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "api.py",
-      "source_location": "L185",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "api",
-      "target": "api_yandex_analytics_query"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "api.py",
-      "source_location": "L87",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "api_create_lead",
-      "target": "api_send_telegram"
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "api.py",
-      "source_location": "L39",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "api_rationale_39",
-      "target": "api_send_telegram"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "app.js",
-      "source_location": "L3",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "app",
-      "target": "app_icons"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "app.js",
-      "source_location": "L348",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "app",
-      "target": "app_revealcallback"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "app.js",
-      "source_location": "L357",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "app",
-      "target": "app_revealobserver"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
       "source_file": "patch_nginx.py",
       "source_location": "L13",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "patch_nginx",
-      "target": "patch_nginx_repl"
+      "target": "patch_nginx_repl",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -22611,6 +22350,36 @@
       "confidence_score": 1.0,
       "source": "test_license_db",
       "target": "test_license_db_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app",
+      "target": "app_icons"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L348",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app",
+      "target": "app_revealcallback"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app.js",
+      "source_location": "L357",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app",
+      "target": "app_revealobserver"
     },
     {
       "relation": "contains",
@@ -44031,5 +43800,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "23b483fb435e61cf149325b33e03e61f576abbcb"
+  "built_at_commit": "ccd155568556dd74d954cbc94b2eebe5d1281a08"
 }

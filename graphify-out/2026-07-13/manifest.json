@@ -15,8 +15,8 @@
     "semantic_hash": "b1b950ac688b71ddfbbf4092c058cafa"
   },
   "app.js": {
-    "mtime": 1783884465.404661,
-    "ast_hash": "344ce5d009f2bcc898970206f86a0697",
+    "mtime": 1783343040.962216,
+    "ast_hash": "61b58c44efa5e8151c929442367a2a38",
     "semantic_hash": ""
   },
   "translations.js": {
@@ -325,18 +325,18 @@
     "semantic_hash": ""
   },
   "admin.html": {
-    "mtime": 1784539557.090158,
-    "ast_hash": "42fad1d9f1e9a16bbc222e2425cef4e2",
+    "mtime": 1783883981.256014,
+    "ast_hash": "e5cc7065160db908bbf540b3e02fdb58",
     "semantic_hash": ""
   },
   "index.html": {
-    "mtime": 1784539552.4252095,
-    "ast_hash": "03ba77e0d6ae696d78fb39aa678201f7",
+    "mtime": 1783854526.1804504,
+    "ast_hash": "3dcb601d0a7fd7a8b3a1384c1c56e59e",
     "semantic_hash": ""
   },
   ".github/workflows/deploy.yml": {
-    "mtime": 1784472249.4393237,
-    "ast_hash": "a692621ab47376a6ebecd1af305e047c",
+    "mtime": 1783882118.9944894,
+    "ast_hash": "1d5ecde3c35315a84f8f6e07dc83c4d7",
     "semantic_hash": ""
   },
   "robots.txt": {
@@ -402,31 +402,6 @@
   "patch_nginx.py": {
     "mtime": 1783882102.6788392,
     "ast_hash": "481ab5a4536047a453b00949dd3f4b8b",
-    "semantic_hash": ""
-  },
-  "api.py": {
-    "mtime": 1784539547.8914497,
-    "ast_hash": "a0601ba6393185ddaf8270c394d44780",
-    "semantic_hash": ""
-  },
-  "setup_nginx.py": {
-    "mtime": 1784472100.8938541,
-    "ast_hash": "348ca223de35546da0d2150d1efede69",
-    "semantic_hash": ""
-  },
-  "fetch_logs.py": {
-    "mtime": 1784468799.7950356,
-    "ast_hash": "58f4b9a4f6039a736ed86aba7caaa563",
-    "semantic_hash": ""
-  },
-  "read_deploy_log.py": {
-    "mtime": 1784468888.1548376,
-    "ast_hash": "467d78917f375163af80a47fba9d6322",
-    "semantic_hash": ""
-  },
-  "deploy_step_log.txt": {
-    "mtime": 1784487211.255098,
-    "ast_hash": "4716970b92f429d16fd530526d8251ff",
     "semantic_hash": ""
   }
 }

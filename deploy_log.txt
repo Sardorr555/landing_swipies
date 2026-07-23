@@ -1,0 +1,548 @@
+﻿2026-07-12T18:01:41.4739089Z ##[group]Run appleboy/ssh-action@v1.0.3
+2026-07-12T18:01:41.4739537Z with:
+2026-07-12T18:01:41.4739989Z   host: ***
+2026-07-12T18:01:41.4740296Z   username: ubuntu
+2026-07-12T18:01:41.4747368Z   key: ***
+
+2026-07-12T18:01:41.4747917Z   command_timeout: 45m
+2026-07-12T18:01:41.4751460Z   script: set -e
+cd ~/swipies__ai_
+
+echo "📥 Обновляем код..."
+git fetch origin swipies_26
+git reset --hard origin/swipies_26
+
+cd docker
+
+echo "🛑 Полностью останавливаем и удаляем старые бэкенд контейнеры..."
+docker compose down --remove-orphans || true
+docker rm -f swipies-minio swipies-mysql swipies-redis swipies-es01 swipies-frontend swipies-cpu swipies-gpu swipies-infinity swipies-seekdb || true
+
+echo "🐳 Собираем новые образы (с кэшированием для скорости)..."
+docker compose build
+
+echo "🚀 Запускаем..."
+docker compose up -d --remove-orphans
+
+echo "⏳ Ждем запуска сервисов..."
+sleep 15
+
+echo "📊 Статус контейнеров:"
+docker compose ps
+
+echo "🔑 Предоставляем права superuser всем зарегистрированным пользователям..."
+docker exec -i swipies-mysql mysql -uroot -p0czavZsPcYfroExMAdb -D rag_flow -e "UPDATE user SET is_superuser = 1;" || true
+docker exec -i swipies-mysql mysql -uroot -p0czavZsPcYfroExMAdb -D rag_flow -e "SELECT email, is_superuser FROM user;" || true
+
+echo "📝 Логи сервисов:"
+docker compose logs --tail=100
+
+echo "🧹 Чистим старые образы..."
+docker image prune -f
+
+echo "✅ Ragflow обновлён!"
+2026-07-12T18:01:41.4755366Z   port: 22
+2026-07-12T18:01:41.4755661Z   timeout: 30s
+2026-07-12T18:01:41.4755985Z   proxy_port: 22
+2026-07-12T18:01:41.4756307Z   proxy_timeout: 30s
+2026-07-12T18:01:41.4756637Z env:
+2026-07-12T18:01:41.4757021Z   pythonLocation: /opt/hostedtoolcache/Python/3.10.20/x64
+2026-07-12T18:01:41.4757868Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.10.20/x64/lib/pkgconfig
+2026-07-12T18:01:41.4758458Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.10.20/x64
+2026-07-12T18:01:41.4758957Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.10.20/x64
+2026-07-12T18:01:41.4759452Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.10.20/x64
+2026-07-12T18:01:41.4760213Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.10.20/x64/lib
+2026-07-12T18:01:41.4760665Z ##[endgroup]
+2026-07-12T18:01:41.4873624Z ##[command]/usr/bin/docker run --name d80313eaaa0d9ddf34555a6702ef21e6e3b8f_87acbb --label 5d8031 --workdir /github/workspace --rm -e "pythonLocation" -e "PKG_CONFIG_PATH" -e "Python_ROOT_DIR" -e "Python2_ROOT_DIR" -e "Python3_ROOT_DIR" -e "LD_LIBRARY_PATH" -e "INPUT_HOST" -e "INPUT_USERNAME" -e "INPUT_KEY" -e "INPUT_COMMAND_TIMEOUT" -e "INPUT_SCRIPT" -e "INPUT_PORT" -e "INPUT_PASSPHRASE" -e "INPUT_PASSWORD" -e "INPUT_SYNC" -e "INPUT_USE_INSECURE_CIPHER" -e "INPUT_CIPHER" -e "INPUT_TIMEOUT" -e "INPUT_KEY_PATH" -e "INPUT_FINGERPRINT" -e "INPUT_PROXY_HOST" -e "INPUT_PROXY_PORT" -e "INPUT_PROXY_USERNAME" -e "INPUT_PROXY_PASSWORD" -e "INPUT_PROXY_PASSPHRASE" -e "INPUT_PROXY_TIMEOUT" -e "INPUT_PROXY_KEY" -e "INPUT_PROXY_KEY_PATH" -e "INPUT_PROXY_FINGERPRINT" -e "INPUT_PROXY_CIPHER" -e "INPUT_PROXY_USE_INSECURE_CIPHER" -e "INPUT_SCRIPT_STOP" -e "INPUT_ENVS" -e "INPUT_ENVS_FORMAT" -e "INPUT_DEBUG" -e "INPUT_ALLENVS" -e "INPUT_REQUEST_PTY" -e "HOME" -e "GITHUB_JOB" -e "GITHUB_REF" -e "GITHUB_SHA" -e "GITHUB_REPOSITORY" -e "GITHUB_REPOSITORY_OWNER" -e "GITHUB_REPOSITORY_OWNER_ID" -e "GITHUB_RUN_ID" -e "GITHUB_RUN_NUMBER" -e "GITHUB_RETENTION_DAYS" -e "GITHUB_RUN_ATTEMPT" -e "GITHUB_ACTOR_ID" -e "GITHUB_ACTOR" -e "GITHUB_WORKFLOW" -e "GITHUB_HEAD_REF" -e "GITHUB_BASE_REF" -e "GITHUB_EVENT_NAME" -e "GITHUB_SERVER_URL" -e "GITHUB_API_URL" -e "GITHUB_GRAPHQL_URL" -e "GITHUB_REF_NAME" -e "GITHUB_REF_PROTECTED" -e "GITHUB_REF_TYPE" -e "GITHUB_WORKFLOW_REF" -e "GITHUB_WORKFLOW_SHA" -e "GITHUB_REPOSITORY_ID" -e "GITHUB_TRIGGERING_ACTOR" -e "GITHUB_WORKSPACE" -e "GITHUB_ACTION" -e "GITHUB_EVENT_PATH" -e "GITHUB_ACTION_REPOSITORY" -e "GITHUB_ACTION_REF" -e "GITHUB_PATH" -e "GITHUB_ENV" -e "GITHUB_STEP_SUMMARY" -e "GITHUB_STATE" -e "GITHUB_OUTPUT" -e "RUNNER_OS" -e "RUNNER_ARCH" -e "RUNNER_NAME" -e "RUNNER_ENVIRONMENT" -e "RUNNER_TOOL_CACHE" -e "RUNNER_TEMP" -e "RUNNER_WORKSPACE" -e "ACTIONS_RUNTIME_URL" -e "ACTIONS_RUNTIME_TOKEN" -e "ACTIONS_CACHE_URL" -e "ACTIONS_RESULTS_URL" -e "ACTIONS_ORCHESTRATION_ID" -e GITHUB_ACTIONS=true -e CI=true -v "/var/run/docker.sock":"/var/run/docker.sock" -v "/home/runner/work/_temp":"/github/runner_temp" -v "/home/runner/work/_temp/_github_home":"/github/home" -v "/home/runner/work/_temp/_github_workflow":"/github/workflow" -v "/home/runner/work/_temp/_runner_file_commands":"/github/file_commands" -v "/home/runner/work/swipies__ai_/swipies__ai_":"/github/workspace" 5d8031:3eaaa0d9ddf34555a6702ef21e6e3b8f
+2026-07-12T18:01:42.3223407Z ======CMD======
+2026-07-12T18:01:42.3226481Z set -e
+2026-07-12T18:01:42.3228421Z cd ~/swipies__ai_
+2026-07-12T18:01:42.3229137Z 
+2026-07-12T18:01:42.3230077Z echo "📥 Обновляем код..."
+2026-07-12T18:01:42.3231016Z git fetch origin swipies_26
+2026-07-12T18:01:42.3232057Z git reset --hard origin/swipies_26
+2026-07-12T18:01:42.3232776Z 
+2026-07-12T18:01:42.3233143Z cd docker
+2026-07-12T18:01:42.3233837Z 
+2026-07-12T18:01:42.3234637Z echo "🛑 Полностью останавливаем и удаляем старые бэкенд контейнеры..."
+2026-07-12T18:01:42.3235721Z docker compose down --remove-orphans || true
+2026-07-12T18:01:42.3236743Z docker rm -f swipies-minio swipies-mysql swipies-redis swipies-es01 swipies-frontend swipies-cpu swipies-gpu swipies-infinity swipies-seekdb || true
+2026-07-12T18:01:42.3237872Z 
+2026-07-12T18:01:42.3238306Z echo "🐳 Собираем новые образы (с кэшированием для скорости)..."
+2026-07-12T18:01:42.3238956Z docker compose build
+2026-07-12T18:01:42.3239229Z 
+2026-07-12T18:01:42.3239476Z echo "🚀 Запускаем..."
+2026-07-12T18:01:42.3240032Z docker compose up -d --remove-orphans
+2026-07-12T18:01:42.3240401Z 
+2026-07-12T18:01:42.3240592Z echo "⏳ Ждем запуска сервисов..."
+2026-07-12T18:01:42.3240928Z sleep 15
+2026-07-12T18:01:42.3241088Z 
+2026-07-12T18:01:42.3241258Z echo "📊 Статус контейнеров:"
+2026-07-12T18:01:42.3241609Z docker compose ps
+2026-07-12T18:01:42.3241785Z 
+2026-07-12T18:01:42.3242600Z echo "🔑 Предоставляем права superuser всем зарегистрированным пользователям..."
+2026-07-12T18:01:42.3243422Z docker exec -i swipies-mysql mysql -uroot -p0czavZsPcYfroExMAdb -D rag_flow -e "UPDATE user SET is_superuser = 1;" || true
+2026-07-12T18:01:42.3244369Z docker exec -i swipies-mysql mysql -uroot -p0czavZsPcYfroExMAdb -D rag_flow -e "SELECT email, is_superuser FROM user;" || true
+2026-07-12T18:01:42.3244875Z 
+2026-07-12T18:01:42.3245060Z echo "📝 Логи сервисов:"
+2026-07-12T18:01:42.3245396Z docker compose logs --tail=100
+2026-07-12T18:01:42.3245614Z 
+2026-07-12T18:01:42.3245790Z echo "🧹 Чистим старые образы..."
+2026-07-12T18:01:42.3246145Z docker image prune -f
+2026-07-12T18:01:42.3246327Z 
+2026-07-12T18:01:42.3246511Z echo "✅ Ragflow обновлён!"
+2026-07-12T18:01:42.3246826Z ======END======
+2026-07-12T18:01:42.9275246Z out: 📥 Обновляем код...
+2026-07-12T18:01:43.5571750Z err: From https://github.com/Sardorr555/swipies__ai_
+2026-07-12T18:01:43.5572403Z err:  * branch                swipies_26 -> FETCH_HEAD
+2026-07-12T18:01:43.5576074Z err:    2dbfb5cde..9f6d6704b  swipies_26 -> origin/swipies_26
+2026-07-12T18:01:43.8009228Z out: HEAD is now at 9f6d6704b debug: list users on deployment
+2026-07-12T18:01:43.8017266Z out: 🛑 Полностью останавливаем и удаляем старые бэкенд контейнеры...
+2026-07-12T18:01:44.5573839Z err:  Container swipies-frontend Stopping 
+2026-07-12T18:01:44.5574409Z err:  Container swipies-cpu Stopping 
+2026-07-12T18:01:44.5574824Z err:  Container swipies-es01 Stopping 
+2026-07-12T18:01:44.5575219Z err:  Container swipies-minio Stopping 
+2026-07-12T18:01:44.5575615Z err:  Container swipies-redis Stopping 
+2026-07-12T18:01:44.8513038Z err:  Container swipies-minio Stopped 
+2026-07-12T18:01:44.8513804Z err:  Container swipies-minio Removing 
+2026-07-12T18:01:44.9188621Z err:  Container swipies-frontend Stopped 
+2026-07-12T18:01:44.9189979Z err:  Container swipies-frontend Removing 
+2026-07-12T18:01:44.9669713Z err:  Container swipies-redis Stopped 
+2026-07-12T18:01:44.9670840Z err:  Container swipies-redis Removing 
+2026-07-12T18:01:47.1726218Z err:  Container swipies-minio Removed 
+2026-07-12T18:01:47.2438044Z err:  Container swipies-redis Removed 
+2026-07-12T18:01:47.2817743Z err:  Container swipies-frontend Removed 
+2026-07-12T18:01:47.3913488Z err:  Container swipies-es01 Stopped 
+2026-07-12T18:01:47.3914256Z err:  Container swipies-es01 Removing 
+2026-07-12T18:01:47.4602828Z err:  Container swipies-es01 Removed 
+2026-07-12T18:01:55.1369523Z err:  Container swipies-cpu Stopped 
+2026-07-12T18:01:55.1370088Z err:  Container swipies-cpu Removing 
+2026-07-12T18:01:55.2094651Z err:  Container swipies-cpu Removed 
+2026-07-12T18:01:55.2095186Z err:  Container swipies-mysql Stopping 
+2026-07-12T18:01:56.2274348Z err:  Container swipies-mysql Stopped 
+2026-07-12T18:01:56.2275099Z err:  Container swipies-mysql Removing 
+2026-07-12T18:01:56.2944175Z err:  Container swipies-mysql Removed 
+2026-07-12T18:01:56.2944897Z err:  Network docker_ragflow Removing 
+2026-07-12T18:01:56.3657988Z err:  Network docker_ragflow Removed 
+2026-07-12T18:01:56.4065441Z err: Error response from daemon: No such container: swipies-minio
+2026-07-12T18:01:56.4066410Z err: Error response from daemon: No such container: swipies-mysql
+2026-07-12T18:01:56.4067234Z err: Error response from daemon: No such container: swipies-redis
+2026-07-12T18:01:56.4068231Z err: Error response from daemon: No such container: swipies-es01
+2026-07-12T18:01:56.4069073Z err: Error response from daemon: No such container: swipies-frontend
+2026-07-12T18:01:56.4069619Z err: Error response from daemon: No such container: swipies-cpu
+2026-07-12T18:01:56.4070135Z err: Error response from daemon: No such container: swipies-gpu
+2026-07-12T18:01:56.4070656Z err: Error response from daemon: No such container: swipies-infinity
+2026-07-12T18:01:56.4071202Z err: Error response from daemon: No such container: swipies-seekdb
+2026-07-12T18:01:56.4088484Z out: 🐳 Собираем новые образы (с кэшированием для скорости)...
+2026-07-12T18:01:57.0709861Z err:  Image infiniflow/ragflow:v0.26.3 Building 
+2026-07-12T18:01:57.0711100Z err:  Image docker-frontend Building 
+2026-07-12T18:01:57.1898433Z out: #1 [internal] load local bake definitions
+2026-07-12T18:01:57.3371172Z out: #1 reading from stdin 957B done
+2026-07-12T18:01:57.3371680Z out: #1 DONE 0.0s
+2026-07-12T18:01:57.5509554Z out: #2 [ragflow-cpu internal] load build definition from Dockerfile
+2026-07-12T18:01:57.5510594Z out: #2 transferring dockerfile: 13.36kB done
+2026-07-12T18:01:57.5511377Z out: #2 DONE 0.0s
+2026-07-12T18:01:57.5511989Z out: #3 [frontend internal] load build definition from Dockerfile
+2026-07-12T18:01:57.5512651Z out: #3 transferring dockerfile: 311B done
+2026-07-12T18:01:57.5513042Z out: #3 DONE 0.1s
+2026-07-12T18:01:57.5513493Z out: #4 [frontend internal] load metadata for docker.io/library/node:20-alpine
+2026-07-12T18:01:57.5722906Z out: #4 ...
+2026-07-12T18:01:57.5723666Z out: #5 [ragflow-cpu internal] load metadata for docker.io/library/ubuntu:24.04
+2026-07-12T18:01:57.5724469Z out: #5 DONE 0.2s
+2026-07-12T18:01:57.6753472Z out: #4 [frontend internal] load metadata for docker.io/library/node:20-alpine
+2026-07-12T18:01:57.6754325Z out: #4 DONE 0.2s
+2026-07-12T18:01:57.6754988Z out: #6 [frontend internal] load metadata for docker.io/library/nginx:alpine
+2026-07-12T18:01:57.6755742Z out: #6 DONE 0.2s
+2026-07-12T18:01:57.6756232Z out: #7 [frontend internal] load .dockerignore
+2026-07-12T18:01:57.6756860Z out: #7 transferring context: 2B done
+2026-07-12T18:01:57.6757401Z out: #7 DONE 0.0s
+2026-07-12T18:01:57.6758370Z out: #8 [frontend stage-1 1/3] FROM docker.io/library/nginx:alpine@sha256:54f2a904c251d5a34adf545a72d32515a15e08418dae0266e23be2e18c66fefa
+2026-07-12T18:01:57.6759422Z out: #8 resolve docker.io/library/nginx:alpine@sha256:54f2a904c251d5a34adf545a72d32515a15e08418dae0266e23be2e18c66fefa 0.0s done
+2026-07-12T18:01:57.6760078Z out: #8 DONE 0.0s
+2026-07-12T18:01:57.6760415Z out: #9 [frontend internal] load build context
+2026-07-12T18:01:57.7838364Z out: #9 ...
+2026-07-12T18:01:57.7839410Z out: #10 [frontend builder 1/6] FROM docker.io/library/node:20-alpine@sha256:fb4cd12c85ee03686f6af5362a0b0d56d50c58a04632e6c0fb8363f609372293
+2026-07-12T18:01:57.7840821Z out: #10 resolve docker.io/library/node:20-alpine@sha256:fb4cd12c85ee03686f6af5362a0b0d56d50c58a04632e6c0fb8363f609372293 0.1s done
+2026-07-12T18:01:57.7841501Z out: #10 DONE 0.1s
+2026-07-12T18:01:57.7841998Z out: #11 [ragflow-cpu internal] load metadata for docker.io/infiniflow/ragflow_deps:latest
+2026-07-12T18:01:57.7842527Z out: #11 DONE 0.3s
+2026-07-12T18:01:57.7842873Z out: #12 [ragflow-cpu internal] load .dockerignore
+2026-07-12T18:01:57.7843298Z out: #12 transferring context: 2.48kB done
+2026-07-12T18:01:57.7843670Z out: #12 DONE 0.0s
+2026-07-12T18:01:57.7844000Z out: #9 [frontend internal] load build context
+2026-07-12T18:01:57.9292819Z out: #9 transferring context: 110.54kB 0.2s done
+2026-07-12T18:01:57.9293678Z out: #9 DONE 0.3s
+2026-07-12T18:01:57.9294737Z out: #13 [ragflow-cpu] FROM docker.io/infiniflow/ragflow_deps:latest@sha256:dfda0dbc4b392d5046a1e81ddf09c1c56f86035a43412538b163c81cc36eb2aa
+2026-07-12T18:01:57.9296489Z out: #13 resolve docker.io/infiniflow/ragflow_deps:latest@sha256:dfda0dbc4b392d5046a1e81ddf09c1c56f86035a43412538b163c81cc36eb2aa 0.0s done
+2026-07-12T18:01:57.9297347Z out: #13 DONE 0.0s
+2026-07-12T18:01:57.9298230Z out: #14 [ragflow-cpu base  1/15] FROM docker.io/library/ubuntu:24.04@sha256:4fbb8e6a8395de5a7550b33509421a2bafbc0aab6c06ba2cef9ebffbc7092d90
+2026-07-12T18:01:57.9299240Z out: #14 resolve docker.io/library/ubuntu:24.04@sha256:4fbb8e6a8395de5a7550b33509421a2bafbc0aab6c06ba2cef9ebffbc7092d90 0.0s done
+2026-07-12T18:01:57.9299894Z out: #14 DONE 0.0s
+2026-07-12T18:01:57.9300330Z out: #15 [frontend builder 3/6] COPY package.json package-lock.json ./
+2026-07-12T18:01:57.9300820Z out: #15 CACHED
+2026-07-12T18:01:57.9301150Z out: #16 [frontend builder 5/6] COPY . .
+2026-07-12T18:01:57.9301530Z out: #16 CACHED
+2026-07-12T18:01:57.9301863Z out: #17 [frontend builder 6/6] RUN npm run build
+2026-07-12T18:01:57.9302249Z out: #17 CACHED
+2026-07-12T18:01:57.9302920Z out: #18 [frontend builder 2/6] WORKDIR /app
+2026-07-12T18:01:57.9303297Z out: #18 CACHED
+2026-07-12T18:01:57.9303602Z out: #19 [frontend builder 4/6] RUN npm ci
+2026-07-12T18:01:57.9303962Z out: #19 CACHED
+2026-07-12T18:01:57.9304395Z out: #20 [frontend stage-1 2/3] COPY --from=builder /app/dist /usr/share/nginx/html
+2026-07-12T18:01:57.9304897Z out: #20 CACHED
+2026-07-12T18:01:57.9305383Z out: #21 [frontend stage-1 3/3] COPY nginx.conf.template /etc/nginx/templates/default.conf.template
+2026-07-12T18:01:58.0302702Z out: #21 CACHED
+2026-07-12T18:01:58.0303189Z out: #22 [frontend] exporting to image
+2026-07-12T18:01:58.0303619Z out: #22 exporting layers 0.0s done
+2026-07-12T18:01:58.0304242Z out: #22 exporting manifest sha256:d3673bcd649d4a0b32191c1d39afb3e23b8151e6f27ff1bcc3f7c201415b608e done
+2026-07-12T18:01:58.0305048Z out: #22 exporting config sha256:4557694c6a51c6070c886080a5d00dfea82a22b8a30877bed23c8c0bdf1bf193 done
+2026-07-12T18:01:58.0305915Z out: #22 exporting attestation manifest sha256:3fc41aa876b3555067ed0bdc87434cc68a6fbeccb229143c2e2a6855ef1da6bb 0.0s done
+2026-07-12T18:01:58.0306860Z out: #22 exporting manifest list sha256:99d5ab4b5794ee5d8229ede38f5439c2eaa745156ee51731122f026865726338 0.0s done
+2026-07-12T18:01:58.0307816Z out: #22 naming to docker.io/library/docker-frontend:latest done
+2026-07-12T18:01:58.0308346Z out: #22 unpacking to docker.io/library/docker-frontend:latest
+2026-07-12T18:01:58.1499614Z out: #22 unpacking to docker.io/library/docker-frontend:latest 0.0s done
+2026-07-12T18:01:58.1500470Z out: #22 DONE 0.2s
+2026-07-12T18:01:58.1501166Z out: #23 [ragflow-cpu internal] load build context
+2026-07-12T18:01:58.4372189Z out: #23 ...
+2026-07-12T18:01:58.4372713Z out: #24 [frontend] resolving provenance for metadata file
+2026-07-12T18:01:58.4373180Z out: #24 DONE 0.0s
+2026-07-12T18:01:58.4373813Z out: #23 [ragflow-cpu internal] load build context
+2026-07-12T18:01:58.4374623Z out: #23 transferring context: 831.76kB 0.6s done
+2026-07-12T18:01:58.6091320Z out: #23 DONE 0.6s
+2026-07-12T18:01:58.6986496Z out: #25 [ragflow-cpu base 11/15] RUN --mount=type=bind,from=infiniflow/ragflow_deps:latest,source=/,target=/deps     set -eux;     arch="$(uname -m)";     case "$arch" in         x86_64) stagehand_arch=x64 ;;         aarch64|arm64) stagehand_arch=arm64 ;;         *) echo "Unsupported architecture: $arch" >&2; exit 1 ;;     esac;     stagehand_version="3.21.0";     stagehand_cache_dir="/root/.cache/stagehand/lib/go_${stagehand_version}";     mkdir -p "${stagehand_cache_dir}";     cp "/deps/stagehand-server-v3-linux-${stagehand_arch}"        "${stagehand_cache_dir}/stagehand-server-v3-linux-${stagehand_arch}";     chmod +x "${stagehand_cache_dir}/stagehand-server-v3-linux-${stagehand_arch}"
+2026-07-12T18:01:58.6989154Z out: #25 CACHED
+2026-07-12T18:01:58.6990345Z out: #26 [ragflow-cpu base 15/15] RUN --mount=type=bind,from=infiniflow/ragflow_deps:latest,source=/,target=/deps     if [ "$(uname -m)" = "x86_64" ]; then         dpkg -i /deps/libssl1.1_1.1.1f-1ubuntu2_amd64.deb;     elif [ "$(uname -m)" = "aarch64" ]; then         dpkg -i /deps/libssl1.1_1.1.1f-1ubuntu2_arm64.deb;     fi
+2026-07-12T18:01:58.6991556Z out: #26 CACHED
+2026-07-12T18:01:58.6992986Z out: #27 [ragflow-cpu base  7/15] RUN mkdir -p /usr/share/infinity/resource &&     if [ "0" == "1" ]; then         git clone --depth 1 --single-branch https://gitee.com/infiniflow/resource /tmp/resource;     else         git clone --depth 1 --single-branch https://github.com/infiniflow/resource.git /tmp/resource;     fi &&     cp -r /tmp/resource/* /usr/share/infinity/resource &&     rm -rf /tmp/resource
+2026-07-12T18:01:58.6994382Z out: #27 CACHED
+2026-07-12T18:01:58.6994773Z out: #28 [ragflow-cpu builder  3/11] COPY pyproject.toml uv.lock ./
+2026-07-12T18:01:58.6995231Z out: #28 CACHED
+2026-07-12T18:01:58.6997077Z out: #29 [ragflow-cpu builder  4/11] RUN --mount=type=cache,id=ragflow_uv,target=/root/.cache/uv,sharing=locked     if [ "0" == "1" ]; then         sed -i 's|pypi.org|mirrors.aliyun.com/pypi|g' uv.lock;         sed -i 's|pypi.tuna.tsinghua.edu.cn|mirrors.aliyun.com/pypi|g' uv.lock;     else         sed -i 's|mirrors.aliyun.com/pypi|pypi.org|g' uv.lock;         sed -i 's|pypi.tuna.tsinghua.edu.cn|pypi.org|g' uv.lock;         sed -i 's|gitee.com|github.com|g' uv.lock;     fi;     uv sync --python 3.13 --frozen --refresh-package litellm &&     .venv/bin/python3 -m ensurepip --upgrade
+2026-07-12T18:01:58.7000660Z out: #29 CACHED
+2026-07-12T18:01:58.7002421Z out: #30 [ragflow-cpu base  4/15] RUN --mount=type=bind,from=infiniflow/ragflow_deps:latest,source=/huggingface.co,target=/huggingface.co     tar --exclude='.*' -cf -         /huggingface.co/InfiniFlow/text_concat_xgb_v1.0         /huggingface.co/InfiniFlow/deepdoc         | tar -xf - --strip-components=3 -C /ragflow/rag/res/deepdoc
+2026-07-12T18:01:58.7004315Z out: #30 CACHED
+2026-07-12T18:01:58.7006088Z out: #31 [ragflow-cpu base 10/15] RUN --mount=type=cache,id=ragflow_apt,target=/var/cache/apt,sharing=locked     curl -fsSL https://deb.nodesource.com/setup_20.x | bash - &&     apt purge -y nodejs npm &&     apt autoremove -y &&     apt update &&     apt install -y nodejs &&     rm -rf /var/lib/apt/lists/*
+2026-07-12T18:01:58.7008359Z out: #31 CACHED
+2026-07-12T18:01:58.7011257Z out: #32 [ragflow-cpu base 12/15] RUN --mount=type=cache,id=ragflow_apt,target=/var/cache/apt,sharing=locked     curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - &&     curl https://packages.microsoft.com/config/ubuntu/22.04/prod.list > /etc/apt/sources.list.d/mssql-release.list &&     apt update &&     arch="$(uname -m)";     if [ "$arch" = "arm64" ] || [ "$arch" = "aarch64" ]; then         ACCEPT_EULA=Y apt install -y unixodbc-dev msodbcsql18;     else         ACCEPT_EULA=Y apt install -y unixodbc-dev msodbcsql17;     fi &&     rm -rf /var/lib/apt/lists/* ||     { echo "Failed to install ODBC driver"; exit 1; }
+2026-07-12T18:01:58.7013344Z out: #32 CACHED
+2026-07-12T18:01:58.7014254Z out: #33 [ragflow-cpu builder  2/11] RUN --mount=type=cache,id=ragflow_apt,target=/var/cache/apt,sharing=locked     apt update &&     apt install -y build-essential libpython3-dev libicu-dev libgbm-dev &&     rm -rf /var/lib/apt/lists/*
+2026-07-12T18:01:58.7015830Z out: #33 CACHED
+2026-07-12T18:01:58.7019254Z out: #34 [ragflow-cpu base  8/15] RUN --mount=type=cache,id=ragflow_apt,target=/var/cache/apt,sharing=locked     mkdir -p /etc/apt/keyrings &&     curl --retry 5 --retry-delay 2 --retry-all-errors -fsSL https://nginx.org/keys/nginx_signing.key | gpg --dearmor -o /etc/apt/keyrings/nginx-archive-keyring.gpg &&     echo "deb [signed-by=/etc/apt/keyrings/nginx-archive-keyring.gpg] https://nginx.org/packages/mainline/ubuntu/ noble nginx" > /etc/apt/sources.list.d/nginx.list &&     apt -o Acquire::Retries=5 update &&     apt -o Acquire::Retries=5 install -y nginx=1.31.0-1~noble &&     apt-mark hold nginx &&     rm -rf /var/lib/apt/lists/*
+2026-07-12T18:01:58.7021748Z out: #34 CACHED
+2026-07-12T18:01:58.7023378Z out: #35 [ragflow-cpu base  5/15] RUN --mount=type=bind,from=infiniflow/ragflow_deps:latest,source=/,target=/deps     cp -r /deps/nltk_data /root/ &&     cp /deps/tika-server-standard-3.3.0.jar /deps/tika-server-standard-3.3.0.jar.md5 /ragflow/ &&     cp /deps/cl100k_base.tiktoken /ragflow/9b5ad71b2ce5302211f9c61530b329a4922fc6a4
+2026-07-12T18:01:58.7024837Z out: #35 CACHED
+2026-07-12T18:01:58.7026230Z out: #36 [ragflow-cpu base 13/15] RUN --mount=type=bind,from=infiniflow/ragflow_deps:latest,source=/chrome-linux64-121-0-6167-85,target=/chrome-linux64.zip     unzip /chrome-linux64.zip &&     mv chrome-linux64 /opt/chrome &&     ln -s /opt/chrome/chrome /usr/local/bin/
+2026-07-12T18:01:58.7027562Z out: #36 CACHED
+2026-07-12T18:01:58.7028353Z out: #37 [ragflow-cpu base  3/15] RUN mkdir -p /ragflow/rag/res/deepdoc /root/.ragflow
+2026-07-12T18:01:58.7029007Z out: #37 CACHED
+2026-07-12T18:01:58.7029586Z out: #38 [ragflow-cpu builder  7/11] COPY web web
+2026-07-12T18:01:58.7030193Z out: #38 CACHED
+2026-07-12T18:01:58.7031261Z out: #39 [ragflow-cpu builder  6/11] RUN --mount=type=cache,id=ragflow_npm,target=/root/.npm,sharing=locked     cd web && NODE_OPTIONS="--max-old-space-size=8192" npm install
+2026-07-12T18:01:58.7032372Z out: #39 CACHED
+2026-07-12T18:01:58.7033195Z out: #40 [ragflow-cpu builder  5/11] COPY web/package.json web/package-lock.json web/.npmrc ./web/
+2026-07-12T18:01:58.7033879Z out: #40 CACHED
+2026-07-12T18:01:58.7035449Z out: #41 [ragflow-cpu base 14/15] RUN --mount=type=bind,from=infiniflow/ragflow_deps:latest,source=/chromedriver-linux64-121-0-6167-85,target=/chromedriver-linux64.zip     unzip -j /chromedriver-linux64.zip chromedriver-linux64/chromedriver &&     mv chromedriver /usr/local/bin/ &&     rm -f /usr/bin/google-chrome
+2026-07-12T18:01:58.7037087Z out: #41 CACHED
+2026-07-12T18:01:58.7039925Z out: #42 [ragflow-cpu base  9/15] RUN --mount=type=bind,from=infiniflow/ragflow_deps:latest,source=/,target=/deps     if [ "0" == "1" ]; then         mkdir -p /etc/uv &&         echo 'python-install-mirror = "https://registry.npmmirror.com/-/binary/python-build-standalone/"' > /etc/uv/uv.toml &&         echo '[[index]]' >> /etc/uv/uv.toml &&         echo 'url = "https://mirrors.aliyun.com/pypi/simple"' >> /etc/uv/uv.toml &&         echo 'default = true' >> /etc/uv/uv.toml;     fi;     arch="$(uname -m)";     if [ "$arch" = "x86_64" ]; then uv_arch="x86_64"; else uv_arch="aarch64"; fi;     tar xzf "/deps/uv-${uv_arch}-unknown-linux-gnu.tar.gz"     && cp "uv-${uv_arch}-unknown-linux-gnu/"* /usr/local/bin/     && rm -rf "uv-${uv_arch}-unknown-linux-gnu"     && uv python install 3.13
+2026-07-12T18:01:58.7042456Z out: #42 CACHED
+2026-07-12T18:01:58.7043027Z out: #43 [ragflow-cpu builder  1/11] WORKDIR /ragflow
+2026-07-12T18:01:58.7043652Z out: #43 CACHED
+2026-07-12T18:01:58.7044322Z out: #44 [ragflow-cpu builder  8/11] COPY docs docs
+2026-07-12T18:01:58.7044909Z out: #44 CACHED
+2026-07-12T18:01:58.7045508Z out: #45 [ragflow-cpu base  2/15] WORKDIR /ragflow
+2026-07-12T18:01:58.7046104Z out: #45 CACHED
+2026-07-12T18:01:58.7050317Z out: #46 [ragflow-cpu base  6/15] RUN --mount=type=cache,id=ragflow_apt,target=/var/cache/apt,sharing=locked     apt update &&     apt --no-install-recommends install -y ca-certificates;     if [ "0" == "1" ]; then         sed -i 's|http://archive.ubuntu.com/ubuntu|http://mirrors.aliyun.com/ubuntu|g' /etc/apt/sources.list.d/ubuntu.sources;         sed -i 's|http://security.ubuntu.com/ubuntu|http://mirrors.aliyun.com/ubuntu|g' /etc/apt/sources.list.d/ubuntu.sources;     fi;     rm -f /etc/apt/apt.conf.d/docker-clean &&     echo 'Binary::apt::APT::Keep-Downloaded-Packages "true";' > /etc/apt/apt.conf.d/keep-cache &&     chmod 1777 /tmp &&     apt update &&     apt install -y     libglib2.0-0 libglx-mesa0 libgl1 pkg-config libgdiplus default-jdk libatk-bridge2.0-0 libgtk-4-1 libnss3 xdg-utils libjemalloc-dev gnupg unzip curl wget git vim less ghostscript pandoc texlive texlive-latex-extra texlive-xetex texlive-lang-chinese fonts-freefont-ttf fonts-noto-cjk postgresql-client &&     rm -rf /var/lib/apt/lists/*
+2026-07-12T18:01:58.7054156Z out: #46 CACHED
+2026-07-12T18:01:58.7055413Z out: #47 [ragflow-cpu builder  9/11] RUN --mount=type=cache,id=ragflow_npm,target=/root/.npm,sharing=locked     cd web && NODE_OPTIONS="--max-old-space-size=8192" VITE_BUILD_SOURCEMAP=false VITE_MINIFY=esbuild npm run build
+2026-07-12T18:01:58.8491539Z out: #47 CACHED
+2026-07-12T18:01:58.8492276Z out: #48 [ragflow-cpu builder 10/11] COPY .git /ragflow/.git
+2026-07-12T18:02:01.0730972Z out: #48 DONE 2.4s
+2026-07-12T18:02:01.2313360Z out: #49 [ragflow-cpu builder 11/11] RUN version_info=$(git describe --tags --match=v* --first-parent --always);     version_info="$version_info";     echo "RAGFlow version: $version_info";     echo $version_info > /ragflow/VERSION
+2026-07-12T18:02:02.0350538Z out: #49 0.954 RAGFlow version: 9f6d6704b
+2026-07-12T18:02:02.2146219Z out: #49 DONE 1.0s
+2026-07-12T18:03:13.4183877Z out: #50 [ragflow-cpu production 20/22] RUN mv /etc/nginx/ragflow.conf.golang /etc/nginx/conf.d/ragflow.conf.golang &&     mv /etc/nginx/ragflow.conf.python /etc/nginx/conf.d/ragflow.conf.python &&     mv /etc/nginx/ragflow.conf.hybrid /etc/nginx/conf.d/ragflow.conf.hybrid &&     rm -f /etc/nginx/sites-enabled/default
+2026-07-12T18:03:13.4185595Z out: #50 CACHED
+2026-07-12T18:03:13.4185982Z out: #51 [ragflow-cpu production 10/22] COPY mcp mcp
+2026-07-12T18:03:13.4186405Z out: #51 CACHED
+2026-07-12T18:03:13.4186980Z out: #52 [ragflow-cpu production 16/22] COPY docker/service_conf.yaml.template ./conf/service_conf.yaml.template
+2026-07-12T18:03:13.4187843Z out: #52 CACHED
+2026-07-12T18:03:13.4188205Z out: #53 [ragflow-cpu production  3/22] COPY admin admin
+2026-07-12T18:03:13.4188614Z out: #53 CACHED
+2026-07-12T18:03:13.4189457Z out: #54 [ragflow-cpu production 19/22] COPY docker/nginx/ragflow.conf.golang docker/nginx/ragflow.conf.python docker/nginx/ragflow.conf.hybrid docker/nginx/nginx.conf docker/nginx/proxy.conf /etc/nginx/
+2026-07-12T18:03:13.4190337Z out: #54 CACHED
+2026-07-12T18:03:13.4190719Z out: #55 [ragflow-cpu production 18/22] RUN chmod +x ./entrypoint*.sh
+2026-07-12T18:03:13.4191173Z out: #55 CACHED
+2026-07-12T18:03:13.4191628Z out: #56 [ragflow-cpu production  2/22] COPY --from=builder /ragflow/.venv /ragflow/.venv
+2026-07-12T18:03:13.4192131Z out: #56 CACHED
+2026-07-12T18:03:13.4192530Z out: #57 [ragflow-cpu production 14/22] COPY tools/scripts tools/scripts
+2026-07-12T18:03:13.4192978Z out: #57 CACHED
+2026-07-12T18:03:13.4193703Z out: #58 [ragflow-cpu production 15/22] COPY generate_license.py ./
+2026-07-12T18:03:13.4194408Z out: #58 CACHED
+2026-07-12T18:03:13.4195039Z out: #59 [ragflow-cpu production  6/22] COPY deepdoc deepdoc
+2026-07-12T18:03:13.4195698Z out: #59 CACHED
+2026-07-12T18:03:13.4196293Z out: #60 [ragflow-cpu production  4/22] COPY api api
+2026-07-12T18:03:13.4196909Z out: #60 CACHED
+2026-07-12T18:03:13.4197641Z out: #61 [ragflow-cpu production 11/22] COPY common common
+2026-07-12T18:03:13.4198261Z out: #61 CACHED
+2026-07-12T18:03:13.4198861Z out: #62 [ragflow-cpu production  5/22] COPY conf conf
+2026-07-12T18:03:13.4199464Z out: #62 CACHED
+2026-07-12T18:03:13.4200046Z out: #63 [ragflow-cpu production  7/22] COPY rag rag
+2026-07-12T18:03:13.4201006Z out: #63 CACHED
+2026-07-12T18:03:13.4201631Z out: #64 [ragflow-cpu production  8/22] COPY agent agent
+2026-07-12T18:03:13.4202230Z out: #64 CACHED
+2026-07-12T18:03:13.4202830Z out: #65 [ragflow-cpu production 12/22] COPY memory memory
+2026-07-12T18:03:13.4203450Z out: #65 CACHED
+2026-07-12T18:03:13.4204028Z out: #66 [ragflow-cpu production 13/22] COPY bin bin
+2026-07-12T18:03:13.4204634Z out: #66 CACHED
+2026-07-12T18:03:13.4205308Z out: #67 [ragflow-cpu production 17/22] COPY docker/entrypoint.sh ./
+2026-07-12T18:03:13.4205938Z out: #67 CACHED
+2026-07-12T18:03:13.4206631Z out: #68 [ragflow-cpu production  9/22] COPY pyproject.toml uv.lock ./
+2026-07-12T18:03:13.4207273Z out: #68 CACHED
+2026-07-12T18:03:13.4208167Z out: #69 [ragflow-cpu production 21/22] COPY --from=builder /ragflow/web/dist /ragflow/web/dist
+2026-07-12T18:03:13.5851966Z out: #69 CACHED
+2026-07-12T18:03:13.5852808Z out: #70 [ragflow-cpu production 22/22] COPY --from=builder /ragflow/VERSION /ragflow/VERSION
+2026-07-12T18:03:13.5853521Z out: #70 DONE 0.1s
+2026-07-12T18:03:13.5853947Z out: #71 [ragflow-cpu] exporting to image
+2026-07-12T18:03:13.5854436Z out: #71 exporting layers 0.1s done
+2026-07-12T18:03:13.7875787Z out: #71 exporting manifest sha256:9ac63902fc3cc6aaac0423c88eb5d1fd6fa495f0dd6bac744ef3d4bf69295e83 0.0s done
+2026-07-12T18:03:13.7877015Z out: #71 exporting config sha256:8540830121d3c1701f314a40f64ca16d7f3b10de6f90e11b541962a6a37ac576 0.0s done
+2026-07-12T18:03:13.7878444Z out: #71 exporting attestation manifest sha256:0f7580e8ac2cbf227ffbc1f5e38b8426f7d9b6663cb0d248528874e502dc69fe
+2026-07-12T18:03:13.8529390Z out: #71 exporting attestation manifest sha256:0f7580e8ac2cbf227ffbc1f5e38b8426f7d9b6663cb0d248528874e502dc69fe 0.2s done
+2026-07-12T18:03:13.9933562Z out: #71 exporting manifest list sha256:66c878784617cc80c3af54eaf10ec2cca261f7a69d5caef98dccb22ab865e229 0.0s done
+2026-07-12T18:03:13.9934821Z out: #71 naming to docker.io/infiniflow/ragflow:v0.26.3 done
+2026-07-12T18:03:13.9936402Z out: #71 unpacking to docker.io/infiniflow/ragflow:v0.26.3 0.0s done
+2026-07-12T18:03:13.9937261Z out: #71 DONE 0.5s
+2026-07-12T18:03:14.4575366Z out: #72 [ragflow-cpu] resolving provenance for metadata file
+2026-07-12T18:03:14.4870421Z err:  Image docker-frontend Built 
+2026-07-12T18:03:14.4871234Z err:  Image infiniflow/ragflow:v0.26.3 Built 
+2026-07-12T18:03:14.4871894Z out: #72 DONE 0.0s
+2026-07-12T18:03:14.4910805Z out: 🚀 Запускаем...
+2026-07-12T18:03:14.7649316Z err:  Network docker_ragflow Creating 
+2026-07-12T18:03:14.8084626Z err:  Network docker_ragflow Created 
+2026-07-12T18:03:14.8122281Z err:  Container swipies-mysql Creating 
+2026-07-12T18:03:14.8123275Z err:  Container swipies-frontend Creating 
+2026-07-12T18:03:14.8123912Z err:  Container swipies-redis Creating 
+2026-07-12T18:03:14.8124532Z err:  Container swipies-es01 Creating 
+2026-07-12T18:03:14.8125124Z err:  Container swipies-minio Creating 
+2026-07-12T18:03:14.9452505Z err:  Container swipies-redis Created 
+2026-07-12T18:03:14.9557709Z err:  Container swipies-minio Created 
+2026-07-12T18:03:14.9563248Z err:  Container swipies-frontend Created 
+2026-07-12T18:03:14.9608684Z err:  Container swipies-mysql Created 
+2026-07-12T18:03:14.9609537Z err:  Container swipies-cpu Creating 
+2026-07-12T18:03:14.9627950Z err:  Container swipies-es01 Created 
+2026-07-12T18:03:15.0777659Z err:  Container swipies-cpu Created 
+2026-07-12T18:03:15.1322307Z err:  Container swipies-frontend Starting 
+2026-07-12T18:03:15.1322928Z err:  Container swipies-redis Starting 
+2026-07-12T18:03:15.1323358Z err:  Container swipies-minio Starting 
+2026-07-12T18:03:15.1323758Z err:  Container swipies-es01 Starting 
+2026-07-12T18:03:15.1324156Z err:  Container swipies-mysql Starting 
+2026-07-12T18:03:15.4888913Z err:  Container swipies-redis Started 
+2026-07-12T18:03:15.6606827Z err:  Container swipies-minio Started 
+2026-07-12T18:03:15.6694827Z err:  Container swipies-frontend Started 
+2026-07-12T18:03:15.7079106Z err:  Container swipies-es01 Started 
+2026-07-12T18:03:15.7725111Z err:  Container swipies-mysql Started 
+2026-07-12T18:03:15.7725701Z err:  Container swipies-mysql Waiting 
+2026-07-12T18:03:26.2749693Z err:  Container swipies-mysql Healthy 
+2026-07-12T18:03:26.2750234Z err:  Container swipies-cpu Starting 
+2026-07-12T18:03:26.8711850Z err:  Container swipies-cpu Started 
+2026-07-12T18:03:26.8757253Z out: ⏳ Ждем запуска сервисов...
+2026-07-12T18:03:41.8841437Z out: 📊 Статус контейнеров:
+2026-07-12T18:03:42.2342535Z out: NAME               IMAGE                                      COMMAND                  SERVICE       CREATED          STATUS                             PORTS
+2026-07-12T18:03:42.2344751Z out: swipies-cpu        infiniflow/ragflow:v0.26.3                 "./entrypoint.sh --e…"   ragflow-cpu   27 seconds ago   Up 15 seconds                      127.0.0.1:5678-5679->5678-5679/tcp, 127.0.0.1:9380-9384->9380-9384/tcp
+2026-07-12T18:03:42.2346220Z out: swipies-es01       elasticsearch:8.11.3                       "/bin/tini -- /usr/l…"   es01          28 seconds ago   Up 26 seconds (health: starting)   9300/tcp, 127.0.0.1:1200->9200/tcp
+2026-07-12T18:03:42.2347938Z out: swipies-frontend   docker-frontend                            "/docker-entrypoint.…"   frontend      28 seconds ago   Up 15 seconds                      127.0.0.1:9222->80/tcp
+2026-07-12T18:03:42.2349316Z out: swipies-minio      pgsty/minio:RELEASE.2026-03-25T00-00-00Z   "/usr/bin/docker-ent…"   minio         28 seconds ago   Up 26 seconds (healthy)            127.0.0.1:9000-9001->9000-9001/tcp
+2026-07-12T18:03:42.2350634Z out: swipies-mysql      mysql:8.0.39                               "docker-entrypoint.s…"   mysql         28 seconds ago   Up 26 seconds (healthy)            33060/tcp, 127.0.0.1:5455->3306/tcp
+2026-07-12T18:03:42.2351897Z out: swipies-redis      valkey/valkey:8                            "docker-entrypoint.s…"   redis         28 seconds ago   Up 26 seconds (healthy)            127.0.0.1:6379->6379/tcp
+2026-07-12T18:03:42.2428134Z out: 🔑 Предоставляем права superuser всем зарегистрированным пользователям...
+2026-07-12T18:03:42.3718983Z err: mysql: [Warning] Using a password on the command line interface can be insecure.
+2026-07-12T18:03:42.5804128Z err: mysql: [Warning] Using a password on the command line interface can be insecure.
+2026-07-12T18:03:42.6379853Z out: email	is_superuser
+2026-07-12T18:03:42.6380324Z out: admin@ragflow.io	1
+2026-07-12T18:03:42.6464591Z out: 📝 Логи сервисов:
+2026-07-12T18:03:42.9143609Z out: swipies-mysql  | 2026-07-12 23:03:15+05:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 8.0.39-1.el9 started.
+2026-07-12T18:03:42.9145192Z out: swipies-mysql  | 2026-07-12 23:03:16+05:00 [Note] [Entrypoint]: Switching to dedicated user 'mysql'
+2026-07-12T18:03:42.9146316Z out: swipies-mysql  | 2026-07-12 23:03:16+05:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 8.0.39-1.el9 started.
+2026-07-12T18:03:42.9147087Z out: swipies-mysql  | '/var/lib/mysql/mysql.sock' -> '/var/run/mysqld/mysqld.sock'
+2026-07-12T18:03:42.9148473Z out: swipies-mysql  | 2026-07-12T18:03:16.694649Z 0 [Warning] [MY-011068] [Server] The syntax '--skip-host-cache' is deprecated and will be removed in a future release. Please use SET GLOBAL host_cache_size=0 instead.
+2026-07-12T18:03:42.9149894Z out: swipies-mysql  | 2026-07-12T18:03:16.697142Z 0 [Warning] [MY-010918] [Server] 'default_authentication_plugin' is deprecated and will be removed in a future release. Please use authentication_policy instead.
+2026-07-12T18:03:42.9151061Z out: swipies-mysql  | 2026-07-12T18:03:16.697186Z 0 [System] [MY-010116] [Server] /usr/sbin/mysqld (mysqld 8.0.39) starting as process 1
+2026-07-12T18:03:42.9151950Z out: swipies-mysql  | 2026-07-12T18:03:16.716358Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2026-07-12T18:03:42.9152751Z out: swipies-mysql  | 2026-07-12T18:03:17.241218Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+2026-07-12T18:03:42.9153552Z out: swipies-mysql  | 2026-07-12T18:03:17.628000Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+2026-07-12T18:03:42.9154935Z out: swipies-mysql  | 2026-07-12T18:03:17.628286Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+2026-07-12T18:03:42.9156328Z out: swipies-mysql  | 2026-07-12T18:03:17.638827Z 0 [Warning] [MY-011810] [Server] Insecure configuration for --pid-file: Location '/var/run/mysqld' in the path is accessible to all OS users. Consider choosing a different directory.
+2026-07-12T18:03:42.9157880Z out: swipies-mysql  | 2026-07-12T18:03:17.711110Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060, socket: /var/run/mysqld/mysqlx.sock
+2026-07-12T18:03:42.9159239Z out: swipies-mysql  | 2026-07-12T18:03:17.711462Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.0.39'  socket: '/var/run/mysqld/mysqld.sock'  port: 3306  MySQL Community Server - GPL.
+2026-07-12T18:03:42.9160764Z out: swipies-mysql  | 2026-07-12T18:03:25.840726Z 9 [Warning] [MY-013360] [Server] Plugin mysql_native_password reported: ''mysql_native_password' is deprecated and will be removed in a future release. Please use caching_sha2_password instead'
+2026-07-12T18:03:42.9162007Z out: swipies-es01   | Created elasticsearch keystore in /usr/share/elasticsearch/config/elasticsearch.keystore
+2026-07-12T18:03:42.9162801Z out: swipies-es01   | Jul 12, 2026 11:03:25 PM sun.util.locale.provider.LocaleProviderAdapter <clinit>
+2026-07-12T18:03:42.9163531Z out: swipies-es01   | WARNING: COMPAT locale provider will be removed in a future release
+2026-07-12T18:03:42.9165200Z out: swipies-es01   | Failed to load native library:jansi-2.4.0-8af85090bb457849-libjansi.so. The native library file at /tmp/elasticsearch-13912578528116215677/jansi-2.4.0-8af85090bb457849-libjansi.so is not executable, make sure that the directory is mounted on a partition without the noexec flag, or set the jansi.tmpdir system property to point to a proper location.  osinfo: Linux/x86_64
+2026-07-12T18:03:42.9167931Z out: swipies-es01   | java.lang.UnsatisfiedLinkError: /tmp/elasticsearch-13912578528116215677/jansi-2.4.0-8af85090bb457849-libjansi.so: /tmp/elasticsearch-13912578528116215677/jansi-2.4.0-8af85090bb457849-libjansi.so: failed to map segment from shared object
+2026-07-12T18:03:42.9170388Z out: swipies-es01   | {"@timestamp":"2026-07-12T18:03:26.109Z", "log.level": "INFO", "message":"Java vector incubator API enabled; uses preferredBitSize=256", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.apache.lucene.internal.vectorization.PanamaVectorizationProvider","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9214598Z out: swipies-es01   | {"@timestamp":"2026-07-12T18:03:27.148Z", "log.level": "INFO", "message":"version[8.11.3], pid[171], build[docker/64cf052f3b56b1fd4449f5454cb88aca7e739d9a/2023-12-08T11:33:53.634979452Z], OS[Linux/7.0.0-1006-aws/amd64], JVM[Oracle Corporation/OpenJDK 64-Bit Server VM/21.0.1/21.0.1+12-29]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.node.Node","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9218349Z out: swipies-es01   | {"@timestamp":"2026-07-12T18:03:27.150Z", "log.level": "INFO", "message":"JVM home [/usr/share/elasticsearch/jdk], using bundled JDK [true]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.node.Node","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9225668Z out: swipies-es01   | {"@timestamp":"2026-07-12T18:03:27.150Z", "log.level": "INFO", "message":"JVM arguments [-Des.networkaddress.cache.ttl=60, -Des.networkaddress.cache.negative.ttl=10, -Djava.security.manager=allow, -XX:+AlwaysPreTouch, -Xss1m, -Djava.awt.headless=true, -Dfile.encoding=UTF-8, -Djna.nosys=true, -XX:-OmitStackTraceInFastThrow, -Dio.netty.noUnsafe=true, -Dio.netty.noKeySetOptimization=true, -Dio.netty.recycler.maxCapacityPerThread=0, -Dlog4j.shutdownHookEnabled=false, -Dlog4j2.disable.jmx=true, -Dlog4j2.formatMsgNoLookups=true, -Djava.locale.providers=SPI,COMPAT, --add-opens=java.base/java.io=org.elasticsearch.preallocate, -Des.cgroups.hierarchy.override=/, -XX:+UseG1GC, -Djava.io.tmpdir=/tmp/elasticsearch-13912578528116215677, --add-modules=jdk.incubator.vector, -XX:+HeapDumpOnOutOfMemoryError, -XX:+ExitOnOutOfMemoryError, -XX:HeapDumpPath=data, -XX:ErrorFile=logs/hs_err_pid%p.log, -Xlog:gc*,gc+age=trace,safepoint:file=logs/gc.log:utctime,level,pid,tags:filecount=32,filesize=64m, -Xms3849m, -Xmx3849m, -XX:MaxDirectMemorySize=2018508800, -XX:G1HeapRegionSize=4m, -XX:InitiatingHeapOccupancyPercent=30, -XX:G1ReservePercent=15, -Des.distribution.type=docker, --module-path=/usr/share/elasticsearch/lib, --add-modules=jdk.net, --add-modules=ALL-MODULE-PATH, -Djdk.module.main=org.elasticsearch.server]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.node.Node","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9232988Z out: swipies-es01   | {"@timestamp":"2026-07-12T18:03:33.180Z", "log.level": "INFO", "message":"loaded module [repository-url]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9235559Z out: swipies-es01   | {"@timestamp":"2026-07-12T18:03:33.181Z", "log.level": "INFO", "message":"loaded module [rest-root]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9238343Z out: swipies-es01   | {"@timestamp":"2026-07-12T18:03:33.181Z", "log.level": "INFO", "message":"loaded module [x-pack-core]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9240809Z out: swipies-es01   | {"@timestamp":"2026-07-12T18:03:33.181Z", "log.level": "INFO", "message":"loaded module [x-pack-redact]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9243341Z out: swipies-es01   | {"@timestamp":"2026-07-12T18:03:33.181Z", "log.level": "INFO", "message":"loaded module [ingest-user-agent]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9245880Z out: swipies-es01   | {"@timestamp":"2026-07-12T18:03:33.181Z", "log.level": "INFO", "message":"loaded module [x-pack-async-search]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9248481Z out: swipies-es01   | {"@timestamp":"2026-07-12T18:03:33.182Z", "log.level": "INFO", "message":"loaded module [x-pack-monitoring]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9251118Z out: swipies-es01   | {"@timestamp":"2026-07-12T18:03:33.182Z", "log.level": "INFO", "message":"loaded module [repository-s3]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9253569Z out: swipies-es01   | {"@timestamp":"2026-07-12T18:03:33.183Z", "log.level": "INFO", "message":"loaded module [x-pack-analytics]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9256043Z out: swipies-es01   | {"@timestamp":"2026-07-12T18:03:33.183Z", "log.level": "INFO", "message":"loaded module [x-pack-ent-search]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9262629Z out: swipies-es01   | {"@timestamp":"2026-07-12T18:03:33.184Z", "log.level": "INFO", "message":"loaded module [x-pack-autoscaling]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9266198Z out: swipies-es01   | {"@timestamp":"2026-07-12T18:03:33.184Z", "log.level": "INFO", "message":"loaded module [lang-painless]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9269348Z out: swipies-es01   | {"@timestamp":"2026-07-12T18:03:33.184Z", "log.level": "INFO", "message":"loaded module [x-pack-ml]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9272044Z out: swipies-es01   | {"@timestamp":"2026-07-12T18:03:33.185Z", "log.level": "INFO", "message":"loaded module [lang-mustache]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9274708Z out: swipies-es01   | {"@timestamp":"2026-07-12T18:03:33.185Z", "log.level": "INFO", "message":"loaded module [legacy-geo]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9277385Z out: swipies-es01   | {"@timestamp":"2026-07-12T18:03:33.185Z", "log.level": "INFO", "message":"loaded module [x-pack-ql]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9280288Z out: swipies-es01   | {"@timestamp":"2026-07-12T18:03:33.186Z", "log.level": "INFO", "message":"loaded module [rank-rrf]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9284375Z out: swipies-es01   | {"@timestamp":"2026-07-12T18:03:33.186Z", "log.level": "INFO", "message":"loaded module [analysis-common]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9288126Z out: swipies-es01   | {"@timestamp":"2026-07-12T18:03:33.186Z", "log.level": "INFO", "message":"loaded module [transport-netty4]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9290673Z out: swipies-es01   | {"@timestamp":"2026-07-12T18:03:33.187Z", "log.level": "INFO", "message":"loaded module [aggregations]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9293147Z out: swipies-es01   | {"@timestamp":"2026-07-12T18:03:33.187Z", "log.level": "INFO", "message":"loaded module [ingest-common]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9294900Z out: swipies-frontend  | /docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration
+2026-07-12T18:03:42.9295859Z out: swipies-frontend  | /docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/
+2026-07-12T18:03:42.9296990Z out: swipies-frontend  | /docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh
+2026-07-12T18:03:42.9298077Z out: swipies-frontend  | 10-listen-on-ipv6-by-default.sh: info: Getting the checksum of /etc/nginx/conf.d/default.conf
+2026-07-12T18:03:42.9299064Z out: swipies-frontend  | 10-listen-on-ipv6-by-default.sh: info: Enabled listen on IPv6 in /etc/nginx/conf.d/default.conf
+2026-07-12T18:03:42.9299996Z out: swipies-frontend  | /docker-entrypoint.sh: Sourcing /docker-entrypoint.d/15-local-resolvers.envsh
+2026-07-12T18:03:42.9300905Z out: swipies-frontend  | /docker-entrypoint.sh: Launching /docker-entrypoint.d/20-envsubst-on-templates.sh
+2026-07-12T18:03:42.9301966Z out: swipies-frontend  | 20-envsubst-on-templates.sh: Running envsubst on /etc/nginx/templates/default.conf.template to /etc/nginx/conf.d/default.conf
+2026-07-12T18:03:42.9303017Z out: swipies-frontend  | /docker-entrypoint.sh: Launching /docker-entrypoint.d/30-tune-worker-processes.sh
+2026-07-12T18:03:42.9303888Z out: swipies-frontend  | /docker-entrypoint.sh: Configuration complete; ready for start up
+2026-07-12T18:03:42.9304839Z out: swipies-frontend  | 2026/07/12 18:03:15 [emerg] 1#1: host not found in upstream "ragflow-cpu" in /etc/nginx/conf.d/default.conf:33
+2026-07-12T18:03:42.9305823Z out: swipies-frontend  | nginx: [emerg] host not found in upstream "ragflow-cpu" in /etc/nginx/conf.d/default.conf:33
+2026-07-12T18:03:42.9306797Z out: swipies-frontend  | /docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration
+2026-07-12T18:03:42.9307812Z out: swipies-frontend  | /docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/
+2026-07-12T18:03:42.9308720Z out: swipies-frontend  | /docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh
+2026-07-12T18:03:42.9309726Z out: swipies-frontend  | 10-listen-on-ipv6-by-default.sh: info: Getting the checksum of /etc/nginx/conf.d/default.conf
+2026-07-12T18:03:42.9310862Z out: swipies-frontend  | 10-listen-on-ipv6-by-default.sh: info: /etc/nginx/conf.d/default.conf differs from the packaged version
+2026-07-12T18:03:42.9311982Z out: swipies-frontend  | /docker-entrypoint.sh: Sourcing /docker-entrypoint.d/15-local-resolvers.envsh
+2026-07-12T18:03:42.9312870Z out: swipies-frontend  | /docker-entrypoint.sh: Launching /docker-entrypoint.d/20-envsubst-on-templates.sh
+2026-07-12T18:03:42.9313937Z out: swipies-frontend  | 20-envsubst-on-templates.sh: Running envsubst on /etc/nginx/templates/default.conf.template to /etc/nginx/conf.d/default.conf
+2026-07-12T18:03:42.9314987Z out: swipies-frontend  | /docker-entrypoint.sh: Launching /docker-entrypoint.d/30-tune-worker-processes.sh
+2026-07-12T18:03:42.9315840Z out: swipies-frontend  | /docker-entrypoint.sh: Configuration complete; ready for start up
+2026-07-12T18:03:42.9317399Z out: swipies-frontend  | 2026/07/12 18:03:21 [emerg] 1#1: host not found in upstream "ragflow-cpu" in /etc/nginx/conf.d/default.conf:33
+2026-07-12T18:03:42.9319187Z out: swipies-frontend  | nginx: [emerg] host not found in upstream "ragflow-cpu" in /etc/nginx/conf.d/default.conf:33
+2026-07-12T18:03:42.9320525Z out: swipies-frontend  | /docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration
+2026-07-12T18:03:42.9321682Z out: swipies-frontend  | /docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/
+2026-07-12T18:03:42.9322752Z out: swipies-frontend  | /docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh
+2026-07-12T18:03:42.9323888Z out: swipies-frontend  | 10-listen-on-ipv6-by-default.sh: info: Getting the checksum of /etc/nginx/conf.d/default.conf
+2026-07-12T18:03:42.9325081Z out: swipies-frontend  | 10-listen-on-ipv6-by-default.sh: info: /etc/nginx/conf.d/default.conf differs from the packaged version
+2026-07-12T18:03:42.9326232Z out: swipies-frontend  | /docker-entrypoint.sh: Sourcing /docker-entrypoint.d/15-local-resolvers.envsh
+2026-07-12T18:03:42.9327576Z out: swipies-frontend  | /docker-entrypoint.sh: Launching /docker-entrypoint.d/20-envsubst-on-templates.sh
+2026-07-12T18:03:42.9329628Z out: swipies-frontend  | 20-envsubst-on-templates.sh: Running envsubst on /etc/nginx/templates/default.conf.template to /etc/nginx/conf.d/default.conf
+2026-07-12T18:03:42.9331158Z out: swipies-frontend  | /docker-entrypoint.sh: Launching /docker-entrypoint.d/30-tune-worker-processes.sh
+2026-07-12T18:03:42.9332481Z out: swipies-frontend  | /docker-entrypoint.sh: Configuration complete; ready for start up
+2026-07-12T18:03:42.9333810Z out: swipies-frontend  | 2026/07/12 18:03:26 [notice] 1#1: using the "epoll" event method
+2026-07-12T18:03:42.9347608Z out: swipies-frontend  | 2026/07/12 18:03:26 [notice] 1#1: nginx/1.31.2
+2026-07-12T18:03:42.9349034Z out: swipies-frontend  | 2026/07/12 18:03:26 [notice] 1#1: built by gcc 15.2.0 (Alpine 15.2.0) 
+2026-07-12T18:03:42.9349855Z out: swipies-frontend  | 2026/07/12 18:03:26 [notice] 1#1: OS: Linux 7.0.0-1006-aws
+2026-07-12T18:03:42.9350668Z out: swipies-frontend  | 2026/07/12 18:03:26 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1024:524288
+2026-07-12T18:03:42.9351487Z out: swipies-frontend  | 2026/07/12 18:03:26 [notice] 1#1: start worker processes
+2026-07-12T18:03:42.9352231Z out: swipies-frontend  | 2026/07/12 18:03:26 [notice] 1#1: start worker process 35
+2026-07-12T18:03:42.9352949Z out: swipies-frontend  | 2026/07/12 18:03:26 [notice] 1#1: start worker process 36
+2026-07-12T18:03:42.9353644Z out: swipies-frontend  | 2026/07/12 18:03:26 [notice] 1#1: start worker process 37
+2026-07-12T18:03:42.9354334Z out: swipies-frontend  | 2026/07/12 18:03:26 [notice] 1#1: start worker process 38
+2026-07-12T18:03:42.9356499Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:33.187Z", "log.level": "INFO", "message":"loaded module [frozen-indices]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9360073Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:33.187Z", "log.level": "INFO", "message":"loaded module [x-pack-identity-provider]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9363408Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:33.188Z", "log.level": "INFO", "message":"loaded module [x-pack-text-structure]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9366697Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:33.188Z", "log.level": "INFO", "message":"loaded module [x-pack-shutdown]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9370047Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:33.190Z", "log.level": "INFO", "message":"loaded module [snapshot-repo-test-kit]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9373227Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:33.190Z", "log.level": "INFO", "message":"loaded module [ml-package-loader]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9376541Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:33.191Z", "log.level": "INFO", "message":"loaded module [kibana]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9380138Z out: swipies-redis     | 1:M 12 Jul 2026 23:03:15.520 # WARNING Memory overcommit must be enabled! Without it, a background save or replication may fail under low memory condition. Being disabled, it can also cause failures without low memory condition, see https://github.com/jemalloc/jemalloc/issues/1328. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+2026-07-12T18:03:42.9383832Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:33.191Z", "log.level": "INFO", "message":"loaded module [constant-keyword]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9387524Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:33.191Z", "log.level": "INFO", "message":"loaded module [x-pack-logstash]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9390663Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:33.192Z", "log.level": "INFO", "message":"loaded module [x-pack-graph]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9393945Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:33.192Z", "log.level": "INFO", "message":"loaded module [x-pack-ccr]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9397026Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:33.192Z", "log.level": "INFO", "message":"loaded module [x-pack-esql]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9400286Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:33.193Z", "log.level": "INFO", "message":"loaded module [parent-join]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9403407Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:33.193Z", "log.level": "INFO", "message":"loaded module [x-pack-enrich]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9406565Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:33.193Z", "log.level": "INFO", "message":"loaded module [repositories-metering-api]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9410046Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:33.194Z", "log.level": "INFO", "message":"loaded module [transform]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9413175Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:33.194Z", "log.level": "INFO", "message":"loaded module [repository-azure]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9416306Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:33.194Z", "log.level": "INFO", "message":"loaded module [repository-gcs]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9419515Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:33.195Z", "log.level": "INFO", "message":"loaded module [spatial]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9422571Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:33.195Z", "log.level": "INFO", "message":"loaded module [mapper-extras]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9425884Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:33.195Z", "log.level": "INFO", "message":"loaded module [mapper-version]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9429165Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:33.196Z", "log.level": "INFO", "message":"loaded module [apm]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9432255Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:33.196Z", "log.level": "INFO", "message":"loaded module [x-pack-rollup]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9435375Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:33.196Z", "log.level": "INFO", "message":"loaded module [percolator]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9438709Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:33.196Z", "log.level": "INFO", "message":"loaded module [data-streams]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9442202Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:33.197Z", "log.level": "INFO", "message":"loaded module [x-pack-stack]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9452026Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:33.197Z", "log.level": "INFO", "message":"loaded module [rank-eval]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9455233Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:33.197Z", "log.level": "INFO", "message":"loaded module [reindex]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9458508Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:33.198Z", "log.level": "INFO", "message":"loaded module [x-pack-security]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9461730Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:33.198Z", "log.level": "INFO", "message":"loaded module [blob-cache]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9465070Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:33.198Z", "log.level": "INFO", "message":"loaded module [searchable-snapshots]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9468335Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:33.199Z", "log.level": "INFO", "message":"loaded module [x-pack-slm]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9471523Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:33.199Z", "log.level": "INFO", "message":"loaded module [snapshot-based-recoveries]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9474741Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:33.199Z", "log.level": "INFO", "message":"loaded module [x-pack-watcher]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9477996Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:33.200Z", "log.level": "INFO", "message":"loaded module [old-lucene-versions]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9481420Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:33.200Z", "log.level": "INFO", "message":"loaded module [x-pack-ilm]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9484596Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:33.200Z", "log.level": "INFO", "message":"loaded module [x-pack-voting-only-node]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9487951Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:33.200Z", "log.level": "INFO", "message":"loaded module [x-pack-deprecation]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9491103Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:33.200Z", "log.level": "INFO", "message":"loaded module [x-pack-fleet]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9494219Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:33.200Z", "log.level": "INFO", "message":"loaded module [x-pack-profiling]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9497670Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:33.201Z", "log.level": "INFO", "message":"loaded module [x-pack-aggregate-metric]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9500876Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:33.201Z", "log.level": "INFO", "message":"loaded module [x-pack-downsample]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9505354Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:33.201Z", "log.level": "INFO", "message":"loaded module [ingest-geoip]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9508792Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:33.201Z", "log.level": "INFO", "message":"loaded module [x-pack-write-load-forecaster]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9512007Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:33.201Z", "log.level": "INFO", "message":"loaded module [inference]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9515365Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:33.201Z", "log.level": "INFO", "message":"loaded module [search-business-rules]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9518718Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:33.201Z", "log.level": "INFO", "message":"loaded module [wildcard]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9521908Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:33.202Z", "log.level": "INFO", "message":"loaded module [ingest-attachment]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9525074Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:33.202Z", "log.level": "INFO", "message":"loaded module [unsigned-long]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9528292Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:33.202Z", "log.level": "INFO", "message":"loaded module [x-pack-sql]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9531646Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:33.202Z", "log.level": "INFO", "message":"loaded module [runtime-fields-common]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9534821Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:33.202Z", "log.level": "INFO", "message":"loaded module [x-pack-async]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9536758Z out: swipies-minio     | MinIO Object Storage Server
+2026-07-12T18:03:42.9537646Z out: swipies-minio     | Copyright: 2015-2026 MinIO, Inc.
+2026-07-12T18:03:42.9538619Z out: swipies-minio     | License: GNU AGPLv3 - https://www.gnu.org/licenses/agpl-3.0.html
+2026-07-12T18:03:42.9539696Z out: swipies-minio     | Version: RELEASE.2026-03-25T00-00-00Z (go1.26.1 linux/amd64)
+2026-07-12T18:03:42.9540457Z out: swipies-minio     | 
+2026-07-12T18:03:42.9541298Z out: swipies-minio     | API: http://172.18.0.3:9000  http://127.0.0.1:9000 
+2026-07-12T18:03:42.9542298Z out: swipies-minio     | WebUI: http://172.18.0.3:9001 http://127.0.0.1:9001  
+2026-07-12T18:03:42.9543045Z out: swipies-minio     | 
+2026-07-12T18:03:42.9543718Z out: swipies-minio     | Docs: https://docs.min.io
+2026-07-12T18:03:42.9545483Z out: swipies-redis     | 1:M 12 Jul 2026 23:03:15.520 # WARNING Your system is configured to use the 'xen' clocksource which might lead to degraded performance. Check the result of the [slow-clocksource] system check: run 'valkey-server --check-system' to check if the system's clocksource isn't degrading performance.
+2026-07-12T18:03:42.9547745Z out: swipies-redis     | 1:M 12 Jul 2026 23:03:15.520 * oO0OoO0OoO0Oo Valkey is starting oO0OoO0OoO0Oo
+2026-07-12T18:03:42.9548943Z out: swipies-redis     | 1:M 12 Jul 2026 23:03:15.520 * Valkey version=8.1.8, bits=64, commit=00000000, modified=0, pid=1, just started
+2026-07-12T18:03:42.9550003Z out: swipies-redis     | 1:M 12 Jul 2026 23:03:15.520 * Configuration loaded
+2026-07-12T18:03:42.9551136Z out: swipies-redis     | 1:M 12 Jul 2026 23:03:15.520 * Increased maximum number of open files to 10032 (it was originally set to 1024).
+2026-07-12T18:03:42.9552303Z out: swipies-redis     | 1:M 12 Jul 2026 23:03:15.520 * monotonic clock: POSIX clock_gettime
+2026-07-12T18:03:42.9553310Z out: swipies-redis     | 1:M 12 Jul 2026 23:03:15.524 * Running mode=standalone, port=6379.
+2026-07-12T18:03:42.9554238Z out: swipies-redis     | 1:M 12 Jul 2026 23:03:15.525 * Server initialized
+2026-07-12T18:03:42.9555259Z out: swipies-redis     | 1:M 12 Jul 2026 23:03:15.525 * Loading RDB produced by Valkey version 8.1.8
+2026-07-12T18:03:42.9556201Z out: swipies-redis     | 1:M 12 Jul 2026 23:03:15.525 * RDB age 91 seconds
+2026-07-12T18:03:42.9557130Z out: swipies-redis     | 1:M 12 Jul 2026 23:03:15.526 * RDB memory usage when created 1.28 Mb
+2026-07-12T18:03:42.9558400Z out: swipies-redis     | 1:M 12 Jul 2026 23:03:15.526 * Done loading RDB, keys loaded: 5, keys expired: 0.
+2026-07-12T18:03:42.9559445Z out: swipies-redis     | 1:M 12 Jul 2026 23:03:15.526 * DB loaded from disk: 0.001 seconds
+2026-07-12T18:03:42.9560980Z out: swipies-redis     | 1:M 12 Jul 2026 23:03:15.526 * Ready to accept connections tcp
+2026-07-12T18:03:42.9563051Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:33.202Z", "log.level": "INFO", "message":"loaded module [vector-tile]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9566573Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:33.202Z", "log.level": "INFO", "message":"loaded module [lang-expression]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9569843Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:33.202Z", "log.level": "INFO", "message":"loaded module [x-pack-eql]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.plugins.PluginsService","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9573364Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:37.135Z", "log.level": "INFO", "message":"using [1] data paths, mounts [[/usr/share/elasticsearch/data (/dev/root)]], net usable_space [19.4gb], net total_space [95.8gb], types [ext4]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.env.NodeEnvironment","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9576996Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:37.136Z", "log.level": "INFO", "message":"heap size [3.7gb], compressed ordinary object pointers [true]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.env.NodeEnvironment","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9581063Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:37.225Z", "log.level": "INFO", "message":"node name [es01], node ID [hAHt6PdJSm2-REkUgMalDQ], cluster name [docker-cluster], roles [ingest, data_frozen, ml, data_hot, transform, data_content, data_warm, master, remote_cluster_client, data, data_cold]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.node.Node","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9585582Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:40.732Z", "log.level": "INFO", "message":"[controller/194] [Main.cc@123] controller (64 bit): Version 8.11.3 (Build c16ff912638f0a) Copyright (c) 2023 Elasticsearch BV", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"ml-cpp-log-tail-thread","log.logger":"org.elasticsearch.xpack.ml.process.logging.CppLogMessageHandler","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9589410Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:41.296Z", "log.level": "INFO", "message":"Security is enabled", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.xpack.security.Security","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9592777Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:41.711Z", "log.level": "INFO", "message":"parsed [0] roles from file [/usr/share/elasticsearch/config/roles.yml]", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.xpack.security.authz.store.FileRolesStore","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9596192Z out: swipies-es01      | {"@timestamp":"2026-07-12T18:03:42.900Z", "log.level": "INFO", "message":"Profiling is enabled", "ecs.version": "1.2.0","service.name":"ES_ECS","event.dataset":"elasticsearch.server","process.thread.name":"main","log.logger":"org.elasticsearch.xpack.profiling.ProfilingPlugin","elasticsearch.node.name":"es01","elasticsearch.cluster.name":"docker-cluster"}
+2026-07-12T18:03:42.9598446Z out: swipies-cpu       | Start RAGFlow cluster, version: 
+2026-07-12T18:03:42.9599140Z out: swipies-cpu       | 9f6d6704b
+2026-07-12T18:03:42.9599943Z out: swipies-cpu       | Applied nginx config: ragflow.conf.python
+2026-07-12T18:03:42.9600755Z out: swipies-cpu       | [docling] disabled by USE_DOCLING
+2026-07-12T18:03:42.9601535Z out: swipies-cpu       | Initializing database tables...
+2026-07-12T18:03:42.9602457Z out: 🧹 Чистим старые образы...
+2026-07-12T18:03:42.9958905Z out: Total reclaimed space: 0B
+2026-07-12T18:03:42.9976467Z out: ✅ Ragflow обновлён!
+2026-07-12T18:03:42.9985986Z ==============================================
+2026-07-12T18:03:42.9986987Z ✅ Successfully executed commands to all host.
+2026-07-12T18:03:42.9987942Z ==============================================
