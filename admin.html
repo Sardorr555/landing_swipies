@@ -997,6 +997,10 @@ input:checked + .slider:before { transform: translateX(20px); }
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
         <span>Visitors & Traffic</span>
       </a>
+      <a class="nav-item" data-tab="utm">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+        <span>UTM & Campaigns</span>
+      </a>
       <a class="nav-item" data-tab="conversions">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 2 15 22 11 13 2 9 22 2"/><line x1="22" y1="2" x2="11" y2="13"/></svg>
         <span>Conversions</span>
@@ -1042,6 +1046,10 @@ input:checked + .slider:before { transform: translateX(20px); }
     <div class="mobile-nav-item" data-tab="visitors">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
       <span>Traffic</span>
+    </div>
+    <div class="mobile-nav-item" data-tab="utm">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+      <span>UTMs</span>
     </div>
     <div class="mobile-nav-item" data-tab="conversions">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
@@ -1246,10 +1254,89 @@ input:checked + .slider:before { transform: translateX(20px); }
               </tbody>
             </table>
           </div>
+          <!-- Real-Time Visitor Telemetry Log Table -->
+      <div class="dashboard-grid full" style="margin-top: 1.5rem;">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              Real-Time Visitor Log & Telemetry
+            </h3>
+            <div style="display:flex; gap:0.75rem">
+              <button class="btn-secondary-dashboard" onclick="exportVisitorsToCSV()">
+                <svg style="width:14px;height:14px" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Export CSV
+              </button>
+              <button class="btn-action delete" onclick="clearAllVisitorLogs()">Clear Logs</button>
+            </div>
+          </div>
+          <div class="table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>IP Address & Geo</th>
+                  <th>Network & ISP</th>
+                  <th>Device & Hardware</th>
+                  <th>Browser & Theme</th>
+                  <th>Behavior (Duration / Scroll / Clicks)</th>
+                  <th>Cookie Consent</th>
+                  <th>Referrer / URL</th>
+                  <th style="width: 130px;">Timestamp</th>
+                  <th style="width: 70px; text-align:right">Action</th>
+                </tr>
+              </thead>
+              <tbody id="visitorsTableBody">
+                <tr><td colspan="9" style="text-align:center; padding:2rem; color:var(--text-dim)">Loading visitor telemetry...</td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 
-      <!-- UTM Campaign Link Builder Tool -->
+    </section>
+
+    <!-- ================= UTM & CAMPAIGNS PAGE ================= -->
+    <section class="dashboard-section" id="utmTab">
+      <!-- UTM KPI Metrics Bar -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-header">
+            <span>Campaign Visits</span>
+            <span class="sidebar-logo-tag" style="font-size:0.65rem">UTM Traffic</span>
+          </div>
+          <div class="stat-value" id="utmStatTotal">-</div>
+          <div class="stat-trend neutral">Total UTM clicks logged</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-header">
+            <span>Top Traffic Source</span>
+            <span class="mono-val" style="color:var(--accent)">utm_source</span>
+          </div>
+          <div class="stat-value" id="utmStatTopSource" style="font-size:1.4rem; text-transform:capitalize;">-</div>
+          <div class="stat-trend up" id="utmStatTopSourceSub">Highest referral channel</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-header">
+            <span>Top Campaign Name</span>
+            <span class="mono-val" style="color:var(--blue)">utm_campaign</span>
+          </div>
+          <div class="stat-value" id="utmStatTopCampaign" style="font-size:1.4rem;">-</div>
+          <div class="stat-trend up" id="utmStatTopCampaignSub">Most active marketing campaign</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-header">
+            <span>Avg Session Duration</span>
+            <span class="mono-val">Time Spent</span>
+          </div>
+          <div class="stat-value" id="utmStatAvgDuration">-</div>
+          <div class="stat-trend neutral">Campaign traffic engagement</div>
+        </div>
+      </div>
+
+      <!-- UTM Link Generator Tool -->
       <div class="dashboard-grid full" style="margin-top: 1.5rem;">
         <div class="card" style="border: 1px solid rgba(232, 168, 32, 0.3); background: linear-gradient(180deg, var(--bg2) 0%, rgba(232, 168, 32, 0.02) 100%);">
           <div class="card-header">
@@ -1313,45 +1400,65 @@ input:checked + .slider:before { transform: translateX(20px); }
         </div>
       </div>
 
-      <!-- Real-Time Visitor Telemetry Log Table -->
+      <!-- Campaign Traffic Aggregation Table ("Кто, сколько и откуда пришёл") -->
       <div class="dashboard-grid full" style="margin-top: 1.5rem;">
         <div class="card">
           <div class="card-header">
             <h3 class="card-title">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-              Real-Time Visitor Log & Telemetry
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+              Campaign Traffic Breakdown (Аналитика рекламных каналов)
             </h3>
-            <div style="display:flex; gap:0.75rem">
-              <button class="btn-secondary-dashboard" onclick="exportVisitorsToCSV()">
-                <svg style="width:14px;height:14px" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                Export CSV
-              </button>
-              <button class="btn-action delete" onclick="clearAllVisitorLogs()">Clear Logs</button>
-            </div>
           </div>
           <div class="table-wrapper">
             <table class="data-table">
               <thead>
                 <tr>
-                  <th>IP Address & Geo</th>
-                  <th>Network & ISP</th>
-                  <th>Device & Hardware</th>
-                  <th>Browser & Theme</th>
-                  <th>Behavior (Duration / Scroll / Clicks)</th>
-                  <th>Cookie Consent</th>
-                  <th>Referrer / URL</th>
-                  <th style="width: 130px;">Timestamp</th>
-                  <th style="width: 70px; text-align:right">Action</th>
+                  <th>Traffic Source / Medium</th>
+                  <th>Campaign Name</th>
+                  <th style="text-align:right">Total Visits</th>
+                  <th style="text-align:right">Unique IPs</th>
+                  <th style="text-align:right">Consent %</th>
+                  <th style="text-align:right">Avg Duration</th>
+                  <th style="text-align:right">Last Active</th>
                 </tr>
               </thead>
-              <tbody id="visitorsTableBody">
-                <tr><td colspan="9" style="text-align:center; padding:2rem; color:var(--text-dim)">Loading visitor telemetry...</td></tr>
+              <tbody id="utmAggTableBody">
+                <tr><td colspan="7" style="text-align:center; padding:2rem; color:var(--text-dim)">Loading campaign performance data...</td></tr>
               </tbody>
             </table>
           </div>
         </div>
       </div>
 
+      <!-- Detailed UTM Visitor Logs -->
+      <div class="dashboard-grid full" style="margin-top: 1.5rem;">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              Detailed Campaign Visitor Log
+            </h3>
+          </div>
+          <div class="table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>IP Address & Geo</th>
+                  <th>Campaign Tag</th>
+                  <th>Network & ISP</th>
+                  <th>Device & Specs</th>
+                  <th>Behavior</th>
+                  <th>Consent</th>
+                  <th style="width: 130px;">Timestamp</th>
+                </tr>
+              </thead>
+              <tbody id="utmLogTableBody">
+                <tr><td colspan="7" style="text-align:center; padding:2rem; color:var(--text-dim)">Loading campaign visitor logs...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- ================= CONVERSIONS PAGE ================= -->
@@ -1739,6 +1846,7 @@ function switchTab(tabId) {
   const displayNames = {
     overview: 'Overview',
     visitors: 'Visitors & Traffic',
+    utm: 'UTM Builder & Campaign Analytics',
     conversions: 'Conversions & Goals',
     submissions: 'Form Submissions',
     users: 'Users & Referral Program',
@@ -1760,6 +1868,8 @@ function switchTab(tabId) {
     loadUsersFromDB();
   } else if (tabId === 'visitors') {
     loadVisitorsFromDB();
+  } else if (tabId === 'utm') {
+    loadUtmPageData();
   }
   
   // Resize charts to prevent render overlap spacing bugs
@@ -3803,6 +3913,160 @@ function copyUtmUrl() {
   }).catch(err => {
     showToast('Error', 'Failed to copy URL.', 'error');
   });
+}
+
+async function loadUtmPageData() {
+  const aggTbody = document.getElementById('utmAggTableBody');
+  const logTbody = document.getElementById('utmLogTableBody');
+  if (!aggTbody || !logTbody) return;
+  
+  try {
+    const res = await fetch('/api/visitors');
+    const json = await safeFetchJson(res);
+
+    if (json.code === 0 && Array.isArray(json.data)) {
+      const allVisitors = json.data;
+      
+      // Filter visitors that arrived via UTM
+      const utmVisitors = allVisitors.filter(v => v.utm_source || v.utm_medium || v.utm_campaign || v.utm_content);
+
+      // Stat cards calculation
+      const totalUtmVisits = utmVisitors.length;
+      document.getElementById('utmStatTotal').textContent = totalUtmVisits;
+
+      // Group by utm_source and utm_campaign
+      const sourceCounts = {};
+      const campaignCounts = {};
+      let totalDuration = 0;
+
+      utmVisitors.forEach(v => {
+        const src = (v.utm_source || 'direct').toLowerCase();
+        const cmp = (v.utm_campaign || 'unnamed').toLowerCase();
+        sourceCounts[src] = (sourceCounts[src] || 0) + 1;
+        campaignCounts[cmp] = (campaignCounts[cmp] || 0) + 1;
+        totalDuration += (v.session_duration || 0);
+      });
+
+      const topSource = Object.keys(sourceCounts).sort((a,b) => sourceCounts[b] - sourceCounts[a])[0] || '—';
+      const topCampaign = Object.keys(campaignCounts).sort((a,b) => campaignCounts[b] - campaignCounts[a])[0] || '—';
+      const avgDur = totalUtmVisits > 0 ? Math.round(totalDuration / totalUtmVisits) : 0;
+
+      document.getElementById('utmStatTopSource').textContent = topSource;
+      document.getElementById('utmStatTopSourceSub').textContent = sourceCounts[topSource] ? `${sourceCounts[topSource]} visits (${Math.round(sourceCounts[topSource]/totalUtmVisits*100)}%)` : 'No campaign visits';
+      
+      document.getElementById('utmStatTopCampaign').textContent = topCampaign;
+      document.getElementById('utmStatTopCampaignSub').textContent = campaignCounts[topCampaign] ? `${campaignCounts[topCampaign]} visits` : 'No active campaign';
+
+      document.getElementById('utmStatAvgDuration').textContent = `${Math.floor(avgDur / 60)}m ${avgDur % 60}s`;
+
+      // 1. Render Aggregated Campaign Traffic Table ("Кто сколько и откуда пришёл")
+      const campaignsMap = {};
+      utmVisitors.forEach(v => {
+        const key = `${v.utm_source || 'direct'}::${v.utm_medium || 'none'}::${v.utm_campaign || 'unnamed'}`;
+        if (!campaignsMap[key]) {
+          campaignsMap[key] = {
+            source: v.utm_source || 'direct',
+            medium: v.utm_medium || 'none',
+            campaign: v.utm_campaign || 'unnamed',
+            visits: 0,
+            ips: new Set(),
+            consents: 0,
+            duration: 0,
+            lastDate: v.create_date
+          };
+        }
+        const group = campaignsMap[key];
+        group.visits += 1;
+        if (v.ip) group.ips.add(v.ip);
+        if (v.cookie_consent === 'accepted') group.consents += 1;
+        group.duration += (v.session_duration || 0);
+        if (new Date(v.create_date) > new Date(group.lastDate)) {
+          group.lastDate = v.create_date;
+        }
+      });
+
+      const campaignGroups = Object.values(campaignsMap).sort((a, b) => b.visits - a.visits);
+
+      if (campaignGroups.length === 0) {
+        aggTbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:2rem; color:var(--text-dim)">No UTM campaign traffic logged yet. Build a link above and share it!</td></tr>`;
+      } else {
+        aggTbody.innerHTML = campaignGroups.map(g => {
+          const consentPct = Math.round((g.consents / g.visits) * 100);
+          const avgD = Math.round(g.duration / g.visits);
+          const durText = `${Math.floor(avgD / 60)}m ${avgD % 60}s`;
+          const formattedDate = g.lastDate ? new Date(g.lastDate).toLocaleString() : '—';
+
+          return `
+            <tr>
+              <td>
+                <strong style="color:var(--accent); font-family:var(--font-mono);">${escapeHtml(g.source)}</strong>
+                <span style="font-size:0.75rem; color:var(--text-dim)"> / ${escapeHtml(g.medium)}</span>
+              </td>
+              <td><strong class="mono-val">${escapeHtml(g.campaign)}</strong></td>
+              <td style="text-align:right"><strong style="color:var(--text)">${g.visits}</strong></td>
+              <td style="text-align:right" class="mono-val">${g.ips.size}</td>
+              <td style="text-align:right"><span style="color:#56d364; font-weight:600">${consentPct}%</span></td>
+              <td style="text-align:right">${durText}</td>
+              <td style="text-align:right; font-size:0.75rem; color:var(--text-muted)">${formattedDate}</td>
+            </tr>
+          `;
+        }).join('');
+      }
+
+      // 2. Render Detailed UTM Visitor Log Table
+      if (utmVisitors.length === 0) {
+        logTbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:2rem; color:var(--text-dim)">No visitor records with UTM tags logged yet.</td></tr>`;
+      } else {
+        logTbody.innerHTML = utmVisitors.map(v => {
+          let consentBadge = `<span style="background:rgba(232,168,32,0.15); color:var(--accent); border:1px solid rgba(232,168,32,0.3); padding:2px 8px; border-radius:4px; font-size:0.72rem; font-weight:600">PENDING</span>`;
+          if (v.cookie_consent === 'accepted') {
+            consentBadge = `<span style="background:rgba(31,136,61,0.15); color:#56d364; border:1px solid rgba(31,136,61,0.3); padding:2px 8px; border-radius:4px; font-size:0.72rem; font-weight:600">ACCEPTED</span>`;
+          } else if (v.cookie_consent === 'declined') {
+            consentBadge = `<span style="background:rgba(207,34,46,0.15); color:#ff808a; border:1px solid rgba(207,34,46,0.3); padding:2px 8px; border-radius:4px; font-size:0.72rem; font-weight:600">DECLINED</span>`;
+          }
+
+          const vpnBadge = v.is_proxy === 'Yes'
+            ? `<span style="background:rgba(232,168,32,0.15); color:var(--accent); border:1px solid rgba(232,168,32,0.3); padding:1px 5px; border-radius:3px; font-size:0.68rem; font-weight:600; font-family:var(--font-mono)">VPN</span>`
+            : `<span style="background:rgba(255,255,255,0.05); color:var(--text-dim); padding:1px 5px; border-radius:3px; font-size:0.68rem">Res</span>`;
+
+          const formattedDate = v.create_date ? new Date(v.create_date).toLocaleString() : '—';
+          const safeIp = escapeHtml(v.ip || '—');
+          const safeGeo = escapeHtml(v.country || '—') + (v.city ? `, ${escapeHtml(v.city)}` : '');
+          const safeIsp = escapeHtml(v.isp || '—');
+          
+          const hwCpu = v.cpu_cores ? `${v.cpu_cores} C` : '';
+          const hwRam = v.ram_gb ? `${v.ram_gb} GB` : '';
+          const safeSpecs = `${v.device_type || 'Dev'} • ${v.os || 'OS'} (${hwCpu} ${hwRam})`;
+
+          const durationMin = v.session_duration ? `${Math.floor(v.session_duration / 60)}m ${v.session_duration % 60}s` : '0s';
+          const scrollPct = v.scroll_depth !== undefined ? `${v.scroll_depth}%` : '0%';
+
+          const campaignTag = `🏷️ ${escapeHtml(v.utm_source || 'direct')} / ${escapeHtml(v.utm_medium || '')} / ${escapeHtml(v.utm_campaign || '')}`;
+
+          return `
+            <tr>
+              <td>
+                <strong class="mono-val" style="color:var(--text)">${safeIp}</strong><br>
+                <span style="font-size:0.75rem; color:var(--text-muted)">📍 ${safeGeo}</span>
+              </td>
+              <td><span style="background:rgba(56,123,245,0.15); color:var(--blue); border:1px solid rgba(56,123,245,0.3); padding:2px 8px; border-radius:4px; font-size:0.72rem; font-weight:600; font-family:var(--font-mono);">${campaignTag}</span></td>
+              <td>
+                <span style="font-size:0.85rem">${safeIsp}</span> ${vpnBadge}
+              </td>
+              <td style="font-size:0.8rem">${safeSpecs}</td>
+              <td style="font-size:0.8rem"><strong>${durationMin}</strong> • ${scrollPct} scroll</td>
+              <td>${consentBadge}</td>
+              <td class="mono-val" style="font-size:0.72rem; color:var(--text-muted)">${formattedDate}</td>
+            </tr>
+          `;
+        }).join('');
+      }
+    }
+  } catch (err) {
+    console.error('Error fetching UTM page data:', err);
+    if (aggTbody) aggTbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:2rem; color:var(--red)">Failed to load UTM campaign data.</td></tr>`;
+    if (logTbody) logTbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:2rem; color:var(--red)">Failed to load UTM visitor logs.</td></tr>`;
+  }
 }
 
 // Start Checks on load
