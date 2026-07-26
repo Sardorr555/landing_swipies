@@ -32,7 +32,69 @@ def init_db():
                 create_date TEXT NOT NULL
             )
         ''')
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS visitors (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                visitor_id TEXT,
+                ip TEXT,
+                user_agent TEXT,
+                device_type TEXT,
+                browser TEXT,
+                os TEXT,
+                screen_res TEXT,
+                language TEXT,
+                timezone TEXT,
+                page_url TEXT,
+                referrer TEXT,
+                cookie_consent TEXT,
+                create_date TEXT NOT NULL
+            )
+        ''')
         conn.commit()
+
+
+def parse_user_agent(ua_str):
+    """Simple UA string parser for browser, OS, and device type."""
+    ua = (ua_str or '').lower()
+    
+    # Device type
+    if 'mobile' in ua or 'android' in ua and 'mobile' in ua or 'iphone' in ua or 'ipod' in ua:
+        device = 'Mobile'
+    elif 'ipad' in ua or 'tablet' in ua or 'android' in ua:
+        device = 'Tablet'
+    else:
+        device = 'Desktop'
+        
+    # Operating System
+    if 'windows' in ua:
+        os_name = 'Windows'
+    elif 'macintosh' in ua or 'mac os' in ua:
+        os_name = 'macOS'
+    elif 'iphone' in ua or 'ipad' in ua or 'ipod' in ua:
+        os_name = 'iOS'
+    elif 'android' in ua:
+        os_name = 'Android'
+    elif 'linux' in ua:
+        os_name = 'Linux'
+    else:
+        os_name = 'Unknown OS'
+        
+    # Browser
+    if 'edg/' in ua or 'edge' in ua:
+        browser = 'Edge'
+    elif 'chrome' in ua or 'crios' in ua:
+        browser = 'Chrome'
+    elif 'firefox' in ua or 'fxios' in ua:
+        browser = 'Firefox'
+    elif 'safari' in ua:
+        browser = 'Safari'
+    elif 'opera' in ua or 'opr/' in ua:
+        browser = 'Opera'
+    else:
+        browser = 'Other Browser'
+        
+    return {'device': device, 'os': os_name, 'browser': browser}
+
 
 
 def send_telegram(text):
@@ -124,6 +186,106 @@ def delete_lead(lead_id):
         conn.commit()
 
     return jsonify({"code": 0, "message": "Deleted"})
+
+
+@app.route('/api/visitors', methods=['POST'])
+def track_visitor():
+    data = request.json or {}
+    
+    # Extract client IP accurately
+    if request.headers.get('X-Forwarded-For'):
+        ip = request.headers.get('X-Forwarded-For').split(',')[0].strip()
+    elif request.headers.get('X-Real-IP'):
+        ip = request.headers.get('X-Real-IP').strip()
+    else:
+        ip = request.remote_addr or '127.0.0.1'
+
+    user_agent = request.headers.get('User-Agent', '') or data.get('user_agent', '')
+    visitor_id = data.get('visitor_id', '')
+    screen_res = data.get('screen_res', '')
+    language = data.get('language', '')
+    timezone = data.get('timezone', '')
+    page_url = data.get('page_url', '')
+    referrer = data.get('referrer', '')
+    cookie_consent = data.get('cookie_consent', 'accepted')
+    create_date = datetime.datetime.utcnow().isoformat() + "Z"
+    
+    parsed_ua = parse_user_agent(user_agent)
+    device_type = parsed_ua['device']
+    browser = parsed_ua['browser']
+    os_name = parsed_ua['os']
+
+    with sqlite3.connect(DB_FILE) as conn:
+        cursor = conn.cursor()
+        cursor.execute('''
+            INSERT INTO visitors (visitor_id, ip, user_agent, device_type, browser, os, screen_res, language, timezone, page_url, referrer, cookie_consent, create_date)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ''', (visitor_id, ip, user_agent, device_type, browser, os_name, screen_res, language, timezone, page_url, referrer, cookie_consent, create_date))
+        conn.commit()
+        v_id = cursor.lastrowid
+
+    # Telegram notification
+    tg_msg = (
+        f"👁️ <b>New Site Visitor — Swipies.app</b>\n\n"
+        f"🌐 <b>IP:</b> {ip}\n"
+        f"📱 <b>Device:</b> {device_type} ({os_name} / {browser})\n"
+        f"🖥️ <b>Screen:</b> {screen_res or 'Unknown'}\n"
+        f"🌍 <b>Timezone:</b> {timezone or '—'} | <b>Lang:</b> {language or '—'}\n"
+        f"🔗 <b>Page:</b> {page_url or '/'}\n"
+        f"📍 <b>Referrer:</b> {referrer or 'Direct'}\n"
+        f"🍪 <b>Cookie Consent:</b> {cookie_consent.upper()}\n"
+        f"🕐 <b>Time (UTC):</b> {create_date}"
+    )
+    send_telegram(tg_msg)
+
+    return jsonify({"code": 0, "message": "Visitor tracked", "data": {"id": v_id}}), 201
+
+
+@app.route('/api/visitors', methods=['GET'])
+def get_visitors():
+    with sqlite3.connect(DB_FILE) as conn:
+        conn.row_factory = sqlite3.Row
+        cursor = conn.cursor()
+        cursor.execute('SELECT * FROM visitors ORDER BY id DESC LIMIT 500')
+        rows = cursor.fetchall()
+
+    visitors = [dict(row) for row in rows]
+    total_count = len(visitors)
+    unique_ips = len(set(v['ip'] for v in visitors if v.get('ip')))
+    accepted_count = sum(1 for v in visitors if v.get('cookie_consent') == 'accepted')
+    consent_rate = round((accepted_count / total_count * 100), 1) if total_count > 0 else 100.0
+
+    return jsonify({
+        "code": 0,
+        "data": visitors,
+        "stats": {
+            "total_visits": total_count,
+            "unique_ips": unique_ips,
+            "accepted_count": accepted_count,
+            "consent_rate": consent_rate
+        }
+    })
+
+
+@app.route('/api/visitors/<int:v_id>', methods=['DELETE'])
+def delete_visitor(v_id):
+    with sqlite3.connect(DB_FILE) as conn:
+        cursor = conn.cursor()
+        cursor.execute('DELETE FROM visitors WHERE id = ?', (v_id,))
+        conn.commit()
+
+    return jsonify({"code": 0, "message": "Visitor record deleted"})
+
+
+@app.route('/api/visitors/clear', methods=['DELETE'])
+def clear_visitors():
+    with sqlite3.connect(DB_FILE) as conn:
+        cursor = conn.cursor()
+        cursor.execute('DELETE FROM visitors')
+        conn.commit()
+
+    return jsonify({"code": 0, "message": "All visitor records cleared"})
+
 
 
 @app.route('/api/health', methods=['GET'])

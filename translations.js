@@ -177,7 +177,12 @@ const T = {
     footer_terms: "Terms of Use",
     footer_privacy: "Privacy Policy",
     footer_docs: "Documentation",
-    footer_copy: "© 2025 Swipies AI. All rights reserved."
+    footer_copy: "© 2025 Swipies AI. All rights reserved.",
+    cookie_title: "Cookie & Data Consent",
+    cookie_msg: "We use cookies and collect technical specs (device, IP address, browser specs) to optimize site performance and security.",
+    cookie_accept: "Accept Cookies",
+    cookie_decline: "Decline",
+    cookie_learn_more: "Privacy Policy"
   },
   ru: {
     nav_solution: "Решение",
@@ -357,7 +362,12 @@ const T = {
     footer_terms: "Условия",
     footer_privacy: "Политика конфиденциальности",
     footer_docs: "Документация",
-    footer_copy: "© 2025 Swipies AI. Все права защищены."
+    footer_copy: "© 2025 Swipies AI. Все права защищены.",
+    cookie_title: "Использование Cookie и данных",
+    cookie_msg: "Мы используем cookie и собираем технические данные (IP-адрес, устройство, браузер) для обеспечения работы сайта и аналитики.",
+    cookie_accept: "Принять cookies",
+    cookie_decline: "Отклонить",
+    cookie_learn_more: "Политика конфиденциальности"
   },
   uz: {
     nav_solution: "Yechim",
@@ -537,6 +547,11 @@ const T = {
     footer_terms: "Foydalanish shartlari",
     footer_privacy: "Maxfiylik siyosati",
     footer_docs: "Hujjatlar",
-    footer_copy: "© 2025 Swipies AI. Barcha huquqlar himoyalangan."
+    footer_copy: "© 2025 Swipies AI. Barcha huquqlar himoyalangan.",
+    cookie_title: "Cookie fayllari va ma'lumotlar",
+    cookie_msg: "Biz sayt ishlashini yaxshilash uchun cookie fayllaridan va texnik ma'lumotlardan (IP, qurilma, brauzer) foydalanamiz.",
+    cookie_accept: "Cookies'ni qabul qilish",
+    cookie_decline: "Rad etish",
+    cookie_learn_more: "Maxfiylik siyosati"
   }
 };

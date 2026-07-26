@@ -1169,6 +1169,35 @@ input:checked + .slider:before { transform: translateX(20px); }
 
     <!-- ================= VISITORS & TRAFFIC PAGE ================= -->
     <section class="dashboard-section" id="visitorsTab">
+      
+      <!-- Visitor Statistics Bar -->
+      <div class="stats-grid" style="margin-bottom: 1.5rem;">
+        <div class="stat-card">
+          <div class="stat-header">
+            <span>Tracked Visits</span>
+            <span class="mono-val" style="color:var(--accent)">visits</span>
+          </div>
+          <div class="stat-value" id="vStatTotalVisits">-</div>
+          <div class="stat-trend up">Total Telemetry Hits</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-header">
+            <span>Unique IPs</span>
+            <span class="mono-val" style="color:var(--blue)">unique_ips</span>
+          </div>
+          <div class="stat-value" id="vStatUniqueIPs">-</div>
+          <div class="stat-trend up">Distinct Client IPs</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-header">
+            <span>Cookie Consent Rate</span>
+            <span class="mono-val" style="color:var(--green)">consent_pct</span>
+          </div>
+          <div class="stat-value" id="vStatConsentRate">-</div>
+          <div class="stat-trend up">Accepted vs Declined</div>
+        </div>
+      </div>
+
       <div class="dashboard-grid equal">
         <div class="card">
           <div class="card-header">
@@ -1219,6 +1248,46 @@ input:checked + .slider:before { transform: translateX(20px); }
           </div>
         </div>
       </div>
+
+      <!-- Real-Time Visitor Telemetry Log Table -->
+      <div class="dashboard-grid full" style="margin-top: 1.5rem;">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              Real-Time Visitor Log & Telemetry
+            </h3>
+            <div style="display:flex; gap:0.75rem">
+              <button class="btn-secondary-dashboard" onclick="exportVisitorsToCSV()">
+                <svg style="width:14px;height:14px" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Export CSV
+              </button>
+              <button class="btn-action delete" onclick="clearAllVisitorLogs()">Clear Logs</button>
+            </div>
+          </div>
+          <div class="table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>IP Address</th>
+                  <th>Device / OS</th>
+                  <th>Browser</th>
+                  <th>Screen Res</th>
+                  <th>Timezone / Lang</th>
+                  <th>Cookie Consent</th>
+                  <th>Referrer / URL</th>
+                  <th style="width: 140px;">Timestamp</th>
+                  <th style="width: 80px; text-align:right">Action</th>
+                </tr>
+              </thead>
+              <tbody id="visitorsTableBody">
+                <tr><td colspan="9" style="text-align:center; padding:2rem; color:var(--text-dim)">Loading visitor telemetry...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
     </section>
 
     <!-- ================= CONVERSIONS PAGE ================= -->
@@ -1625,6 +1694,8 @@ function switchTab(tabId) {
   
   if (tabId === 'users') {
     loadUsersFromDB();
+  } else if (tabId === 'visitors') {
+    loadVisitorsFromDB();
   }
   
   // Resize charts to prevent render overlap spacing bugs
@@ -3417,6 +3488,142 @@ async function updateActiveUsers() {
   } catch (err) {
     console.error("Failed to fetch real-time active users:", err);
   }
+}
+
+/* ========================================================================
+   REAL-TIME VISITOR TELEMETRY & COOKIE LOG MANAGEMENT
+======================================================================== */
+let currentVisitorsData = [];
+
+function escapeHtml(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+async function loadVisitorsFromDB() {
+  const tbody = document.getElementById('visitorsTableBody');
+  if (!tbody) return;
+
+  try {
+    const res = await fetch('/api/visitors');
+    const json = await safeFetchJson(res);
+
+    if (json.code === 0 && Array.isArray(json.data)) {
+      currentVisitorsData = json.data;
+      const stats = json.stats || {};
+
+      const totalEl = document.getElementById('vStatTotalVisits');
+      const uniqueEl = document.getElementById('vStatUniqueIPs');
+      const consentEl = document.getElementById('vStatConsentRate');
+
+      if (totalEl) totalEl.textContent = stats.total_visits !== undefined ? stats.total_visits : json.data.length;
+      if (uniqueEl) uniqueEl.textContent = stats.unique_ips !== undefined ? stats.unique_ips : '-';
+      if (consentEl) consentEl.textContent = stats.consent_rate !== undefined ? stats.consent_rate + '%' : '-';
+
+      if (json.data.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="9" style="text-align:center; padding:2rem; color:var(--text-dim)">No visitor records logged yet.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = json.data.map(v => {
+        const consentBadge = v.cookie_consent === 'accepted'
+          ? `<span style="background:rgba(31,136,61,0.15); color:#56d364; border:1px solid rgba(31,136,61,0.3); padding:2px 8px; border-radius:4px; font-size:0.75rem; font-weight:600">ACCEPTED</span>`
+          : `<span style="background:rgba(207,34,46,0.15); color:#ff808a; border:1px solid rgba(207,34,46,0.3); padding:2px 8px; border-radius:4px; font-size:0.75rem; font-weight:600">DECLINED</span>`;
+
+        const formattedDate = v.create_date ? new Date(v.create_date).toLocaleString() : '—';
+        const safeIp = escapeHtml(v.ip || '—');
+        const safeDevice = escapeHtml(v.device_type || '—') + ' / ' + escapeHtml(v.os || '—');
+        const safeBrowser = escapeHtml(v.browser || '—');
+        const safeRes = escapeHtml(v.screen_res || '—');
+        const safeTz = escapeHtml(v.timezone || '—') + ' (' + escapeHtml(v.language || '—') + ')';
+        const safeRef = escapeHtml(v.referrer || 'Direct');
+
+        return `
+          <tr>
+            <td><strong class="mono-val" style="color:var(--text)">${safeIp}</strong></td>
+            <td>${safeDevice}</td>
+            <td>${safeBrowser}</td>
+            <td class="mono-val" style="font-size:0.8rem">${safeRes}</td>
+            <td style="font-size:0.8rem">${safeTz}</td>
+            <td>${consentBadge}</td>
+            <td style="font-size:0.8rem; max-width:180px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap" title="${safeRef}">${safeRef}</td>
+            <td class="mono-val" style="font-size:0.75rem; color:var(--text-muted)">${formattedDate}</td>
+            <td style="text-align:right">
+              <button class="btn-action delete" onclick="deleteVisitorRecord(${v.id})" title="Delete entry">&times;</button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+  } catch (err) {
+    console.error('Error fetching visitor telemetry:', err);
+    tbody.innerHTML = `<tr><td colspan="9" style="text-align:center; padding:2rem; color:var(--red)">Failed to load visitor telemetry data. Server error or offline mode.</td></tr>`;
+  }
+}
+
+async function deleteVisitorRecord(id) {
+  if (!confirm('Are you sure you want to delete this visitor log entry?')) return;
+  try {
+    const res = await fetch(`/api/visitors/${id}`, { method: 'DELETE' });
+    const json = await safeFetchJson(res);
+    if (json.code === 0) {
+      showToast('Deleted', 'Visitor log entry removed.', 'success');
+      loadVisitorsFromDB();
+    }
+  } catch (err) {
+    showToast('Error', err.message, 'error');
+  }
+}
+
+async function clearAllVisitorLogs() {
+  if (!confirm('Are you sure you want to clear ALL visitor logs? This action cannot be undone.')) return;
+  try {
+    const res = await fetch('/api/visitors/clear', { method: 'DELETE' });
+    const json = await safeFetchJson(res);
+    if (json.code === 0) {
+      showToast('Cleared', 'All visitor logs have been deleted.', 'success');
+      loadVisitorsFromDB();
+    }
+  } catch (err) {
+    showToast('Error', err.message, 'error');
+  }
+}
+
+function exportVisitorsToCSV() {
+  if (!currentVisitorsData || currentVisitorsData.length === 0) {
+    showToast('Export Empty', 'No visitor records available to export.', 'info');
+    return;
+  }
+  const headers = ['ID', 'Visitor GUID', 'IP Address', 'Device Type', 'OS', 'Browser', 'Screen Res', 'Language', 'Timezone', 'Cookie Consent', 'Page URL', 'Referrer', 'Created At'];
+  const rows = currentVisitorsData.map(v => [
+    v.id,
+    `"${(v.visitor_id || '').replace(/"/g, '""')}"`,
+    `"${(v.ip || '').replace(/"/g, '""')}"`,
+    `"${(v.device_type || '').replace(/"/g, '""')}"`,
+    `"${(v.os || '').replace(/"/g, '""')}"`,
+    `"${(v.browser || '').replace(/"/g, '""')}"`,
+    `"${(v.screen_res || '').replace(/"/g, '""')}"`,
+    `"${(v.language || '').replace(/"/g, '""')}"`,
+    `"${(v.timezone || '').replace(/"/g, '""')}"`,
+    `"${(v.cookie_consent || '').replace(/"/g, '""')}"`,
+    `"${(v.page_url || '').replace(/"/g, '""')}"`,
+    `"${(v.referrer || '').replace(/"/g, '""')}"`,
+    `"${(v.create_date || '').replace(/"/g, '""')}"`
+  ]);
+
+  const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map(e => e.join(','))].join('\n');
+  const encodedUri = encodeURI(csvContent);
+  const link = document.createElement('a');
+  link.setAttribute('href', encodedUri);
+  link.setAttribute('download', `swipies_visitors_${new Date().toISOString().slice(0,10)}.csv`);
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
 }
 
 // Start Checks on load

@@ -3177,6 +3177,22 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
     <span>Referral active: <strong id="badgeRefCode"></strong></span>
     <button class="badge-close" onclick="closeReferralBadge()">&times;</button>
   </div>
+
+  <!-- Cookie Consent Banner -->
+  <div id="cookieBanner" class="cookie-banner" role="dialog" aria-live="polite">
+    <div class="cookie-header">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="cookie-icon"><path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5z"/><circle cx="8.5" cy="8.5" r="1.5"/><circle cx="11.5" cy="14.5" r="1.5"/><circle cx="15.5" cy="9.5" r="1.5"/></svg>
+      <div class="cookie-title" data-i18n="cookie_title">Cookie & Data Consent</div>
+    </div>
+    <div class="cookie-text">
+      <span data-i18n="cookie_msg">We use cookies and collect technical specs (device, IP address, browser specs) to optimize site performance and security.</span>
+      <a href="privacy.html" target="_blank" data-i18n="cookie_learn_more">Privacy Policy</a>
+    </div>
+    <div class="cookie-actions">
+      <button type="button" class="cookie-btn cookie-btn-decline" onclick="handleCookieConsent('declined')" data-i18n="cookie_decline">Decline</button>
+      <button type="button" class="cookie-btn cookie-btn-accept" onclick="handleCookieConsent('accepted')" data-i18n="cookie_accept">Accept Cookies</button>
+    </div>
+  </div>
 </body>
 
 </html>
