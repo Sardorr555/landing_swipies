@@ -1634,6 +1634,139 @@
         scroll-behavior: auto;
       }
     }
+
+    /* ===== COOKIE CONSENT BANNER ===== */
+    .cookie-banner {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      max-width: 440px;
+      width: calc(100% - 48px);
+      background: rgba(13, 19, 31, 0.96);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(232, 168, 32, 0.3);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85), 0 0 25px rgba(232, 168, 32, 0.12);
+      z-index: 999999;
+      display: none;
+      opacity: 0;
+      transform: translateY(30px) scale(0.96);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .cookie-banner.show {
+      display: block;
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .cookie-header {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .cookie-icon {
+      width: 24px !important;
+      height: 24px !important;
+      min-width: 24px !important;
+      min-height: 24px !important;
+      max-width: 24px !important;
+      max-height: 24px !important;
+      color: var(--accent);
+      flex-shrink: 0;
+      display: inline-block;
+    }
+
+    .cookie-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.2px;
+    }
+
+    .cookie-text {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      margin-bottom: 1.2rem;
+    }
+
+    .cookie-text a {
+      color: var(--accent);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      transition: color 0.15s;
+    }
+
+    .cookie-text a:hover {
+      color: #fff;
+    }
+
+    .cookie-actions {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 0.75rem;
+    }
+
+    .cookie-btn {
+      padding: 8px 18px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      border: none;
+    }
+
+    .cookie-btn-decline {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-secondary);
+      border: 1px solid var(--border2);
+    }
+
+    .cookie-btn-decline:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text);
+    }
+
+    .cookie-btn-accept {
+      background: var(--accent);
+      color: var(--bg);
+      box-shadow: 0 4px 14px rgba(232, 168, 32, 0.25);
+    }
+
+    .cookie-btn-accept:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(232, 168, 32, 0.35);
+    }
+
+    @media (max-width: 600px) {
+      .cookie-banner {
+        bottom: 16px;
+        left: 16px;
+        right: 16px;
+        width: auto;
+        max-width: none;
+        padding: 1rem 1.25rem;
+      }
+
+      .cookie-actions {
+        flex-direction: column-reverse;
+        align-items: stretch;
+      }
+
+      .cookie-btn {
+        text-align: center;
+        width: 100%;
+        padding: 10px;
+      }
+    }
   </style>
 </head>
 
@@ -3141,7 +3274,70 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         const hero = document.getElementById('hero');
         if (hero) hero.classList.add('visible');
       }, 100);
+
+      initCookieBanner();
     });
+
+    /* ===== COOKIE CONSENT & VISITOR TRACKING TELEMETRY ===== */
+    function getVisitorId() {
+      let vId = localStorage.getItem('swipies_visitor_id');
+      if (!vId) {
+        vId = 'v_' + Math.random().toString(36).substring(2, 11) + '_' + Date.now();
+        localStorage.setItem('swipies_visitor_id', vId);
+      }
+      return vId;
+    }
+
+    function trackVisitor(consentStatus) {
+      try {
+        const payload = {
+          visitor_id: getVisitorId(),
+          screen_res: window.screen ? `${window.screen.width}x${window.screen.height}` : '',
+          language: navigator.language || navigator.userLanguage || 'en',
+          timezone: (Intl && Intl.DateTimeFormat) ? Intl.DateTimeFormat().resolvedOptions().timeZone : '',
+          page_url: window.location.href,
+          referrer: document.referrer || 'Direct',
+          cookie_consent: consentStatus || 'accepted',
+          user_agent: navigator.userAgent
+        };
+
+        fetch('/api/visitors', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        }).catch(err => console.error('[Telemetry] Visitor tracking error:', err));
+      } catch (err) {
+        console.error('[Telemetry] Error preparing visitor data:', err);
+      }
+    }
+
+    window.handleCookieConsent = function(choice) {
+      localStorage.setItem('swipies_cookie_consent', choice);
+      const banner = document.getElementById('cookieBanner');
+      if (banner) {
+        banner.classList.remove('show');
+        setTimeout(() => { banner.style.display = 'none'; }, 350);
+      }
+      trackVisitor(choice);
+    };
+
+    function initCookieBanner() {
+      const consent = localStorage.getItem('swipies_cookie_consent');
+      const banner = document.getElementById('cookieBanner');
+
+      if (!consent) {
+        // New visitor: show cookie banner after 1s delay
+        setTimeout(() => {
+          if (banner) {
+            banner.style.display = 'block';
+            setTimeout(() => banner.classList.add('show'), 50);
+          }
+        }, 1000);
+      } else {
+        // Returning visitor: log visit automatically using saved preference
+        trackVisitor(consent);
+      }
+    }
 
     window.closeReferralBadge = function() {
       const badge = document.getElementById('referralBadge');
@@ -3181,7 +3377,7 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
   <!-- Cookie Consent Banner -->
   <div id="cookieBanner" class="cookie-banner" role="dialog" aria-live="polite">
     <div class="cookie-header">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="cookie-icon"><path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5z"/><circle cx="8.5" cy="8.5" r="1.5"/><circle cx="11.5" cy="14.5" r="1.5"/><circle cx="15.5" cy="9.5" r="1.5"/></svg>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="cookie-icon" style="width:24px; height:24px; min-width:24px; min-height:24px;"><path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5z"/><circle cx="8.5" cy="8.5" r="1.5"/><circle cx="11.5" cy="14.5" r="1.5"/><circle cx="15.5" cy="9.5" r="1.5"/></svg>
       <div class="cookie-title" data-i18n="cookie_title">Cookie & Data Consent</div>
     </div>
     <div class="cookie-text">
