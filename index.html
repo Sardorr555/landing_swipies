@@ -3347,9 +3347,38 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
       });
     }
 
+    function getUtmParams() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
+      let utmObj = {};
+      let foundInUrl = false;
+
+      utmKeys.forEach(k => {
+        const val = urlParams.get(k);
+        if (val) {
+          utmObj[k] = val.trim();
+          foundInUrl = true;
+        }
+      });
+
+      if (foundInUrl) {
+        localStorage.setItem('swipies_utm', JSON.stringify(utmObj));
+        return utmObj;
+      }
+
+      try {
+        const saved = localStorage.getItem('swipies_utm');
+        if (saved) return JSON.parse(saved);
+      } catch (e) {}
+
+      return {};
+    }
+
     function trackVisitor(consentStatus) {
       try {
         const elapsedSeconds = Math.round((Date.now() - sessionStartTime) / 1000);
+        const utm = getUtmParams();
+
         const payload = {
           visitor_id: getVisitorId(),
           screen_res: window.screen ? `${window.screen.width}x${window.screen.height}` : '',
@@ -3368,7 +3397,14 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
           theme_pref: getThemePreference(),
           session_duration: elapsedSeconds,
           scroll_depth: sessionMaxScroll,
-          clicked_buttons: sessionClickedButtons.join(', ')
+          clicked_buttons: sessionClickedButtons.join(', '),
+
+          // Campaign UTM Parameters
+          utm_source: utm.utm_source || '',
+          utm_medium: utm.utm_medium || '',
+          utm_campaign: utm.utm_campaign || '',
+          utm_term: utm.utm_term || '',
+          utm_content: utm.utm_content || ''
         };
 
         fetch('/api/visitors', {

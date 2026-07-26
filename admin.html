@@ -1249,6 +1249,70 @@ input:checked + .slider:before { transform: translateX(20px); }
         </div>
       </div>
 
+      <!-- UTM Campaign Link Builder Tool -->
+      <div class="dashboard-grid full" style="margin-top: 1.5rem;">
+        <div class="card" style="border: 1px solid rgba(232, 168, 32, 0.3); background: linear-gradient(180deg, var(--bg2) 0%, rgba(232, 168, 32, 0.02) 100%);">
+          <div class="card-header">
+            <h3 class="card-title" style="color: var(--accent);">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--accent)"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+              UTM Campaign Link Builder
+            </h3>
+            <span class="sidebar-logo-tag" style="font-size:0.7rem">Campaign Attribution Tool</span>
+          </div>
+
+          <div style="padding: 0.5rem 0;">
+            <!-- Quick Presets -->
+            <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:1.25rem; flex-wrap:wrap;">
+              <span style="font-size:0.8rem; color:var(--text-muted); font-family:var(--font-mono);">Quick Presets:</span>
+              <button class="btn-secondary-dashboard" style="font-size:0.75rem; padding:4px 10px;" onclick="applyUtmPreset('telegram')">📱 Telegram Channel</button>
+              <button class="btn-secondary-dashboard" style="font-size:0.75rem; padding:4px 10px;" onclick="applyUtmPreset('google')">🔍 Google Search Ads</button>
+              <button class="btn-secondary-dashboard" style="font-size:0.75rem; padding:4px 10px;" onclick="applyUtmPreset('yandex')">🟡 Yandex Direct</button>
+              <button class="btn-secondary-dashboard" style="font-size:0.75rem; padding:4px 10px;" onclick="applyUtmPreset('facebook')">📘 Facebook / Insta</button>
+              <button class="btn-secondary-dashboard" style="font-size:0.75rem; padding:4px 10px;" onclick="applyUtmPreset('email')">✉️ Email Newsletter</button>
+            </div>
+
+            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:1rem; margin-bottom:1.25rem;">
+              <div class="form-group">
+                <label style="font-size:0.8rem;">Target Page URL *</label>
+                <input type="text" id="utmBaseUrl" value="https://swipies.app" oninput="buildUtmUrl()" style="background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); padding:6px 10px; font-size:0.85rem; outline:none;" placeholder="https://swipies.app">
+              </div>
+              <div class="form-group">
+                <label style="font-size:0.8rem;">Campaign Source (utm_source) *</label>
+                <input type="text" id="utmSource" placeholder="e.g. telegram, google" oninput="buildUtmUrl()" style="background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); padding:6px 10px; font-size:0.85rem; outline:none;">
+              </div>
+              <div class="form-group">
+                <label style="font-size:0.8rem;">Campaign Medium (utm_medium) *</label>
+                <input type="text" id="utmMedium" placeholder="e.g. cpc, channel, email" oninput="buildUtmUrl()" style="background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); padding:6px 10px; font-size:0.85rem; outline:none;">
+              </div>
+              <div class="form-group">
+                <label style="font-size:0.8rem;">Campaign Name (utm_campaign) *</label>
+                <input type="text" id="utmCampaign" placeholder="e.g. summer_launch, rag_demo" oninput="buildUtmUrl()" style="background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); padding:6px 10px; font-size:0.85rem; outline:none;">
+              </div>
+              <div class="form-group">
+                <label style="font-size:0.8rem;">Campaign Content (utm_content)</label>
+                <input type="text" id="utmContent" placeholder="e.g. banner_header, cta_top" oninput="buildUtmUrl()" style="background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); padding:6px 10px; font-size:0.85rem; outline:none;">
+              </div>
+              <div class="form-group">
+                <label style="font-size:0.8rem;">Referral Code (ref)</label>
+                <input type="text" id="utmRefCode" placeholder="e.g. partner123" oninput="buildUtmUrl()" style="background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); padding:6px 10px; font-size:0.85rem; outline:none;">
+              </div>
+            </div>
+
+            <!-- Result Box -->
+            <div style="background:var(--bg); border:1px solid var(--border2); border-radius:var(--radius); padding:0.75rem 1rem; display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap;">
+              <div style="flex-grow:1; overflow:hidden;">
+                <span style="font-size:0.75rem; color:var(--text-muted); display:block; font-family:var(--font-mono);">GENERATED TRACKED URL:</span>
+                <strong id="utmResultUrl" class="mono-val" style="font-size:0.85rem; color:var(--accent); word-break:break-all;">https://swipies.app</strong>
+              </div>
+              <button class="btn-primary" style="background:var(--accent); color:var(--bg); font-weight:600; padding:8px 18px; border-radius:var(--radius); cursor:pointer; flex-shrink:0;" onclick="copyUtmUrl()">
+                <svg style="width:14px;height:14px;margin-right:4px;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                Copy Link
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- Real-Time Visitor Telemetry Log Table -->
       <div class="dashboard-grid full" style="margin-top: 1.5rem;">
         <div class="card">
@@ -3562,6 +3626,17 @@ async function loadVisitorsFromDB() {
 
         const safeRef = escapeHtml(v.referrer || 'Direct');
 
+        const utmSource = v.utm_source ? escapeHtml(v.utm_source) : '';
+        const utmMedium = v.utm_medium ? escapeHtml(v.utm_medium) : '';
+        const utmCampaign = v.utm_campaign ? escapeHtml(v.utm_campaign) : '';
+        
+        let utmBadge = '';
+        if (utmSource || utmCampaign) {
+          const campaignText = [utmSource, utmMedium, utmCampaign].filter(Boolean).join(' / ');
+          utmBadge = `<br><span style="background:rgba(56,123,245,0.15); color:var(--blue); border:1px solid rgba(56,123,245,0.3); padding:1px 6px; border-radius:3px; font-size:0.68rem; font-weight:600; font-family:var(--font-mono);" title="UTM Campaign: ${campaignText}">🏷️ ${campaignText}</span>`;
+        }
+        const refDisplay = `${safeRef}${utmBadge}`;
+
         return `
           <tr>
             <td>
@@ -3576,7 +3651,7 @@ async function loadVisitorsFromDB() {
             <td style="font-size:0.82rem">${safeBrowser}</td>
             <td style="font-size:0.82rem">${behaviorInfo}</td>
             <td>${consentBadge}</td>
-            <td style="font-size:0.75rem; max-width:140px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap" title="${safeRef}">${safeRef}</td>
+            <td style="font-size:0.75rem; max-width:160px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap">${refDisplay}</td>
             <td class="mono-val" style="font-size:0.72rem; color:var(--text-muted)">${formattedDate}</td>
             <td style="text-align:right">
               <button class="btn-action delete" onclick="deleteVisitorRecord(${v.id})" title="Delete entry">&times;</button>
@@ -3624,7 +3699,7 @@ function exportVisitorsToCSV() {
     showToast('Export Empty', 'No visitor records available to export.', 'info');
     return;
   }
-  const headers = ['ID', 'Visitor GUID', 'IP Address', 'Country', 'City', 'ISP', 'Is Proxy/VPN', 'Device Type', 'OS', 'Browser', 'CPU Cores', 'RAM GB', 'GPU Info', 'Screen Res', 'Language', 'Timezone', 'Theme Pref', 'Session Duration (s)', 'Scroll Depth (%)', 'Clicked Buttons', 'Cookie Consent', 'Page URL', 'Referrer', 'Created At'];
+  const headers = ['ID', 'Visitor GUID', 'IP Address', 'Country', 'City', 'ISP', 'Is Proxy/VPN', 'Device Type', 'OS', 'Browser', 'CPU Cores', 'RAM GB', 'GPU Info', 'Screen Res', 'Language', 'Timezone', 'Theme Pref', 'Session Duration (s)', 'Scroll Depth (%)', 'Clicked Buttons', 'UTM Source', 'UTM Medium', 'UTM Campaign', 'UTM Term', 'UTM Content', 'Cookie Consent', 'Page URL', 'Referrer', 'Created At'];
   const rows = currentVisitorsData.map(v => [
     v.id,
     `"${(v.visitor_id || '').replace(/"/g, '""')}"`,
@@ -3646,6 +3721,11 @@ function exportVisitorsToCSV() {
     v.session_duration || 0,
     v.scroll_depth || 0,
     `"${(v.clicked_buttons || '').replace(/"/g, '""')}"`,
+    `"${(v.utm_source || '').replace(/"/g, '""')}"`,
+    `"${(v.utm_medium || '').replace(/"/g, '""')}"`,
+    `"${(v.utm_campaign || '').replace(/"/g, '""')}"`,
+    `"${(v.utm_term || '').replace(/"/g, '""')}"`,
+    `"${(v.utm_content || '').replace(/"/g, '""')}"`,
     `"${(v.cookie_consent || '').replace(/"/g, '""')}"`,
     `"${(v.page_url || '').replace(/"/g, '""')}"`,
     `"${(v.referrer || '').replace(/"/g, '""')}"`,
@@ -3660,6 +3740,69 @@ function exportVisitorsToCSV() {
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
+}
+
+/* ========================================================================
+   UTM CAMPAIGN LINK BUILDER HELPERS
+======================================================================== */
+function buildUtmUrl() {
+  const baseInput = document.getElementById('utmBaseUrl');
+  let baseUrl = (baseInput ? baseInput.value.trim() : '') || 'https://swipies.app';
+  if (!baseUrl.startsWith('http://') && !baseUrl.startsWith('https://')) {
+    baseUrl = 'https://' + baseUrl;
+  }
+
+  const source = document.getElementById('utmSource') ? document.getElementById('utmSource').value.trim() : '';
+  const medium = document.getElementById('utmMedium') ? document.getElementById('utmMedium').value.trim() : '';
+  const campaign = document.getElementById('utmCampaign') ? document.getElementById('utmCampaign').value.trim() : '';
+  const content = document.getElementById('utmContent') ? document.getElementById('utmContent').value.trim() : '';
+  const ref = document.getElementById('utmRefCode') ? document.getElementById('utmRefCode').value.trim() : '';
+
+  try {
+    const urlObj = new URL(baseUrl);
+    if (source) urlObj.searchParams.set('utm_source', source);
+    if (medium) urlObj.searchParams.set('utm_medium', medium);
+    if (campaign) urlObj.searchParams.set('utm_campaign', campaign);
+    if (content) urlObj.searchParams.set('utm_content', content);
+    if (ref) urlObj.searchParams.set('ref', ref);
+
+    const finalUrl = urlObj.toString();
+    const resEl = document.getElementById('utmResultUrl');
+    if (resEl) resEl.textContent = finalUrl;
+    return finalUrl;
+  } catch (e) {
+    const resEl = document.getElementById('utmResultUrl');
+    if (resEl) resEl.textContent = baseUrl;
+    return baseUrl;
+  }
+}
+
+function applyUtmPreset(preset) {
+  const presets = {
+    telegram: { source: 'telegram', medium: 'channel', campaign: 'ai_launch', content: 'post_cta' },
+    google: { source: 'google', medium: 'cpc', campaign: 'enterprise_rag', content: 'search_ad' },
+    yandex: { source: 'yandex', medium: 'cpc', campaign: 'onpremise_ai', content: 'direct_banner' },
+    facebook: { source: 'facebook', medium: 'social_ad', campaign: 'saas_white_label', content: 'feed_video' },
+    email: { source: 'newsletter', medium: 'email', campaign: 'weekly_digest', content: 'button_link' }
+  };
+
+  const p = presets[preset];
+  if (p) {
+    if (document.getElementById('utmSource')) document.getElementById('utmSource').value = p.source;
+    if (document.getElementById('utmMedium')) document.getElementById('utmMedium').value = p.medium;
+    if (document.getElementById('utmCampaign')) document.getElementById('utmCampaign').value = p.campaign;
+    if (document.getElementById('utmContent')) document.getElementById('utmContent').value = p.content;
+    buildUtmUrl();
+  }
+}
+
+function copyUtmUrl() {
+  const finalUrl = buildUtmUrl();
+  navigator.clipboard.writeText(finalUrl).then(() => {
+    showToast('Copied!', 'UTM Campaign URL copied to clipboard.', 'success');
+  }).catch(err => {
+    showToast('Error', 'Failed to copy URL.', 'error');
+  });
 }
 
 // Start Checks on load

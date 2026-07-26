@@ -49,6 +49,11 @@ def init_db():
                 session_duration INTEGER DEFAULT 0,
                 scroll_depth INTEGER DEFAULT 0,
                 clicked_buttons TEXT,
+                utm_source TEXT,
+                utm_medium TEXT,
+                utm_campaign TEXT,
+                utm_term TEXT,
+                utm_content TEXT,
                 user_agent TEXT,
                 device_type TEXT,
                 browser TEXT,
@@ -78,7 +83,12 @@ def init_db():
             'theme_pref': 'TEXT',
             'session_duration': 'INTEGER DEFAULT 0',
             'scroll_depth': 'INTEGER DEFAULT 0',
-            'clicked_buttons': 'TEXT'
+            'clicked_buttons': 'TEXT',
+            'utm_source': 'TEXT',
+            'utm_medium': 'TEXT',
+            'utm_campaign': 'TEXT',
+            'utm_term': 'TEXT',
+            'utm_content': 'TEXT'
         }
         for col_name, col_type in new_cols.items():
             if col_name not in existing_cols:
@@ -276,7 +286,7 @@ def track_visitor():
     referrer = data.get('referrer', '')
     cookie_consent = data.get('cookie_consent', 'accepted')
 
-    # Extended metrics
+    # Extended metrics & UTM params
     connection_type = data.get('connection_type', '')
     cpu_cores       = str(data.get('cpu_cores', '')) if data.get('cpu_cores') else ''
     ram_gb          = str(data.get('ram_gb', '')) if data.get('ram_gb') else ''
@@ -287,6 +297,12 @@ def track_visitor():
     clicked_buttons = data.get('clicked_buttons', '')
     if isinstance(clicked_buttons, list):
         clicked_buttons = ", ".join(clicked_buttons)
+
+    utm_source   = data.get('utm_source', '')
+    utm_medium   = data.get('utm_medium', '')
+    utm_campaign = data.get('utm_campaign', '')
+    utm_term     = data.get('utm_term', '')
+    utm_content  = data.get('utm_content', '')
 
     create_date = datetime.datetime.utcnow().isoformat() + "Z"
     
@@ -326,10 +342,20 @@ def track_visitor():
                     session_duration = ?,
                     scroll_depth = ?,
                     clicked_buttons = ?,
+                    utm_source = COALESCE(NULLIF(?, ''), utm_source),
+                    utm_medium = COALESCE(NULLIF(?, ''), utm_medium),
+                    utm_campaign = COALESCE(NULLIF(?, ''), utm_campaign),
+                    utm_term = COALESCE(NULLIF(?, ''), utm_term),
+                    utm_content = COALESCE(NULLIF(?, ''), utm_content),
                     screen_res = ?,
                     language = ?
                 WHERE id = ?
-            ''', (cookie_consent, connection_type, cpu_cores, ram_gb, gpu_info, theme_pref, new_duration, new_scroll, merged_clicks, screen_res, language, v_id))
+            ''', (
+                cookie_consent, connection_type, cpu_cores, ram_gb, gpu_info, theme_pref,
+                new_duration, new_scroll, merged_clicks,
+                utm_source, utm_medium, utm_campaign, utm_term, utm_content,
+                screen_res, language, v_id
+            ))
             conn.commit()
 
             return jsonify({"code": 0, "message": "Visitor telemetry updated", "data": {"id": v_id}}), 200
@@ -346,14 +372,16 @@ def track_visitor():
                 INSERT INTO visitors (
                     visitor_id, ip, country, city, isp, is_proxy, connection_type,
                     cpu_cores, ram_gb, gpu_info, theme_pref, session_duration, scroll_depth,
-                    clicked_buttons, user_agent, device_type, browser, os, screen_res,
+                    clicked_buttons, utm_source, utm_medium, utm_campaign, utm_term, utm_content,
+                    user_agent, device_type, browser, os, screen_res,
                     language, timezone, page_url, referrer, cookie_consent, create_date
                 )
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             ''', (
                 visitor_id, ip, country, city, isp, is_proxy, connection_type,
                 cpu_cores, ram_gb, gpu_info, theme_pref, session_duration, scroll_depth,
-                clicked_buttons, user_agent, device_type, browser, os_name, screen_res,
+                clicked_buttons, utm_source, utm_medium, utm_campaign, utm_term, utm_content,
+                user_agent, device_type, browser, os_name, screen_res,
                 language, timezone, page_url, referrer, cookie_consent, create_date
             ))
             conn.commit()
