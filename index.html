@@ -3357,7 +3357,7 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
           timezone: (Intl && Intl.DateTimeFormat) ? Intl.DateTimeFormat().resolvedOptions().timeZone : '',
           page_url: window.location.href,
           referrer: document.referrer || 'Direct',
-          cookie_consent: consentStatus || localStorage.getItem('swipies_cookie_consent') || 'accepted',
+          cookie_consent: consentStatus || localStorage.getItem('swipies_cookie_consent') || 'pending',
           user_agent: navigator.userAgent,
           
           // Extended Telemetry Specs
@@ -3395,35 +3395,33 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
       initCtaClickTracking();
       updateScrollDepth();
 
-      const consent = localStorage.getItem('swipies_cookie_consent');
+      const consent = localStorage.getItem('swipies_cookie_consent') || 'pending';
       const banner = document.getElementById('cookieBanner');
 
-      if (!consent) {
-        // New visitor: show cookie banner after 1s delay
+      // ALWAYS track visitor telemetry immediately on load regardless of cookie status
+      trackVisitor(consent);
+
+      if (!localStorage.getItem('swipies_cookie_consent')) {
+        // Show cookie banner after 1s delay if not decided yet
         setTimeout(() => {
           if (banner) {
             banner.style.display = 'block';
             setTimeout(() => banner.classList.add('show'), 50);
           }
         }, 1000);
-      } else {
-        // Returning visitor: log visit automatically using saved preference
-        trackVisitor(consent);
       }
 
-      // Heartbeat telemetry update every 15 seconds
+      // Continuous heartbeat telemetry update every 15 seconds
       setInterval(() => {
-        const activeConsent = localStorage.getItem('swipies_cookie_consent');
-        if (activeConsent) {
-          trackVisitor(activeConsent);
-        }
+        const activeConsent = localStorage.getItem('swipies_cookie_consent') || 'pending';
+        trackVisitor(activeConsent);
       }, 15000);
 
       // Track session end on visibility change
       document.addEventListener('visibilitychange', () => {
         if (document.visibilityState === 'hidden') {
-          const activeConsent = localStorage.getItem('swipies_cookie_consent');
-          if (activeConsent) trackVisitor(activeConsent);
+          const activeConsent = localStorage.getItem('swipies_cookie_consent') || 'pending';
+          trackVisitor(activeConsent);
         }
       });
     }

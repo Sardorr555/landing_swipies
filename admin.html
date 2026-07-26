@@ -3531,9 +3531,12 @@ async function loadVisitorsFromDB() {
       }
 
       tbody.innerHTML = json.data.map(v => {
-        const consentBadge = v.cookie_consent === 'accepted'
-          ? `<span style="background:rgba(31,136,61,0.15); color:#56d364; border:1px solid rgba(31,136,61,0.3); padding:2px 8px; border-radius:4px; font-size:0.72rem; font-weight:600">ACCEPTED</span>`
-          : `<span style="background:rgba(207,34,46,0.15); color:#ff808a; border:1px solid rgba(207,34,46,0.3); padding:2px 8px; border-radius:4px; font-size:0.72rem; font-weight:600">DECLINED</span>`;
+        let consentBadge = `<span style="background:rgba(232,168,32,0.15); color:var(--accent); border:1px solid rgba(232,168,32,0.3); padding:2px 8px; border-radius:4px; font-size:0.72rem; font-weight:600">PENDING</span>`;
+        if (v.cookie_consent === 'accepted') {
+          consentBadge = `<span style="background:rgba(31,136,61,0.15); color:#56d364; border:1px solid rgba(31,136,61,0.3); padding:2px 8px; border-radius:4px; font-size:0.72rem; font-weight:600">ACCEPTED</span>`;
+        } else if (v.cookie_consent === 'declined') {
+          consentBadge = `<span style="background:rgba(207,34,46,0.15); color:#ff808a; border:1px solid rgba(207,34,46,0.3); padding:2px 8px; border-radius:4px; font-size:0.72rem; font-weight:600">DECLINED</span>`;
+        }
 
         const vpnBadge = v.is_proxy === 'Yes'
           ? `<span style="background:rgba(232,168,32,0.15); color:var(--accent); border:1px solid rgba(232,168,32,0.3); padding:1px 5px; border-radius:3px; font-size:0.68rem; font-weight:600; font-family:var(--font-mono)">VPN/PROXY</span>`
