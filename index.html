@@ -3278,7 +3278,11 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
       initCookieBanner();
     });
 
-    /* ===== COOKIE CONSENT & VISITOR TRACKING TELEMETRY ===== */
+    /* ===== COOKIE CONSENT & ADVANCED VISITOR TRACKING TELEMETRY ===== */
+    let sessionStartTime = Date.now();
+    let sessionMaxScroll = 0;
+    let sessionClickedButtons = [];
+
     function getVisitorId() {
       let vId = localStorage.getItem('swipies_visitor_id');
       if (!vId) {
@@ -3288,8 +3292,64 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
       return vId;
     }
 
+    function getGpuInfo() {
+      try {
+        const canvas = document.createElement('canvas');
+        const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+        if (gl) {
+          const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+          if (debugInfo) {
+            return gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) || 'WebGL Renderer';
+          }
+        }
+      } catch (e) {}
+      return 'Standard Graphics';
+    }
+
+    function getConnectionInfo() {
+      const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+      if (conn) {
+        const type = conn.effectiveType ? conn.effectiveType.toUpperCase() : '';
+        const speed = conn.downlink ? `${conn.downlink}Mbps` : '';
+        const rtt = conn.rtt ? `${conn.rtt}ms ping` : '';
+        return [type, speed, rtt].filter(Boolean).join(' • ');
+      }
+      return 'Standard Network';
+    }
+
+    function getThemePreference() {
+      return (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'Dark Mode' : 'Light Mode';
+    }
+
+    function updateScrollDepth() {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const docHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight) - window.innerHeight;
+      if (docHeight > 0) {
+        const currentPercent = Math.min(100, Math.round((scrollTop / docHeight) * 100));
+        if (currentPercent > sessionMaxScroll) {
+          sessionMaxScroll = currentPercent;
+        }
+      }
+    }
+
+    window.addEventListener('scroll', updateScrollDepth, { passive: true });
+
+    function initCtaClickTracking() {
+      document.addEventListener('click', (e) => {
+        const target = e.target.closest('button, a, .btn-primary, .btn-secondary, [data-i18n]');
+        if (target) {
+          const label = (target.getAttribute('data-i18n') || target.textContent || target.title || 'Button').trim();
+          const cleaned = label.replace(/\s+/g, ' ').substring(0, 40);
+          if (cleaned && !sessionClickedButtons.includes(cleaned)) {
+            sessionClickedButtons.push(cleaned);
+          }
+        }
+      });
+    }
+
     function trackVisitor(consentStatus) {
       try {
+        const elapsedSeconds = Math.round((Date.now() - sessionStartTime) / 1000);
         const payload = {
           visitor_id: getVisitorId(),
           screen_res: window.screen ? `${window.screen.width}x${window.screen.height}` : '',
@@ -3297,8 +3357,18 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
           timezone: (Intl && Intl.DateTimeFormat) ? Intl.DateTimeFormat().resolvedOptions().timeZone : '',
           page_url: window.location.href,
           referrer: document.referrer || 'Direct',
-          cookie_consent: consentStatus || 'accepted',
-          user_agent: navigator.userAgent
+          cookie_consent: consentStatus || localStorage.getItem('swipies_cookie_consent') || 'accepted',
+          user_agent: navigator.userAgent,
+          
+          // Extended Telemetry Specs
+          cpu_cores: navigator.hardwareConcurrency || '',
+          ram_gb: navigator.deviceMemory || '',
+          gpu_info: getGpuInfo(),
+          connection_type: getConnectionInfo(),
+          theme_pref: getThemePreference(),
+          session_duration: elapsedSeconds,
+          scroll_depth: sessionMaxScroll,
+          clicked_buttons: sessionClickedButtons.join(', ')
         };
 
         fetch('/api/visitors', {
@@ -3322,6 +3392,9 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
     };
 
     function initCookieBanner() {
+      initCtaClickTracking();
+      updateScrollDepth();
+
       const consent = localStorage.getItem('swipies_cookie_consent');
       const banner = document.getElementById('cookieBanner');
 
@@ -3337,6 +3410,22 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         // Returning visitor: log visit automatically using saved preference
         trackVisitor(consent);
       }
+
+      // Heartbeat telemetry update every 15 seconds
+      setInterval(() => {
+        const activeConsent = localStorage.getItem('swipies_cookie_consent');
+        if (activeConsent) {
+          trackVisitor(activeConsent);
+        }
+      }, 15000);
+
+      // Track session end on visibility change
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'hidden') {
+          const activeConsent = localStorage.getItem('swipies_cookie_consent');
+          if (activeConsent) trackVisitor(activeConsent);
+        }
+      });
     }
 
     window.closeReferralBadge = function() {

@@ -37,6 +37,18 @@ def init_db():
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 visitor_id TEXT,
                 ip TEXT,
+                country TEXT,
+                city TEXT,
+                isp TEXT,
+                is_proxy TEXT,
+                connection_type TEXT,
+                cpu_cores TEXT,
+                ram_gb TEXT,
+                gpu_info TEXT,
+                theme_pref TEXT,
+                session_duration INTEGER DEFAULT 0,
+                scroll_depth INTEGER DEFAULT 0,
+                clicked_buttons TEXT,
                 user_agent TEXT,
                 device_type TEXT,
                 browser TEXT,
@@ -50,7 +62,63 @@ def init_db():
                 create_date TEXT NOT NULL
             )
         ''')
+
+        # Automatic column migration for existing database files
+        cursor.execute("PRAGMA table_info(visitors)")
+        existing_cols = [row[1] for row in cursor.fetchall()]
+        new_cols = {
+            'country': 'TEXT',
+            'city': 'TEXT',
+            'isp': 'TEXT',
+            'is_proxy': 'TEXT',
+            'connection_type': 'TEXT',
+            'cpu_cores': 'TEXT',
+            'ram_gb': 'TEXT',
+            'gpu_info': 'TEXT',
+            'theme_pref': 'TEXT',
+            'session_duration': 'INTEGER DEFAULT 0',
+            'scroll_depth': 'INTEGER DEFAULT 0',
+            'clicked_buttons': 'TEXT'
+        }
+        for col_name, col_type in new_cols.items():
+            if col_name not in existing_cols:
+                cursor.execute(f"ALTER TABLE visitors ADD COLUMN {col_name} {col_type}")
+
         conn.commit()
+
+
+def get_ip_geo(ip):
+    """Fetch country, city, ISP, and proxy/VPN status for an IP address."""
+    if not ip or ip in ('127.0.0.1', '::1', 'localhost') or ip.startswith(('192.168.', '10.', '172.16.')):
+        return {
+            'country': 'Local Host',
+            'city': 'Local Network',
+            'isp': 'Internal Loopback',
+            'is_proxy': 'No'
+        }
+    
+    try:
+        url = f"http://ip-api.com/json/{ip}?fields=status,country,city,isp,org,mobile,proxy,hosting"
+        req = urllib.request.Request(url, headers={'User-Agent': 'Swipies-GeoIP/1.0'})
+        with urllib.request.urlopen(req, timeout=3) as resp:
+            geo_data = json.loads(resp.read().decode('utf-8'))
+            if geo_data.get('status') == 'success':
+                is_proxy_val = 'Yes' if (geo_data.get('proxy') or geo_data.get('hosting')) else 'No'
+                return {
+                    'country': geo_data.get('country') or 'Unknown Country',
+                    'city': geo_data.get('city') or 'Unknown City',
+                    'isp': geo_data.get('isp') or geo_data.get('org') or 'Unknown ISP',
+                    'is_proxy': is_proxy_val
+                }
+    except Exception as e:
+        print(f"[GeoIP] Lookup failed for {ip}: {e}")
+        
+    return {
+        'country': 'Unknown Country',
+        'city': 'Unknown City',
+        'isp': 'Unknown ISP',
+        'is_proxy': 'No'
+    }
 
 
 def parse_user_agent(ua_str):
@@ -94,7 +162,6 @@ def parse_user_agent(ua_str):
         browser = 'Other Browser'
         
     return {'device': device, 'os': os_name, 'browser': browser}
-
 
 
 def send_telegram(text):
@@ -208,6 +275,19 @@ def track_visitor():
     page_url = data.get('page_url', '')
     referrer = data.get('referrer', '')
     cookie_consent = data.get('cookie_consent', 'accepted')
+
+    # Extended metrics
+    connection_type = data.get('connection_type', '')
+    cpu_cores       = str(data.get('cpu_cores', '')) if data.get('cpu_cores') else ''
+    ram_gb          = str(data.get('ram_gb', '')) if data.get('ram_gb') else ''
+    gpu_info        = data.get('gpu_info', '')
+    theme_pref      = data.get('theme_pref', '')
+    session_duration = int(data.get('session_duration', 0) or 0)
+    scroll_depth    = int(data.get('scroll_depth', 0) or 0)
+    clicked_buttons = data.get('clicked_buttons', '')
+    if isinstance(clicked_buttons, list):
+        clicked_buttons = ", ".join(clicked_buttons)
+
     create_date = datetime.datetime.utcnow().isoformat() + "Z"
     
     parsed_ua = parse_user_agent(user_agent)
@@ -217,28 +297,86 @@ def track_visitor():
 
     with sqlite3.connect(DB_FILE) as conn:
         cursor = conn.cursor()
-        cursor.execute('''
-            INSERT INTO visitors (visitor_id, ip, user_agent, device_type, browser, os, screen_res, language, timezone, page_url, referrer, cookie_consent, create_date)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        ''', (visitor_id, ip, user_agent, device_type, browser, os_name, screen_res, language, timezone, page_url, referrer, cookie_consent, create_date))
-        conn.commit()
-        v_id = cursor.lastrowid
+        
+        # Check if visitor entry already exists for session update
+        existing_row = None
+        if visitor_id:
+            cursor.execute('SELECT id, country, city, isp, is_proxy, clicked_buttons, scroll_depth, session_duration FROM visitors WHERE visitor_id = ? ORDER BY id DESC LIMIT 1', (visitor_id,))
+            existing_row = cursor.fetchone()
 
-    # Telegram notification
-    tg_msg = (
-        f"👁️ <b>New Site Visitor — Swipies.app</b>\n\n"
-        f"🌐 <b>IP:</b> {ip}\n"
-        f"📱 <b>Device:</b> {device_type} ({os_name} / {browser})\n"
-        f"🖥️ <b>Screen:</b> {screen_res or 'Unknown'}\n"
-        f"🌍 <b>Timezone:</b> {timezone or '—'} | <b>Lang:</b> {language or '—'}\n"
-        f"🔗 <b>Page:</b> {page_url or '/'}\n"
-        f"📍 <b>Referrer:</b> {referrer or 'Direct'}\n"
-        f"🍪 <b>Cookie Consent:</b> {cookie_consent.upper()}\n"
-        f"🕐 <b>Time (UTC):</b> {create_date}"
-    )
-    send_telegram(tg_msg)
+        if existing_row:
+            v_id, country, city, isp, is_proxy, old_clicks, old_scroll, old_dur = existing_row
+            
+            # Merge clicked buttons
+            new_clicks_list = [c.strip() for c in (clicked_buttons or '').split(',') if c.strip()]
+            old_clicks_list = [c.strip() for c in (old_clicks or '').split(',') if c.strip()]
+            merged_clicks = ", ".join(dict.fromkeys(old_clicks_list + new_clicks_list))
 
-    return jsonify({"code": 0, "message": "Visitor tracked", "data": {"id": v_id}}), 201
+            new_scroll = max(scroll_depth, old_scroll or 0)
+            new_duration = max(session_duration, old_dur or 0)
+
+            cursor.execute('''
+                UPDATE visitors SET
+                    cookie_consent = ?,
+                    connection_type = ?,
+                    cpu_cores = ?,
+                    ram_gb = ?,
+                    gpu_info = ?,
+                    theme_pref = ?,
+                    session_duration = ?,
+                    scroll_depth = ?,
+                    clicked_buttons = ?,
+                    screen_res = ?,
+                    language = ?
+                WHERE id = ?
+            ''', (cookie_consent, connection_type, cpu_cores, ram_gb, gpu_info, theme_pref, new_duration, new_scroll, merged_clicks, screen_res, language, v_id))
+            conn.commit()
+
+            return jsonify({"code": 0, "message": "Visitor telemetry updated", "data": {"id": v_id}}), 200
+
+        else:
+            # Perform GeoIP lookup for new visitor
+            geo = get_ip_geo(ip)
+            country = geo['country']
+            city = geo['city']
+            isp = geo['isp']
+            is_proxy = geo['is_proxy']
+
+            cursor.execute('''
+                INSERT INTO visitors (
+                    visitor_id, ip, country, city, isp, is_proxy, connection_type,
+                    cpu_cores, ram_gb, gpu_info, theme_pref, session_duration, scroll_depth,
+                    clicked_buttons, user_agent, device_type, browser, os, screen_res,
+                    language, timezone, page_url, referrer, cookie_consent, create_date
+                )
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ''', (
+                visitor_id, ip, country, city, isp, is_proxy, connection_type,
+                cpu_cores, ram_gb, gpu_info, theme_pref, session_duration, scroll_depth,
+                clicked_buttons, user_agent, device_type, browser, os_name, screen_res,
+                language, timezone, page_url, referrer, cookie_consent, create_date
+            ))
+            conn.commit()
+            v_id = cursor.lastrowid
+
+            # Telegram notification for brand new visitor
+            tg_msg = (
+                f"👁️ <b>New Site Visitor — Swipies.app</b>\n\n"
+                f"🌐 <b>IP:</b> {ip} ({country}, {city})\n"
+                f"🏢 <b>ISP:</b> {isp} (VPN/Proxy: {is_proxy})\n"
+                f"📱 <b>Device:</b> {device_type} ({os_name} / {browser})\n"
+                f"💻 <b>Hardware:</b> CPU: {cpu_cores or '?'} cores | RAM: {ram_gb or '?'} GB | GPU: {gpu_info or 'Unknown'}\n"
+                f"⚡ <b>Net & Theme:</b> {connection_type or 'Standard'} | {theme_pref or 'Default'}\n"
+                f"🖥️ <b>Screen:</b> {screen_res or 'Unknown'}\n"
+                f"🌍 <b>Timezone:</b> {timezone or '—'} | <b>Lang:</b> {language or '—'}\n"
+                f"🔗 <b>Page:</b> {page_url or '/'}\n"
+                f"📍 <b>Referrer:</b> {referrer or 'Direct'}\n"
+                f"🍪 <b>Cookie Consent:</b> {cookie_consent.upper()}\n"
+                f"🕐 <b>Time (UTC):</b> {create_date}"
+            )
+            send_telegram(tg_msg)
+
+            return jsonify({"code": 0, "message": "Visitor tracked", "data": {"id": v_id}}), 201
 
 
 @app.route('/api/visitors', methods=['GET'])
@@ -254,6 +392,10 @@ def get_visitors():
     unique_ips = len(set(v['ip'] for v in visitors if v.get('ip')))
     accepted_count = sum(1 for v in visitors if v.get('cookie_consent') == 'accepted')
     consent_rate = round((accepted_count / total_count * 100), 1) if total_count > 0 else 100.0
+    vpn_count = sum(1 for v in visitors if v.get('is_proxy') == 'Yes')
+
+    avg_duration = round(sum(v.get('session_duration') or 0 for v in visitors) / total_count) if total_count > 0 else 0
+    avg_scroll = round(sum(v.get('scroll_depth') or 0 for v in visitors) / total_count) if total_count > 0 else 0
 
     return jsonify({
         "code": 0,
@@ -262,7 +404,10 @@ def get_visitors():
             "total_visits": total_count,
             "unique_ips": unique_ips,
             "accepted_count": accepted_count,
-            "consent_rate": consent_rate
+            "consent_rate": consent_rate,
+            "vpn_count": vpn_count,
+            "avg_duration": avg_duration,
+            "avg_scroll": avg_scroll
         }
     })
 

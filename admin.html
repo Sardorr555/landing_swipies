@@ -1269,15 +1269,15 @@ input:checked + .slider:before { transform: translateX(20px); }
             <table class="data-table">
               <thead>
                 <tr>
-                  <th>IP Address</th>
-                  <th>Device / OS</th>
-                  <th>Browser</th>
-                  <th>Screen Res</th>
-                  <th>Timezone / Lang</th>
+                  <th>IP Address & Geo</th>
+                  <th>Network & ISP</th>
+                  <th>Device & Hardware</th>
+                  <th>Browser & Theme</th>
+                  <th>Behavior (Duration / Scroll / Clicks)</th>
                   <th>Cookie Consent</th>
                   <th>Referrer / URL</th>
-                  <th style="width: 140px;">Timestamp</th>
-                  <th style="width: 80px; text-align:right">Action</th>
+                  <th style="width: 130px;">Timestamp</th>
+                  <th style="width: 70px; text-align:right">Action</th>
                 </tr>
               </thead>
               <tbody id="visitorsTableBody">
@@ -3532,27 +3532,49 @@ async function loadVisitorsFromDB() {
 
       tbody.innerHTML = json.data.map(v => {
         const consentBadge = v.cookie_consent === 'accepted'
-          ? `<span style="background:rgba(31,136,61,0.15); color:#56d364; border:1px solid rgba(31,136,61,0.3); padding:2px 8px; border-radius:4px; font-size:0.75rem; font-weight:600">ACCEPTED</span>`
-          : `<span style="background:rgba(207,34,46,0.15); color:#ff808a; border:1px solid rgba(207,34,46,0.3); padding:2px 8px; border-radius:4px; font-size:0.75rem; font-weight:600">DECLINED</span>`;
+          ? `<span style="background:rgba(31,136,61,0.15); color:#56d364; border:1px solid rgba(31,136,61,0.3); padding:2px 8px; border-radius:4px; font-size:0.72rem; font-weight:600">ACCEPTED</span>`
+          : `<span style="background:rgba(207,34,46,0.15); color:#ff808a; border:1px solid rgba(207,34,46,0.3); padding:2px 8px; border-radius:4px; font-size:0.72rem; font-weight:600">DECLINED</span>`;
+
+        const vpnBadge = v.is_proxy === 'Yes'
+          ? `<span style="background:rgba(232,168,32,0.15); color:var(--accent); border:1px solid rgba(232,168,32,0.3); padding:1px 5px; border-radius:3px; font-size:0.68rem; font-weight:600; font-family:var(--font-mono)">VPN/PROXY</span>`
+          : `<span style="background:rgba(255,255,255,0.05); color:var(--text-dim); padding:1px 5px; border-radius:3px; font-size:0.68rem">Residential</span>`;
 
         const formattedDate = v.create_date ? new Date(v.create_date).toLocaleString() : '—';
         const safeIp = escapeHtml(v.ip || '—');
+        const safeGeo = escapeHtml(v.country || '—') + (v.city ? `, ${escapeHtml(v.city)}` : '');
+        const safeIsp = escapeHtml(v.isp || '—');
+        const safeConn = escapeHtml(v.connection_type || '—');
+        
+        const hwCpu = v.cpu_cores ? `${v.cpu_cores} Cores` : '? Cores';
+        const hwRam = v.ram_gb ? `${v.ram_gb} GB RAM` : '? RAM';
+        const safeHw = `${hwCpu} • ${hwRam}<br><span style="font-size:0.72rem; color:var(--text-dim); font-family:var(--font-mono)">${escapeHtml(v.gpu_info || 'GPU')}</span>`;
+
         const safeDevice = escapeHtml(v.device_type || '—') + ' / ' + escapeHtml(v.os || '—');
-        const safeBrowser = escapeHtml(v.browser || '—');
-        const safeRes = escapeHtml(v.screen_res || '—');
-        const safeTz = escapeHtml(v.timezone || '—') + ' (' + escapeHtml(v.language || '—') + ')';
+        const safeBrowser = escapeHtml(v.browser || '—') + `<br><span style="font-size:0.72rem; color:var(--text-dim)">${escapeHtml(v.theme_pref || '')} (${escapeHtml(v.screen_res || '')})</span>`;
+
+        const durationMin = v.session_duration ? `${Math.floor(v.session_duration / 60)}m ${v.session_duration % 60}s` : '0s';
+        const scrollPct = v.scroll_depth !== undefined ? `${v.scroll_depth}% scroll` : '0%';
+        const clicks = v.clicked_buttons ? `<br><span style="font-size:0.72rem; color:var(--accent)" title="${escapeHtml(v.clicked_buttons)}">Clicks: ${escapeHtml(v.clicked_buttons)}</span>` : '';
+        const behaviorInfo = `<strong>${durationMin}</strong> • ${scrollPct}${clicks}`;
+
         const safeRef = escapeHtml(v.referrer || 'Direct');
 
         return `
           <tr>
-            <td><strong class="mono-val" style="color:var(--text)">${safeIp}</strong></td>
-            <td>${safeDevice}</td>
-            <td>${safeBrowser}</td>
-            <td class="mono-val" style="font-size:0.8rem">${safeRes}</td>
-            <td style="font-size:0.8rem">${safeTz}</td>
+            <td>
+              <strong class="mono-val" style="color:var(--text)">${safeIp}</strong><br>
+              <span style="font-size:0.75rem; color:var(--text-muted)">📍 ${safeGeo}</span>
+            </td>
+            <td>
+              <span style="font-size:0.85rem">${safeIsp}</span> ${vpnBadge}<br>
+              <span style="font-size:0.72rem; color:var(--text-dim); font-family:var(--font-mono)">⚡ ${safeConn}</span>
+            </td>
+            <td style="font-size:0.82rem">${safeHw}</td>
+            <td style="font-size:0.82rem">${safeBrowser}</td>
+            <td style="font-size:0.82rem">${behaviorInfo}</td>
             <td>${consentBadge}</td>
-            <td style="font-size:0.8rem; max-width:180px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap" title="${safeRef}">${safeRef}</td>
-            <td class="mono-val" style="font-size:0.75rem; color:var(--text-muted)">${formattedDate}</td>
+            <td style="font-size:0.75rem; max-width:140px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap" title="${safeRef}">${safeRef}</td>
+            <td class="mono-val" style="font-size:0.72rem; color:var(--text-muted)">${formattedDate}</td>
             <td style="text-align:right">
               <button class="btn-action delete" onclick="deleteVisitorRecord(${v.id})" title="Delete entry">&times;</button>
             </td>
@@ -3599,17 +3621,28 @@ function exportVisitorsToCSV() {
     showToast('Export Empty', 'No visitor records available to export.', 'info');
     return;
   }
-  const headers = ['ID', 'Visitor GUID', 'IP Address', 'Device Type', 'OS', 'Browser', 'Screen Res', 'Language', 'Timezone', 'Cookie Consent', 'Page URL', 'Referrer', 'Created At'];
+  const headers = ['ID', 'Visitor GUID', 'IP Address', 'Country', 'City', 'ISP', 'Is Proxy/VPN', 'Device Type', 'OS', 'Browser', 'CPU Cores', 'RAM GB', 'GPU Info', 'Screen Res', 'Language', 'Timezone', 'Theme Pref', 'Session Duration (s)', 'Scroll Depth (%)', 'Clicked Buttons', 'Cookie Consent', 'Page URL', 'Referrer', 'Created At'];
   const rows = currentVisitorsData.map(v => [
     v.id,
     `"${(v.visitor_id || '').replace(/"/g, '""')}"`,
     `"${(v.ip || '').replace(/"/g, '""')}"`,
+    `"${(v.country || '').replace(/"/g, '""')}"`,
+    `"${(v.city || '').replace(/"/g, '""')}"`,
+    `"${(v.isp || '').replace(/"/g, '""')}"`,
+    `"${(v.is_proxy || '').replace(/"/g, '""')}"`,
     `"${(v.device_type || '').replace(/"/g, '""')}"`,
     `"${(v.os || '').replace(/"/g, '""')}"`,
     `"${(v.browser || '').replace(/"/g, '""')}"`,
+    `"${(v.cpu_cores || '').replace(/"/g, '""')}"`,
+    `"${(v.ram_gb || '').replace(/"/g, '""')}"`,
+    `"${(v.gpu_info || '').replace(/"/g, '""')}"`,
     `"${(v.screen_res || '').replace(/"/g, '""')}"`,
     `"${(v.language || '').replace(/"/g, '""')}"`,
     `"${(v.timezone || '').replace(/"/g, '""')}"`,
+    `"${(v.theme_pref || '').replace(/"/g, '""')}"`,
+    v.session_duration || 0,
+    v.scroll_depth || 0,
+    `"${(v.clicked_buttons || '').replace(/"/g, '""')}"`,
     `"${(v.cookie_consent || '').replace(/"/g, '""')}"`,
     `"${(v.page_url || '').replace(/"/g, '""')}"`,
     `"${(v.referrer || '').replace(/"/g, '""')}"`,
