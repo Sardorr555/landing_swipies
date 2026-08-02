@@ -82,7 +82,6 @@ document.getElementById('app-sections').innerHTML = `
 <div class="section-num" data-i18n="partners_num">05 — Partners</div>
 <h2 class="section-title" data-i18n="partners_title">Trusted By</h2>
 <div class="partners-row">
-<a href="https://kpi.com" target="_blank" class="partner-badge anchor">KPI.com — Enterprise ERP/CRM</a>
 <span class="partner-badge">OpenAI — GPT Models</span>
 <span class="partner-badge">Anthropic — Claude</span>
 <span class="partner-badge">xAI — Grok</span>
