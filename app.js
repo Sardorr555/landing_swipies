@@ -110,7 +110,7 @@ document.getElementById('app-sections').innerHTML = `
 </div>
 <div class="price-card">
 <div class="price-name" data-i18n="license">Self-Hosted License</div>
-<div class="price-amount"><span data-i18n="license_price">From $190</span><span data-i18n="license_period">/month</span></div>
+<div class="price-amount"><span data-i18n="license_price">From $190</span><span data-i18n="license_period">/year</span></div>
 <p class="price-desc" data-i18n="license_desc">Purchase a license key and run Swipies AI on your own infrastructure. You install, we power up.</p>
 <ul class="price-features">
 <li>${icons.check}<span data-i18n="license_f1">Self-hosted (Docker/k8s)</span></li>
