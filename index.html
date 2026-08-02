@@ -3266,16 +3266,6 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         localStorage.setItem('swipies_ref', refCode);
       }
 
-      const activeRef = localStorage.getItem('swipies_ref');
-      if (activeRef) {
-        const badge = document.getElementById('referralBadge');
-        const codeSpan = document.getElementById('badgeRefCode');
-        if (badge && codeSpan) {
-          codeSpan.textContent = activeRef;
-          badge.style.display = 'flex';
-        }
-      }
-
       setTimeout(() => {
         const hero = document.getElementById('hero');
         if (hero) hero.classList.add('visible');
@@ -3468,13 +3458,6 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
       });
     }
 
-    window.closeReferralBadge = function () {
-      const badge = document.getElementById('referralBadge');
-      if (badge) {
-        badge.style.display = 'none';
-      }
-    };
-
     window.copyInstallCmd = function () {
       const cmd = "curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/install.sh | bash";
       navigator.clipboard.writeText(cmd).then(() => {
@@ -3494,13 +3477,6 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
       });
     };
   </script>
-
-  <!-- Referral Active Floating Badge -->
-  <div id="referralBadge" class="referral-badge" style="display: none;">
-    <div class="badge-dot"></div>
-    <span>Referral active: <strong id="badgeRefCode"></strong></span>
-    <button class="badge-close" onclick="closeReferralBadge()">&times;</button>
-  </div>
 
   <!-- Cookie Consent Banner -->
   <div id="cookieBanner" class="cookie-banner" role="dialog" aria-live="polite">
