@@ -171,14 +171,16 @@ document.getElementById('app-sections').innerHTML = `
 </div>
 <div class="form-row">
 <div class="form-group"><label data-i18n="form_email">Email</label><input type="email" id="f-email" required></div>
-<div class="form-group"><label data-i18n="form_phone">Phone</label><input type="tel" id="f-phone"></div>
+<div class="form-group"><label data-i18n="form_phone">Phone / WhatsApp (Optional)</label><input type="tel" id="f-phone" placeholder="+998 (90) 625-3986"></div>
 </div>
+<div class="form-group"><label data-i18n="form_telegram">Telegram Username / Number (Optional)</label><input type="text" id="f-telegram" placeholder="@username or +998 (90) 625-3986"></div>
 <div class="form-group"><label data-i18n="form_msg">Message</label><textarea id="f-msg" rows="4"></textarea></div>
 <button type="submit" class="btn-primary" data-i18n="form_submit">Send Message</button>
 </form>
 <div class="contact-info">
-<div class="contact-info-item">${icons.mail}<div><div class="ci-label" data-i18n="ci_email">Email</div><div class="ci-value">albakiev.sardobek@gmail.com</div></div></div>
-<div class="contact-info-item">${icons.phone}<div><div class="ci-label" data-i18n="ci_phone">Phone</div><div class="ci-value">+998 (90) 625-3986</div></div></div>
+<div class="contact-info-item">${icons.mail}<div><div class="ci-label" data-i18n="ci_email">Email</div><div class="ci-value"><a href="mailto:info@swipies.app">info@swipies.app</a></div></div></div>
+<div class="contact-info-item">${icons.phone}<div><div class="ci-label" data-i18n="ci_phone">Phone / WhatsApp</div><div class="ci-value"><a href="https://wa.me/998906253986" target="_blank">+998 (90) 625-3986</a></div></div></div>
+<div class="contact-info-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:20px;height:20px;"><path d="M21.5 2L2 10.5l6.5 2.5L20 5l-10 9.5v5l3.5-3.5 5.5 4L21.5 2z"/></svg><div><div class="ci-label" data-i18n="ci_telegram">Telegram</div><div class="ci-value"><a href="https://t.me/swipies_app" target="_blank">+998 (90) 625-3986 / @swipies_app</a></div></div></div>
 <div class="contact-info-item">${icons.pin}<div><div class="ci-label" data-i18n="ci_location">Location</div><div class="ci-value" data-i18n="ci_loc_val">Uzbekistan, Andijan</div></div></div>
 <p class="contact-note" data-i18n="ci_note">Dedicated account manager for every deployment. SLA guarantees included. Average response time: &lt; 2 hours.</p>
 </div>
@@ -202,7 +204,7 @@ document.getElementById('app-sections').innerHTML = `
 <div class="footer-brand"><div class="nav-logo">Swipies<span>AI</span></div><p data-i18n="footer_desc">Enterprise on-premise AI platform. Deploy RAG pipelines on your own servers with complete data sovereignty.</p><p class="muted" style="margin-top:0.5rem;font-size:var(--t-small)">Uzbekistan, Andijan · +998 (90) 625-3986</p></div>
 <div class="footer-col"><h4 data-i18n="footer_platform">Platform</h4><a href="#solution" data-i18n="nav_solution">Solution</a><a href="#how" data-i18n="nav_how">How It Works</a><a href="#cases" data-i18n="nav_cases">Use Cases</a><a href="#pricing" data-i18n="nav_pricing">Pricing</a><a href="https://swipies.app/tutorials.html" target="_blank" data-i18n="footer_tutorials">Tutorials</a></div>
 <div class="footer-col"><h4 data-i18n="footer_company">Company</h4><a href="terms.html" data-i18n="footer_terms">Terms of Use</a><a href="privacy.html" data-i18n="footer_privacy">Privacy Policy</a><a href="https://help.swipies.app/docs/dev/" target="_blank" data-i18n="footer_docs">Documentation</a></div>
-<div class="footer-col"><h4 data-i18n="footer_connect">Connect</h4><a href="mailto:albakiev.sardobek@gmail.com">Email</a><a href="https://github.com/Sardorr555/swipies__ai_" target="_blank">GitHub</a></div>
+<div class="footer-col"><h4 data-i18n="footer_connect">Connect</h4><a href="mailto:info@swipies.app">Email</a><a href="https://github.com/Sardorr555/swipies__ai_" target="_blank">GitHub</a></div>
 </div>
 <div class="footer-bottom"><p data-i18n="footer_copy">© 2025 Swipies AI. All rights reserved.</p></div>
 </footer>

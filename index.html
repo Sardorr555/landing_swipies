@@ -31,7 +31,7 @@
       "logo": "https://swipies.app/logo.png",
       "contactPoint": {
         "@type": "ContactPoint",
-        "email": "albakiev.sardobek@gmail.com",
+        "email": "info@swipies.app",
         "telephone": "+998-90-625-3986",
         "contactType": "sales",
         "areaServed": "UZ",
@@ -2321,9 +2321,13 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
               <input type="email" id="f-email" required>
             </div>
             <div class="form-group">
-              <label data-i18n="form_phone">Phone</label>
-              <input type="tel" id="f-phone">
+              <label data-i18n="form_phone">Phone / WhatsApp (Optional)</label>
+              <input type="tel" id="f-phone" placeholder="+998 (90) 625-3986">
             </div>
+          </div>
+          <div class="form-group">
+            <label data-i18n="form_telegram">Telegram Username / Number (Optional)</label>
+            <input type="text" id="f-telegram" placeholder="@username or +998 (90) 625-3986">
           </div>
           <div class="form-group">
             <label data-i18n="form_msg">Message</label>
@@ -2339,7 +2343,7 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
             </svg>
             <div>
               <div class="ci-label" data-i18n="ci_email">Email</div>
-              <div class="ci-value">albakiev.sardobek@gmail.com</div>
+              <div class="ci-value"><a href="mailto:info@swipies.app">info@swipies.app</a></div>
             </div>
           </div>
           <div class="contact-info-item">
@@ -2348,8 +2352,17 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
                 d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
             </svg>
             <div>
-              <div class="ci-label" data-i18n="ci_phone">Phone</div>
-              <div class="ci-value">+998 (90) 625-3986</div>
+              <div class="ci-label" data-i18n="ci_phone">Phone / WhatsApp</div>
+              <div class="ci-value"><a href="https://wa.me/998906253986" target="_blank">+998 (90) 625-3986</a></div>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21.5 2L2 10.5l6.5 2.5L20 5l-10 9.5v5l3.5-3.5 5.5 4L21.5 2z"/>
+            </svg>
+            <div>
+              <div class="ci-label" data-i18n="ci_telegram">Telegram</div>
+              <div class="ci-value"><a href="https://t.me/swipies_app" target="_blank">+998 (90) 625-3986 / @swipies_app</a></div>
             </div>
           </div>
           <div class="contact-info-item">
@@ -2405,7 +2418,7 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         </div>
         <div class="footer-col">
           <h4 data-i18n="footer_connect">Connect</h4>
-          <a href="mailto:albakiev.sardobek@gmail.com">Email</a>
+          <a href="mailto:info@swipies.app">Email</a>
           <a href="https://github.com/Sardorr555/swipies__ai_" target="_blank">GitHub</a>
         </div>
       </div>
@@ -3094,6 +3107,7 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
       const name = document.getElementById('f-name');
       const email = document.getElementById('f-email');
       const phone = document.getElementById('f-phone');
+      const telegram = document.getElementById('f-telegram');
       const msg = document.getElementById('f-msg');
 
       let isValid = true;
@@ -3115,6 +3129,10 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
 
       if (!isValid) return false;
 
+      const phoneVal = phone ? phone.value.trim() : '';
+      const tgVal = telegram ? telegram.value.trim() : '';
+      const combinedPhone = phoneVal + (tgVal ? (phoneVal ? ' | TG: ' + tgVal : 'TG: ' + tgVal) : '');
+
       // Save form submission record to localStorage (making it fully functional for the Admin Panel)
       const refCodeSaved = localStorage.getItem('swipies_ref') || '';
       const newSubmission = {
@@ -3122,7 +3140,7 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         company: company.value.trim(),
         name: name.value.trim(),
         email: email.value.trim(),
-        phone: phone.value.trim() || '',
+        phone: combinedPhone,
         message: msg.value.trim() || '',
         referralCode: refCodeSaved,
         date: new Date().toISOString(),
@@ -3147,7 +3165,7 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
           company: company.value.trim(),
           name: name.value.trim(),
           email: email.value.trim(),
-          phone: phone.value.trim() || '',
+          phone: combinedPhone,
           message: msg.value.trim() || '',
           referral_code: refCodeSaved
         })
