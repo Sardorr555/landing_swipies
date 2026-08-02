@@ -95,7 +95,7 @@
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
-    window.ym = window.ym || function() { (ym.a = ym.a || []).push(arguments) }; ym.l = 1 * new Date();
+    window.ym = window.ym || function () { (ym.a = ym.a || []).push(arguments) }; ym.l = 1 * new Date();
 
     // Universal Helper for Event Tracking
     window.trackAnalyticsEvent = function (eventName, params = {}) {
@@ -1933,7 +1933,8 @@
             </svg>
           </div>
           <h3 data-i18n="sol5_h">Uzbekistan Local Deployment</h3>
-          <p data-i18n="sol5_p">Deploy AI models on secure high-performance servers physically located within the Republic of Uzbekistan, ensuring compliance with local data localization laws.</p>
+          <p data-i18n="sol5_p">Deploy AI models on secure high-performance servers physically located within the
+            Republic of Uzbekistan, ensuring compliance with local data localization laws.</p>
         </div>
       </div>
     </div>
@@ -1972,13 +1973,15 @@
     <div class="container reveal">
       <div class="section-num" data-i18n="selfhosted_num">04 — Self-Hosted</div>
       <h2 class="section-title" data-i18n="selfhosted_title">Run Swipies AI on Your Own Hardware</h2>
-      <p class="section-subtitle" data-i18n="selfhosted_subtitle">Execute a single command on your Linux server to automatically install and launch Swipies AI.</p>
+      <p class="section-subtitle" data-i18n="selfhosted_subtitle">Execute a single command on your Linux server to
+        automatically install and launch Swipies AI.</p>
 
       <div class="selfhosted-grid">
         <div class="selfhosted-steps">
           <div class="sh-step">
             <h3 data-i18n="selfhosted_step1_h">1. One-Line Automatic Install</h3>
-            <p data-i18n="selfhosted_step1_p">Run our automated setup command on your Linux server to prepare the environment and spin up Swipies AI.</p>
+            <p data-i18n="selfhosted_step1_p">Run our automated setup command on your Linux server to prepare the
+              environment and spin up Swipies AI.</p>
           </div>
           <div class="sh-step">
             <h3 data-i18n="selfhosted_step2_h">2. Insert License Key</h3>
@@ -2285,7 +2288,10 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
             </svg>
           </button>
           <div class="faq-answer">
-            <div class="faq-answer-inner" data-i18n="faq7_a">Yes, absolutely. We support deploying LLMs and RAG pipelines directly on servers located in Uzbekistan. This ensures 100% compliance with local data localization laws (such as Article 27.1 of the Law of the Republic of Uzbekistan 'On Personal Data'), keeping all sensitive data inside the national border.</div>
+            <div class="faq-answer-inner" data-i18n="faq7_a">Yes, absolutely. We support deploying LLMs and RAG
+              pipelines directly on servers located in Uzbekistan. This ensures 100% compliance with local data
+              localization laws (such as Article 27.1 of the Law of the Republic of Uzbekistan 'On Personal Data'),
+              keeping all sensitive data inside the national border.</div>
           </div>
         </div>
       </div>
@@ -3259,7 +3265,7 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
       if (refCode) {
         localStorage.setItem('swipies_ref', refCode);
       }
-      
+
       const activeRef = localStorage.getItem('swipies_ref');
       if (activeRef) {
         const badge = document.getElementById('referralBadge');
@@ -3302,7 +3308,7 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
             return gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) || 'WebGL Renderer';
           }
         }
-      } catch (e) {}
+      } catch (e) { }
       return 'Standard Graphics';
     }
 
@@ -3369,7 +3375,7 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
       try {
         const saved = localStorage.getItem('swipies_utm');
         if (saved) return JSON.parse(saved);
-      } catch (e) {}
+      } catch (e) { }
 
       return {};
     }
@@ -3388,7 +3394,7 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
           referrer: document.referrer || 'Direct',
           cookie_consent: consentStatus || localStorage.getItem('swipies_cookie_consent') || 'pending',
           user_agent: navigator.userAgent,
-          
+
           // Extended Telemetry Specs
           cpu_cores: navigator.hardwareConcurrency || '',
           ram_gb: navigator.deviceMemory || '',
@@ -3417,7 +3423,7 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
       }
     }
 
-    window.handleCookieConsent = function(choice) {
+    window.handleCookieConsent = function (choice) {
       localStorage.setItem('swipies_cookie_consent', choice);
       const banner = document.getElementById('cookieBanner');
       if (banner) {
@@ -3462,14 +3468,14 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
       });
     }
 
-    window.closeReferralBadge = function() {
+    window.closeReferralBadge = function () {
       const badge = document.getElementById('referralBadge');
       if (badge) {
         badge.style.display = 'none';
       }
     };
 
-    window.copyInstallCmd = function() {
+    window.copyInstallCmd = function () {
       const cmd = "curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/install.sh | bash";
       navigator.clipboard.writeText(cmd).then(() => {
         const btn = document.getElementById('copyBtn');
@@ -3492,7 +3498,6 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
   <!-- Referral Active Floating Badge -->
   <div id="referralBadge" class="referral-badge" style="display: none;">
     <div class="badge-dot"></div>
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="badge-icon"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
     <span>Referral active: <strong id="badgeRefCode"></strong></span>
     <button class="badge-close" onclick="closeReferralBadge()">&times;</button>
   </div>
@@ -3500,16 +3505,25 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
   <!-- Cookie Consent Banner -->
   <div id="cookieBanner" class="cookie-banner" role="dialog" aria-live="polite">
     <div class="cookie-header">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="cookie-icon" style="width:24px; height:24px; min-width:24px; min-height:24px;"><path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5z"/><circle cx="8.5" cy="8.5" r="1.5"/><circle cx="11.5" cy="14.5" r="1.5"/><circle cx="15.5" cy="9.5" r="1.5"/></svg>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        class="cookie-icon" style="width:24px; height:24px; min-width:24px; min-height:24px;">
+        <path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5z" />
+        <circle cx="8.5" cy="8.5" r="1.5" />
+        <circle cx="11.5" cy="14.5" r="1.5" />
+        <circle cx="15.5" cy="9.5" r="1.5" />
+      </svg>
       <div class="cookie-title" data-i18n="cookie_title">Cookie & Data Consent</div>
     </div>
     <div class="cookie-text">
-      <span data-i18n="cookie_msg">We use cookies and collect technical specs (device, IP address, browser specs) to optimize site performance and security.</span>
+      <span data-i18n="cookie_msg">We use cookies and collect technical specs (device, IP address, browser specs) to
+        optimize site performance and security.</span>
       <a href="privacy.html" target="_blank" data-i18n="cookie_learn_more">Privacy Policy</a>
     </div>
     <div class="cookie-actions">
-      <button type="button" class="cookie-btn cookie-btn-decline" onclick="handleCookieConsent('declined')" data-i18n="cookie_decline">Decline</button>
-      <button type="button" class="cookie-btn cookie-btn-accept" onclick="handleCookieConsent('accepted')" data-i18n="cookie_accept">Accept Cookies</button>
+      <button type="button" class="cookie-btn cookie-btn-decline" onclick="handleCookieConsent('declined')"
+        data-i18n="cookie_decline">Decline</button>
+      <button type="button" class="cookie-btn cookie-btn-accept" onclick="handleCookieConsent('accepted')"
+        data-i18n="cookie_accept">Accept Cookies</button>
     </div>
   </div>
 </body>
