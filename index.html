@@ -1058,6 +1058,25 @@
         gap: 1.25rem;
       }
     }
+
+    @media (min-width: 1024px) {
+      .pricing-grid--2 {
+        grid-template-columns: 1fr 1fr !important;
+        background: none !important;
+        border: none !important;
+        gap: 1.25rem !important;
+      }
+
+      .pricing-grid--2 .price-card {
+        border: 1px solid var(--border) !important;
+        border-radius: var(--radius) !important;
+        padding: 2rem !important;
+      }
+
+      .pricing-grid--2 .price-card.featured {
+        border-color: rgba(232, 168, 32, 0.2) !important;
+      }
+    }
     .pricing-grid {
       display: grid;
       grid-template-columns: 1fr;
