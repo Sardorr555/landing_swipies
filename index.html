@@ -1012,6 +1012,52 @@
     }
 
     /* ===== PRICING (MOBILE-FIRST) ===== */
+    .pricing-subsection {
+      margin-bottom: 3rem;
+    }
+
+    .pricing-sub-header {
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border2);
+    }
+
+    .pricing-sub-label {
+      font-family: var(--font-mono);
+      font-size: var(--t-label);
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      display: inline-block;
+      margin-bottom: 0.4rem;
+    }
+
+    .pricing-sub-label--ent {
+      color: #a78bfa;
+    }
+
+    .pricing-sub-header--ent {
+      border-bottom-color: rgba(167,139,250,0.2);
+    }
+
+    .pricing-sub-desc {
+      font-size: var(--t-small);
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    .pricing-grid--2 {
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+    }
+
+    @media (min-width: 768px) {
+      .pricing-grid--2 {
+        grid-template-columns: 1fr 1fr;
+        gap: 1.25rem;
+      }
+    }
     .pricing-grid {
       display: grid;
       grid-template-columns: 1fr;
@@ -1791,7 +1837,7 @@
           <button data-lang="ru">RU</button>
           <button data-lang="uz">UZ</button>
         </div>
-        <a href="login.html" class="btn-primary" data-i18n="nav_cta">Try Demo</a>
+        <a href="login.html" class="btn-primary" data-i18n="nav_cta">Try Free</a>
       </div>
       <button class="nav-hamburger" id="hamburger" aria-label="Menu">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
@@ -1813,7 +1859,7 @@
       <p class="hero-sub" data-i18n="hero_sub">Deploy on-premise RAG pipelines powered by any LLM — directly on your
         servers. Your data never leaves your environment. Ever.</p>
       <div class="hero-ctas">
-        <a href="login.html" class="btn-primary" data-i18n="hero_cta1">Try Demo</a>
+        <a href="login.html" class="btn-primary" data-i18n="hero_cta1">Try Free</a>
         <a href="#contact" class="btn-secondary" data-i18n="hero_cta2">Talk to Sales</a>
       </div>
     </div>
@@ -2100,87 +2146,79 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
     <div class="container reveal">
       <div class="section-num" data-i18n="price_num">06 — Pricing</div>
       <h2 class="section-title" data-i18n="price_title">Flexible Deployment Options</h2>
-      <div class="pricing-grid">
-        <div class="price-card">
-          <div class="price-name" data-i18n="starter">Starter</div>
-          <div class="price-amount"><span data-i18n="starter_price">$40</span><span
-              data-i18n="starter_period">/month</span></div>
-          <p class="price-desc" data-i18n="starter_desc">For small teams & companies. Full AI functionality running
-            securely on Swipies managed cloud infrastructure.</p>
-          <ul class="price-features">
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="20 6 9 17 4 12" />
-              </svg><span data-i18n="starter_f1">Cloud deployment</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="20 6 9 17 4 12" />
-              </svg><span data-i18n="starter_f2">Full RAG pipeline</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="20 6 9 17 4 12" />
-              </svg><span data-i18n="starter_f3">Standard support</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="20 6 9 17 4 12" />
-              </svg><span data-i18n="starter_f4">Managed infrastructure</span></li>
-          </ul>
-          <a href="login.html" class="btn-secondary" style="display:inline-block;text-align:center"
-            data-i18n="starter_cta">Start Building</a>
+            <!-- Subscription sub-section -->
+      <div class="pricing-subsection">
+        <div class="pricing-sub-header">
+          <span class="pricing-sub-label" data-i18n="sub_label">Subscription</span>
+          <p class="pricing-sub-desc" data-i18n="sub_desc">Cloud-hosted plans for teams that want instant access without managing infrastructure.</p>
         </div>
-        <div class="price-card">
-          <div class="price-name" data-i18n="license">Self-Hosted License</div>
-          <div class="price-amount"><span data-i18n="license_price">From $190</span><span
-              data-i18n="license_period">/year</span></div>
-          <p class="price-desc" data-i18n="license_desc">Purchase a license key and run Swipies AI on your own
-            infrastructure. You install, we power up.</p>
-          <ul class="price-features">
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="20 6 9 17 4 12" />
-              </svg><span data-i18n="license_f1">Self-hosted (Docker/k8s)</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="20 6 9 17 4 12" />
-              </svg><span data-i18n="license_f2">Activate via License Key</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="20 6 9 17 4 12" />
-              </svg><span data-i18n="license_f3">No ingestion or team limits</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="20 6 9 17 4 12" />
-              </svg><span data-i18n="license_f4">GPU & Vector acceleration</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="20 6 9 17 4 12" />
-              </svg><span data-i18n="license_f5">Offline / Air-gapped mode</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="20 6 9 17 4 12" />
-              </svg><span data-i18n="license_f6">Regular security updates</span></li>
-          </ul>
-          <a href="#contact" class="btn-secondary" style="display:inline-block;text-align:center"
-            data-i18n="license_cta">Purchase Key</a>
+        <div class="pricing-grid pricing-grid--2">
+          <!-- Basic $20 -->
+          <div class="price-card">
+            <div class="price-name" data-i18n="basic">Basic</div>
+            <div class="price-amount"><span data-i18n="basic_price">$20</span><span data-i18n="basic_period">/month</span></div>
+            <p class="price-desc" data-i18n="basic_desc">For individuals and small teams getting started with AI on managed cloud infrastructure.</p>
+            <ul class="price-features">
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="basic_f1">Cloud deployment</span></li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="basic_f2">Full RAG pipeline</span></li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="basic_f3">Up to 3 users</span></li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="basic_f4">Standard support</span></li>
+            </ul>
+            <a href="login.html" class="btn-secondary" style="display:inline-block;text-align:center" data-i18n="basic_cta">Get Started</a>
+          </div>
+          <!-- Pro $40 -->
+          <div class="price-card">
+            <div class="price-name" data-i18n="starter">Pro</div>
+            <div class="price-amount"><span data-i18n="starter_price">$40</span><span data-i18n="starter_period">/month</span></div>
+            <p class="price-desc" data-i18n="starter_desc">For growing teams &amp; companies. Full AI on Swipies managed cloud infrastructure.</p>
+            <ul class="price-features">
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="starter_f1">Cloud deployment</span></li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="starter_f2">Full RAG pipeline</span></li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="starter_f3">Unlimited users</span></li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="starter_f4">Priority support</span></li>
+            </ul>
+            <a href="login.html" class="btn-secondary" style="display:inline-block;text-align:center" data-i18n="starter_cta">Start Building</a>
+          </div>
         </div>
-        <div class="price-card featured">
-          <div class="price-name" data-i18n="enterprise">Enterprise</div>
-          <div class="price-amount"><span data-i18n="ent_price">From $700</span><span
-              data-i18n="ent_period">/month</span></div>
-          <p class="price-desc" data-i18n="ent_desc">Custom-scoped based on your infrastructure and data volume
-            requirements.</p>
-          <ul class="price-features">
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="20 6 9 17 4 12" />
-              </svg><span data-i18n="ent_f1">On-premise deployment</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="20 6 9 17 4 12" />
-              </svg><span data-i18n="ent_f2">Custom LLM config</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="20 6 9 17 4 12" />
-              </svg><span data-i18n="ent_f3">Dedicated support</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="20 6 9 17 4 12" />
-              </svg><span data-i18n="ent_f4">White-label option</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="20 6 9 17 4 12" />
-              </svg><span data-i18n="ent_f5">SLA guarantee</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="20 6 9 17 4 12" />
-              </svg><span data-i18n="ent_f6">Data sovereignty</span></li>
-          </ul>
-          <a href="#contact" class="btn-primary" style="display:inline-block;text-align:center" data-i18n="ent_cta">Get
-            a Custom Quote</a>
+      </div>
+
+      <!-- Enterprise sub-section -->
+      <div class="pricing-subsection">
+        <div class="pricing-sub-header pricing-sub-header--ent">
+          <span class="pricing-sub-label pricing-sub-label--ent" data-i18n="ent_section_label">Enterprise</span>
+          <p class="pricing-sub-desc" data-i18n="ent_section_desc">Self-hosted and fully custom solutions for organizations that require complete data sovereignty.</p>
+        </div>
+        <div class="pricing-grid pricing-grid--2">
+          <!-- License $199/year -->
+          <div class="price-card">
+            <div class="price-name" data-i18n="license">Self-Hosted License</div>
+            <div class="price-amount"><span data-i18n="license_price">$199</span><span data-i18n="license_period">/year</span></div>
+            <p class="price-desc" data-i18n="license_desc">Purchase a license key and run Swipies AI on your own infrastructure. You install, we power up.</p>
+            <ul class="price-features">
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="license_f1">Self-hosted (Docker/k8s)</span></li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="license_f2">Activate via License Key</span></li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="license_f3">No ingestion or team limits</span></li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="license_f4">GPU &amp; Vector acceleration</span></li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="license_f5">Offline / Air-gapped mode</span></li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="license_f6">Regular security updates</span></li>
+            </ul>
+            <a href="#contact" class="btn-secondary" style="display:inline-block;text-align:center" data-i18n="license_cta">Purchase Key</a>
+          </div>
+          <!-- Custom Enterprise -->
+          <div class="price-card featured">
+            <div class="price-name" data-i18n="enterprise">Enterprise Custom</div>
+            <div class="price-amount"><span data-i18n="ent_price">Custom</span></div>
+            <p class="price-desc" data-i18n="ent_desc">Fully custom-scoped based on your infrastructure, data volume, and organizational requirements.</p>
+            <ul class="price-features">
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="ent_f1">On-premise deployment</span></li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="ent_f2">Custom LLM config</span></li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="ent_f3">Dedicated support</span></li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="ent_f4">White-label option</span></li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="ent_f5">SLA guarantee</span></li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="ent_f6">Data sovereignty</span></li>
+            </ul>
+            <a href="#contact" class="btn-primary" style="display:inline-block;text-align:center" data-i18n="ent_cta">Get a Custom Quote</a>
+          </div>
         </div>
       </div>
     </div>
@@ -2386,7 +2424,7 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
     <div class="container">
       <h2 data-i18n="fcta_h">Ready to Bring AI Inside Your Infrastructure?</h2>
       <p data-i18n="fcta_p">Deploy enterprise-grade AI on your servers. Your data stays yours.</p>
-      <a href="login.html" class="btn-primary" data-i18n="hero_cta1">Try Demo</a>
+      <a href="login.html" class="btn-primary" data-i18n="hero_cta1">Try Free</a>
     </div>
   </div>
 
@@ -2439,11 +2477,11 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         nav_partners: "Partners",
         nav_pricing: "Pricing",
         nav_faq: "FAQ",
-        nav_cta: "Try Demo",
+        nav_cta: "Try Free",
         hero_badge: "Enterprise-Grade AI Platform",
         hero_h1: "Enterprise AI. Your Infrastructure. Your Data.",
         hero_sub: "Deploy on-premise RAG pipelines powered by any LLM — directly on your servers. Your data never leaves your environment. Ever.",
-        hero_cta1: "Try Demo",
+        hero_cta1: "Try Free",
         hero_cta2: "Talk to Sales",
         prob_num: "01 — The Problem",
         prob_title: "Why Standard AI Fails Enterprise",
@@ -2510,8 +2548,21 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         starter_f3: "Standard support",
         starter_f4: "Managed infrastructure",
         starter_cta: "Start Building",
+        basic: "Basic",
+        basic_price: "$20",
+        basic_period: "/month",
+        basic_desc: "For individuals and small teams getting started with AI on managed cloud infrastructure.",
+        basic_f1: "Cloud deployment",
+        basic_f2: "Full RAG pipeline",
+        basic_f3: "Up to 3 users",
+        basic_f4: "Standard support",
+        basic_cta: "Get Started",
+        sub_label: "Subscription",
+        sub_desc: "Cloud-hosted plans for teams that want instant access without managing infrastructure.",
+        ent_section_label: "Enterprise",
+        ent_section_desc: "Self-hosted and fully custom solutions for organizations that require complete data sovereignty.",
         license: "Self-Hosted License",
-        license_price: "From $190",
+        license_price: "$199",
         license_period: "/year",
         license_desc: "Purchase a license key and run Swipies AI on your own infrastructure. You install, we power up.",
         license_f1: "Self-hosted (Docker/k8s)",
@@ -2521,9 +2572,9 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         license_f5: "Offline / Air-gapped mode",
         license_f6: "Regular security updates",
         license_cta: "Purchase Key",
-        enterprise: "Enterprise",
-        ent_price: "From $700",
-        ent_period: "/month",
+        enterprise: "Enterprise Custom",
+        ent_price: "Custom",
+        ent_period: "",
         ent_desc: "Custom-scoped based on your infrastructure and data volume requirements.",
         ent_f1: "On-premise deployment",
         ent_f2: "Custom LLM config",
@@ -2582,11 +2633,11 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         nav_partners: "Партнёры",
         nav_pricing: "Цены",
         nav_faq: "Вопросы",
-        nav_cta: "Демо",
+        nav_cta: "Попробовать",
         hero_badge: "Корпоративная AI-платформа",
         hero_h1: "Корпоративный AI. Ваша инфраструктура. Ваши данные.",
         hero_sub: "Разверните RAG-пайплайны на базе любой LLM — прямо на ваших серверах. Ваши данные никогда не покидают ваш контур. Никогда.",
-        hero_cta1: "Демо",
+        hero_cta1: "Попробовать",
         hero_cta2: "Связаться с нами",
         prob_num: "01 — Проблема",
         prob_title: "Почему стандартный AI не подходит для бизнеса",
@@ -2653,8 +2704,21 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         starter_f3: "Стандартная поддержка",
         starter_f4: "Управляемая инфраструктура",
         starter_cta: "Начать работу",
+        basic: "Basic",
+        basic_price: "$20",
+        basic_period: "/мес",
+        basic_desc: "Для частных лиц и небольших команд, начинающих работу с AI в облаке.",
+        basic_f1: "Облачное развертывание",
+        basic_f2: "Полный RAG-пайплайн",
+        basic_f3: "До 3 пользователей",
+        basic_f4: "Стандартная поддержка",
+        basic_cta: "Начать",
+        sub_label: "Subscription",
+        sub_desc: "Облачные планы для команд, которые хотят моментальный доступ без управления инфраструктурой.",
+        ent_section_label: "Enterprise",
+        ent_section_desc: "Self-hosted и полностью кастомные решения для организаций, требующих полного суверенитета данных.",
         license: "Лицензия (Self-Hosted)",
-        license_price: "От $190",
+        license_price: "$199",
         license_period: "/год",
         license_desc: "Приобретите лицензионный ключ и запустите Swipies AI на своей инфраструктуре. Самостоятельная установка.",
         license_f1: "Self-hosted (Docker/k8s)",
@@ -2664,9 +2728,9 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         license_f5: "Работа offline (закрытый контур)",
         license_f6: "Регулярные обновления",
         license_cta: "Купить ключ",
-        enterprise: "Enterprise",
-        ent_price: "От $700",
-        ent_period: "/мес",
+        enterprise: "Enterprise Custom",
+        ent_price: "По запросу",
+        ent_period: "",
         ent_desc: "Индивидуальный расчёт на основе вашей инфраструктуры и объёма данных.",
         ent_f1: "On-premise развертывание",
         ent_f2: "Настройка LLM",
@@ -2725,11 +2789,11 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         nav_partners: "Hamkorlar",
         nav_pricing: "Narxlar",
         nav_faq: "Savollar",
-        nav_cta: "Demo",
+        nav_cta: "Bepul kirish",
         hero_badge: "Korporativ AI platforma",
         hero_h1: "Korporativ AI. Sizning infratuzilmangiz. Sizning ma'lumotlaringiz.",
         hero_sub: "Istalgan LLM asosida on-premise RAG pipeline'larni to'g'ridan-to'g'ri serverlaringizda joylashtiring. Ma'lumotlaringiz hech qachon tashqariga chiqmaydi.",
-        hero_cta1: "Demo",
+        hero_cta1: "Bepul kirish",
         hero_cta2: "Bog'lanish",
         prob_num: "01 — Muammo",
         prob_title: "Nima uchun standart AI korporativ sektorda ishlamaydi",
@@ -2796,8 +2860,21 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         starter_f3: "Standart qo'llab-quvvatlash",
         starter_f4: "Boshqariladigan infratuzilma",
         starter_cta: "Boshlash",
+        basic: "Basic",
+        basic_price: "$20",
+        basic_period: "/oy",
+        basic_desc: "Jismoniy shaxslar va kichik jamoalar uchun bulut AI-dan boshlash.",
+        basic_f1: "Bulut joylashtirish",
+        basic_f2: "To'liq RAG pipeline",
+        basic_f3: "3 tagacha foydalanuvchi",
+        basic_f4: "Standart qo'llab-quvvatlash",
+        basic_cta: "Boshlash",
+        sub_label: "Subscription",
+        sub_desc: "Infratuzilmani boshqarmasdan tezkor kirishni xohlaydigan jamoalar uchun bulut planlari.",
+        ent_section_label: "Enterprise",
+        ent_section_desc: "To'liq ma'lumotlar suvereniteti talab qiladigan tashkilotlar uchun self-hosted va maxsus yechimlar.",
         license: "Self-Hosted Litsenziya",
-        license_price: "$190 dan",
+        license_price: "$199",
         license_period: "/yil",
         license_desc: "Litsenziya kalitini sotib oling va Swipies AI-ni o'z infratuzilmangizda ishga tushiring. Mustaqil o'rnatish.",
         license_f1: "Self-hosted (Docker/k8s)",
@@ -2807,9 +2884,9 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         license_f5: "Offline / Yopiq rejim",
         license_f6: "Muntazam yangilanishlar",
         license_cta: "Kalitni sotib olish",
-        enterprise: "Enterprise",
-        ent_price: "$700 dan",
-        ent_period: "/oy",
+        enterprise: "Enterprise Custom",
+        ent_price: "So'rovga ko'ra",
+        ent_period: "",
         ent_desc: "Infratuzilma va ma'lumotlar hajmiga qarab individual hisob-kitob.",
         ent_f1: "On-premise joylashtirish",
         ent_f2: "Maxsus LLM sozlash",
