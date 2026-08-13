@@ -1047,6 +1047,51 @@
       margin: 0;
     }
 
+    .price-card--pro {
+      border-color: rgba(232, 168, 32, 0.25) !important;
+      background: linear-gradient(135deg, var(--bg2) 0%, rgba(232,168,32,0.04) 100%) !important;
+      position: relative;
+    }
+
+    .price-badge-pro {
+      position: absolute;
+      top: -1px;
+      right: 1.25rem;
+      background: var(--accent);
+      color: var(--bg);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      padding: 3px 10px;
+      border-radius: 0 0 6px 6px;
+    }
+
+    .price-limit-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 0.75rem;
+    }
+
+    .price-limit-icon {
+      font-size: 1.1rem;
+    }
+
+    .price-limit-val {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--accent);
+      font-family: var(--font-mono);
+    }
+
+    .price-limit-label {
+      font-size: var(--t-small);
+      color: var(--text-muted);
+    }
+
     .pricing-grid--2 {
       grid-template-columns: 1fr;
       gap: 1.25rem;
@@ -2175,28 +2220,46 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
           <!-- Basic $20 -->
           <div class="price-card">
             <div class="price-name" data-i18n="basic">Basic</div>
-            <div class="price-amount"><span data-i18n="basic_price">$20</span><span data-i18n="basic_period">/month</span></div>
-            <p class="price-desc" data-i18n="basic_desc">For individuals and small teams getting started with AI on managed cloud infrastructure.</p>
+            <div class="price-amount">
+              <span class="price-value" id="price-basic">
+                <span class="price-usd">$20</span>
+                <span class="price-uzs" style="display:none">200 000 сум</span>
+              </span>
+              <span data-i18n="basic_period">/month</span>
+            </div>
+            <p class="price-desc" data-i18n="basic_desc">For individuals and small teams ready to start using AI on managed cloud infrastructure.</p>
             <ul class="price-features">
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span>1 000 000 токенов / мес</span></li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span>5 ГБ хранилища</span></li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span>5 датасетов</span></li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span>5 агентов</span></li>
               <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="basic_f1">Cloud deployment</span></li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="basic_f2">Full RAG pipeline</span></li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="basic_f3">Up to 3 users</span></li>
               <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="basic_f4">Standard support</span></li>
             </ul>
             <a href="login.html" class="btn-secondary" style="display:inline-block;text-align:center" data-i18n="basic_cta">Get Started</a>
           </div>
           <!-- Pro $40 -->
-          <div class="price-card">
+          <div class="price-card price-card--pro">
+            <div class="price-badge-pro">POPULAR</div>
             <div class="price-name" data-i18n="starter">Pro</div>
-            <div class="price-amount"><span data-i18n="starter_price">$40</span><span data-i18n="starter_period">/month</span></div>
-            <p class="price-desc" data-i18n="starter_desc">For growing teams &amp; companies. Full AI on Swipies managed cloud infrastructure.</p>
+            <div class="price-amount">
+              <span class="price-value" id="price-pro">
+                <span class="price-usd">$40</span>
+                <span class="price-uzs" style="display:none">400 000 сум</span>
+              </span>
+              <span data-i18n="starter_period">/month</span>
+            </div>
+            <p class="price-desc" data-i18n="starter_desc">For teams &amp; companies. Full AI with Pro Console — add your own models via API and custom servers.</p>
             <ul class="price-features">
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span>2 500 000 токенов / мес</span></li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span>10 ГБ хранилища</span></li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span>10 датасетов</span></li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span>12 агентов</span></li>
               <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="starter_f1">Cloud deployment</span></li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="starter_f2">Full RAG pipeline</span></li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="starter_f3">Unlimited users</span></li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span>Pro Console — добавляйте свои модели через API и серверы</span></li>
               <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="starter_f4">Priority support</span></li>
             </ul>
-            <a href="login.html" class="btn-secondary" style="display:inline-block;text-align:center" data-i18n="starter_cta">Start Building</a>
+            <a href="login.html" class="btn-primary" style="display:inline-block;text-align:center" data-i18n="starter_cta">Start Building</a>
           </div>
         </div>
       </div>
@@ -2570,7 +2633,7 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         basic: "Basic",
         basic_price: "$20",
         basic_period: "/month",
-        basic_desc: "For individuals and small teams getting started with AI on managed cloud infrastructure.",
+        basic_desc: "For individuals and small teams. 1M tokens, 5 GB storage, 5 datasets, 5 agents on managed cloud.",
         basic_f1: "Cloud deployment",
         basic_f2: "Full RAG pipeline",
         basic_f3: "Up to 3 users",
@@ -3616,6 +3679,21 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         data-i18n="cookie_accept">Accept Cookies</button>
     </div>
   </div>
+  <script>
+    /* ===== GEO PRICING: Show UZS for Uzbekistan visitors ===== */
+    (function() {
+      function applyUzsPricing() {
+        document.querySelectorAll('.price-usd').forEach(function(el) { el.style.display = 'none'; });
+        document.querySelectorAll('.price-uzs').forEach(function(el) { el.style.display = 'inline'; });
+      }
+      fetch('https://ip-api.com/json/?fields=countryCode')
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          if (data.countryCode === 'UZ') { applyUzsPricing(); }
+        })
+        .catch(function() {});
+    })();
+  </script>
 </body>
 
 </html>
