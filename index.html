@@ -1584,6 +1584,117 @@
       }
     }
 
+    /* ===== CLOUD SUBSCRIPTION FEATURE SECTION ===== */
+    .cloud-sub-section {
+      background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
+      position: relative;
+      overflow: hidden;
+      padding: 4rem 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cloud-features-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      margin-top: 2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    @media (min-width: 768px) {
+      .cloud-features-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.75rem;
+      }
+    }
+
+    .cloud-feature-card {
+      background: rgba(18, 26, 43, 0.7);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem 1.5rem;
+      position: relative;
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .cloud-feature-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(232, 168, 32, 0.4);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(232, 168, 32, 0.08);
+    }
+
+    .cloud-card-badge {
+      display: inline-block;
+      align-self: flex-start;
+      font-family: var(--font-mono);
+      font-size: var(--t-label);
+      font-weight: 600;
+      color: var(--accent);
+      background: rgba(232, 168, 32, 0.12);
+      border: 1px solid rgba(232, 168, 32, 0.25);
+      border-radius: 20px;
+      padding: 4px 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 1rem;
+    }
+
+    .cloud-feature-card h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.6rem;
+      line-height: 1.35;
+    }
+
+    .cloud-feature-card p {
+      font-size: var(--t-small);
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .cloud-banner {
+      background: radial-gradient(100% 100% at 50% 0%, rgba(232, 168, 32, 0.15) 0%, rgba(13, 19, 31, 0.85) 100%);
+      border: 1px solid rgba(232, 168, 32, 0.35);
+      border-radius: var(--radius-lg);
+      padding: 2rem 1.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      align-items: flex-start;
+      justify-content: space-between;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    @media (min-width: 768px) {
+      .cloud-banner {
+        flex-direction: row;
+        align-items: center;
+        padding: 2.5rem 3rem;
+      }
+    }
+
+    .cloud-banner-text h3 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.4rem;
+    }
+
+    .cloud-banner-text p {
+      font-size: var(--t-body);
+      color: var(--text-secondary);
+    }
+
+    .cloud-banner .btn-primary {
+      width: auto;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
     /* ===== FOOTER CTA ===== */
     .footer-cta {
       padding: 3.5rem 0;
@@ -1918,12 +2029,11 @@
   <!-- HERO -->
   <section class="hero" id="hero">
     <div class="container reveal">
-      <div class="hero-badge" data-i18n="hero_badge">Enterprise-Grade AI Platform</div>
-      <h1 data-i18n="hero_h1">Enterprise AI. Your Infrastructure. Your Data.</h1>
-      <p class="hero-sub" data-i18n="hero_sub">Deploy on-premise RAG pipelines powered by any LLM — directly on your
-        servers. Your data never leaves your environment. Ever.</p>
+      <div class="hero-badge" data-i18n="hero_badge">Private AI Agents &amp; Custom Chatbots Platform</div>
+      <h1 data-i18n="hero_h1">Build Private AI Agents &amp; Chatbots Powered by Any Model</h1>
+      <p class="hero-sub" data-i18n="hero_sub">Create autonomous AI agents and smart chatbots trained on your internal data. Use cloud models or run your own private, self-hosted LLMs directly on your servers. Embed chatbots anywhere in your apps and websites.</p>
       <div class="hero-ctas">
-        <a href="login.html" class="btn-primary" data-i18n="hero_cta1">Try Free</a>
+        <a href="login.html" class="btn-primary" data-i18n="hero_cta1">Start Free</a>
         <a href="#contact" class="btn-secondary" data-i18n="hero_cta2">Talk to Sales</a>
       </div>
     </div>
@@ -2050,10 +2160,47 @@
     </div>
   </section>
 
+  <!-- INSTANT CLOUD ACCESS / SUBSCRIPTION SECTION -->
+  <section id="cloud-subscription" class="cloud-sub-section">
+    <div class="container reveal">
+      <div class="section-num" data-i18n="cloud_num">03 — Instant Cloud SaaS</div>
+      <h2 class="section-title" data-i18n="cloud_title">Cloud Subscription: Create AI Agents &amp; Chatbots Right Now</h2>
+      <p class="section-subtitle" data-i18n="cloud_sub">No servers to manage. Subscribe in seconds, build custom chatbots trained on your data, and integrate them directly into your mobile apps, web applications, or websites.</p>
+
+      <div class="cloud-features-grid">
+        <div class="cloud-feature-card">
+          <div class="cloud-card-badge" data-i18n="cloud_f1_badge">Instant Creation</div>
+          <h3 data-i18n="cloud_f1_h">Build Agents &amp; Chatbots in Minutes</h3>
+          <p data-i18n="cloud_f1_p">Upload PDF manuals, database extracts, or links. Create intelligent agents and customer support chatbots without writing a single line of backend code.</p>
+        </div>
+
+        <div class="cloud-feature-card">
+          <div class="cloud-card-badge" data-i18n="cloud_f2_badge">Any Model Support</div>
+          <h3 data-i18n="cloud_f2_h">Connect OpenAI, Claude, or Private Models</h3>
+          <p data-i18n="cloud_f2_p">Switch seamlessly between GPT-4o, Claude 3.5, Grok, or your own private API endpoints and local models inside the Pro Console whenever you need extra power.</p>
+        </div>
+
+        <div class="cloud-feature-card">
+          <div class="cloud-card-badge" data-i18n="cloud_f3_badge">Universal Integration</div>
+          <h3 data-i18n="cloud_f3_h">Embed in Apps, Websites &amp; CRM</h3>
+          <p data-i18n="cloud_f3_p">Integrate your chatbots into React, Flutter, Telegram, WhatsApp, or websites via clean REST APIs, Webhooks, and embeddable widgets.</p>
+        </div>
+      </div>
+
+      <div class="cloud-banner">
+        <div class="cloud-banner-text">
+          <h3 data-i18n="cloud_banner_h">Ready to launch your AI chatbot today?</h3>
+          <p data-i18n="cloud_banner_p">Select a flexible cloud plan, get instant token quotas, and start building right away.</p>
+        </div>
+        <a href="login.html" class="btn-primary" data-i18n="cloud_banner_btn">Start Building Instantly</a>
+      </div>
+    </div>
+  </section>
+
   <!-- HOW IT WORKS -->
   <section id="how">
     <div class="container reveal">
-      <div class="section-num" data-i18n="how_num">03 — How It Works</div>
+      <div class="section-num" data-i18n="how_num">04 — Enterprise Deployment</div>
       <h2 class="section-title" data-i18n="how_title">Deployed in 10 Business Days</h2>
       <div class="steps-list">
         <div class="step-row">
@@ -2081,7 +2228,7 @@
   <!-- SELF-HOSTED -->
   <section id="selfhosted">
     <div class="container reveal">
-      <div class="section-num" data-i18n="selfhosted_num">04 — Self-Hosted</div>
+      <div class="section-num" data-i18n="selfhosted_num">05 — Self-Hosted</div>
       <h2 class="section-title" data-i18n="selfhosted_title">Run Swipies AI on Your Own Hardware</h2>
       <p class="section-subtitle" data-i18n="selfhosted_subtitle">Execute a single command on your Linux server to
         automatically install and launch Swipies AI.</p>
@@ -2160,7 +2307,7 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
   <!-- USE CASES -->
   <section id="cases">
     <div class="container reveal">
-      <div class="section-num" data-i18n="cases_num">04 — Use Cases</div>
+      <div class="section-num" data-i18n="cases_num">06 — Use Cases</div>
       <h2 class="section-title" data-i18n="cases_title">Built for Industries That Can't Compromise on Data</h2>
       <div class="usecase-grid">
         <div class="usecase-card">
@@ -2560,10 +2707,10 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         nav_pricing: "Pricing",
         nav_faq: "FAQ",
         nav_cta: "Try Free",
-        hero_badge: "Enterprise-Grade AI Platform",
-        hero_h1: "Enterprise AI. Your Infrastructure. Your Data.",
-        hero_sub: "Deploy on-premise RAG pipelines powered by any LLM — directly on your servers. Your data never leaves your environment. Ever.",
-        hero_cta1: "Try Free",
+        hero_badge: "Private AI Agents & Custom Chatbots Platform",
+        hero_h1: "Build Private AI Agents & Chatbots Powered by Any Model",
+        hero_sub: "Create autonomous AI agents and smart chatbots trained on your internal data. Use cloud models or run your own private, self-hosted LLMs directly on your servers. Embed chatbots anywhere in your apps and websites.",
+        hero_cta1: "Start Free",
         hero_cta2: "Talk to Sales",
         prob_num: "01 — The Problem",
         prob_title: "Why Standard AI Fails Enterprise",
@@ -2586,7 +2733,22 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         sol4_p: "Embed Swipies AI into your own product under your brand. Offer AI-powered features to your clients — powered by their data, on your infrastructure.",
         sol5_h: "Uzbekistan Local Deployment",
         sol5_p: "Deploy AI models on secure high-performance servers physically located within the Republic of Uzbekistan, ensuring compliance with local data localization laws.",
-        how_num: "03 — How It Works",
+        cloud_num: "03 — Instant Cloud SaaS",
+        cloud_title: "Cloud Subscription: Create AI Agents & Chatbots Right Now",
+        cloud_sub: "No servers to manage. Subscribe in seconds, build custom chatbots trained on your data, and integrate them directly into your mobile apps, web applications, or websites.",
+        cloud_f1_badge: "Instant Creation",
+        cloud_f1_h: "Build Agents & Chatbots in Minutes",
+        cloud_f1_p: "Upload PDF manuals, database extracts, or links. Create intelligent agents and customer support chatbots without writing a single line of backend code.",
+        cloud_f2_badge: "Any Model Support",
+        cloud_f2_h: "Connect OpenAI, Claude, or Private Models",
+        cloud_f2_p: "Switch seamlessly between GPT-4o, Claude 3.5, Grok, or your own private API endpoints and local models inside the Pro Console whenever you need extra power.",
+        cloud_f3_badge: "Universal Integration",
+        cloud_f3_h: "Embed in Apps, Websites & CRM",
+        cloud_f3_p: "Integrate your chatbots into React, Flutter, Telegram, WhatsApp, or websites via clean REST APIs, Webhooks, and embeddable widgets.",
+        cloud_banner_h: "Ready to launch your AI chatbot today?",
+        cloud_banner_p: "Select a flexible cloud plan, get instant token quotas, and start building right away.",
+        cloud_banner_btn: "Start Building Instantly",
+        how_num: "04 — Enterprise Deployment",
         how_title: "Deployed in 10 Business Days",
         how1_h: "Infrastructure Audit",
         how1_p: "We audit your servers, data sources, and security requirements to design the optimal deployment architecture.",
@@ -2594,7 +2756,7 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         how2_p: "We deploy the full RAG pipeline and LLM of your choice directly on your infrastructure. Within 10 business days.",
         how3_h: "Your Team Goes Live",
         how3_p: "Your team and clients get enterprise-grade AI — fully private, fully controlled, fully yours. Data stays with you.",
-        selfhosted_num: "04 — Self-Hosted",
+        selfhosted_num: "05 — Self-Hosted",
         selfhosted_title: "Run Swipies AI on Your Own Hardware",
         selfhosted_subtitle: "Pull our Docker containers, configure your environment, and paste your license key to unlock maximum performance.",
         selfhosted_step1_h: "1. Pull and Run",
@@ -2603,7 +2765,7 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         selfhosted_step2_p: "Purchase your license key on our platform and paste it into the web panel to activate GPU acceleration and remove ingestion limits.",
         selfhosted_step3_h: "3. Complete Autonomy",
         selfhosted_step3_p: "The server runs fully standalone. No telemetry, no external internet connection required for air-gapped networks.",
-        cases_num: "05 — Use Cases",
+        cases_num: "06 — Use Cases",
         cases_title: "Built for Industries That Can't Compromise on Data",
         case1_label: "SaaS / ERP Platforms",
         case1_h: "Embed AI Into Your Product",
@@ -2729,10 +2891,10 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         nav_pricing: "Цены",
         nav_faq: "Вопросы",
         nav_cta: "Попробовать",
-        hero_badge: "Корпоративная AI-платформа",
-        hero_h1: "Корпоративный AI. Ваша инфраструктура. Ваши данные.",
-        hero_sub: "Разверните RAG-пайплайны на базе любой LLM — прямо на ваших серверах. Ваши данные никогда не покидают ваш контур. Никогда.",
-        hero_cta1: "Попробовать",
+        hero_badge: "Платформа приватных AI-агентов и чат-ботов",
+        hero_h1: "Создавайте приватные AI-агенты и чат-боты на базе любых ИИ-моделей",
+        hero_sub: "Создавайте автономных AI-агентов и умных чат-ботов на основе ваших данных. Используйте облачные модели или разворачивайте собственные приватные модели прямо на ваших серверах. Встраивайте чат-ботов в любые ваши приложения и сайты.",
+        hero_cta1: "Начать бесплатно",
         hero_cta2: "Связаться с нами",
         prob_num: "01 — Проблема",
         prob_title: "Почему стандартный AI не подходит для бизнеса",
@@ -2755,7 +2917,22 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         sol4_p: "Встройте Swipies AI в свой продукт под своим брендом. Предлагайте AI-функции клиентам — на вашей инфраструктуре.",
         sol5_h: "Локальные серверы в Узбекистане",
         sol5_p: "Развертывание моделей ИИ на высокопроизводительных серверах, физически расположенных на территории Республики Узбекистан в полном соответствии с местным законодательством.",
-        how_num: "03 — Как это работает",
+        cloud_num: "03 — Облачная подписка",
+        cloud_title: "Подписочная модель: Создавайте AI-агентов и чат-ботов прямо сейчас",
+        cloud_sub: "Никаких серверов и сложной настройки. Оформите подписку за пару секунд, создавайте умных чат-ботов на основе ваших данных и сразу используйте их в ваших мобильных приложениях, веб-сайтах или сервисах.",
+        cloud_f1_badge: "Мгновенный запуск",
+        cloud_f1_h: "Создавайте агентов и чат-ботов за минуты",
+        cloud_f1_p: "Загружайте PDF-инструкции, базы данных или ссылки. Создавайте интеллектуальных агентов и чат-ботов поддержки без написания бэкенд-кода.",
+        cloud_f2_badge: "Любые ИИ-модели",
+        cloud_f2_h: "Подключайте OpenAI, Claude или приватные модели",
+        cloud_f2_p: "Переключайтесь между GPT-4o, Claude 3.5, Grok или вашими собственными приватными API-эндпоинтами и серверами в консоли Pro Console.",
+        cloud_f3_badge: "Простая интеграция",
+        cloud_f3_h: "Встраивайте в приложения, сайты и CRM",
+        cloud_f3_p: "Подключайте чат-ботов к React, Flutter, Telegram, WhatsApp или веб-сайтам с помощью готовых REST API, вебхуков и готовых виджетов.",
+        cloud_banner_h: "Готовы запустить своего AI чат-бота прямо сегодня?",
+        cloud_banner_p: "Выберите подходящий тариф подписки, получите токены и начинайте создание агента прямо сейчас.",
+        cloud_banner_btn: "Создать агента прямо сейчас",
+        how_num: "04 — Корпоративное развертывание",
         how_title: "Развёртывание за 10 рабочих дней",
         how1_h: "Аудит инфраструктуры",
         how1_p: "Мы проводим аудит серверов, источников данных и требований безопасности для проектирования оптимальной архитектуры.",
@@ -2763,7 +2940,7 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         how2_p: "Мы разворачиваем полный RAG-пайплайн и выбранную LLM прямо на вашей инфраструктуре. В течение 10 рабочих дней.",
         how3_h: "Ваша команда начинает работу",
         how3_p: "Ваша команда и клиенты получают корпоративный AI — полностью приватный, полностью контролируемый. Данные остаются у вас.",
-        selfhosted_num: "04 — Установка (Self-Hosted)",
+        selfhosted_num: "05 — Установка (Self-Hosted)",
         selfhosted_title: "Запускайте Swipies AI на собственном оборудовании",
         selfhosted_subtitle: "Загрузите наши Docker-контейнеры, настройте окружение и вставьте лицензионный ключ, чтобы разблокировать максимальную производительность.",
         selfhosted_step1_h: "1. Загрузите и запустите",
@@ -2772,7 +2949,7 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         selfhosted_step2_p: "Приобретите лицензионный ключ на нашей платформе и вставьте его в веб-панель управления, чтобы активировать ускорение GPU и снять лимиты.",
         selfhosted_step3_h: "3. Полная автономия",
         selfhosted_step3_p: "Сервер работает полностью автономно. Нет телеметрии, не требуется внешнее подключение к интернету для закрытых сетей.",
-        cases_num: "05 — Кейсы",
+        cases_num: "06 — Кейсы",
         cases_title: "Для отраслей, где данные — на первом месте",
         case1_label: "SaaS / ERP",
         case1_h: "Встройте AI в свой продукт",
@@ -2898,10 +3075,10 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         nav_pricing: "Narxlar",
         nav_faq: "Savollar",
         nav_cta: "Bepul kirish",
-        hero_badge: "Korporativ AI platforma",
-        hero_h1: "Korporativ AI. Sizning infratuzilmangiz. Sizning ma'lumotlaringiz.",
-        hero_sub: "Istalgan LLM asosida on-premise RAG pipeline'larni to'g'ridan-to'g'ri serverlaringizda joylashtiring. Ma'lumotlaringiz hech qachon tashqariga chiqmaydi.",
-        hero_cta1: "Bepul kirish",
+        hero_badge: "Shaxsiy AI Agentlar va Maxsus Chat-botlar Platformasi",
+        hero_h1: "Istalgan AI modellar asosida shaxsiy AI agentlar va chat-botlar yarating",
+        hero_sub: "O'z ma'lumotlaringiz asosida avtonom AI agentlar va aqlli chat-botlarni yarating. Bulutli modellardan foydalaning yoki shaxsiy AI modellaringizni serverlaringizga o'rnating. Chat-botlarni ilovalaringiz va saytlaringizga ulating.",
+        hero_cta1: "Bepul boshlash",
         hero_cta2: "Bog'lanish",
         prob_num: "01 — Muammo",
         prob_title: "Nima uchun standart AI korporativ sektorda ishlamaydi",
@@ -2924,7 +3101,22 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         sol4_p: "Swipies AI'ni o'z brendingiz ostida mahsulotingizga joylashtiring. Mijozlaringizga AI imkoniyatlarini taklif qiling.",
         sol5_h: "O'zbekistondagi lokal serverlar",
         sol5_p: "AI modellarini O'zbekiston Respublikasi hududida joylashgan yuqori unumdorlikka ega serverlarda ishga tushiring va mahalliy ma'lumotlarni saqlash qonunlariga mosligini ta'minlang.",
-        how_num: "03 — Qanday ishlaydi",
+        cloud_num: "03 — Bulutli obuna",
+        cloud_title: "Obuna modeli: AI agentlar va chat-botlarni hozirning o'zidayoq yarating",
+        cloud_sub: "Serverlarni boshqarish shart emas. Soniyalar ichida obuna bo'ling, ma'lumotlaringiz asosida chat-botlar yarating va ularni ilovalaringiz, saytlaringiz yoki CRM tizimingizga ulang.",
+        cloud_f1_badge: "Tezkor yaratish",
+        cloud_f1_h: "Daqiqalar ichida agent va chat-botlar yarating",
+        cloud_f1_p: "PDF qo'llanmalar, ma'lumotlar bazasi yoki havolalarni yuklang. Kod yozmasdan aqlli agentlar va qo'llab-quvvatlash botlarini yarating.",
+        cloud_f2_badge: "Istalgan AI model",
+        cloud_f2_h: "OpenAI, Claude yoki shaxsiy modellarni ulang",
+        cloud_f2_p: "GPT-4o, Claude 3.5, Grok yoki o'zingizning xususiy API modellaringiz o'rtasida Pro Console orqali osongina almashtiring.",
+        cloud_f3_badge: "Universal integratsiya",
+        cloud_f3_h: "Ilovalar, saytlar va CRM'ga joylashtiring",
+        cloud_f3_p: "Chat-botlarni React, Flutter, Telegram, WhatsApp yoki veb-saytlarga REST API va vidjetlar orqali bir necha daqiqada ulang.",
+        cloud_banner_h: "Bugunning o'zida AI chat-botingizni ishga tushirishga tayyormisiz?",
+        cloud_banner_p: "Mos keladigan obuna rejasini tanlang va darhol yaratishni boshlang.",
+        cloud_banner_btn: "Hozir yaratishni boshlash",
+        how_num: "04 — Korporativ joylashtirish",
         how_title: "10 ish kunida joylashtiriladi",
         how1_h: "Infratuzilma auditi",
         how1_p: "Serverlar, ma'lumot manbalari og'irligi va xavfsizlik talablarini tekshiramiz.",
@@ -2932,7 +3124,7 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         how2_p: "To'liq RAG pipeline va tanlangan LLM'ni infratuzilmangizga joylashtiramiz. 10 ish kuni ichida.",
         how3_h: "Jamoangiz ishga tushadi",
         how3_p: "Jamoangiz korporativ AI'dan foydalanishni boshlaydi — to'liq maxfiy, to'liq nazorat ostida.",
-        selfhosted_num: "04 — O'rnatish (Self-Hosted)",
+        selfhosted_num: "05 — O'rnatish (Self-Hosted)",
         selfhosted_title: "Swipies AI-ni o'z uskunangizda ishga tushiring",
         selfhosted_subtitle: "Docker konteynerlarimizni yuklab oling, muhitni sozlang va maksimal unumdorlikni faollashtirish uchun litsenziya kalitini kiriting.",
         selfhosted_step1_h: "1. Yuklab oling va ishga tushiring",
@@ -2941,7 +3133,7 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         selfhosted_step2_p: "Litsenziya kalitini platformamizda xarid qiling va GPU tezlashuvini faollashtirish hamda cheklovlarni olib tashlash uchun veb-panelga kiriting.",
         selfhosted_step3_h: "3. To'liq avtonomiya",
         selfhosted_step3_p: "Server to'liq mustaqil ishlaydi. Telemetriya yo'q, yopiq tarmoqlar uchun tashqi internet talab etilmaydi.",
-        cases_num: "05 — Foydalanish",
+        cases_num: "06 — Foydalanish",
         cases_title: "Ma'lumotlar xavfsizligi muhim bo'lgan sohalar uchun",
         case1_label: "SaaS / ERP",
         case1_h: "AI'ni mahsulotingizga joylashtiring",
