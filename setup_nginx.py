@@ -19,7 +19,8 @@ if not (os.path.exists(ent_cert) and os.path.exists(ent_key)):
     ent_cert = '/etc/letsencrypt/live/swipies.app/fullchain.pem'
     ent_key = '/etc/letsencrypt/live/swipies.app/privkey.pem'
 
-NGINX_CONF = f"""\
+def get_nginx_conf(ent_cert, ent_key):
+    return f"""\
 # ==============================================================================
 # 1. B2C SITE: swipies.app (Cloud SaaS Platform)
 # ==============================================================================
@@ -28,8 +29,15 @@ server {{
     listen [::]:80;
     server_name swipies.app www.swipies.app 51.20.190.248;
 
+    # Allow Let's Encrypt HTTP-01 verification
+    location /.well-known/acme-challenge/ {{
+        root /var/www/html;
+    }}
+
     # Redirect HTTP to HTTPS
-    return 301 https://$host$request_uri;
+    location / {{
+        return 301 https://$host$request_uri;
+    }}
 }}
 
 server {{
@@ -102,8 +110,15 @@ server {{
     listen [::]:80;
     server_name enterprise.swipies.app;
 
+    # Allow Let's Encrypt HTTP-01 verification
+    location /.well-known/acme-challenge/ {{
+        root /var/www/html;
+    }}
+
     # Redirect HTTP to HTTPS
-    return 301 https://$host$request_uri;
+    location / {{
+        return 301 https://$host$request_uri;
+    }}
 }}
 
 server {{
@@ -231,6 +246,8 @@ server {{
 }}
 """
 
+NGINX_CONF = get_nginx_conf(ent_cert, ent_key)
+
 conf_path = '/etc/nginx/sites-available/swipies'
 enabled_path = '/etc/nginx/sites-enabled/swipies'
 
@@ -257,6 +274,38 @@ try:
         print(f"Nginx site already enabled: {enabled_path}")
 except Exception as e:
     print(f"Local test or execution notice: {e}")
+
+# Automatic Certbot Issuance for enterprise.swipies.app if dedicated cert doesn't exist
+ent_target_cert = '/etc/letsencrypt/live/enterprise.swipies.app/fullchain.pem'
+ent_target_key = '/etc/letsencrypt/live/enterprise.swipies.app/privkey.pem'
+if not (os.path.exists(ent_target_cert) and os.path.exists(ent_target_key)):
+    print("Dedicated cert for enterprise.swipies.app not found. Attempting certbot issuance...")
+    try:
+        subprocess.run(['nginx', '-t'], check=False)
+        subprocess.run(['systemctl', 'reload', 'nginx'], check=False)
+
+        res = subprocess.run([
+            'certbot', 'certonly', '--webroot',
+            '-w', '/var/www/html',
+            '-d', 'enterprise.swipies.app',
+            '--non-interactive', '--agree-tos',
+            '-m', 'info@swipies.app'
+        ], capture_output=True, text=True)
+        print("Certbot returncode:", res.returncode)
+        if res.stdout:
+            print("Certbot stdout:", res.stdout[:500])
+        if res.stderr:
+            print("Certbot stderr:", res.stderr[:500])
+
+        if os.path.exists(ent_target_cert) and os.path.exists(ent_target_key):
+            print("Successfully acquired dedicated cert for enterprise.swipies.app! Updating Nginx...")
+            with open(conf_path, 'w') as f:
+                f.write(get_nginx_conf(ent_target_cert, ent_target_key))
+            subprocess.run(['nginx', '-t'], check=False)
+            subprocess.run(['systemctl', 'reload', 'nginx'], check=False)
+            print("Nginx reloaded with dedicated enterprise certificate.")
+    except Exception as e:
+        print(f"Notice: certbot issuance attempt: {e}")
 
 print("=== SSL CERTIFICATES ===")
 if os.path.exists('/etc/letsencrypt/live'):
