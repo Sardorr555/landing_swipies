@@ -3416,6 +3416,15 @@
       }, 100);
 
       initCookieBanner();
+
+      // Seamless cross-site navigation helper for local development
+      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        document.querySelectorAll('a[href*="enterprise.swipies.app"]').forEach(a => {
+          const hash = a.hash || '';
+          a.href = (window.location.port === '5006' ? '/' : '/enterprise/') + hash;
+          a.target = '_self';
+        });
+      }
     });
 
     /* ===== COOKIE CONSENT & ADVANCED VISITOR TRACKING TELEMETRY ===== */

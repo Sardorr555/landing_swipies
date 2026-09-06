@@ -3816,6 +3816,20 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
       }, 100);
 
       initCookieBanner();
+
+      // Seamless cross-site navigation helper for local development
+      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        document.querySelectorAll('a[href*="swipies.app"]').forEach(a => {
+          if (a.href.includes('enterprise.swipies.app')) {
+            a.href = window.location.port === '5006' ? '/' : '/enterprise/';
+            a.target = '_self';
+          } else if (a.href.includes('swipies.app') && !a.href.includes('api.swipies.app')) {
+            const hash = a.hash || '';
+            a.href = (window.location.port === '5006' ? 'http://localhost:5005/' : '/') + hash;
+            a.target = '_self';
+          }
+        });
+      }
     });
 
     /* ===== COOKIE CONSENT & ADVANCED VISITOR TRACKING TELEMETRY ===== */
