@@ -2732,8 +2732,8 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         </div>
         <div class="footer-col">
           <h4 data-i18n="footer_company">Company</h4>
-          <a href="terms.html" data-i18n="footer_terms">Terms of Use</a>
-          <a href="privacy.html" data-i18n="footer_privacy">Privacy Policy</a>
+          <a href="/terms.html" data-i18n="footer_terms">Terms of Use</a>
+          <a href="/privacy.html" data-i18n="footer_privacy">Privacy Policy</a>
           <a href="https://help.swipies.app/docs/dev/" target="_blank" data-i18n="footer_docs">Documentation</a>
         </div>
         <div class="footer-col">
@@ -2961,7 +2961,12 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         footer_terms: "Terms of Use",
         footer_privacy: "Privacy Policy",
         footer_docs: "Documentation",
-        footer_copy: "© 2025 Swipies AI. All rights reserved."
+        footer_copy: "© 2025 Swipies AI. All rights reserved.",
+        cookie_title: "Cookie & Data Consent",
+        cookie_msg: "We use cookies and collect technical specs (device, IP address, browser specs) to optimize site performance and security.",
+        cookie_learn_more: "Privacy Policy",
+        cookie_decline: "Decline",
+        cookie_accept: "Accept Cookies"
       },
       ru: {
         nav_problem: "Проблема",
@@ -3172,7 +3177,12 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         footer_terms: "Условия",
         footer_privacy: "Политика конфиденциальности",
         footer_docs: "Документация",
-        footer_copy: "© 2025 Swipies AI. Все права защищены."
+        footer_copy: "© 2025 Swipies AI. Все права защищены.",
+        cookie_title: "Согласие на обработку данных",
+        cookie_msg: "Мы используем файлы cookie и технические данные устройства для оптимизации работы сайта и безопасности.",
+        cookie_learn_more: "Политика конфиденциальности",
+        cookie_decline: "Отклонить",
+        cookie_accept: "Принять cookies"
       },
       uz: {
         nav_problem: "Muammo",
@@ -3383,7 +3393,12 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         footer_terms: "Foydalanish shartlari",
         footer_privacy: "Maxfiylik siyosati",
         footer_docs: "Hujjatlar",
-        footer_copy: "© 2025 Swipies AI. Barcha huquqlar himoyalangan."
+        footer_copy: "© 2025 Swipies AI. Barcha huquqlar himoyalangan.",
+        cookie_title: "Ma'lumotlar va cookie roziligi",
+        cookie_msg: "Sayt ishlashini yaxshilash va xavfsizlik uchun cookie fayllari va qurilma ma'lumotlaridan foydalanamiz.",
+        cookie_learn_more: "Maxfiylik siyosati",
+        cookie_decline: "Rad etish",
+        cookie_accept: "Qabul qilish"
       }
     };
 
@@ -3928,6 +3943,8 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
       return {};
     }
 
+    const COOKIE_STORAGE_KEY = (window.location.pathname.includes('/enterprise') || window.location.port === '5006' || window.location.hostname.startsWith('enterprise.')) ? 'swipies_ent_cookie_consent' : 'swipies_cookie_consent';
+
     function trackVisitor(consentStatus) {
       try {
         const elapsedSeconds = Math.round((Date.now() - sessionStartTime) / 1000);
@@ -3940,7 +3957,7 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
           timezone: (Intl && Intl.DateTimeFormat) ? Intl.DateTimeFormat().resolvedOptions().timeZone : '',
           page_url: window.location.href,
           referrer: document.referrer || 'Direct',
-          cookie_consent: consentStatus || localStorage.getItem('swipies_cookie_consent') || 'pending',
+          cookie_consent: consentStatus || localStorage.getItem(COOKIE_STORAGE_KEY) || localStorage.getItem('swipies_cookie_consent') || 'pending',
           user_agent: navigator.userAgent,
 
           // Extended Telemetry Specs
@@ -3972,6 +3989,7 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
     }
 
     window.handleCookieConsent = function (choice) {
+      localStorage.setItem(COOKIE_STORAGE_KEY, choice);
       localStorage.setItem('swipies_cookie_consent', choice);
       const banner = document.getElementById('cookieBanner');
       if (banner) {
@@ -3985,32 +4003,32 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
       initCtaClickTracking();
       updateScrollDepth();
 
-      const consent = localStorage.getItem('swipies_cookie_consent') || 'pending';
+      const consent = localStorage.getItem(COOKIE_STORAGE_KEY) || 'pending';
       const banner = document.getElementById('cookieBanner');
 
       // ALWAYS track visitor telemetry immediately on load regardless of cookie status
       trackVisitor(consent);
 
-      if (!localStorage.getItem('swipies_cookie_consent')) {
-        // Show cookie banner after 1s delay if not decided yet
+      if (!localStorage.getItem(COOKIE_STORAGE_KEY)) {
+        // Show cookie banner after 800ms delay if not decided yet
         setTimeout(() => {
           if (banner) {
             banner.style.display = 'block';
             setTimeout(() => banner.classList.add('show'), 50);
           }
-        }, 1000);
+        }, 800);
       }
 
       // Continuous heartbeat telemetry update every 15 seconds
       setInterval(() => {
-        const activeConsent = localStorage.getItem('swipies_cookie_consent') || 'pending';
+        const activeConsent = localStorage.getItem(COOKIE_STORAGE_KEY) || 'pending';
         trackVisitor(activeConsent);
       }, 15000);
 
       // Track session end on visibility change
       document.addEventListener('visibilitychange', () => {
         if (document.visibilityState === 'hidden') {
-          const activeConsent = localStorage.getItem('swipies_cookie_consent') || 'pending';
+          const activeConsent = localStorage.getItem(COOKIE_STORAGE_KEY) || 'pending';
           trackVisitor(activeConsent);
         }
       });
@@ -4051,7 +4069,7 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
     <div class="cookie-text">
       <span data-i18n="cookie_msg">We use cookies and collect technical specs (device, IP address, browser specs) to
         optimize site performance and security.</span>
-      <a href="privacy.html" target="_blank" data-i18n="cookie_learn_more">Privacy Policy</a>
+      <a href="/privacy.html" target="_blank" data-i18n="cookie_learn_more">Privacy Policy</a>
     </div>
     <div class="cookie-actions">
       <button type="button" class="cookie-btn cookie-btn-decline" onclick="handleCookieConsent('declined')"

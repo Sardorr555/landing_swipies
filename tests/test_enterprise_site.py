@@ -53,6 +53,24 @@ class TestEnterpriseSite(unittest.TestCase):
         self.assertIn('Geist', self.content)
         self.assertIn('JetBrains Mono', self.content)
 
+    def test_cookie_banner_present_and_translated(self):
+        # Cookie banner element and classes must exist
+        self.assertIn('id="cookieBanner"', self.content)
+        self.assertIn('class="cookie-banner"', self.content)
+        self.assertIn('handleCookieConsent', self.content)
+        self.assertIn('initCookieBanner', self.content)
+        self.assertIn('COOKIE_STORAGE_KEY', self.content)
+        self.assertIn('cookie_title', self.content)
+        self.assertIn('cookie_msg', self.content)
+        self.assertIn('cookie_learn_more', self.content)
+        self.assertIn('cookie_decline', self.content)
+        self.assertIn('cookie_accept', self.content)
+
+        # Translations in EN, RU, UZ must all be present
+        self.assertIn('"Cookie & Data Consent"', self.content)
+        self.assertIn('"Согласие на обработку данных"', self.content)
+        self.assertIn('"Ma\'lumotlar va cookie roziligi"', self.content)
+
 
 if __name__ == '__main__':
     unittest.main()
