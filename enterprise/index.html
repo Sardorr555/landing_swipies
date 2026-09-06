@@ -1991,40 +1991,42 @@
   
     /* Enterprise Additions matching exact design system */
     .ent-nav-badge {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
       font-family: var(--font-mono);
       font-size: 0.65rem;
       font-weight: 700;
       color: var(--accent);
       background: var(--accent-dim);
-      border: 1px solid rgba(232, 168, 32, 0.35);
+      border: 1px solid rgba(232, 168, 32, 0.3);
       padding: 2px 7px;
       border-radius: 4px;
       margin-left: 8px;
       letter-spacing: 0.08em;
       text-transform: uppercase;
+      line-height: 1.2;
       vertical-align: middle;
     }
 
     .nav-b2c-backlink {
+      color: var(--accent) !important;
+      font-weight: 600 !important;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      background: var(--bg3);
-      color: var(--text-secondary) !important;
-      font-family: var(--font-mono);
-      font-size: var(--t-tiny);
-      font-weight: 500;
-      padding: 5px 12px;
-      border-radius: var(--radius);
-      border: 1px solid var(--border2);
-      transition: all 0.2s ease;
-      letter-spacing: 0.02em;
+      gap: 4px;
+      background: rgba(232, 168, 32, 0.08);
+      padding: 4px 10px;
+      border-radius: 4px;
+      border: 1px solid rgba(232, 168, 32, 0.25);
+      transition: all 0.15s ease;
+      font-size: var(--t-small);
+      white-space: nowrap;
+      min-height: auto;
     }
     .nav-b2c-backlink:hover {
-      color: var(--accent) !important;
+      background: rgba(232, 168, 32, 0.2);
       border-color: var(--accent);
-      background: var(--accent-dim);
+      color: #fff !important;
     }
 
     .cloud-cross-card {
@@ -2094,14 +2096,11 @@
     <div class="nav-inner">
       <a href="#" class="nav-logo">Swipies<span>AI</span> <span class="ent-nav-badge">ENTERPRISE</span></a>
       <div class="nav-links" id="navLinks">
-        <a href="#problem" data-i18n="nav_problem">The Problem</a>
         <a href="#solution" data-i18n="nav_solution">Solution</a>
         <a href="#how" data-i18n="nav_how">Deployment</a>
-        <a href="#selfhosted" data-i18n="nav_selfhosted">Self-Hosted</a>
-        <a href="#cases" data-i18n="nav_cases">Use Cases</a>
         <a href="#pricing" data-i18n="nav_pricing">Pricing</a>
         <a href="#faq" data-i18n="nav_faq">FAQ</a>
-        <a href="https://swipies.app" class="nav-b2c-backlink" data-i18n="nav_cloud_backlink">Cloud SaaS ↗</a>
+        <a href="https://swipies.app" class="nav-b2c-backlink" data-i18n="nav_cloud">Cloud ↗</a>
       </div>
       <div class="nav-right">
         <div class="lang-switch" id="langSwitch">
@@ -2127,16 +2126,12 @@
   <!-- HERO -->
   <section class="hero" id="hero">
     <div class="container reveal">
-      <div class="hero-badge" data-i18n="ent_hero_badge">ENTERPRISE ON-PREMISE AI &amp; PRIVATE RAG</div>
-      <h1 data-i18n="ent_hero_h1">Private AI Infrastructure &amp; On-Premise RAG for Enterprise</h1>
+      <div class="hero-badge" data-i18n="ent_hero_badge">ENTERPRISE ON-PREMISE AI</div>
+      <h1 data-i18n="ent_hero_h1">Private AI Infrastructure &amp; On-Premise RAG</h1>
       <p class="hero-sub" data-i18n="ent_hero_sub">Deploy autonomous AI agents, enterprise RAG pipelines, and private LLMs directly inside your infrastructure. Complete data sovereignty, air-gapped support, and 1-day deployment SLA.</p>
       <div class="hero-ctas">
-        <a href="#contact" class="btn-primary" data-i18n="ent_hero_cta1">Talk to Sales →</a>
-        <a href="#selfhosted" class="btn-secondary" data-i18n="ent_hero_cta2">View Architecture &amp; Specs</a>
-      </div>
-      <div style="margin-top: 1.5rem; font-size: 0.875rem; color: var(--text-secondary);">
-        <span data-i18n="ent_hero_cloud_note">Looking for self-serve cloud SaaS for individual users or small teams?</span>
-        <a href="https://swipies.app" style="color: var(--accent); font-weight: 500; text-decoration: underline; margin-left: 4px;">swipies.app ↗</a>
+        <a href="#contact" class="btn-primary" data-i18n="hero_cta1">Talk to Sales →</a>
+        <a href="#selfhosted" class="btn-secondary" data-i18n="hero_cta2">Architecture &amp; Specs</a>
       </div>
     </div>
   </section>
@@ -2759,15 +2754,14 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
     const T = {
       en: {
         nav_problem: "The Problem",
-        nav_cloud_backlink: "Cloud SaaS ↗",
+        nav_cloud: "Cloud ↗",
         nav_talk_sales: "Talk to Sales",
-        ent_hero_badge: "ENTERPRISE ON-PREMISE AI & PRIVATE RAG",
-        ent_hero_h1: "Private AI Infrastructure & On-Premise RAG for Enterprise",
+        ent_hero_badge: "ENTERPRISE ON-PREMISE AI",
+        ent_hero_h1: "Private AI Infrastructure & On-Premise RAG",
         ent_hero_sub: "Deploy autonomous AI agents, enterprise RAG pipelines, and private LLMs directly inside your infrastructure. Complete data sovereignty, air-gapped support, and 1-day deployment SLA.",
         ent_hero_cta1: "Talk to Sales →",
         ent_hero_cta2: "View Architecture & Specs",
-        ent_hero_cloud_note: "Looking for self-serve cloud SaaS for individual users or small teams?",
-        cloud_cross_title: "Looking for self-serve Cloud SaaS?",
+                cloud_cross_title: "Looking for self-serve Cloud SaaS?",
         cloud_cross_desc: "Get instant access on managed cloud infrastructure from $20/month with zero server setup required.",
         cloud_cross_btn: "View Cloud Plans ↗",
         footer_cloud: "Cloud SaaS (swipies.app)",
@@ -2787,7 +2781,7 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         prof3_desc: "High-concurrency 70B+ models, banking core integration, zero-telemetry air-gapped isolation",
 
         nav_solution: "Solution",
-        nav_how: "How It Works",
+        nav_how: "Deployment",
         nav_selfhosted: "Self-Hosted",
         nav_cases: "Use Cases",
         nav_partners: "Partners",
@@ -2797,8 +2791,8 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         hero_badge: "Private AI Agents & Custom Chatbots Platform",
         hero_h1: "Build Private AI Agents & Chatbots Powered by Any AI Models",
         hero_sub: "Create autonomous AI agents and smart chatbots trained on your internal data. Use cloud models or run your own private, self-hosted LLMs directly on your servers. Embed chatbots anywhere in your apps and websites.",
-        hero_cta1: "Start Free",
-        hero_cta2: "Talk to Sales",
+        hero_cta1: "Talk to Sales →",
+        hero_cta2: "Architecture & Specs",
         prob_num: "01 — The Problem",
         prob_title: "Why Standard AI Fails Enterprise",
         prob1_h: "Data Leaves Your Perimeter",
@@ -2971,15 +2965,14 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
       },
       ru: {
         nav_problem: "Проблема",
-        nav_cloud_backlink: "Облачный SaaS ↗",
+        nav_cloud: "Cloud ↗",
         nav_talk_sales: "Отдел продаж",
-        ent_hero_badge: "ENTERPRISE ON-PREMISE AI И ПРИВАТНЫЙ RAG",
-        ent_hero_h1: "Приватная AI-инфраструктура и On-Premise RAG для Enterprise",
+        ent_hero_badge: "ENTERPRISE ON-PREMISE AI",
+        ent_hero_h1: "Приватная AI-инфраструктура и On-Premise RAG",
         ent_hero_sub: "Развертывайте автономных AI-агентов, корпоративные RAG-пайплайны и приватные LLM прямо в вашей инфраструктуре. Полный суверенитет данных, работа в изолированном контуре (air-gapped) и запуск за 1 рабочий день.",
         ent_hero_cta1: "Связаться с отделом продаж →",
         ent_hero_cta2: "Архитектура и требования",
-        ent_hero_cloud_note: "Нужен готовый облачный SaaS для частных пользователей или небольших команд?",
-        cloud_cross_title: "Ищете готовый облачный SaaS?",
+                cloud_cross_title: "Ищете готовый облачный SaaS?",
         cloud_cross_desc: "Мгновенный старт на управляемой облачной инфраструктуре от $20/месяц без необходимости администрировать серверы.",
         cloud_cross_btn: "Тарифы Cloud SaaS ↗",
         footer_cloud: "Облачный SaaS (swipies.app)",
@@ -2999,18 +2992,18 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         prof3_desc: "Высоконагруженные модели 70B+, интеграция с банковским ядром, работа в изолированном контуре",
 
         nav_solution: "Решение",
-        nav_how: "Как это работает",
+        nav_how: "Развертывание",
         nav_selfhosted: "Self-Hosted",
         nav_cases: "Кейсы",
         nav_partners: "Партнёры",
-        nav_pricing: "Цены",
-        nav_faq: "Вопросы",
+        nav_pricing: "Тарифы",
+        nav_faq: "FAQ",
         nav_cta: "Попробовать",
         hero_badge: "Платформа приватных AI-агентов и чат-ботов",
         hero_h1: "Создавайте приватные AI-агенты и чат-боты на базе любых ИИ-моделей",
         hero_sub: "Создавайте автономных AI-агентов и умных чат-ботов на основе ваших данных. Используйте облачные модели или разворачивайте собственные приватные модели прямо на ваших серверах. Встраивайте чат-ботов в любые ваши приложения и сайты.",
-        hero_cta1: "Начать бесплатно",
-        hero_cta2: "Связаться с нами",
+        hero_cta1: "Связаться с нами →",
+        hero_cta2: "Архитектура и требования",
         prob_num: "01 — Проблема",
         prob_title: "Почему стандартный AI не подходит для бизнеса",
         prob1_h: "Данные покидают ваш периметр",
@@ -3183,18 +3176,17 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
       },
       uz: {
         nav_problem: "Muammo",
-        nav_cloud_backlink: "Bulutli SaaS ↗",
-        nav_talk_sales: "Savdo bo'limi",
-        ent_hero_badge: "ENTERPRISE ON-PREMISE AI VA MAXFIY RAG",
-        ent_hero_h1: "Korxonalar uchun maxfiy AI infratuzilmasi va On-Premise RAG",
+        nav_cloud: "Cloud ↗",
+        nav_talk_sales: "Bog'lanish",
+        ent_hero_badge: "ENTERPRISE ON-PREMISE AI",
+        ent_hero_h1: "Maxfiy AI infratuzilmasi va On-Premise RAG",
         ent_hero_sub: "Avtonom AI agentlar, korporativ RAG tizimlari va shaxsiy LLM modellarini bevosita o'z serverlaringizda ishga tushiring. To'liq ma'lumotlar xavfsizligi, offline/air-gapped rejim va 1 ish kunida joylashtirish kafolati.",
         ent_hero_cta1: "Savdo bo'limi bilan bog'lanish →",
         ent_hero_cta2: "Arxitektura va talablar",
-        ent_hero_cloud_note: "Kichik jamoalar va foydalanuvchilar uchun tayyor bulutli SaaS kerakmi?",
-        cloud_cross_title: "Tayyor bulutli SaaS qidiryapsizmi?",
+                cloud_cross_title: "Swipies Cloud SaaS kerakmi?",
         cloud_cross_desc: "Serverlarni boshqarmasdan, oyiga $20 dan boshlab boshqariladigan bulut infratuzilmasida tezkor start oling.",
-        cloud_cross_btn: "Bulutli tariflar ↗",
-        footer_cloud: "Bulutli SaaS (swipies.app)",
+        cloud_cross_btn: "Cloud tariflar ↗",
+        footer_cloud: "Swipies Cloud (swipies.app)",
         specs_table_title: "Apparat ta'minoti profillari va GPU tezlashtirish",
         th_profile: "Profil",
         th_compute: "Hisoblash (CPU / RAM)",
@@ -3211,18 +3203,18 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         prof3_desc: "70B+ katta modellar, bank tizimlari bilan integratsiya, to'liq offline rejim",
 
         nav_solution: "Yechim",
-        nav_how: "Qanday ishlaydi",
+        nav_how: "Joylashtirish",
         nav_selfhosted: "Self-Hosted",
         nav_cases: "Foydalanish",
         nav_partners: "Hamkorlar",
-        nav_pricing: "Narxlar",
+        nav_pricing: "Tariflar",
         nav_faq: "Savollar",
         nav_cta: "Bepul kirish",
         hero_badge: "Shaxsiy AI Agentlar va Maxsus Chat-botlar Platformasi",
         hero_h1: "Istalgan AI modellar asosida shaxsiy AI agentlar va chat-botlar yarating",
         hero_sub: "O'z ma'lumotlaringiz asosida avtonom AI agentlar va aqlli chat-botlarni yarating. Bulutli modellardan foydalaning yoki shaxsiy AI modellaringizni serverlaringizga o'rnating. Chat-botlarni ilovalaringiz va saytlaringizga ulating.",
-        hero_cta1: "Bepul boshlash",
-        hero_cta2: "Bog'lanish",
+        hero_cta1: "Bog'lanish →",
+        hero_cta2: "Arxitektura va talablar",
         prob_num: "01 — Muammo",
         prob_title: "Nima uchun standart AI korporativ sektorda ishlamaydi",
         prob1_h: "Ma'lumotlar tashqariga chiqadi",
