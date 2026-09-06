@@ -45,5 +45,14 @@ class TestEnterpriseSite(unittest.TestCase):
     def test_no_cloud_subscription_internal_section(self):
         self.assertNotIn('<section id="cloud-subscription"', self.content)
 
+    def test_theme_and_color_palette_matches_b2c(self):
+        # Must strictly match the original B2C dark navy + amber design system
+        self.assertIn('--bg: #080c14;', self.content)
+        self.assertIn('--accent: #e8a820;', self.content)
+        self.assertIn('--accent-hover: #f0b830;', self.content)
+        self.assertIn('Geist', self.content)
+        self.assertIn('JetBrains Mono', self.content)
+
+
 if __name__ == '__main__':
     unittest.main()
