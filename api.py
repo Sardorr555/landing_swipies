@@ -29,6 +29,7 @@ def init_db():
                 message TEXT,
                 referral_code TEXT,
                 status TEXT DEFAULT '1', -- 1 = unread, 2 = read
+                source TEXT DEFAULT 'b2c', -- 'b2c' or 'enterprise'
                 create_date TEXT NOT NULL
             )
         ''')
@@ -69,6 +70,11 @@ def init_db():
         ''')
 
         # Automatic column migration for existing database files
+        cursor.execute("PRAGMA table_info(leads)")
+        existing_lead_cols = [row[1] for row in cursor.fetchall()]
+        if 'source' not in existing_lead_cols:
+            cursor.execute("ALTER TABLE leads ADD COLUMN source TEXT DEFAULT 'b2c'")
+
         cursor.execute("PRAGMA table_info(visitors)")
         existing_cols = [row[1] for row in cursor.fetchall()]
         new_cols = {
@@ -201,20 +207,25 @@ def create_lead():
     phone         = data.get('phone', '')
     message       = data.get('message', '')
     referral_code = data.get('referral_code', '')
+    source        = data.get('source', 'b2c')
+    if source not in ('b2c', 'enterprise'):
+        source = 'b2c'
     create_date   = datetime.datetime.utcnow().isoformat() + "Z"
 
     with sqlite3.connect(DB_FILE) as conn:
         cursor = conn.cursor()
         cursor.execute('''
-            INSERT INTO leads (company, name, email, phone, message, referral_code, create_date)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
-        ''', (company, name, email, phone, message, referral_code, create_date))
+            INSERT INTO leads (company, name, email, phone, message, referral_code, source, create_date)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        ''', (company, name, email, phone, message, referral_code, source, create_date))
         conn.commit()
         lead_id = cursor.lastrowid
 
     # Notify admin via Telegram
+    channel_label = "Enterprise (enterprise.swipies.app)" if source == "enterprise" else "B2C Cloud (swipies.app)"
     tg_msg = (
-        f"📬 <b>New Lead — Swipies.app</b>\n\n"
+        f"📬 <b>New Lead — {channel_label}</b>\n\n"
+        f"🌐 <b>Channel:</b> {channel_label}\n"
         f"👤 <b>Name:</b> {name}\n"
         f"🏢 <b>Company:</b> {company}\n"
         f"📧 <b>Email:</b> {email}\n"
@@ -225,7 +236,7 @@ def create_lead():
     )
     send_telegram(tg_msg)
 
-    return jsonify({"code": 0, "message": "Success", "data": {"id": lead_id}}), 201
+    return jsonify({"code": 0, "message": "Success", "data": {"id": lead_id, "source": source}}), 201
 
 
 @app.route('/api/leads', methods=['GET'])
