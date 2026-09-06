@@ -4,9 +4,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Swipies AI — Enterprise On-Premise AI Platform</title>
+  <title>Swipies AI — Build Private AI Agents &amp; Chatbots | Cloud SaaS Platform</title>
   <meta name="description"
-    content="Deploy on-premise RAG pipelines powered by any LLM directly on your servers. Complete data sovereignty.">
+    content="Create autonomous AI agents and smart customer support chatbots trained on your internal data. Cloud SaaS with instant start, multi-model support, and integrations.">
+  <link rel="canonical" href="https://swipies.app/">
 
   <!-- Structured Data (JSON-LD) for Search Engine Sitelinks & Organization info -->
   <script type="application/ld+json">
@@ -1988,6 +1989,104 @@
         padding: 10px;
       }
     }
+
+    .nav-enterprise-tag {
+      color: var(--accent) !important;
+      font-weight: 600 !important;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(var(--accent-rgb), 0.1);
+      padding: 4px 10px;
+      border-radius: 4px;
+      border: 1px solid rgba(var(--accent-rgb), 0.25);
+      transition: all var(--transition);
+    }
+    .nav-enterprise-tag:hover {
+      background: rgba(var(--accent-rgb), 0.2);
+      border-color: var(--accent);
+      color: #fff !important;
+    }
+
+    /* Enterprise Upsell Section */
+    .enterprise-upsell-section {
+      padding: 5rem 0;
+      background: linear-gradient(180deg, var(--bg) 0%, #0d121f 50%, var(--bg) 100%);
+    }
+    .ent-upsell-card {
+      background: var(--bg2);
+      border: 1px solid rgba(var(--accent-rgb), 0.3);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255,255,255,0.05);
+      border-radius: 8px;
+      padding: 3rem 2.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .ent-upsell-card::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 320px; height: 320px;
+      background: radial-gradient(circle, rgba(var(--accent-rgb), 0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .ent-upsell-badge {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--accent);
+      background: rgba(var(--accent-rgb), 0.12);
+      border: 1px solid rgba(var(--accent-rgb), 0.25);
+      padding: 4px 10px;
+      border-radius: 4px;
+      margin-bottom: 1.25rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .ent-upsell-title {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+    .ent-upsell-desc {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 750px;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+    .ent-upsell-features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 2.5rem;
+    }
+    .ent-upsell-feat {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+    .ent-upsell-feat svg {
+      width: 20px;
+      height: 20px;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+    .ent-upsell-actions {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+    @media (max-width: 768px) {
+      .ent-upsell-card { padding: 2rem 1.5rem; }
+      .ent-upsell-title { font-size: 1.5rem; }
+      .ent-upsell-features { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 
@@ -1998,13 +2097,11 @@
     <div class="nav-inner">
       <a href="#" class="nav-logo">Swipies<span>AI</span></a>
       <div class="nav-links" id="navLinks">
-        <a href="#solution" data-i18n="nav_solution">Solution</a>
-        <a href="#how" data-i18n="nav_how">How It Works</a>
-        <a href="#selfhosted" data-i18n="nav_selfhosted">Self-Hosted</a>
-        <a href="#cases" data-i18n="nav_cases">Use Cases</a>
-        <a href="#partners" data-i18n="nav_partners">Partners</a>
+        <a href="#cloud-subscription" data-i18n="nav_features">Cloud Features</a>
+        <a href="#integrations" data-i18n="nav_integrations">Integrations</a>
         <a href="#pricing" data-i18n="nav_pricing">Pricing</a>
         <a href="#faq" data-i18n="nav_faq">FAQ</a>
+        <a href="https://enterprise.swipies.app" target="_blank" class="nav-enterprise-tag" data-i18n="nav_enterprise">Enterprise ↗</a>
       </div>
       <div class="nav-right">
         <div class="lang-switch" id="langSwitch">
@@ -2034,58 +2131,16 @@
       <p class="hero-sub" data-i18n="hero_sub">Create autonomous AI agents and smart chatbots trained on your internal data. Use cloud models or run your own private, self-hosted LLMs directly on your servers. Embed chatbots anywhere in your apps and websites.</p>
       <div class="hero-ctas">
         <a href="login.html" class="btn-primary" data-i18n="hero_cta1">Start Free</a>
-        <a href="#contact" class="btn-secondary" data-i18n="hero_cta2">Talk to Sales</a>
+        <a href="#pricing" class="btn-secondary" data-i18n="hero_cta2_b2c">Explore Plans</a>
+        <a href="https://enterprise.swipies.app" target="_blank" class="btn-secondary" data-i18n="hero_cta_enterprise" style="border-color:rgba(var(--accent-rgb),0.3);color:var(--accent);">Enterprise On-Premise ↗</a>
       </div>
     </div>
   </section>
 
-  <!-- PROBLEM -->
-  <section id="problem">
-    <div class="container reveal">
-      <div class="section-num" data-i18n="prob_num">01 — The Problem</div>
-      <h2 class="section-title" data-i18n="prob_title">Why Standard AI Fails Enterprise</h2>
-      <div class="problem-grid">
-        <div class="problem-card">
-          <div class="card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-            </svg>
-          </div>
-          <h3 data-i18n="prob1_h">Data Leaves Your Perimeter</h3>
-          <p data-i18n="prob1_p">Every API call to external AI providers sends your proprietary data to third-party
-            servers — a compliance nightmare.</p>
-        </div>
-        <div class="problem-card">
-          <div class="card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path
-                d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7z" />
-              <line x1="9" y1="21" x2="15" y2="21" />
-            </svg>
-          </div>
-          <h3 data-i18n="prob2_h">Generic AI, Zero Context</h3>
-          <p data-i18n="prob2_p">Public models don't understand your business data, documents, or internal knowledge.
-            Answers are shallow and unreliable.</p>
-        </div>
-        <div class="problem-card">
-          <div class="card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="3" y="11" width="18" height="11" rx="2" />
-              <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-            </svg>
-          </div>
-          <h3 data-i18n="prob3_h">No Control Over Stack</h3>
-          <p data-i18n="prob3_p">You can't control the model version, uptime, infrastructure, or update cadence. Your AI
-            is someone else's decision.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- INSTANT CLOUD ACCESS / SUBSCRIPTION SECTION -->
+  <!-- 01 — INSTANT CLOUD ACCESS / SUBSCRIPTION SECTION -->
   <section id="cloud-subscription" class="cloud-sub-section">
     <div class="container reveal">
-      <div class="section-num" data-i18n="cloud_num">02 — Instant Cloud SaaS</div>
+      <div class="section-num" data-i18n="cloud_num">01 — Cloud Platform</div>
       <h2 class="section-title" data-i18n="cloud_title">Cloud Subscription: Create AI Agents &amp; Chatbots Right Now</h2>
       <p class="section-subtitle" data-i18n="cloud_sub">No servers to manage. Subscribe in seconds, build custom chatbots trained on your data, and integrate them directly into your mobile apps, web applications, or websites.</p>
 
@@ -2119,238 +2174,36 @@
     </div>
   </section>
 
-  <!-- SOLUTION -->
-  <section id="solution">
+  <!-- 02 — UNIVERSAL INTEGRATIONS & AI MODELS -->
+  <section id="integrations">
     <div class="container reveal">
-      <div class="section-num" data-i18n="sol_num">03 — On-Premise Solution</div>
-      <h2 class="section-title" data-i18n="sol_title">On-Premise RAG That Runs on Your Servers</h2>
-      <p class="section-subtitle" data-i18n="sol_sub">Swipies AI deploys the full AI infrastructure inside your
-        environment. Complete data sovereignty, zero external dependencies.</p>
-      <div class="feature-grid">
-        <div class="feature-card">
-          <div class="card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="2" y="2" width="20" height="8" rx="2" />
-              <rect x="2" y="14" width="20" height="8" rx="2" />
-              <line x1="6" y1="6" x2="6.01" y2="6" />
-              <line x1="6" y1="18" x2="6.01" y2="18" />
-            </svg>
-          </div>
-          <h3 data-i18n="sol1_h">On-Premise RAG Deployment</h3>
-          <p data-i18n="sol1_p">Full RAG pipeline — document ingestion, vector indexing, retrieval, and generation —
-            deployed directly on your servers. Built on battle-tested RAGFlow architecture.</p>
-        </div>
-        <div class="feature-card">
-          <div class="card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <ellipse cx="12" cy="5" rx="9" ry="3" />
-              <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
-              <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
-            </svg>
-          </div>
-          <h3 data-i18n="sol2_h">Works With Your Data</h3>
-          <p data-i18n="sol2_p">Connect your existing documents, databases, CRM records, and internal tools. The
-            knowledge base is built from your real data — not generic training sets.</p>
-        </div>
-        <div class="feature-card">
-          <div class="card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="4" y="4" width="16" height="16" rx="2" />
-              <rect x="9" y="9" width="6" height="6" />
-              <line x1="9" y1="1" x2="9" y2="4" />
-              <line x1="15" y1="1" x2="15" y2="4" />
-              <line x1="9" y1="20" x2="9" y2="23" />
-              <line x1="15" y1="20" x2="15" y2="23" />
-              <line x1="20" y1="9" x2="23" y2="9" />
-              <line x1="20" y1="14" x2="23" y2="14" />
-              <line x1="1" y1="9" x2="4" y2="9" />
-              <line x1="1" y1="14" x2="4" y2="14" />
-            </svg>
-          </div>
-          <h3 data-i18n="sol3_h">Any LLM, Your Choice</h3>
-          <p data-i18n="sol3_p">Support for OpenAI, Anthropic Claude, xAI Grok, and fully local models via Ollama.
-            Switch models without changing infrastructure.</p>
-        </div>
-        <div class="feature-card">
-          <div class="card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z" />
-              <line x1="7" y1="7" x2="7.01" y2="7" />
-            </svg>
-          </div>
-          <h3 data-i18n="sol4_h">Full White-Label for SaaS</h3>
-          <p data-i18n="sol4_p">Embed Swipies AI into your own product under your brand. Offer AI-powered features to
-            your clients — powered by their data, on your infrastructure.</p>
-        </div>
-        <div class="feature-card">
-          <div class="card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-              <circle cx="12" cy="10" r="3" />
-            </svg>
-          </div>
-          <h3 data-i18n="sol5_h">Uzbekistan Local Deployment</h3>
-          <p data-i18n="sol5_p">Deploy AI models on secure high-performance servers physically located within the
-            Republic of Uzbekistan, ensuring compliance with local data localization laws.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+      <div class="section-num" data-i18n="integ_num">02 — Integrations &amp; Channels</div>
+      <h2 class="section-title" data-i18n="integ_title">Embed Anywhere. Powered by Any Model.</h2>
+      <p class="section-subtitle" data-i18n="integ_sub">Deploy your trained chatbot across all your user touchpoints with zero friction.</p>
 
-  <!-- HOW IT WORKS -->
-  <section id="how">
-    <div class="container reveal">
-      <div class="section-num" data-i18n="how_num">04 — Enterprise Deployment</div>
-      <h2 class="section-title" data-i18n="how_title">Deployed in 1 Business Day</h2>
-      <div class="steps-list">
-        <div class="step-row">
-          <div class="step-num">01</div>
-          <h3 data-i18n="how1_h">Infrastructure Audit</h3>
-          <p data-i18n="how1_p">We audit your servers, data sources, and security requirements to design the optimal
-            deployment architecture.</p>
-        </div>
-        <div class="step-row">
-          <div class="step-num">02</div>
-          <h3 data-i18n="how2_h">Deploy RAG + LLM</h3>
-          <p data-i18n="how2_p">We deploy the full RAG pipeline and LLM of your choice directly on your infrastructure.
-            Within 1 business day.</p>
-        </div>
-        <div class="step-row">
-          <div class="step-num">03</div>
-          <h3 data-i18n="how3_h">Your Team Goes Live</h3>
-          <p data-i18n="how3_p">Your team and clients get enterprise-grade AI — fully private, fully controlled, fully
-            yours. Data stays with you.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SELF-HOSTED -->
-  <section id="selfhosted">
-    <div class="container reveal">
-      <div class="section-num" data-i18n="selfhosted_num">05 — Self-Hosted</div>
-      <h2 class="section-title" data-i18n="selfhosted_title">Run Swipies AI on Your Own Hardware</h2>
-      <p class="section-subtitle" data-i18n="selfhosted_subtitle">Execute a single command on your Linux server to
-        automatically install and launch Swipies AI.</p>
-
-      <div class="selfhosted-grid">
-        <div class="selfhosted-steps">
-          <div class="sh-step">
-            <h3 data-i18n="selfhosted_step1_h">1. One-Line Automatic Install</h3>
-            <p data-i18n="selfhosted_step1_p">Run our automated setup command on your Linux server to prepare the
-              environment and spin up Swipies AI.</p>
-          </div>
-          <div class="sh-step">
-            <h3 data-i18n="selfhosted_step2_h">2. Insert License Key</h3>
-            <p data-i18n="selfhosted_step2_p">Paste your Swipies license key in the web panel to activate GPU
-              acceleration and remove ingestion limits.</p>
-          </div>
-          <div class="sh-step">
-            <h3 data-i18n="selfhosted_step3_h">3. Complete Autonomy</h3>
-            <p data-i18n="selfhosted_step3_p">The server runs fully standalone. No telemetry, no external internet
-              connection required for air-gapped networks.</p>
-          </div>
-        </div>
-
-        <div class="selfhosted-code-box">
-          <div class="code-header">
-            <span class="code-dot"></span>
-            <span class="code-dot"></span>
-            <span class="code-dot"></span>
-            <span class="code-title">terminal — install.sh</span>
-            <button class="copy-cmd-btn" id="copyBtn" onclick="copyInstallCmd()">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-              </svg>
-              <span>Copy</span>
-            </button>
-          </div>
-          <pre class="code-content"><code class="mono"><span class="accent"># Automated installation command</span>
-curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/install.sh | bash</code></pre>
+      <div style="margin-bottom: 2rem;">
+        <h3 style="font-size: 1.1rem; margin-bottom: 1rem; color: var(--text-muted); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.5px;" data-i18n="integ_channels_h">Supported Channels &amp; Frameworks</h3>
+        <div class="partners-row">
+          <span class="partner-badge">React &amp; Next.js</span>
+          <span class="partner-badge">Flutter &amp; Mobile</span>
+          <span class="partner-badge">Telegram Bot</span>
+          <span class="partner-badge">WhatsApp Business</span>
+          <span class="partner-badge">REST API &amp; Webhooks</span>
+          <span class="partner-badge">Embeddable JS Widget</span>
+          <span class="partner-badge">WordPress &amp; Webflow</span>
         </div>
       </div>
 
-      <!-- Minimum Server Requirements -->
-      <div class="server-requirements">
-        <div class="req-header">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="2" y="2" width="20" height="8" rx="2" />
-            <rect x="2" y="14" width="20" height="8" rx="2" />
-            <line x1="6" y1="6" x2="6.01" y2="6" />
-            <line x1="6" y1="18" x2="6.01" y2="18" />
-          </svg>
-          <span data-i18n="req_title">Minimum Server Requirements</span>
+      <div>
+        <h3 style="font-size: 1.1rem; margin-bottom: 1rem; color: var(--text-muted); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.5px;" data-i18n="integ_models_h">Supported AI Engines</h3>
+        <div class="partners-row">
+          <span class="partner-badge">OpenAI (GPT-4o, o1, o3)</span>
+          <span class="partner-badge">Anthropic (Claude 3.5 Sonnet)</span>
+          <span class="partner-badge">DeepSeek (R1, V3)</span>
+          <span class="partner-badge">xAI (Grok)</span>
+          <span class="partner-badge">Local Models (Ollama / vLLM)</span>
+          <span class="partner-badge">Custom OpenAI-Compatible API</span>
         </div>
-        <div class="req-grid">
-          <div class="req-item">
-            <span class="req-label" data-i18n="req_cpu_label">CPU Cores</span>
-            <span class="req-val" data-i18n="req_cpu_val">6 Cores</span>
-          </div>
-          <div class="req-item">
-            <span class="req-label" data-i18n="req_ram_label">RAM / Memory</span>
-            <span class="req-val" data-i18n="req_ram_val">16 GB RAM</span>
-          </div>
-          <div class="req-item">
-            <span class="req-label" data-i18n="req_storage_label">Storage</span>
-            <span class="req-val" data-i18n="req_storage_val">50+ GB SSD</span>
-          </div>
-          <div class="req-item">
-            <span class="req-label" data-i18n="req_os_label">OS</span>
-            <span class="req-val" data-i18n="req_os_val">Ubuntu / Debian</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- USE CASES -->
-  <section id="cases">
-    <div class="container reveal">
-      <div class="section-num" data-i18n="cases_num">06 — Use Cases</div>
-      <h2 class="section-title" data-i18n="cases_title">Built for Industries That Can't Compromise on Data</h2>
-      <div class="usecase-grid">
-        <div class="usecase-card">
-          <div class="card-label" data-i18n="case1_label">SaaS / ERP Platforms</div>
-          <h3 data-i18n="case1_h">Embed AI Into Your Product</h3>
-          <p data-i18n="case1_p">White-label Swipies AI and offer AI-powered features to your own clients. OEM model —
-            your brand, your infrastructure, your clients' data stays private.</p>
-        </div>
-        <div class="usecase-card">
-          <div class="card-label" data-i18n="case2_label">Banks & Finance</div>
-          <h3 data-i18n="case2_h">AI on Confidential Data</h3>
-          <p data-i18n="case2_p">Deploy AI over transaction records, client profiles, and financial documents. Full
-            regulatory compliance — data never leaves your banking infrastructure.</p>
-        </div>
-        <div class="usecase-card">
-          <div class="card-label" data-i18n="case3_label">Legal & Compliance</div>
-          <h3 data-i18n="case3_h">AI Over Case Files & Contracts</h3>
-          <p data-i18n="case3_p">Search, summarize, and analyze case law, contracts, and compliance documents with AI
-            that runs entirely within your secure environment.</p>
-        </div>
-        <div class="usecase-card">
-          <div class="card-label" data-i18n="case4_label">Large Enterprises</div>
-          <h3 data-i18n="case4_h">Internal Knowledge Base AI</h3>
-          <p data-i18n="case4_p">Give every employee instant access to company documentation, HR policies, technical
-            manuals, and institutional knowledge via private AI.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PARTNERS -->
-  <section id="partners">
-    <div class="container reveal">
-      <div class="section-num" data-i18n="partners_num">05 — Integrations</div>
-      <h2 class="section-title" data-i18n="partners_title">Supported AI Models</h2>
-      <div class="partners-row">
-        <span class="partner-badge">OpenAI (GPT-4o, o1, o3)</span>
-        <span class="partner-badge">Anthropic (Claude 3.5 Sonnet)</span>
-        <span class="partner-badge">DeepSeek (R1, V3)</span>
-        <span class="partner-badge">xAI (Grok)</span>
-        <span class="partner-badge">Local Models (Ollama / vLLM)</span>
-        <span class="partner-badge">Custom OpenAI-Compatible API</span>
-        <span class="partner-badge">Your Private Self-Hosted Models</span>
       </div>
     </div>
   </section>
@@ -2414,11 +2267,11 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         </div>
       </div>
 
-      <!-- Enterprise sub-section -->
+      <!-- Self-Hosted & Enterprise Options -->
       <div class="pricing-subsection">
         <div class="pricing-sub-header pricing-sub-header--ent">
-          <span class="pricing-sub-label pricing-sub-label--ent" data-i18n="ent_section_label">Enterprise</span>
-          <p class="pricing-sub-desc" data-i18n="ent_section_desc">Self-hosted and fully custom solutions for organizations that require complete data sovereignty.</p>
+          <span class="pricing-sub-label pricing-sub-label--ent" data-i18n="ent_section_label">Self-Hosted &amp; Enterprise</span>
+          <p class="pricing-sub-desc" data-i18n="ent_section_desc">Self-hosted license for developers or full turn-key on-premise infrastructure for organizations.</p>
         </div>
         <div class="pricing-grid pricing-grid--2">
           <!-- License $199/year -->
@@ -2436,142 +2289,150 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
             </ul>
             <a href="https://api.swipies.app/user-setting/license" target="_blank" class="btn-secondary" style="display:inline-block;text-align:center" data-i18n="license_cta">Purchase Key</a>
           </div>
-          <!-- Custom Enterprise -->
-          <div class="price-card featured">
-            <div class="price-name" data-i18n="enterprise">Enterprise Custom</div>
+          <!-- Enterprise On-Premise Gateway -->
+          <div class="price-card featured" style="border-color:rgba(var(--accent-rgb),0.35);">
+            <div class="price-badge-pro" style="background:var(--accent);color:#080c14;">ENTERPRISE</div>
+            <div class="price-name" data-i18n="enterprise_b2c_card_h">Enterprise On-Premise</div>
             <div class="price-amount"><span data-i18n="ent_price">Custom</span></div>
-            <p class="price-desc" data-i18n="ent_desc">Fully custom-scoped based on your infrastructure, data volume, and organizational requirements.</p>
+            <p class="price-desc" data-i18n="ent_b2c_card_desc">Turn-key deployment of private RAG and air-gapped LLMs inside your corporate infrastructure.</p>
             <ul class="price-features">
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="ent_f1">On-premise deployment</span></li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="ent_f2">Custom LLM config</span></li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="ent_f3">Dedicated support</span></li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="ent_f4">White-label option</span></li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="ent_f5">SLA guarantee</span></li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="ent_f6">Data sovereignty</span></li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="ent_f1">On-premise hardware deployment</span></li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="ent_f2">Custom LLM config &amp; Air-gapped</span></li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="ent_f3">Dedicated support &amp; SLA guarantee</span></li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="ent_f4">White-label OEM for your SaaS</span></li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="ent_f5">Uzbekistan server localization</span></li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="ent_f6">Data sovereignty compliance</span></li>
             </ul>
-            <a href="#contact" class="btn-primary" style="display:inline-block;text-align:center" data-i18n="ent_cta">Get a Custom Quote</a>
+            <a href="https://enterprise.swipies.app" target="_blank" class="btn-primary" style="display:inline-block;text-align:center" data-i18n="ent_b2c_cta">Visit Enterprise Site ↗</a>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- FAQ -->
+  <!-- 04 — ENTERPRISE UPSELL SECTION -->
+  <section id="enterprise-upsell" class="enterprise-upsell-section">
+    <div class="container reveal">
+      <div class="ent-upsell-card">
+        <div class="ent-upsell-content">
+          <div class="ent-upsell-badge" data-i18n="ent_upsell_badge">Enterprise &amp; On-Premise</div>
+          <h2 class="ent-upsell-title" data-i18n="ent_upsell_title">Need Dedicated On-Premise AI for Your Organization?</h2>
+          <p class="ent-upsell-desc" data-i18n="ent_upsell_desc">
+            Keep 100% of your proprietary data inside your own security perimeter. We deploy private RAG pipelines, air-gapped LLMs, and custom AI agents directly onto your hardware or private cloud with SLA guarantees.
+          </p>
+          <div class="ent-upsell-features">
+            <div class="ent-upsell-feat">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <span data-i18n="ent_upsell_f1">100% Data Sovereignty &amp; Zero External Telemetry</span>
+            </div>
+            <div class="ent-upsell-feat">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+              <span data-i18n="ent_upsell_f2">Air-gapped Self-Hosted Cluster (Ollama, vLLM, Docker)</span>
+            </div>
+            <div class="ent-upsell-feat">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span data-i18n="ent_upsell_f3">Uzbekistan Local Deployment &amp; Legal Compliance</span>
+            </div>
+            <div class="ent-upsell-feat">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span data-i18n="ent_upsell_f4">Production Deployment in 1 Business Day + Enterprise SLA</span>
+            </div>
+          </div>
+          <div class="ent-upsell-actions">
+            <a href="https://enterprise.swipies.app" target="_blank" class="btn-primary" data-i18n="ent_upsell_btn">Explore Swipies Enterprise ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 — FAQ -->
   <section id="faq">
     <div class="container reveal">
-      <div class="section-num" data-i18n="faq_num">07 — FAQ</div>
+      <div class="section-num" data-i18n="faq_num">05 — FAQ</div>
       <h2 class="section-title" data-i18n="faq_title">Frequently Asked Questions</h2>
       <div class="faq-list">
         <div class="faq-item">
-          <button class="faq-question" data-i18n="faq1_q">
-            Does our data leave our servers?
+          <button class="faq-question" data-i18n="faq1_b2c_q">
+            How fast can I create and deploy an AI chatbot?
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <line x1="12" y1="5" x2="12" y2="19" />
               <line x1="5" y1="12" x2="19" y2="12" />
             </svg>
           </button>
           <div class="faq-answer">
-            <div class="faq-answer-inner" data-i18n="faq1_a">No, never. Swipies AI is deployed entirely on your own
-              infrastructure. Your documents, databases, and queries stay within your environment. No data is sent to
-              any external servers or third-party APIs.</div>
+            <div class="faq-answer-inner" data-i18n="faq1_b2c_a">You can launch in under 5 minutes. Simply log in, upload your documents or connect your knowledge base, customize your agent's persona and instructions, and grab the embed code or API keys.</div>
           </div>
         </div>
         <div class="faq-item">
-          <button class="faq-question" data-i18n="faq2_q">
-            How long does deployment take?
+          <button class="faq-question" data-i18n="faq2_b2c_q">
+            How do token quotas and limits work?
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <line x1="12" y1="5" x2="12" y2="19" />
               <line x1="5" y1="12" x2="19" y2="12" />
             </svg>
           </button>
           <div class="faq-answer">
-            <div class="faq-answer-inner" data-i18n="faq2_a">Typical deployment takes 10 business days from kick-off.
-              This includes infrastructure audit, RAG pipeline setup, LLM configuration, testing, and going live with
-              your team.</div>
+            <div class="faq-answer-inner" data-i18n="faq2_b2c_a">Every plan includes a generous monthly token allocation (1M tokens on Basic, 2.5M tokens on Pro). Tokens refresh on each billing cycle, and you can monitor real-time usage in your dashboard.</div>
           </div>
         </div>
         <div class="faq-item">
-          <button class="faq-question" data-i18n="faq3_q">
-            Which LLMs do you support?
+          <button class="faq-question" data-i18n="faq3_b2c_q">
+            Is my data safe on the Cloud platform?
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <line x1="12" y1="5" x2="12" y2="19" />
               <line x1="5" y1="12" x2="19" y2="12" />
             </svg>
           </button>
           <div class="faq-answer">
-            <div class="faq-answer-inner" data-i18n="faq3_a">We support OpenAI (GPT-4, GPT-4o), Anthropic (Claude 3,
-              Claude 3.5), xAI (Grok), and fully local models via Ollama. You can switch models at any time without
-              re-deploying the infrastructure.</div>
+            <div class="faq-answer-inner" data-i18n="faq3_b2c_a">Yes. Your knowledge base and conversation histories are strictly isolated per account, encrypted in transit and at rest, and never used to train public models.</div>
           </div>
         </div>
         <div class="faq-item">
-          <button class="faq-question" data-i18n="faq4_q">
-            Do you offer white-label for our product?
+          <button class="faq-question" data-i18n="faq4_b2c_q">
+            Can I connect my own models or API keys?
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <line x1="12" y1="5" x2="12" y2="19" />
               <line x1="5" y1="12" x2="19" y2="12" />
             </svg>
           </button>
           <div class="faq-answer">
-            <div class="faq-answer-inner" data-i18n="faq4_a">Yes. SaaS and ERP companies can embed Swipies AI under
-              their own brand. Your clients interact with AI that feels native to your product — while all data stays on
-              your servers.</div>
+            <div class="faq-answer-inner" data-i18n="faq4_b2c_a">Yes! The Pro plan includes our Pro Console, allowing you to connect custom OpenAI, Anthropic Claude, xAI Grok, DeepSeek, or private self-hosted endpoint keys at zero platform markup.</div>
           </div>
         </div>
         <div class="faq-item">
-          <button class="faq-question" data-i18n="faq5_q">
-            What is RAG and why does it matter?
+          <button class="faq-question" data-i18n="faq5_b2c_q">
+            Where can I embed the chatbot?
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <line x1="12" y1="5" x2="12" y2="19" />
               <line x1="5" y1="12" x2="19" y2="12" />
             </svg>
           </button>
           <div class="faq-answer">
-            <div class="faq-answer-inner" data-i18n="faq5_a">RAG (Retrieval-Augmented Generation) is a technique where
-              AI retrieves relevant information from your specific data before generating an answer. Unlike generic AI,
-              RAG ensures responses are grounded in your actual documents and knowledge — making it accurate, relevant,
-              and trustworthy for enterprise use.</div>
+            <div class="faq-answer-inner" data-i18n="faq5_b2c_a">Everywhere your users are: embed directly in web pages with a lightweight JavaScript snippet, connect to Telegram and WhatsApp, or integrate into React, Next.js, and Flutter apps via clean REST APIs.</div>
           </div>
         </div>
         <div class="faq-item">
-          <button class="faq-question" data-i18n="faq6_q">
-            How does the self-hosted license work?
+          <button class="faq-question" data-i18n="faq6_b2c_q">
+            What if my company needs a fully on-premise installation?
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <line x1="12" y1="5" x2="12" y2="19" />
               <line x1="5" y1="12" x2="19" y2="12" />
             </svg>
           </button>
           <div class="faq-answer">
-            <div class="faq-answer-inner" data-i18n="faq6_a">You can download our Docker Compose or Kubernetes Helm
-              charts, install Swipies AI on your local servers, and enter the purchased license key in the web
-              interface. This unlocks the full platform capability, removes limits, and enables offline operation
-              without external internet connection.</div>
-          </div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-question" data-i18n="faq7_q">
-            Can we deploy AI models on servers in Uzbekistan?
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <line x1="12" y1="5" x2="12" y2="19" />
-              <line x1="5" y1="12" x2="19" y2="12" />
-            </svg>
-          </button>
-          <div class="faq-answer">
-            <div class="faq-answer-inner" data-i18n="faq7_a">Yes, absolutely. We support deploying LLMs and RAG
-              pipelines directly on servers located in Uzbekistan. This ensures 100% compliance with local data
-              localization laws (such as Article 27.1 of the Law of the Republic of Uzbekistan 'On Personal Data'),
-              keeping all sensitive data inside the national border.</div>
+            <div class="faq-answer-inner" data-i18n="faq6_b2c_a">We offer an entire Enterprise On-Premise edition with turn-key deployment on your hardware, air-gapped security, Uzbekistan data center localization, and custom SLAs. Learn more at <a href="https://enterprise.swipies.app" target="_blank" style="color:var(--accent);text-decoration:underline;">enterprise.swipies.app</a>.</div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- CONTACT -->
+  <!-- 06 — CONTACT -->
   <section id="contact">
     <div class="container reveal">
-      <div class="section-num" data-i18n="contact_num">08 — Contact</div>
-      <h2 class="section-title" data-i18n="contact_title">Let's Talk About Your Deployment</h2>
+      <div class="section-num" data-i18n="contact_num">06 — Contact</div>
+      <h2 class="section-title" data-i18n="contact_title">Get in Touch with Our Team</h2>
       <div class="contact-grid">
         <form class="contact-form" id="contactForm" onsubmit="return handleSubmit(event)">
           <div class="form-row">
@@ -2654,9 +2515,9 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
   <!-- FOOTER CTA -->
   <div class="footer-cta">
     <div class="container">
-      <h2 data-i18n="fcta_h">Ready to Bring AI Inside Your Infrastructure?</h2>
-      <p data-i18n="fcta_p">Deploy enterprise-grade AI on your servers. Your data stays yours.</p>
-      <a href="login.html" class="btn-primary" data-i18n="hero_cta1">Try Free</a>
+      <h2 data-i18n="fcta_h">Ready to Launch Your AI Chatbot Today?</h2>
+      <p data-i18n="fcta_p">Select a plan, get instant token quotas, and build custom agents trained on your business data.</p>
+      <a href="login.html" class="btn-primary" data-i18n="hero_cta1">Start Free</a>
     </div>
   </div>
 
@@ -2666,17 +2527,16 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
       <div class="footer-grid">
         <div class="footer-brand">
           <div class="nav-logo">Swipies<span>AI</span></div>
-          <p data-i18n="footer_desc">Enterprise on-premise AI platform. Deploy RAG pipelines on your own servers with
-            complete data sovereignty.</p>
+          <p data-i18n="footer_desc">Cloud AI agents &amp; smart chatbots platform. Build, train, and embed custom AI into websites and mobile apps with ease.</p>
           <p class="muted" style="margin-top:0.5rem;font-size:var(--t-small)">Uzbekistan, Andijan · +998 (90) 625-3986
           </p>
         </div>
         <div class="footer-col">
           <h4 data-i18n="footer_platform">Platform</h4>
-          <a href="#solution" data-i18n="nav_solution">Solution</a>
-          <a href="#how" data-i18n="nav_how">How It Works</a>
-          <a href="#cases" data-i18n="nav_cases">Use Cases</a>
+          <a href="#cloud-subscription" data-i18n="nav_features">Cloud Features</a>
+          <a href="#integrations" data-i18n="nav_integrations">Integrations</a>
           <a href="#pricing" data-i18n="nav_pricing">Pricing</a>
+          <a href="https://enterprise.swipies.app" target="_blank" data-i18n="nav_enterprise">Enterprise Edition ↗</a>
           <a href="https://swipies.app/tutorials.html" target="_blank" data-i18n="footer_tutorials">Tutorials</a>
         </div>
         <div class="footer-col">
@@ -2702,41 +2562,19 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
     /* ===== SWIPIES AI — Translations ===== */
     const T = {
       en: {
-        nav_solution: "Solution",
-        nav_how: "How It Works",
-        nav_selfhosted: "Self-Hosted",
-        nav_cases: "Use Cases",
-        nav_partners: "Partners",
+        nav_features: "Features",
+        nav_integrations: "Integrations",
         nav_pricing: "Pricing",
         nav_faq: "FAQ",
+        nav_enterprise: "Enterprise Edition ↗",
         nav_cta: "Try Free",
-        hero_badge: "Private AI Agents & Custom Chatbots Platform",
+        hero_badge: "Cloud AI Agents & Custom Chatbots Platform",
         hero_h1: "Build Private AI Agents & Chatbots Powered by Any AI Models",
-        hero_sub: "Create autonomous AI agents and smart chatbots trained on your internal data. Use cloud models or run your own private, self-hosted LLMs directly on your servers. Embed chatbots anywhere in your apps and websites.",
+        hero_sub: "Create autonomous AI agents and smart chatbots trained on your internal data. Cloud SaaS with instant start, multi-model support, and seamless integrations into your apps, websites, and messengers.",
         hero_cta1: "Start Free",
-        hero_cta2: "Talk to Sales",
-        prob_num: "01 — The Problem",
-        prob_title: "Why Standard AI Fails Enterprise",
-        prob1_h: "Data Leaves Your Perimeter",
-        prob1_p: "Every API call to external AI providers sends your proprietary data to third-party servers — a compliance nightmare.",
-        prob2_h: "Generic AI, Zero Context",
-        prob2_p: "Public models don't understand your business data, documents, or internal knowledge. Answers are shallow and unreliable.",
-        prob3_h: "No Control Over Stack",
-        prob3_p: "You can't control the model version, uptime, infrastructure, or update cadence. Your AI is someone else's decision.",
-        sol_num: "03 — On-Premise Solution",
-        sol_title: "On-Premise RAG That Runs on Your Servers",
-        sol_sub: "Swipies AI deploys the full AI infrastructure inside your environment. Complete data sovereignty, zero external dependencies.",
-        sol1_h: "On-Premise RAG Deployment",
-        sol1_p: "Full RAG pipeline — document ingestion, vector indexing, retrieval, and generation — deployed directly on your servers. Built on battle-tested RAGFlow architecture.",
-        sol2_h: "Works With Your Data",
-        sol2_p: "Connect your existing documents, databases, CRM records, and internal tools. The knowledge base is built from your real data — not generic training sets.",
-        sol3_h: "Any LLM, Your Choice",
-        sol3_p: "Support for OpenAI, Anthropic Claude, xAI Grok, and fully local models via Ollama. Switch models without changing infrastructure.",
-        sol4_h: "Full White-Label for SaaS",
-        sol4_p: "Embed Swipies AI into your own product under your brand. Offer AI-powered features to your clients — powered by their data, on your infrastructure.",
-        sol5_h: "Uzbekistan Local Deployment",
-        sol5_p: "Deploy AI models on secure high-performance servers physically located within the Republic of Uzbekistan, ensuring compliance with local data localization laws.",
-        cloud_num: "02 — Instant Cloud SaaS",
+        hero_cta2_b2c: "View Pricing",
+        hero_cta_enterprise: "Enterprise On-Premise →",
+        cloud_num: "01 — Cloud Platform",
         cloud_title: "Cloud Subscription: Create AI Agents & Chatbots Right Now",
         cloud_sub: "No servers to manage. Subscribe in seconds, build custom chatbots trained on your data, and integrate them directly into your mobile apps, web applications, or websites.",
         cloud_f1_badge: "Instant Creation",
@@ -2751,48 +2589,20 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         cloud_banner_h: "Ready to launch your AI chatbot today?",
         cloud_banner_p: "Select a flexible cloud plan, get instant token quotas, and start building right away.",
         cloud_banner_btn: "Start Building Instantly",
-        how_num: "04 — Enterprise Deployment",
-        how_title: "Deployed in 1 Business Day",
-        how1_h: "Infrastructure Audit",
-        how1_p: "We audit your servers, data sources, and security requirements to design the optimal deployment architecture.",
-        how2_h: "Deploy RAG + LLM",
-        how2_p: "We deploy the full RAG pipeline and LLM of your choice directly on your infrastructure. Within 1 business day.",
-        how3_h: "Your Team Goes Live",
-        how3_p: "Your team and clients get enterprise-grade AI — fully private, fully controlled, fully yours. Data stays with you.",
-        selfhosted_num: "05 — Self-Hosted",
-        selfhosted_title: "Run Swipies AI on Your Own Hardware",
-        selfhosted_subtitle: "Pull our Docker containers, configure your environment, and paste your license key to unlock maximum performance.",
-        selfhosted_step1_h: "1. Pull and Run",
-        selfhosted_step1_p: "Deploy our containerized stack in minutes using Docker Compose or Kubernetes Helm charts.",
-        selfhosted_step2_h: "2. Insert License Key",
-        selfhosted_step2_p: "Purchase your license key on our platform and paste it into the web panel to activate GPU acceleration and remove ingestion limits.",
-        selfhosted_step3_h: "3. Complete Autonomy",
-        selfhosted_step3_p: "The server runs fully standalone. No telemetry, no external internet connection required for air-gapped networks.",
-        cases_num: "06 — Use Cases",
-        cases_title: "Built for Industries That Can't Compromise on Data",
-        case1_label: "SaaS / ERP Platforms",
-        case1_h: "Embed AI Into Your Product",
-        case1_p: "White-label Swipies AI and offer AI-powered features to your own clients. OEM model — your brand, your infrastructure, your clients' data stays private.",
-        case2_label: "Banks & Finance",
-        case2_h: "AI on Confidential Data",
-        case2_p: "Deploy AI over transaction records, client profiles, and financial documents. Full regulatory compliance — data never leaves your banking infrastructure.",
-        case3_label: "Legal & Compliance",
-        case3_h: "AI Over Case Files & Contracts",
-        case3_p: "Search, summarize, and analyze case law, contracts, and compliance documents with AI that runs entirely within your secure environment.",
-        case4_label: "Large Enterprises",
-        case4_h: "Internal Knowledge Base AI",
-        case4_p: "Give every employee instant access to company documentation, HR policies, technical manuals, and institutional knowledge via private AI.",
-        partners_num: "05 — Integrations",
-        partners_title: "Supported AI Models",
-        price_num: "06 — Pricing",
-        price_title: "Flexible Deployment Options",
+        integ_num: "02 — Integrations & Channels",
+        integ_title: "Connect Anywhere, Power with Any Model",
+        integ_sub: "Deploy your assistant across communication channels and choose the best AI engine for your workload.",
+        integ_channels_h: "Supported Channels & Frameworks",
+        integ_models_h: "Compatible LLM Engines",
+        price_num: "03 — Pricing",
+        price_title: "Transparent Cloud Plans & Self-Hosted License",
+        sub_label: "Cloud SaaS",
+        sub_desc: "Cloud-hosted plans for teams that want instant access without managing infrastructure.",
         starter: "Starter",
         starter_price: "$40",
         starter_period: "/month",
         starter_desc: "For small teams & companies. Full AI functionality running securely on Swipies managed cloud infrastructure.",
         starter_f1: "Cloud deployment",
-        starter_f2: "Full RAG pipeline",
-        starter_f3: "Standard support",
         starter_f4: "Managed infrastructure",
         starter_cta: "Start Building",
         basic: "Basic",
@@ -2803,24 +2613,14 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         basic_storage: "5 GB storage",
         basic_datasets: "5 datasets",
         basic_agents: "5 agents",
+        basic_f1: "Cloud deployment",
+        basic_f4: "Standard support",
+        basic_cta: "Get Started",
         pro_tokens: "2,500,000 tokens / mo",
         pro_storage: "10 GB storage",
         pro_datasets: "10 datasets",
         pro_agents: "12 agents",
         pro_console_feat: "Pro Console — connect custom models via API",
-        ph_company: "e.g. Uzum, FinBank, or Acme Corp",
-        ph_name: "e.g. Alex Johnson",
-        ph_email: "alex@company.com",
-        ph_msg: "Tell us about your team size, data volume, or target deployment environment...",
-        basic_f1: "Cloud deployment",
-        basic_f2: "Full RAG pipeline",
-        basic_f3: "Up to 3 users",
-        basic_f4: "Standard support",
-        basic_cta: "Get Started",
-        sub_label: "Subscription",
-        sub_desc: "Cloud-hosted plans for teams that want instant access without managing infrastructure.",
-        ent_section_label: "Enterprise",
-        ent_section_desc: "Self-hosted and fully custom solutions for organizations that require complete data sovereignty.",
         license: "Self-Hosted License",
         license_price: "$199",
         license_period: "/year",
@@ -2832,50 +2632,62 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         license_f5: "Offline / Air-gapped mode",
         license_f6: "Regular security updates",
         license_cta: "Purchase Key",
-        enterprise: "Enterprise Custom",
+        enterprise_b2c_card_h: "Need Full On-Premise Deployment?",
+        ent_b2c_card_desc: "Turnkey deployment on your servers, custom model tuning, white-label OEM, and strict SLA compliance.",
+        ent_b2c_cta: "Explore Enterprise Edition →",
+        ent_section_label: "Enterprise",
+        ent_section_desc: "Self-hosted and fully custom solutions for organizations that require complete data sovereignty.",
         ent_price: "Custom",
-        ent_period: "",
-        ent_desc: "Custom-scoped based on your infrastructure and data volume requirements.",
         ent_f1: "On-premise deployment",
         ent_f2: "Custom LLM config",
         ent_f3: "Dedicated support",
         ent_f4: "White-label option",
         ent_f5: "SLA guarantee",
         ent_f6: "Data sovereignty",
-        ent_cta: "Get a Custom Quote",
-        faq_num: "08 — FAQ",
+        ent_upsell_badge: "Enterprise On-Premise Suite",
+        ent_upsell_title: "Looking for 100% Data Sovereignty & Air-Gapped Operation?",
+        ent_upsell_desc: "For banks, healthcare, telecom, government agencies, and regulated industries in Uzbekistan. We deploy complete on-premise RAG pipelines and custom LLMs directly inside your infrastructure in 1 business day.",
+        ent_upsell_f1: "Zero data egress: 100% on-premise RAG stack",
+        ent_upsell_f2: "Air-gapped & offline operation without external internet",
+        ent_upsell_f3: "100% Uzbekistan data localization compliance (Law 27.1)",
+        ent_upsell_f4: "Turnkey deployment & SLA response within 1 business day",
+        ent_upsell_btn: "Visit Enterprise Portal (enterprise.swipies.app) →",
+        faq_num: "05 — FAQ",
         faq_title: "Frequently Asked Questions",
-        faq1_q: "Does our data leave our servers?",
-        faq1_a: "No, never. Swipies AI is deployed entirely on your own infrastructure. Your documents, databases, and queries stay within your environment. No data is sent to any external servers or third-party APIs.",
-        faq2_q: "How long does deployment take?",
-        faq2_a: "Typical deployment takes 10 business days from kick-off. This includes infrastructure audit, RAG pipeline setup, LLM configuration, testing, and going live with your team.",
-        faq3_q: "Which LLMs do you support?",
-        faq3_a: "We support OpenAI (GPT-4, GPT-4o), Anthropic (Claude 3, Claude 3.5), xAI (Grok), and fully local models via Ollama. You can switch models at any time without re-deploying the infrastructure.",
-        faq4_q: "Do you offer white-label for our product?",
-        faq4_a: "Yes. SaaS and ERP companies can embed Swipies AI under their own brand. Your clients interact with AI that feels native to your product — while all data stays on your servers.",
-        faq5_q: "What is RAG and why does it matter?",
-        faq5_a: "RAG (Retrieval-Augmented Generation) is a technique where AI retrieves relevant information from your specific data before generating an answer. Unlike generic AI, RAG ensures responses are grounded in your actual documents and knowledge — making it accurate, relevant, and trustworthy for enterprise use.",
-        faq6_q: "How does the self-hosted license work?",
-        faq6_a: "You can download our Docker Compose or Kubernetes Helm charts, install Swipies AI on your local servers, and enter the license key purchased on our platform in the web interface. This unlocks full platform capability, removes limits, and enables offline operation without external internet connection.",
-        faq7_q: "Can we deploy AI models on servers in Uzbekistan?",
-        faq7_a: "Yes, absolutely. We support deploying LLMs and RAG pipelines directly on servers located in Uzbekistan. This ensures 100% compliance with local data localization laws (such as Article 27.1 of the Law of the Republic of Uzbekistan 'On Personal Data'), keeping all sensitive data inside the national border.",
-        contact_num: "09 — Contact",
-        contact_title: "Let's Talk About Your Deployment",
-        form_company: "Company Name",
+        faq1_b2c_q: "How quickly can I start using Swipies AI?",
+        faq1_b2c_a: "Instantly. Sign up for a cloud account, create your first AI agent or chatbot, upload your documents (PDF, CSV, docx), and embed the chatbot widget on your website or integrate it via API in minutes.",
+        faq2_b2c_q: "Which AI models can I use with my cloud subscription?",
+        faq2_b2c_a: "Swipies AI supports OpenAI (GPT-4o, GPT-4o-mini), Anthropic Claude (Claude 3.5 Sonnet), Google Gemini, and custom external LLM endpoints via the Pro Console.",
+        faq3_b2c_q: "How do I embed chatbots into Telegram or my website?",
+        faq3_b2c_a: "We provide a 1-click script tag for websites, clean REST API endpoints, webhooks, and direct Telegram Bot integration inside your account dashboard.",
+        faq4_b2c_q: "What is the difference between Cloud SaaS and Self-Hosted License?",
+        faq4_b2c_a: "Cloud SaaS is fully hosted and managed by us on our secure cloud infrastructure with instant start. The Self-Hosted License ($199/year) provides Docker Compose and Helm charts to run Swipies AI on your own servers with no data leaving your premises.",
+        faq5_b2c_q: "Do you offer full enterprise on-premise installation and consulting?",
+        faq5_b2c_a: "Yes! For enterprise-grade air-gapped deployments, custom RAG architecture, white-label OEM, and local Uzbekistan server hosting, visit enterprise.swipies.app or contact our enterprise team.",
+        faq6_b2c_q: "Can I upgrade or downgrade my plan at any time?",
+        faq6_b2c_a: "Yes, you can upgrade, add extra tokens, or switch plans anytime from your billing dashboard with prorated billing.",
+        contact_num: "06 — Contact",
+        contact_title: "Have Questions? Contact Us",
+        ph_company: "e.g. Uzum, FinBank, or Acme Corp",
+        ph_name: "e.g. Alex Johnson",
+        ph_email: "alex@company.com",
+        ph_msg: "Tell us about your team size, data volume, or target deployment environment...",
+        form_company: "Company / Project",
         form_name: "Full Name",
         form_email: "Email",
-        form_phone: "Phone",
+        form_phone: "Phone / WhatsApp (Optional)",
+        form_telegram: "Telegram Username / Number (Optional)",
         form_msg: "Message",
         form_submit: "Send Message",
-        form_required: "Required",
         ci_email: "Email",
-        ci_phone: "Phone",
+        ci_phone: "Phone / WhatsApp",
+        ci_telegram: "Telegram",
         ci_location: "Location",
         ci_loc_val: "Uzbekistan, Andijan",
-        ci_note: "Dedicated account manager for every deployment. SLA guarantees included. Average response time: < 2 hours.",
-        fcta_h: "Ready to Bring AI Inside Your Infrastructure?",
-        fcta_p: "Deploy enterprise-grade AI on your servers. Your data stays yours.",
-        footer_desc: "Enterprise on-premise AI platform. Deploy RAG pipelines on your own servers with complete data sovereignty.",
+        ci_note: "Dedicated support team. Average response time: < 2 hours.",
+        fcta_h: "Ready to Launch Your AI Chatbot Today?",
+        fcta_p: "Select a plan, get instant token quotas, and build custom agents trained on your business data.",
+        footer_desc: "Cloud AI agents & smart chatbots platform. Build, train, and embed custom AI into websites and mobile apps with ease.",
         footer_platform: "Platform",
         footer_company: "Company",
         footer_connect: "Connect",
@@ -2883,45 +2695,28 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         footer_terms: "Terms of Use",
         footer_privacy: "Privacy Policy",
         footer_docs: "Documentation",
-        footer_copy: "© 2025 Swipies AI. All rights reserved."
+        footer_copy: "© 2025 Swipies AI. All rights reserved.",
+        cookie_title: "Cookie & Data Consent",
+        cookie_msg: "We use cookies and collect technical specs (device, IP address, browser specs) to optimize site performance and security.",
+        cookie_learn_more: "Privacy Policy",
+        cookie_decline: "Decline",
+        cookie_accept: "Accept Cookies"
       },
       ru: {
-        nav_solution: "Решение",
-        nav_how: "Как это работает",
-        nav_selfhosted: "Self-Hosted",
-        nav_cases: "Кейсы",
-        nav_partners: "Партнёры",
-        nav_pricing: "Цены",
-        nav_faq: "Вопросы",
+        nav_features: "Возможности",
+        nav_integrations: "Интеграции",
+        nav_pricing: "Тарифы",
+        nav_faq: "Частые вопросы",
+        nav_enterprise: "Enterprise Решение ↗",
         nav_cta: "Попробовать",
-        hero_badge: "Платформа приватных AI-агентов и чат-ботов",
+        hero_badge: "Облачная платформа AI-агентов и чат-ботов",
         hero_h1: "Создавайте приватные AI-агенты и чат-боты на базе любых ИИ-моделей",
-        hero_sub: "Создавайте автономных AI-агентов и умных чат-ботов на основе ваших данных. Используйте облачные модели или разворачивайте собственные приватные модели прямо на ваших серверах. Встраивайте чат-ботов в любые ваши приложения и сайты.",
+        hero_sub: "Создавайте автономных AI-агентов и умных чат-ботов на основе ваших данных. Облачный SaaS с мгновенным стартом, поддержкой любых моделей и легкой интеграцией в приложения, сайты и мессенджеры.",
         hero_cta1: "Начать бесплатно",
-        hero_cta2: "Связаться с нами",
-        prob_num: "01 — Проблема",
-        prob_title: "Почему стандартный AI не подходит для бизнеса",
-        prob1_h: "Данные покидают ваш периметр",
-        prob1_p: "Каждый API-запрос к внешним AI-провайдерам отправляет ваши данные на сторонние серверы — кошмар для комплаенса.",
-        prob2_h: "Универсальный AI без контекста",
-        prob2_p: "Публичные модели не понимают вашу бизнес-документацию и внутренние данные. Ответы поверхностные и ненадёжные.",
-        prob3_h: "Нет контроля над стеком",
-        prob3_p: "Вы не контролируете версию модели, аптайм, инфраструктуру или частоту обновлений. Ваш AI — чужое решение.",
-        sol_num: "03 — On-Premise Решение",
-        sol_title: "On-Premise RAG на ваших серверах",
-        sol_sub: "Swipies AI разворачивает полную AI-инфраструктуру внутри вашей среды. Полный суверенитет данных, ноль внешних зависимостей.",
-        sol1_h: "Развертывание RAG On-Premise",
-        sol1_p: "Полный RAG-пайплайн — загрузка документов, векторная индексация, поиск и генерация — разворачивается прямо на ваших серверах.",
-        sol2_h: "Работает с вашими данными",
-        sol2_p: "Подключите существующие документы, базы данных, CRM и внутренние инструменты. База знаний строится из ваших реальных данных.",
-        sol3_h: "Любая LLM, ваш выбор",
-        sol3_p: "Поддержка OpenAI, Anthropic Claude, xAI Grok и полностью локальных моделей через Ollama. Переключайте модели без изменения инфраструктуры.",
-        sol4_h: "Полный White-Label для SaaS",
-        sol4_p: "Встройте Swipies AI в свой продукт под своим брендом. Предлагайте AI-функции клиентам — на вашей инфраструктуре.",
-        sol5_h: "Локальные серверы в Узбекистане",
-        sol5_p: "Развертывание моделей ИИ на высокопроизводительных серверах, физически расположенных на территории Республики Узбекистан в полном соответствии с местным законодательством.",
-        cloud_num: "02 — Облачная подписка",
-        cloud_title: "Подписочная модель: Создавайте AI-агентов и чат-ботов прямо сейчас",
+        hero_cta2_b2c: "Посмотреть цены",
+        hero_cta_enterprise: "Enterprise Решение →",
+        cloud_num: "01 — Облачная платформа",
+        cloud_title: "Облачная подписка: Создавайте AI-агентов и чат-ботов прямо сейчас",
         cloud_sub: "Никаких серверов и сложной настройки. Оформите подписку за пару секунд, создавайте умных чат-ботов на основе ваших данных и сразу используйте их в ваших мобильных приложениях, веб-сайтах или сервисах.",
         cloud_f1_badge: "Мгновенный запуск",
         cloud_f1_h: "Создавайте агентов и чат-ботов за минуты",
@@ -2935,48 +2730,20 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         cloud_banner_h: "Готовы запустить своего AI чат-бота прямо сегодня?",
         cloud_banner_p: "Выберите подходящий тариф подписки, получите токены и начинайте создание агента прямо сейчас.",
         cloud_banner_btn: "Создать агента прямо сейчас",
-        how_num: "04 — Корпоративное развертывание",
-        how_title: "Развёртывание за 1 рабочий день",
-        how1_h: "Аудит инфраструктуры",
-        how1_p: "Мы проводим аудит серверов, источников данных и требований безопасности для проектирования оптимальной архитектуры.",
-        how2_h: "Развёртывание RAG + LLM",
-        how2_p: "Мы разворачиваем полный RAG-пайплайн и выбранную LLM прямо на вашей инфраструктуре. В течение 1 рабочего дня.",
-        how3_h: "Ваша команда начинает работу",
-        how3_p: "Ваша команда и клиенты получают корпоративный AI — полностью приватный, полностью контролируемый. Данные остаются у вас.",
-        selfhosted_num: "05 — Установка (Self-Hosted)",
-        selfhosted_title: "Запускайте Swipies AI на собственном оборудовании",
-        selfhosted_subtitle: "Загрузите наши Docker-контейнеры, настройте окружение и вставьте лицензионный ключ, чтобы разблокировать максимальную производительность.",
-        selfhosted_step1_h: "1. Загрузите и запустите",
-        selfhosted_step1_p: "Разверните стек в контейнерах за считанные минуты с помощью Docker Compose или Helm-чартов Kubernetes.",
-        selfhosted_step2_h: "2. Введите лицензионный ключ",
-        selfhosted_step2_p: "Приобретите лицензионный ключ на нашей платформе и вставьте его в веб-панель управления, чтобы активировать ускорение GPU и снять лимиты.",
-        selfhosted_step3_h: "3. Полная автономия",
-        selfhosted_step3_p: "Сервер работает полностью автономно. Нет телеметрии, не требуется внешнее подключение к интернету для закрытых сетей.",
-        cases_num: "06 — Кейсы",
-        cases_title: "Для отраслей, где данные — на первом месте",
-        case1_label: "SaaS / ERP",
-        case1_h: "Встройте AI в свой продукт",
-        case1_p: "White-label решение для ваших клиентов. OEM-модель — ваш бренд, ваша инфраструктура, данные клиентов остаются приватными.",
-        case2_label: "Банки и финансы",
-        case2_h: "AI на конфиденциальных данных",
-        case2_p: "AI для транзакций, клиентских профилей и финансовых документов. Полное соответствие регуляторам.",
-        case3_label: "Юриспруденция",
-        case3_h: "AI для дел и договоров",
-        case3_p: "Поиск, анализ и обобщение судебной практики, договоров и документов комплаенса в вашей безопасной среде.",
-        case4_label: "Крупные предприятия",
-        case4_h: "Внутренняя база знаний AI",
-        case4_p: "Мгновенный доступ к корпоративной документации, политикам HR, техническим руководствам через приватный AI.",
-        partners_num: "05 — Интеграции",
-        partners_title: "Поддерживаемые AI-модели",
-        price_num: "06 — Цены",
-        price_title: "Гибкие варианты развертывания",
+        integ_num: "02 — Интеграции и каналы",
+        integ_title: "Подключайте везде, используйте любые модели",
+        integ_sub: "Разворачивайте ассистента во всех каналах связи и выбирайте лучшую модель для ваших задач.",
+        integ_channels_h: "Поддерживаемые каналы и фреймворки",
+        integ_models_h: "Совместимые языковые модели",
+        price_num: "03 — Тарифы",
+        price_title: "Прозрачные облачные тарифы и лицензия",
+        sub_label: "Облачный SaaS",
+        sub_desc: "Облачные планы для команд, которые хотят моментальный доступ без управления инфраструктурой.",
         starter: "Стартер",
         starter_price: "$40",
         starter_period: "/мес",
         starter_desc: "Для небольших команд. Полный AI-функционал на управляемой облачной инфраструктуре Swipies.",
         starter_f1: "Облачное развертывание",
-        starter_f2: "Полный RAG-пайплайн",
-        starter_f3: "Стандартная поддержка",
         starter_f4: "Управляемая инфраструктура",
         starter_cta: "Начать работу",
         basic: "Basic",
@@ -2987,24 +2754,14 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         basic_storage: "5 ГБ хранилища",
         basic_datasets: "5 датасетов",
         basic_agents: "5 агентов",
+        basic_f1: "Облачное развертывание",
+        basic_f4: "Стандартная поддержка",
+        basic_cta: "Начать",
         pro_tokens: "2 500 000 токенов / мес",
         pro_storage: "10 ГБ хранилища",
         pro_datasets: "10 датасетов",
         pro_agents: "12 агентов",
         pro_console_feat: "Pro Console — подключайте свои модели через API",
-        ph_company: "Например: Uzum, FinBank или ООО Вектор",
-        ph_name: "Например: Иван Иванов",
-        ph_email: "ivan@company.com",
-        ph_msg: "Опишите задачи вашей компании, объём данных или требования к серверу...",
-        basic_f1: "Облачное развертывание",
-        basic_f2: "Полный RAG-пайплайн",
-        basic_f3: "До 3 пользователей",
-        basic_f4: "Стандартная поддержка",
-        basic_cta: "Начать",
-        sub_label: "Subscription",
-        sub_desc: "Облачные планы для команд, которые хотят моментальный доступ без управления инфраструктурой.",
-        ent_section_label: "Enterprise",
-        ent_section_desc: "Self-hosted и полностью кастомные решения для организаций, требующих полного суверенитета данных.",
         license: "Лицензия (Self-Hosted)",
         license_price: "$199",
         license_period: "/год",
@@ -3016,50 +2773,62 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         license_f5: "Работа offline (закрытый контур)",
         license_f6: "Регулярные обновления",
         license_cta: "Купить ключ",
-        enterprise: "Enterprise Custom",
+        enterprise_b2c_card_h: "Требуется полное On-Premise внедрение?",
+        ent_b2c_card_desc: "Развертывание под ключ на ваших серверах, настройка моделей, White-Label OEM и гарантия SLA.",
+        ent_b2c_cta: "Перейти в Enterprise →",
+        ent_section_label: "Enterprise",
+        ent_section_desc: "Self-hosted и полностью кастомные решения для организаций, требующих полного суверенитета данных.",
         ent_price: "По запросу",
-        ent_period: "",
-        ent_desc: "Индивидуальный расчёт на основе вашей инфраструктуры и объёма данных.",
         ent_f1: "On-premise развертывание",
         ent_f2: "Настройка LLM",
         ent_f3: "Выделенная поддержка",
         ent_f4: "White-label",
         ent_f5: "Гарантия SLA",
         ent_f6: "Суверенитет данных",
-        ent_cta: "Получить предложение",
-        faq_num: "08 — Вопросы",
+        ent_upsell_badge: "Корпоративный On-Premise пакет",
+        ent_upsell_title: "Требуется 100% суверенитет данных и закрытый контур?",
+        ent_upsell_desc: "Для банков, медицинских организаций, телекома, госсектора и регулируемых отраслей в Узбекистане. Разворачиваем полный RAG-пайплайн и локальные LLM прямо внутри вашей инфраструктуры за 1 рабочий день.",
+        ent_upsell_f1: "Данные не покидают контур: 100% on-premise RAG",
+        ent_upsell_f2: "Работа в закрытом контуре без внешнего интернета",
+        ent_upsell_f3: "Соответствие закону РУз о локализации персональных данных (статья 27.1)",
+        ent_upsell_f4: "Внедрение под ключ и поддержка по SLA за 1 рабочий день",
+        ent_upsell_btn: "Перейти на портал Enterprise (enterprise.swipies.app) →",
+        faq_num: "05 — Вопросы",
         faq_title: "Часто задаваемые вопросы",
-        faq1_q: "Наши данные покидают серверы?",
-        faq1_a: "Нет, никогда. Swipies AI развёрнут полностью на вашей инфраструктуре. Документы, базы данных и запросы остаются в вашей среде.",
-        faq2_q: "Сколько времени занимает развертывание?",
-        faq2_a: "Типичное развертывание — 10 рабочих дней. Включает аудит инфраструктуры, настройку RAG, конфигурацию LLM, тестирование и запуск.",
-        faq3_q: "Какие LLM вы поддерживаете?",
-        faq3_a: "OpenAI (GPT-4, GPT-4o), Anthropic (Claude 3, 3.5), xAI (Grok) и локальные модели через Ollama. Модели можно переключать в любой момент.",
-        faq4_q: "Предлагаете ли вы white-label?",
-        faq4_a: "Да. SaaS и ERP компании могут встроить Swipies AI под своим брендом. Клиенты работают с AI, нативным для вашего продукта.",
-        faq5_q: "Что такое RAG и почему это важно?",
-        faq5_a: "RAG (Retrieval-Augmented Generation) — технология, при которой AI извлекает релевантную информацию из ваших данных перед генерацией ответа. Ответы основаны на ваших документах — точные и достоверные.",
-        faq6_q: "Как работает лицензия self-hosted?",
-        faq6_a: "Вы загружаете наши Docker Compose или Kubernetes Helm-чарты, устанавливаете Swipies AI на собственные серверы и вводите приобретённый на нашей платформе лицензионный ключ в веб-интерфейсе. Это разблокирует все возможности платформы, снимает ограничения и позволяет работать локально без подключения к интернету.",
-        faq7_q: "Можно ли развернуть модели ИИ на серверах в Узбекистане?",
-        faq7_a: "Да, конечно. Мы поддерживаем развертывание языковых моделей (LLM) и RAG-систем на серверах, физически расположенных на территории Узбекистана. Это гарантирует 100% соответствие требованиям законодательства Республики Узбекистан (в частности, статье 27.1 Закона «О персональных данных»).",
-        contact_num: "09 — Контакты",
-        contact_title: "Обсудим ваше развертывание",
-        form_company: "Компания",
+        faq1_b2c_q: "Как быстро я могу начать использовать Swipies AI?",
+        faq1_b2c_a: "Мгновенно. Зарегистрируйтесь в облаке, создайте первого AI-агента, загрузите документы (PDF, CSV, docx) и встройте виджет на сайт или подключите по API за пару минут.",
+        faq2_b2c_q: "Какие модели ИИ я могу использовать в подписке?",
+        faq2_b2c_a: "Swipies AI поддерживает OpenAI (GPT-4o, GPT-4o-mini), Anthropic Claude (Claude 3.5 Sonnet), Google Gemini, а также подключение внешних LLM-эндпоинтов через Pro Console.",
+        faq3_b2c_q: "Как подключить бота к Telegram или встроить на сайт?",
+        faq3_b2c_a: "Мы предоставляем готовый код виджета для сайтов (1 строчка), чистые REST API эндпоинты, вебхуки и прямую интеграцию с Telegram-ботом в панели управления.",
+        faq4_b2c_q: "В чем разница между Cloud SaaS и Self-Hosted лицензией?",
+        faq4_b2c_a: "Cloud SaaS работает на нашей защищенной облачной инфраструктуре и не требует настройки серверов. Лицензия Self-Hosted ($199/год) позволяет запускать платформу на ваших собственных серверах через Docker/Kubernetes.",
+        faq5_b2c_q: "Предлагаете ли вы полное корпоративное внедрение под ключ?",
+        faq5_b2c_a: "Да! Для внедрения в закрытом контуре, кастомного RAG, White-Label OEM и размещения на серверах в Узбекистане посетите enterprise.swipies.app или свяжитесь с отделом продаж.",
+        faq6_b2c_q: "Могу ли я сменить тарифный план в любой момент?",
+        faq6_b2c_a: "Да, вы можете повысить тариф, докупить пакет токенов или сменить план в любое время в панели управления биллингом.",
+        contact_num: "06 — Контакты",
+        contact_title: "Остались вопросы? Напишите нам",
+        ph_company: "Например: Uzum, FinBank или ООО Вектор",
+        ph_name: "Например: Иван Иванов",
+        ph_email: "ivan@company.com",
+        ph_msg: "Опишите ваши задачи, проект или вопросы по интеграции...",
+        form_company: "Компания / Проект",
         form_name: "ФИО",
         form_email: "Email",
-        form_phone: "Телефон",
+        form_phone: "Телефон / WhatsApp (Необязательно)",
+        form_telegram: "Telegram юзернейм / номер (Необязательно)",
         form_msg: "Сообщение",
         form_submit: "Отправить",
-        form_required: "Обязательно",
         ci_email: "Email",
-        ci_phone: "Телефон",
+        ci_phone: "Телефон / WhatsApp",
+        ci_telegram: "Telegram",
         ci_location: "Местоположение",
         ci_loc_val: "Узбекистан, Андижан",
-        ci_note: "Персональный менеджер для каждого развертывания. Гарантии SLA. Среднее время ответа: < 2 часов.",
-        fcta_h: "Готовы внедрить AI в вашу инфраструктуру?",
-        fcta_p: "Разверните корпоративный AI на своих серверах. Ваши данные остаются вашими.",
-        footer_desc: "Корпоративная on-premise AI-платформа. RAG-пайплайны на ваших серверах с полным суверенитетом данных.",
+        ci_note: "Выделенная служба поддержки. Среднее время ответа: < 2 часов.",
+        fcta_h: "Готовы запустить своего AI чат-бота прямо сегодня?",
+        fcta_p: "Выберите план, получите токены и создавайте агентов на основе ваших данных.",
+        footer_desc: "Облачная платформа AI-агентов и смарт чат-ботов. Создавайте, обучайте и встраивайте ИИ в сайты и мобильные приложения.",
         footer_platform: "Платформа",
         footer_company: "Компания",
         footer_connect: "Связь",
@@ -3067,45 +2836,28 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         footer_terms: "Условия",
         footer_privacy: "Политика конфиденциальности",
         footer_docs: "Документация",
-        footer_copy: "© 2025 Swipies AI. Все права защищены."
+        footer_copy: "© 2025 Swipies AI. Все права защищены.",
+        cookie_title: "Согласие на обработку данных",
+        cookie_msg: "Мы используем файлы cookie и технические данные устройства для оптимизации работы сайта и безопасности.",
+        cookie_learn_more: "Политика конфиденциальности",
+        cookie_decline: "Отклонить",
+        cookie_accept: "Принять cookies"
       },
       uz: {
-        nav_solution: "Yechim",
-        nav_how: "Qanday ishlaydi",
-        nav_selfhosted: "Self-Hosted",
-        nav_cases: "Foydalanish",
-        nav_partners: "Hamkorlar",
+        nav_features: "Imkoniyatlar",
+        nav_integrations: "Integratsiyalar",
         nav_pricing: "Narxlar",
         nav_faq: "Savollar",
-        nav_cta: "Bepul kirish",
-        hero_badge: "Shaxsiy AI Agentlar va Maxsus Chat-botlar Platformasi",
+        nav_enterprise: "Enterprise Versiya ↗",
+        nav_cta: "Bepul boshlash",
+        hero_badge: "Bulutli AI Agentlar va Chat-botlar Platformasi",
         hero_h1: "Istalgan AI modellar asosida shaxsiy AI agentlar va chat-botlar yarating",
-        hero_sub: "O'z ma'lumotlaringiz asosida avtonom AI agentlar va aqlli chat-botlarni yarating. Bulutli modellardan foydalaning yoki shaxsiy AI modellaringizni serverlaringizga o'rnating. Chat-botlarni ilovalaringiz va saytlaringizga ulating.",
+        hero_sub: "O'z ma'lumotlaringiz asosida avtonom AI agentlar va aqlli chat-botlarni yarating. Bir zumda ishga tushadigan bulutli SaaS, barcha mashhur modellar va ilovalar, veb-saytlar va messenjerlarga qulay integratsiya.",
         hero_cta1: "Bepul boshlash",
-        hero_cta2: "Bog'lanish",
-        prob_num: "01 — Muammo",
-        prob_title: "Nima uchun standart AI korporativ sektorda ishlamaydi",
-        prob1_h: "Ma'lumotlar tashqariga chiqadi",
-        prob1_p: "Tashqi AI provayderlariga har bir API so'rov sizning maxfiy ma'lumotlaringizni uchinchi tomon serverlariga yuboradi.",
-        prob2_h: "Umumiy AI, kontekstsiz",
-        prob2_p: "Ommaviy modellar sizning ma'lumotlaringizni tushunmaydi. Javoblar yuzaki va ishonchsiz.",
-        prob3_h: "Stek ustidan nazorat yo'q",
-        prob3_p: "Model versiyasi, uptime yoki yangilanishlarni nazorat qila olmaysiz. AI boshqa birovning qarori.",
-        sol_num: "03 — On-Premise Yechim",
-        sol_title: "Serverlaringizda ishlaydigan On-Premise RAG",
-        sol_sub: "Swipies AI to'liq AI infratuzilmasini sizning muhitingizga joylashtiradi. To'liq ma'lumotlar suvereniteti.",
-        sol1_h: "On-Premise RAG joylashtirish",
-        sol1_p: "To'liq RAG pipeline — hujjatlarni yuklash, vektor indeksatsiya, qidirish va generatsiya — to'g'ridan-to'g'ri serverlaringizda.",
-        sol2_h: "Ma'lumotlaringiz bilan ishlaydi",
-        sol2_p: "Mavjud hujjatlar, ma'lumotlar bazalari, CRM va ichki vositalarni ulang. Bilim bazasi haqiqiy ma'lumotlaringizdan quriladi.",
-        sol3_h: "Istalgan LLM, sizning tanlovingiz",
-        sol3_p: "OpenAI, Anthropic Claude, xAI Grok va Ollama orqali to'liq lokal modellar qo'llab-quvvatlanadi.",
-        sol4_h: "SaaS uchun to'liq White-Label",
-        sol4_p: "Swipies AI'ni o'z brendingiz ostida mahsulotingizga joylashtiring. Mijozlaringizga AI imkoniyatlarini taklif qiling.",
-        sol5_h: "O'zbekistondagi lokal serverlar",
-        sol5_p: "AI modellarini O'zbekiston Respublikasi hududida joylashgan yuqori unumdorlikka ega serverlarda ishga tushiring va mahalliy ma'lumotlarni saqlash qonunlariga mosligini ta'minlang.",
-        cloud_num: "02 — Bulutli obuna",
-        cloud_title: "Obuna modeli: AI agentlar va chat-botlarni hozirning o'zidayoq yarating",
+        hero_cta2_b2c: "Narxlarni ko'rish",
+        hero_cta_enterprise: "Enterprise On-Premise →",
+        cloud_num: "01 — Bulutli platforma",
+        cloud_title: "Bulutli obuna: AI agentlar va chat-botlarni hozirning o'zidayoq yarating",
         cloud_sub: "Serverlarni boshqarish shart emas. Soniyalar ichida obuna bo'ling, ma'lumotlaringiz asosida chat-botlar yarating va ularni ilovalaringiz, saytlaringiz yoki CRM tizimingizga ulang.",
         cloud_f1_badge: "Tezkor yaratish",
         cloud_f1_h: "Daqiqalar ichida agent va chat-botlar yarating",
@@ -3119,48 +2871,20 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         cloud_banner_h: "Bugunning o'zida AI chat-botingizni ishga tushirishga tayyormisiz?",
         cloud_banner_p: "Mos keladigan obuna rejasini tanlang va darhol yaratishni boshlang.",
         cloud_banner_btn: "Hozir yaratishni boshlash",
-        how_num: "04 — Korporativ joylashtirish",
-        how_title: "1 ish kunida joylashtiriladi",
-        how1_h: "Infratuzilma auditi",
-        how1_p: "Serverlar, ma'lumot manbalari og'irligi va xavfsizlik talablarini tekshiramiz.",
-        how2_h: "RAG + LLM joylashtirish",
-        how2_p: "To'liq RAG pipeline va tanlangan LLM'ni infratuzilmangizga joylashtiramiz. 1 ish kuni ichida.",
-        how3_h: "Jamoangiz ishga tushadi",
-        how3_p: "Jamoangiz korporativ AI'dan foydalanishni boshlaydi — to'liq maxfiy, to'liq nazorat ostida.",
-        selfhosted_num: "05 — O'rnatish (Self-Hosted)",
-        selfhosted_title: "Swipies AI-ni o'z uskunangizda ishga tushiring",
-        selfhosted_subtitle: "Docker konteynerlarimizni yuklab oling, muhitni sozlang va maksimal unumdorlikni faollashtirish uchun litsenziya kalitini kiriting.",
-        selfhosted_step1_h: "1. Yuklab oling va ishga tushiring",
-        selfhosted_step1_p: "Docker Compose yoki Kubernetes Helm-chartlari yordamida stekni bir necha daqiqada joylashtiring.",
-        selfhosted_step2_h: "2. Litsenziya kalitini kiriting",
-        selfhosted_step2_p: "Litsenziya kalitini platformamizda xarid qiling va GPU tezlashuvini faollashtirish hamda cheklovlarni olib tashlash uchun veb-panelga kiriting.",
-        selfhosted_step3_h: "3. To'liq avtonomiya",
-        selfhosted_step3_p: "Server to'liq mustaqil ishlaydi. Telemetriya yo'q, yopiq tarmoqlar uchun tashqi internet talab etilmaydi.",
-        cases_num: "06 — Foydalanish",
-        cases_title: "Ma'lumotlar xavfsizligi muhim bo'lgan sohalar uchun",
-        case1_label: "SaaS / ERP",
-        case1_h: "AI'ni mahsulotingizga joylashtiring",
-        case1_p: "White-label yechim. OEM modeli — sizning brendingiz, infratuzilmangiz, mijozlar ma'lumotlari maxfiy qoladi.",
-        case2_label: "Banklar va moliya",
-        case2_h: "Maxfiy ma'lumotlarda AI",
-        case2_p: "Tranzaksiyalar, mijoz profillari va moliyaviy hujjatlar ustida AI. To'liq regulyator muvofiqlik.",
-        case3_label: "Huquq va muvofiqlik",
-        case3_h: "Ish fayllari va shartnomalar uchun AI",
-        case3_p: "Sud amaliyoti, shartnomalar va muvofiqlik hujjatlarini qidirish va tahlil qilish.",
-        case4_label: "Yirik korxonalar",
-        case4_h: "Ichki bilim bazasi AI",
-        case4_p: "Har bir xodimga korporativ hujjatlar, HR siyosatlari va texnik qo'llanmalarga tezkor kirish.",
-        partners_num: "05 — Integratsiyalar",
-        partners_title: "Qo'llab-quvvatlanadigan AI modellar",
-        price_num: "06 — Narxlar",
-        price_title: "Moslashuvchan joylashtirish variantlari",
+        integ_num: "02 — Integratsiyalar va kanallar",
+        integ_title: "Istalgan joyga ulang, istalgan modeldan foydalaning",
+        integ_sub: "Yordamchingizni barcha aloqa kanallarida ishga tushiring va vazifalaringiz uchun eng yaxshi AI modelini tanlang.",
+        integ_channels_h: "Qo'llab-quvvatlanadigan kanallar va freymvorklar",
+        integ_models_h: "Mos keluvchi til modellari",
+        price_num: "03 — Narxlar",
+        price_title: "Shaffof bulutli tariflar va litsenziya",
+        sub_label: "Bulutli SaaS",
+        sub_desc: "Infratuzilmani boshqarmasdan tezkor kirishni xohlaydigan jamoalar uchun bulut planlari.",
         starter: "Starter",
         starter_price: "$40",
         starter_period: "/oy",
         starter_desc: "Kichik jamoalar uchun. Swipies bulut infratuzilmasida xavfsiz AI funksionalligi.",
         starter_f1: "Bulut joylashtirish",
-        starter_f2: "To'liq RAG pipeline",
-        starter_f3: "Standart qo'llab-quvvatlash",
         starter_f4: "Boshqariladigan infratuzilma",
         starter_cta: "Boshlash",
         basic: "Basic",
@@ -3171,24 +2895,14 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         basic_storage: "5 GB xotira",
         basic_datasets: "5 dataset",
         basic_agents: "5 agent",
+        basic_f1: "Bulut joylashtirish",
+        basic_f4: "Standart qo'llab-quvvatlash",
+        basic_cta: "Boshlash",
         pro_tokens: "2 500 000 token / oy",
         pro_storage: "10 GB xotira",
         pro_datasets: "10 dataset",
         pro_agents: "12 agent",
         pro_console_feat: "Pro Console — o'z modellaringizni API orqali ulang",
-        ph_company: "Masalan: Uzum, FinBank yoki MChJ",
-        ph_name: "Masalan: Ali Valiyev",
-        ph_email: "ali@company.com",
-        ph_msg: "Kompaniyangiz vazifalari, ma'lumotlar hajmi yoki server talablari haqida yozing...",
-        basic_f1: "Bulut joylashtirish",
-        basic_f2: "To'liq RAG pipeline",
-        basic_f3: "3 tagacha foydalanuvchi",
-        basic_f4: "Standart qo'llab-quvvatlash",
-        basic_cta: "Boshlash",
-        sub_label: "Subscription",
-        sub_desc: "Infratuzilmani boshqarmasdan tezkor kirishni xohlaydigan jamoalar uchun bulut planlari.",
-        ent_section_label: "Enterprise",
-        ent_section_desc: "To'liq ma'lumotlar suvereniteti talab qiladigan tashkilotlar uchun self-hosted va maxsus yechimlar.",
         license: "Self-Hosted Litsenziya",
         license_price: "$199",
         license_period: "/yil",
@@ -3200,58 +2914,75 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         license_f5: "Offline / Yopiq rejim",
         license_f6: "Muntazam yangilanishlar",
         license_cta: "Kalitni sotib olish",
-        enterprise: "Enterprise Custom",
+        enterprise_b2c_card_h: "To'liq On-Premise o'rnatish kerakmi?",
+        ent_b2c_card_desc: "Serverlaringizda to'liq o'rnatish, maxsus modellar, White-Label OEM va qat'iy SLA.",
+        ent_b2c_cta: "Enterprise-ni ko'rish →",
+        ent_section_label: "Enterprise",
+        ent_section_desc: "To'liq ma'lumotlar suvereniteti talab qiladigan tashkilotlar uchun self-hosted va maxsus yechimlar.",
         ent_price: "So'rovga ko'ra",
-        ent_period: "",
-        ent_desc: "Infratuzilma va ma'lumotlar hajmiga qarab individual hisob-kitob.",
         ent_f1: "On-premise joylashtirish",
         ent_f2: "Maxsus LLM sozlash",
         ent_f3: "Shaxsiy qo'llab-quvvatlash",
         ent_f4: "White-label imkoniyati",
         ent_f5: "SLA kafolati",
         ent_f6: "Ma'lumotlar suvereniteti",
-        ent_cta: "Taklif olish",
-        faq_num: "08 — Savollar",
+        ent_upsell_badge: "Korporativ On-Premise to'plami",
+        ent_upsell_title: "100% ma'lumot suvereniteti va yopiq tarmoq kerakmi?",
+        ent_upsell_desc: "O'zbekistondagi banklar, tibbiyot, telekom va davlat idoralari uchun. To'liq RAG tizimi va lokal LLM-larni 1 ish kuni ichida infratuzilmangizga o'rnatib beramiz.",
+        ent_upsell_f1: "Ma'lumotlar tashqariga chiqmaydi: 100% on-premise RAG",
+        ent_upsell_f2: "Tashqi internetsiz yopiq tarmoqda ishlash",
+        ent_upsell_f3: "O'zbekiston shaxsiy ma'lumotlar qonuniga 100% muvofiqlik (27.1-modda)",
+        ent_upsell_f4: "To'liq o'rnatish va 1 ish kunida SLA kafolati",
+        ent_upsell_btn: "Enterprise portaliga o'tish (enterprise.swipies.app) →",
+        faq_num: "05 — Savollar",
         faq_title: "Ko'p beriladigan savollar",
-        faq1_q: "Ma'lumotlarimiz serverlardan chiqadimi?",
-        faq1_a: "Yo'q, hech qachon. Swipies AI to'liq sizning infratuzilmangizda joylashtiriladi. Hujjatlar va so'rovlar muhitingizda qoladi.",
-        faq2_q: "Joylashtirish qancha vaqt oladi?",
-        faq2_a: "Odatiy joylashtirish — 10 ish kuni. Audit, RAG sozlash, LLM konfiguratsiya, test va ishga tushirish.",
-        faq3_q: "Qaysi LLM'larni qo'llab-quvvatlaysiz?",
-        faq3_a: "OpenAI (GPT-4, GPT-4o), Anthropic (Claude 3, 3.5), xAI (Grok) va Ollama orqali lokal modellar. Istalgan vaqtda almashtiriladi.",
-        faq4_q: "White-label taklif qilasizmi?",
-        faq4_a: "Ha. SaaS va ERP kompaniyalari Swipies AI'ni o'z brendi ostida joylashtirishi mumkin.",
-        faq5_q: "RAG nima va nima uchun muhim?",
-        faq5_a: "RAG — javob yaratishdan oldin AI sizning ma'lumotlaringizdan tegishli axborotni oladi. Javoblar haqiqiy hujjatlarga asoslangan — aniq va ishonchli.",
-        faq6_q: "Self-hosted litsenziya qanday ishlaydi?",
-        faq6_a: "Siz bizning Docker Compose yoki Kubernetes Helm-chartlarimizni yuklab olasiz, Swipies AI-ni o'z serverlaringizga o'rnatasiz va platformamizda xarid qilingan litsenziya kalitini veb-interfeysda kiritasiz. Bu platformaning barcha imkoniyatlarini ochadi, cheklovlarni olib tashlaydi va internetga ulanmasdan lokal ishlash imkonini beradi.",
-        faq7_q: "AI modellarini O'zbekistondagi serverlarga o'rnatish mumkinmi?",
-        faq7_a: "Albatta. Biz LLM va RAG tizimlarini to'g'ridan-to'g'ri O'zbekiston hududida joylashgan serverlarda ishga tushirishni to'liq qo'llab-quvvatlaymiz. Bu shaxsiy ma'lumotlarni saqlashga oid qonunchilik talablariga (xususan, 'Shaxsiy ma'lumotlar to'g'risida'gi qonunning 27.1-moddasiga) to'liq mos kelishini ta'minlaydi.",
-        contact_num: "09 — Aloqa",
-        contact_title: "Joylashtirishingizni muhokama qilaylik",
-        form_company: "Kompaniya nomi",
+        faq1_b2c_q: "Swipies AI-dan foydalanishni qanchalik tez boshlash mumkin?",
+        faq1_b2c_a: "Darhol. Bulutli hisob oching, birinchi AI agentingizni yarating, hujjatlaringizni yuklang va bir necha daqiqada vidjetni saytingizga yoki API orqali ulang.",
+        faq2_b2c_q: "Obunada qaysi AI modellaridan foydalanishim mumkin?",
+        faq2_b2c_a: "Swipies AI OpenAI (GPT-4o, GPT-4o-mini), Anthropic Claude (Claude 3.5 Sonnet), Google Gemini va Pro Console orqali tashqi modellarni qo'llab-quvvatlaydi.",
+        faq3_b2c_q: "Botni Telegram yoki saytga qanday ulash mumkin?",
+        faq3_b2c_a: "Saytlar uchun bir qatorli vidjet skripti, toza REST API, vebhuklar va shaxsiy kabinetda Telegram Bot bilan to'g'ridan-to'g'ri integratsiyani taqdim etamiz.",
+        faq4_b2c_q: "Cloud SaaS va Self-Hosted litsenziya o'rtasidagi farq nima?",
+        faq4_b2c_a: "Cloud SaaS to'liq bizning bulutli infratuzilmamizda ishlaydi. Self-Hosted litsenziyasi ($199/yil) esa platformani o'z serverlaringizda Docker/Kubernetes orqali mustaqil ishlatish imkonini beradi.",
+        faq5_b2c_q: "To'liq korporativ o'rnatish va konsalting xizmati bormi?",
+        faq5_b2c_a: "Ha! Yopiq tarmoqda o'rnatish, maxsus RAG, White-Label OEM va O'zbekistondagi lokal serverlar uchun enterprise.swipies.app saytiga o'ting yoki sotuv bo'limimizga murojaat qiling.",
+        faq6_b2c_q: "Tarif rejamni istalgan vaqtda o'zgartira olamanmi?",
+        faq6_b2c_a: "Ha, shaxsiy hisobingizdan istalgan vaqtda tarifni oshirishingiz, qo'shimcha tokenlar xarid qilishingiz yoki rejangizni o'zgartirishingiz mumkin.",
+        contact_num: "06 — Aloqa",
+        contact_title: "Savollaringiz bormi? Bizga yozing",
+        ph_company: "Masalan: Uzum, FinBank yoki MChJ",
+        ph_name: "Masalan: Ali Valiyev",
+        ph_email: "ali@company.com",
+        ph_msg: "Vazifalaringiz, loyihangiz yoki integratsiya bo'yicha savollaringizni yozing...",
+        form_company: "Kompaniya / Loyiha",
         form_name: "To'liq ism",
         form_email: "Email",
-        form_phone: "Telefon",
+        form_phone: "Telefon / WhatsApp (Ixtiyoriy)",
+        form_telegram: "Telegram username / raqam (Ixtiyoriy)",
         form_msg: "Xabar",
         form_submit: "Xabar yuborish",
-        form_required: "Majburiy",
         ci_email: "Email",
-        ci_phone: "Telefon",
+        ci_phone: "Telefon / WhatsApp",
+        ci_telegram: "Telegram",
         ci_location: "Joylashuv",
         ci_loc_val: "O'zbekiston, Andijon",
-        ci_note: "Har bir joylashtirish uchun shaxsiy menejer. SLA kafolatlari. O'rtacha javob vaqti: < 2 soat.",
-        fcta_h: "AI'ni infratuzilmangizga joriy qilishga tayyormisiz?",
-        fcta_p: "Korporativ AI'ni serverlaringizda joylashtiring. Ma'lumotlaringiz sizniki bo'lib qoladi.",
-        footer_desc: "Korporativ on-premise AI platforma. Serverlaringizda RAG pipeline'lar, to'liq ma'lumotlar suvereniteti.",
+        ci_note: "Maxsus qo'llab-quvvatlash xizmati. O'rtacha javob vaqti: < 2 soat.",
+        fcta_h: "Bugunning o'zida AI chat-botingizni ishga tushirishga tayyormisiz?",
+        fcta_p: "Rejani tanlang, tokenlarga ega bo'ling va o'z ma'lumotlaringiz asosida agentlar yarating.",
+        footer_desc: "Bulutli AI agentlar va aqlli chat-botlar platformasi. Sayt va mobil ilovalar uchun sun'iy intellekt yaratish va ulash.",
         footer_platform: "Platforma",
-        footer_company: "Company",
+        footer_company: "Kompaniya",
         footer_connect: "Aloqa",
         footer_tutorials: "Qo'llanmalar",
         footer_terms: "Foydalanish shartlari",
         footer_privacy: "Maxfiylik siyosati",
         footer_docs: "Hujjatlar",
-        footer_copy: "© 2025 Swipies AI. Barcha huquqlar himoyalangan."
+        footer_copy: "© 2025 Swipies AI. Barcha huquqlar himoyalangan.",
+        cookie_title: "Ma'lumotlar va cookie roziligi",
+        cookie_msg: "Sayt ishlashini yaxshilash va xavfsizlik uchun cookie fayllari va qurilma ma'lumotlaridan foydalanamiz.",
+        cookie_learn_more: "Maxfiylik siyosati",
+        cookie_decline: "Rad etish",
+        cookie_accept: "Qabul qilish"
       }
     };
 
@@ -3536,6 +3267,7 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         phone: combinedPhone,
         message: msg.value.trim() || '',
         referralCode: refCodeSaved,
+        source: 'b2c',
         date: new Date().toISOString(),
         read: false
       };
@@ -3560,7 +3292,8 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
           email: email.value.trim(),
           phone: combinedPhone,
           message: msg.value.trim() || '',
-          referral_code: refCodeSaved
+          referral_code: refCodeSaved,
+          source: 'b2c'
         })
       }).then(res => res.json())
         .then(res => {
