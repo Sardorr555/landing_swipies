@@ -24,7 +24,11 @@ jobs:
             echo "=== DEPLOY STARTED ==="
 
             # ── 1. Pull latest code ──────────────────────────────────────────
+            git config --global --add safe.directory '*' || true
+            sudo git config --system --add safe.directory '*' 2>/dev/null || true
+            sudo chown -R $USER:$USER ~/landing_swipies 2>/dev/null || true
             cd ~/landing_swipies
+            git config --global --add safe.directory '*' || true
             git fetch origin swipies_25
             git checkout -f -B swipies_25 FETCH_HEAD
             git reset --hard FETCH_HEAD
