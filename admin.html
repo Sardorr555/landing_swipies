@@ -757,6 +757,32 @@ input:checked + .slider:before { transform: translateX(20px); }
   text-transform: uppercase;
 }
 
+.badge-enterprise {
+  background: rgba(var(--accent-rgb), 0.18);
+  color: var(--accent);
+  border: 1px solid rgba(var(--accent-rgb), 0.35);
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.badge-b2c {
+  background: rgba(56, 123, 245, 0.18);
+  color: #58a6ff;
+  border: 1px solid rgba(56, 123, 245, 0.35);
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
 .btn-secondary-dashboard {
   background: var(--bg3);
   border: 1px solid var(--border);
@@ -1513,7 +1539,12 @@ input:checked + .slider:before { transform: translateX(20px); }
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg>
             Contact Request Records
           </h3>
-          <div style="display:flex; gap:0.75rem">
+          <div style="display:flex; gap:0.75rem; align-items:center;">
+            <select id="leadSourceFilter" onchange="renderSubmissionsTable()" style="background:var(--bg2); border:1px solid var(--border); color:var(--text); padding:0.4rem 0.75rem; border-radius:var(--radius); font-size:0.85rem; outline:none; font-family:var(--font-display); cursor:pointer;">
+              <option value="all">All Channels (B2C &amp; Enterprise)</option>
+              <option value="enterprise">Enterprise (enterprise.swipies.app)</option>
+              <option value="b2c">B2C (swipies.app)</option>
+            </select>
             <button class="btn-secondary-dashboard" onclick="exportSubmissionsToCSV()">
               <svg style="width:14px;height:14px" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
               Export CSV
@@ -1527,6 +1558,7 @@ input:checked + .slider:before { transform: translateX(20px); }
             <thead>
               <tr>
                 <th style="width: 80px;">Status</th>
+                <th style="width: 100px;">Channel</th>
                 <th>Sender / Company</th>
                 <th>Contact Details</th>
                 <th>Message Content</th>
@@ -3019,6 +3051,7 @@ function mapDatabaseLeads(leads) {
     phone: sub.phone || '',
     message: sub.message || '',
     referralCode: sub.referral_code || '',
+    source: sub.source || 'b2c',
     date: sub.create_date || new Date().toISOString(),
     read: sub.status !== '1'
   }));
@@ -3068,14 +3101,22 @@ function renderSubmissionsTable() {
   if (!body) return;
   body.innerHTML = '';
   
-  if (databaseSubmissions.length === 0) {
+  const sourceFilterEl = document.getElementById('leadSourceFilter');
+  const selectedSource = sourceFilterEl ? sourceFilterEl.value : 'all';
+
+  const filteredSubs = databaseSubmissions.filter(sub => {
+    if (selectedSource === 'all') return true;
+    return (sub.source || 'b2c') === selectedSource;
+  });
+
+  if (filteredSubs.length === 0) {
     emptyState.style.display = 'flex';
     return;
   }
   
   emptyState.style.display = 'none';
 
-  databaseSubmissions.forEach(sub => {
+  filteredSubs.forEach(sub => {
     const formattedDate = new Date(sub.date).toLocaleString(undefined, {
       month: 'short',
       day: 'numeric',
@@ -3086,6 +3127,10 @@ function renderSubmissionsTable() {
     const statusBadge = sub.read 
       ? `<span class="badge-read">Read</span>` 
       : `<span class="badge-unread">New</span>`;
+
+    const channelBadge = (sub.source === 'enterprise')
+      ? `<span class="badge-enterprise">Enterprise</span>`
+      : `<span class="badge-b2c">B2C</span>`;
       
     const readBtnLabel = sub.read ? 'Mark Unread' : 'Mark Read';
 
@@ -3097,6 +3142,7 @@ function renderSubmissionsTable() {
     row.id = `row_${sub.id}`;
     row.innerHTML = `
       <td>${statusBadge}</td>
+      <td>${channelBadge}</td>
       <td>
         <div style="font-weight:600;display:flex;align-items:center">${sub.name}${refBadge}</div>
         <div style="font-size:0.8rem;color:var(--text-muted)">${sub.company}</div>
@@ -3146,6 +3192,10 @@ function renderLatestOverviewSubmissions() {
       ? `<span style="width:8px; height:8px; background:var(--accent); border-radius:50%; flex-shrink:0" title="New message"></span>`
       : ``;
 
+    const channelBadge = (sub.source === 'enterprise')
+      ? `<span class="badge-enterprise" style="font-size:0.6rem; padding:1px 4px; margin-left:0.4rem;">Enterprise</span>`
+      : `<span class="badge-b2c" style="font-size:0.6rem; padding:1px 4px; margin-left:0.4rem;">B2C</span>`;
+
     const refBadge = sub.referralCode 
       ? ` <span style="background:rgba(var(--accent-rgb), 0.12);color:var(--accent);padding:2px 6px;border-radius:4px;font-size:0.7rem;font-family:var(--font-mono);font-weight:600;border:1px solid rgba(var(--accent-rgb), 0.3);margin-left:0.5rem">Ref: ${sub.referralCode}</span>` 
       : '';
@@ -3156,7 +3206,7 @@ function renderLatestOverviewSubmissions() {
       <div style="display:flex; align-items:center; gap:0.75rem; overflow:hidden">
         ${unreadIndicator}
         <div style="overflow:hidden">
-          <div style="font-weight:600; font-size:0.9rem; display:flex; align-items:center">${sub.name}${refBadge}</div>
+          <div style="font-weight:600; font-size:0.9rem; display:flex; align-items:center">${sub.name}${channelBadge}${refBadge}</div>
           <div style="font-size:0.75rem; color:var(--text-muted); text-overflow:ellipsis; overflow:hidden; white-space:nowrap">${sub.company} · ${sub.message}</div>
         </div>
       </div>
