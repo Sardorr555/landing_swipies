@@ -205,7 +205,7 @@ document.getElementById('app-sections').innerHTML = `
 <div class="footer-col"><h4 data-i18n="footer_company">Company</h4><a href="terms.html" data-i18n="footer_terms">Terms of Use</a><a href="privacy.html" data-i18n="footer_privacy">Privacy Policy</a><a href="https://help.swipies.app/docs/dev/" target="_blank" data-i18n="footer_docs">Documentation</a></div>
 <div class="footer-col"><h4 data-i18n="footer_connect">Connect</h4><a href="mailto:info@swipies.app">Email</a><a href="https://t.me/swipies_ai" target="_blank">Telegram</a><a href="https://github.com/Sardorr555/swipies__ai_" target="_blank">GitHub</a></div>
 </div>
-<div class="footer-bottom"><p data-i18n="footer_copy">© 2025 Swipies AI. All rights reserved.</p></div>
+<div class="footer-bottom"><p data-i18n="footer_copy">© 2026 Swipies AI. All rights reserved.</p></div>
 </footer>
 \`;
 
