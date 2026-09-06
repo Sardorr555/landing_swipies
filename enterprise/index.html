@@ -1,0 +1,2097 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Swipies AI Enterprise — On-Premise RAG &amp; Private AI Infrastructure</title>
+  <meta name="description"
+    content="Deploy private on-premise RAG pipelines and custom AI models directly inside your infrastructure. Complete data sovereignty, air-gapped support, and Uzbekistan compliance.">
+  <link rel="canonical" href="https://enterprise.swipies.app/">
+
+  <!-- Open Graph / Meta -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://enterprise.swipies.app/">
+  <meta property="og:title" content="Swipies AI Enterprise — On-Premise RAG &amp; Private AI Infrastructure">
+  <meta property="og:description" content="Deploy private on-premise RAG pipelines and custom AI models directly inside your enterprise infrastructure. 100% data sovereignty.">
+  <meta name="theme-color" content="#080c14">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #080c14;
+      --card: #0d1322;
+      --card-border: #1a2333;
+      --card-hover: #121a2d;
+      --text: #e2e8f0;
+      --text-muted: #8492a6;
+      --text-dim: #475569;
+      --accent: #3b82f6;
+      --accent-glow: rgba(59, 130, 246, 0.15);
+      --accent-purple: #8b5cf6;
+      --green: #10b981;
+      --orange: #f59e0b;
+      --danger: #ef4444;
+      --radius: 12px;
+      --radius-sm: 8px;
+      --radius-lg: 16px;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --mono: 'JetBrains Mono', monospace;
+      --t-small: 0.875rem;
+      --t-tiny: 0.75rem;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+
+    /* Buttons */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 600;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(255,255,255,0.1);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 0 15px var(--accent-glow);
+    }
+    .btn-primary:hover {
+      background: #2563eb;
+      box-shadow: 0 0 25px rgba(59, 130, 246, 0.35);
+      transform: translateY(-1px);
+    }
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.05);
+      color: var(--text);
+      font-weight: 600;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--card-border);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.2);
+      transform: translateY(-1px);
+    }
+
+    /* Navbar */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(8, 12, 20, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      transition: all 0.25s ease;
+      height: 64px;
+    }
+    .nav-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+    }
+    .nav-left { display: flex; align-items: center; gap: 0.75rem; }
+    .nav-logo {
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+    .nav-logo span { color: var(--accent); }
+    .ent-badge-nav {
+      display: inline-flex;
+      align-items: center;
+      background: rgba(99, 102, 241, 0.15);
+      border: 1px solid rgba(99, 102, 241, 0.4);
+      color: #a5b4fc;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.2rem 0.6rem;
+      border-radius: 9999px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-left: 0.35rem;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.75rem;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--text-muted);
+      font-size: var(--t-small);
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-actions { display: flex; align-items: center; gap: 1rem; }
+
+    /* Cross-nav backlink */
+    .nav-b2c-backlink {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      color: #60a5fa;
+      font-size: var(--t-small);
+      font-weight: 600;
+      padding: 0.35rem 0.75rem;
+      border-radius: var(--radius-sm);
+      background: rgba(59, 130, 246, 0.08);
+      border: 1px solid rgba(59, 130, 246, 0.25);
+      transition: all 0.2s ease;
+    }
+    .nav-b2c-backlink:hover {
+      background: rgba(59, 130, 246, 0.18);
+      border-color: rgba(59, 130, 246, 0.5);
+      color: #fff;
+    }
+
+    /* Language switch */
+    .lang-switch {
+      display: flex;
+      align-items: center;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-sm);
+      padding: 2px;
+    }
+    .lang-switch button {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: var(--t-tiny);
+      font-weight: 600;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .lang-switch button.active {
+      background: var(--card-border);
+      color: #fff;
+    }
+
+    /* Mobile Hamburger */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 24px;
+      height: 18px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      z-index: 1001;
+    }
+    .nav-hamburger span {
+      width: 100%;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      padding: 6rem 0 5rem;
+      text-align: center;
+      overflow: hidden;
+    }
+    .hero-bg-glow {
+      position: absolute;
+      top: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 700px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.18) 0%, rgba(59, 130, 246, 0.08) 50%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(99, 102, 241, 0.12);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      color: #c7d2fe;
+      font-size: var(--t-small);
+      font-weight: 600;
+      padding: 0.35rem 1rem;
+      border-radius: 9999px;
+      margin-bottom: 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3.75rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 1.5rem;
+      position: relative;
+      z-index: 1;
+      max-width: 960px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .hero h1 span {
+      background: linear-gradient(135deg, #fff 30%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: var(--text-muted);
+      max-width: 760px;
+      margin: 0 auto 2.5rem;
+      position: relative;
+      z-index: 1;
+      line-height: 1.6;
+    }
+    .hero-cta-group {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-cloud-pill {
+      margin-top: 1.5rem;
+      font-size: var(--t-small);
+      color: var(--text-muted);
+      position: relative;
+      z-index: 1;
+    }
+    .hero-cloud-pill a {
+      color: #60a5fa;
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .hero-cloud-pill a:hover { color: #93c5fd; }
+
+    /* Sections */
+    section { padding: 5rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .section-num {
+      font-family: var(--mono);
+      font-size: var(--t-tiny);
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+    .section-subtitle {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 720px;
+      margin-bottom: 3rem;
+      line-height: 1.6;
+    }
+
+    /* Problem Grid */
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+    .problem-card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      transition: all 0.25s ease;
+    }
+    .problem-card:hover {
+      border-color: rgba(239, 68, 68, 0.4);
+      background: var(--card-hover);
+      transform: translateY(-2px);
+    }
+    .problem-card .card-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-sm);
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.25);
+      color: #f87171;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.25rem;
+    }
+    .problem-card .card-icon svg { width: 22px; height: 22px; }
+    .problem-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.75rem; }
+    .problem-card p { color: var(--text-muted); font-size: var(--t-small); line-height: 1.6; }
+
+    /* Solution Grid */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 1.5rem;
+    }
+    .feature-card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      transition: all 0.25s ease;
+    }
+    .feature-card:hover {
+      border-color: rgba(59, 130, 246, 0.4);
+      background: var(--card-hover);
+      transform: translateY(-2px);
+    }
+    .feature-card .card-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-sm);
+      background: var(--accent-glow);
+      border: 1px solid rgba(59, 130, 246, 0.25);
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.25rem;
+    }
+    .feature-card .card-icon svg { width: 22px; height: 22px; }
+    .feature-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.75rem; }
+    .feature-card p { color: var(--text-muted); font-size: var(--t-small); line-height: 1.6; }
+
+    /* Steps List (How It Works) */
+    .steps-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .step-row {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 2.25rem 2rem;
+      position: relative;
+    }
+    .step-num {
+      font-family: var(--mono);
+      font-size: 2rem;
+      font-weight: 800;
+      color: rgba(59, 130, 246, 0.35);
+      margin-bottom: 1rem;
+    }
+    .step-row h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.75rem; }
+    .step-row p { color: var(--text-muted); font-size: var(--t-small); line-height: 1.6; }
+
+    /* Self Hosted */
+    .selfhosted-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+    .selfhosted-step-card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 2rem;
+    }
+    .selfhosted-step-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.75rem; }
+    .selfhosted-step-card p { color: var(--text-muted); font-size: var(--t-small); line-height: 1.6; }
+
+    /* Terminal Curl Box */
+    .terminal-box {
+      background: #050811;
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .terminal-code {
+      font-family: var(--mono);
+      font-size: 0.95rem;
+      color: #38bdf8;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+    .copy-btn {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--card-border);
+      color: var(--text);
+      font-family: var(--font);
+      font-size: var(--t-small);
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .copy-btn:hover { background: rgba(255,255,255,0.12); color: #fff; }
+
+    /* Specs Table */
+    .specs-table-wrapper {
+      overflow-x: auto;
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+    }
+    .specs-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: var(--t-small);
+    }
+    .specs-table th {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--card-border);
+      color: var(--text-muted);
+      font-weight: 600;
+      font-family: var(--mono);
+      text-transform: uppercase;
+      font-size: var(--t-tiny);
+    }
+    .specs-table td {
+      padding: 0.9rem 1rem;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      color: var(--text);
+    }
+    .specs-table tr:last-child td { border-bottom: none; }
+
+    /* Use Cases */
+    .usecase-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 1.5rem;
+    }
+    .usecase-card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      transition: all 0.25s ease;
+    }
+    .usecase-card:hover {
+      border-color: rgba(99, 102, 241, 0.4);
+      background: var(--card-hover);
+      transform: translateY(-2px);
+    }
+    .card-label {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: var(--t-tiny);
+      color: #a5b4fc;
+      background: rgba(99, 102, 241, 0.12);
+      border: 1px solid rgba(99, 102, 241, 0.25);
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+    .usecase-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.75rem; }
+    .usecase-card p { color: var(--text-muted); font-size: var(--t-small); line-height: 1.6; }
+
+    /* Partners */
+    .partners-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .partner-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      padding: 0.65rem 1.25rem;
+      border-radius: var(--radius-sm);
+      font-size: var(--t-small);
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    /* Pricing Section */
+    .pricing-grid--2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+      margin-bottom: 2.5rem;
+    }
+    .price-card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem 2rem;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .price-card.featured {
+      border-color: var(--accent);
+      background: linear-gradient(180deg, #0d1629 0%, #0d1322 100%);
+      box-shadow: 0 0 35px rgba(59, 130, 246, 0.15);
+    }
+    .price-badge-popular {
+      position: absolute;
+      top: -12px;
+      right: 24px;
+      background: var(--accent);
+      color: #fff;
+      font-size: var(--t-tiny);
+      font-weight: 700;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      letter-spacing: 0.05em;
+    }
+    .price-name { font-size: 1.35rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .price-amount {
+      font-size: 2.75rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: baseline;
+      gap: 0.35rem;
+    }
+    .price-amount span:last-child {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+    .price-desc {
+      color: var(--text-muted);
+      font-size: var(--t-small);
+      margin-bottom: 1.75rem;
+      line-height: 1.5;
+    }
+    .price-features {
+      list-style: none;
+      margin-bottom: 2rem;
+      flex-grow: 1;
+    }
+    .price-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      margin-bottom: 0.85rem;
+      font-size: var(--t-small);
+      color: var(--text);
+    }
+    .price-features li svg {
+      width: 18px;
+      height: 18px;
+      min-width: 18px;
+      color: var(--green);
+      margin-top: 2px;
+    }
+
+    /* Cloud Upsell Note in Pricing */
+    .pricing-cloud-banner {
+      background: rgba(59, 130, 246, 0.06);
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      border-radius: var(--radius);
+      padding: 1.5rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .pricing-cloud-banner h4 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.25rem; }
+    .pricing-cloud-banner p { color: var(--text-muted); font-size: var(--t-small); margin: 0; }
+
+    /* FAQ */
+    .faq-list { max-width: 840px; margin: 0 auto; display: flex; flex-direction: column; gap: 1rem; }
+    .faq-item {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .faq-question {
+      width: 100%;
+      text-align: left;
+      background: transparent;
+      border: none;
+      padding: 1.25rem 1.5rem;
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 1.05rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .faq-question svg { width: 18px; height: 18px; transition: transform 0.25s ease; color: var(--text-muted); }
+    .faq-item.active .faq-question svg { transform: rotate(45deg); color: var(--accent); }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .faq-answer-inner {
+      padding: 0 1.5rem 1.5rem;
+      color: var(--text-muted);
+      font-size: var(--t-small);
+      line-height: 1.6;
+    }
+
+    /* Contact Form */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 3rem;
+      align-items: flex-start;
+    }
+    .contact-form {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+    .form-group { margin-bottom: 1.25rem; }
+    .form-group label {
+      display: block;
+      font-size: var(--t-small);
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+    .form-group input, .form-group textarea {
+      width: 100%;
+      background: #050811;
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-sm);
+      padding: 0.75rem 1rem;
+      color: #fff;
+      font-family: var(--font);
+      font-size: var(--t-small);
+      transition: border-color 0.2s;
+    }
+    .form-group input:focus, .form-group textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+    .form-group input.error, .form-group textarea.error {
+      border-color: var(--danger);
+    }
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      padding-top: 1rem;
+    }
+    .contact-info-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    .contact-info-item svg { width: 22px; height: 22px; color: var(--accent); margin-top: 2px; }
+    .ci-label { font-size: var(--t-tiny); color: var(--text-muted); font-family: var(--mono); text-transform: uppercase; }
+    .ci-value { font-size: 1.05rem; font-weight: 600; }
+    .ci-value a:hover { color: var(--accent); }
+    .contact-note {
+      font-size: var(--t-small);
+      color: var(--text-muted);
+      line-height: 1.6;
+      border-left: 2px solid var(--accent);
+      padding-left: 1rem;
+      margin-top: 1rem;
+    }
+
+    /* Footer */
+    .footer {
+      background: #050811;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 4rem 0 2rem;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+    .footer-brand p { color: var(--text-muted); font-size: var(--t-small); margin-top: 0.75rem; max-width: 320px; }
+    .footer-col h4 {
+      font-size: var(--t-tiny);
+      font-family: var(--mono);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+    }
+    .footer-col a {
+      display: block;
+      color: var(--text-muted);
+      font-size: var(--t-small);
+      margin-bottom: 0.65rem;
+      transition: color 0.2s;
+    }
+    .footer-col a:hover { color: #fff; }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.04);
+      padding-top: 2rem;
+      text-align: center;
+      color: var(--text-dim);
+      font-size: var(--t-tiny);
+    }
+
+    /* Mobile Menu Drawer */
+    .mobile-menu-drawer {
+      position: fixed;
+      top: 64px;
+      left: 0;
+      width: 100%;
+      background: rgba(8, 12, 20, 0.98);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--card-border);
+      display: none;
+      flex-direction: column;
+      padding: 1.5rem;
+      gap: 1.25rem;
+      z-index: 999;
+    }
+    .mobile-menu-drawer.open { display: flex; }
+    .mobile-menu-drawer a {
+      color: var(--text);
+      font-size: 1.05rem;
+      font-weight: 600;
+      padding: 0.5rem 0;
+    }
+
+    /* Cookie Banner */
+    .cookie-banner {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      max-width: 420px;
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+      z-index: 1000;
+      display: none;
+    }
+    .cookie-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; }
+    .cookie-title { font-weight: 700; font-size: 1rem; }
+    .cookie-text { font-size: var(--t-small); color: var(--text-muted); margin-bottom: 1rem; line-height: 1.5; }
+    .cookie-actions { display: flex; gap: 0.75rem; }
+    .cookie-btn {
+      flex: 1;
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-sm);
+      font-size: var(--t-small);
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid var(--card-border);
+    }
+    .cookie-btn-accept { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .cookie-btn-decline { background: transparent; color: var(--text-muted); }
+
+    @media (max-width: 1024px) {
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    }
+    @media (max-width: 640px) {
+      .form-row { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .cookie-banner { left: 16px; right: 16px; bottom: 16px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="container nav-container">
+      <div class="nav-left">
+        <a href="/" class="nav-logo">
+          Swipies<span>AI</span>
+          <span class="ent-badge-nav">Enterprise</span>
+        </a>
+      </div>
+
+      <ul class="nav-links">
+        <li><a href="#problem" data-i18n="nav_problem">The Problem</a></li>
+        <li><a href="#solution" data-i18n="nav_solution">Solution</a></li>
+        <li><a href="#how" data-i18n="nav_how">Deployment</a></li>
+        <li><a href="#selfhosted" data-i18n="nav_selfhosted">Self-Hosted</a></li>
+        <li><a href="#cases" data-i18n="nav_cases">Use Cases</a></li>
+        <li><a href="#pricing" data-i18n="nav_pricing">Pricing</a></li>
+        <li><a href="#faq" data-i18n="nav_faq">FAQ</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <!-- Backlink to Cloud SaaS site -->
+        <a href="https://swipies.app" class="nav-b2c-backlink" target="_blank" data-i18n="nav_b2c_backlink">
+          Cloud / Start Free →
+        </a>
+
+        <!-- Language switcher -->
+        <div class="lang-switch" id="langSwitch">
+          <button type="button" data-lang="en" onclick="setLanguage('en', true)">EN</button>
+          <button type="button" data-lang="ru" onclick="setLanguage('ru', true)">RU</button>
+          <button type="button" data-lang="uz" onclick="setLanguage('uz', true)">UZ</button>
+        </div>
+
+        <a href="#contact" class="btn-primary" data-i18n="nav_cta">Talk to Sales</a>
+
+        <button class="nav-hamburger" id="navHamburger" aria-label="Toggle Navigation Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-menu-drawer" id="mobileDrawer">
+    <a href="#problem" onclick="toggleMobileMenu()" data-i18n="nav_problem">The Problem</a>
+    <a href="#solution" onclick="toggleMobileMenu()" data-i18n="nav_solution">Solution</a>
+    <a href="#how" onclick="toggleMobileMenu()" data-i18n="nav_how">Deployment</a>
+    <a href="#selfhosted" onclick="toggleMobileMenu()" data-i18n="nav_selfhosted">Self-Hosted</a>
+    <a href="#cases" onclick="toggleMobileMenu()" data-i18n="nav_cases">Use Cases</a>
+    <a href="#pricing" onclick="toggleMobileMenu()" data-i18n="nav_pricing">Pricing</a>
+    <a href="#faq" onclick="toggleMobileMenu()" data-i18n="nav_faq">FAQ</a>
+    <a href="https://swipies.app" target="_blank" style="color:#60a5fa" data-i18n="nav_b2c_backlink">Cloud / Start Free →</a>
+    <a href="#contact" class="btn-primary" onclick="toggleMobileMenu()" data-i18n="nav_cta" style="text-align:center">Talk to Sales</a>
+  </div>
+
+  <!-- HERO -->
+  <header class="hero" id="hero">
+    <div class="hero-bg-glow"></div>
+    <div class="container">
+      <div class="hero-badge" data-i18n="hero_badge_ent">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <span>Enterprise On-Premise &amp; Private RAG Infrastructure</span>
+      </div>
+      <h1 data-i18n="hero_h1_ent">
+        Deploy Enterprise AI <span>Directly on Your Own Servers</span>
+      </h1>
+      <p class="hero-sub" data-i18n="hero_sub_ent">
+        Complete data sovereignty for banking, government, legal, and high-security enterprise environments. Run state-of-the-art LLMs on local hardware with zero external data egress and turnkey deployment in 1 business day.
+      </p>
+      <div class="hero-cta-group">
+        <a href="#contact" class="btn-primary" data-i18n="hero_cta1_ent">Talk to Sales</a>
+        <a href="#selfhosted" class="btn-secondary" data-i18n="hero_cta2_ent">View Self-Hosted Specs</a>
+      </div>
+      <div class="hero-cloud-pill">
+        <span data-i18n="hero_cloud_text">Need instant cloud chatbots for your website?</span>
+        <a href="https://swipies.app" target="_blank" data-i18n="hero_cloud_link">Explore Swipies Cloud SaaS →</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 01 — THE PROBLEM -->
+  <section id="problem">
+    <div class="container">
+      <div class="section-num" data-i18n="prob_num">01 — The Problem</div>
+      <h2 class="section-title" data-i18n="prob_title">Why Standard AI Fails Enterprise</h2>
+      <p class="section-subtitle" data-i18n="prob_sub">Commercial cloud APIs create severe compliance risks and lack deep understanding of proprietary internal corporate knowledge.</p>
+      <div class="problem-grid">
+        <div class="problem-card">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3 data-i18n="prob1_h">Data Leaves Your Perimeter</h3>
+          <p data-i18n="prob1_p">Every API call to external AI providers sends your proprietary data to third-party servers — a compliance nightmare.</p>
+        </div>
+        <div class="problem-card">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7z"/><line x1="9" y1="21" x2="15" y2="21"/></svg>
+          </div>
+          <h3 data-i18n="prob2_h">Generic AI, Zero Context</h3>
+          <p data-i18n="prob2_p">Public models don't understand your business data, documents, or internal knowledge. Answers are shallow and unreliable.</p>
+        </div>
+        <div class="problem-card">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </div>
+          <h3 data-i18n="prob3_h">No Control Over Stack</h3>
+          <p data-i18n="prob3_p">You can't control the model version, uptime, infrastructure, or update cadence. Your AI is someone else's decision.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 — THE SOLUTION -->
+  <section id="solution">
+    <div class="container">
+      <div class="section-num" data-i18n="sol_num">02 — On-Premise Solution</div>
+      <h2 class="section-title" data-i18n="sol_title">On-Premise RAG That Runs on Your Servers</h2>
+      <p class="section-subtitle" data-i18n="sol_sub">Swipies AI deploys the full AI infrastructure inside your environment. Complete data sovereignty, zero external dependencies.</p>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+          </div>
+          <h3 data-i18n="sol1_h">On-Premise RAG Deployment</h3>
+          <p data-i18n="sol1_p">Full RAG pipeline — document ingestion, vector indexing, retrieval, and generation — deployed directly on your servers. Built on battle-tested RAGFlow architecture.</p>
+        </div>
+        <div class="feature-card">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+          </div>
+          <h3 data-i18n="sol2_h">Works With Your Data</h3>
+          <p data-i18n="sol2_p">Connect your existing documents, databases, CRM records, and internal tools. The knowledge base is built from your real data — not generic training sets.</p>
+        </div>
+        <div class="feature-card">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>
+          </div>
+          <h3 data-i18n="sol3_h">Any LLM, Your Choice</h3>
+          <p data-i18n="sol3_p">Support for OpenAI, Anthropic Claude, xAI Grok, DeepSeek, and fully local models via Ollama. Switch models without changing infrastructure.</p>
+        </div>
+        <div class="feature-card">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+          </div>
+          <h3 data-i18n="sol4_h">Full White-Label for SaaS</h3>
+          <p data-i18n="sol4_p">Embed Swipies AI into your own product under your brand. Offer AI-powered features to your clients — powered by their data, on your infrastructure.</p>
+        </div>
+        <div class="feature-card">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <h3 data-i18n="sol5_h">Uzbekistan Local Deployment</h3>
+          <p data-i18n="sol5_p">Deploy AI models on secure high-performance servers physically located within the Republic of Uzbekistan, ensuring compliance with local data localization laws (Article 27.1).</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 — HOW IT WORKS -->
+  <section id="how">
+    <div class="container">
+      <div class="section-num" data-i18n="how_num">03 — Enterprise Deployment</div>
+      <h2 class="section-title" data-i18n="how_title">Deployed in 1 Business Day</h2>
+      <p class="section-subtitle" data-i18n="how_sub">Our engineering team audits your architecture, delivers preconfigured container images, and guides your team to a seamless launch.</p>
+      <div class="steps-list">
+        <div class="step-row">
+          <div class="step-num">01</div>
+          <h3 data-i18n="how1_h">Infrastructure Audit</h3>
+          <p data-i18n="how1_p">We audit your servers, data sources, and security requirements to design the optimal deployment architecture.</p>
+        </div>
+        <div class="step-row">
+          <div class="step-num">02</div>
+          <h3 data-i18n="how2_h">Deploy RAG + LLM</h3>
+          <p data-i18n="how2_p">We deploy the full RAG pipeline and LLM of your choice directly on your infrastructure. Within 1 business day.</p>
+        </div>
+        <div class="step-row">
+          <div class="step-num">03</div>
+          <h3 data-i18n="how3_h">Your Team Goes Live</h3>
+          <p data-i18n="how3_p">Your team and clients get enterprise-grade AI — fully private, fully controlled, fully yours. Data stays with you.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 — SELF HOSTED -->
+  <section id="selfhosted">
+    <div class="container">
+      <div class="section-num" data-i18n="selfhosted_num">04 — Self-Hosted</div>
+      <h2 class="section-title" data-i18n="selfhosted_title">Run Swipies AI on Your Own Hardware</h2>
+      <p class="section-subtitle" data-i18n="selfhosted_subtitle">Execute a single command on your Linux server to automatically install and launch Swipies AI.</p>
+
+      <div class="terminal-box">
+        <div class="terminal-code" id="installCmd">curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/install.sh | bash</div>
+        <button class="copy-btn" id="copyBtn" onclick="copyInstallCmd()">
+          <span data-i18n="copy_cmd">Copy Command</span>
+        </button>
+      </div>
+
+      <div class="selfhosted-steps">
+        <div class="selfhosted-step-card">
+          <h3 data-i18n="selfhosted_step1_h">1. Pull and Run</h3>
+          <p data-i18n="selfhosted_step1_p">Deploy our containerized stack in minutes using Docker Compose or Kubernetes Helm charts.</p>
+        </div>
+        <div class="selfhosted-step-card">
+          <h3 data-i18n="selfhosted_step2_h">2. Insert License Key</h3>
+          <p data-i18n="selfhosted_step2_p">Purchase your license key on our platform and paste it into the web panel to activate GPU acceleration and remove ingestion limits.</p>
+        </div>
+        <div class="selfhosted-step-card">
+          <h3 data-i18n="selfhosted_step3_h">3. Complete Autonomy</h3>
+          <p data-i18n="selfhosted_step3_p">The server runs fully standalone. No telemetry, no external internet connection required for air-gapped networks.</p>
+        </div>
+      </div>
+
+      <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 1rem;" data-i18n="specs_heading">Hardware &amp; Server Requirements</h3>
+      <div class="specs-table-wrapper">
+        <table class="specs-table">
+          <thead>
+            <tr>
+              <th data-i18n="th_spec">Component</th>
+              <th data-i18n="th_min">Minimum (CPU Inference)</th>
+              <th data-i18n="th_rec">Recommended (GPU Accelerated)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Operating System</strong></td>
+              <td>Ubuntu 22.04 LTS / Debian 12 / RHEL 9</td>
+              <td>Ubuntu 22.04 LTS + NVIDIA Drivers</td>
+            </tr>
+            <tr>
+              <td><strong>CPU Cores</strong></td>
+              <td>8 Cores (x86_64)</td>
+              <td>16+ Cores</td>
+            </tr>
+            <tr>
+              <td><strong>RAM</strong></td>
+              <td>16 GB RAM</td>
+              <td>32 GB - 64 GB RAM</td>
+            </tr>
+            <tr>
+              <td><strong>GPU</strong></td>
+              <td>None (CPU Only)</td>
+              <td>1x NVIDIA RTX 3090 / 4090 or A10 / A100 (16GB+ VRAM)</td>
+            </tr>
+            <tr>
+              <td><strong>Disk Storage</strong></td>
+              <td>100 GB SSD (NVMe Preferred)</td>
+              <td>500 GB+ NVMe SSD</td>
+            </tr>
+            <tr>
+              <td><strong>Software Stack</strong></td>
+              <td>Docker 24.0+ &amp; Docker Compose v2</td>
+              <td>Docker + NVIDIA Container Toolkit + CUDA 12+</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 — USE CASES -->
+  <section id="cases">
+    <div class="container">
+      <div class="section-num" data-i18n="cases_num">05 — Use Cases</div>
+      <h2 class="section-title" data-i18n="cases_title">Built for Industries That Can't Compromise on Data</h2>
+      <p class="section-subtitle" data-i18n="cases_sub">From state-regulated banks to major enterprise ERP systems, Swipies AI safeguards institutional intelligence.</p>
+      <div class="usecase-grid">
+        <div class="usecase-card">
+          <div class="card-label" data-i18n="case1_label">SaaS / ERP Platforms</div>
+          <h3 data-i18n="case1_h">Embed AI Into Your Product</h3>
+          <p data-i18n="case1_p">White-label Swipies AI and offer AI-powered features to your own clients. OEM model — your brand, your infrastructure, your clients' data stays private.</p>
+        </div>
+        <div class="usecase-card">
+          <div class="card-label" data-i18n="case2_label">Banks &amp; Finance</div>
+          <h3 data-i18n="case2_h">AI on Confidential Data</h3>
+          <p data-i18n="case2_p">Deploy AI over transaction records, client profiles, and financial documents. Full regulatory compliance — data never leaves your banking infrastructure.</p>
+        </div>
+        <div class="usecase-card">
+          <div class="card-label" data-i18n="case3_label">Legal &amp; Compliance</div>
+          <h3 data-i18n="case3_h">AI Over Case Files &amp; Contracts</h3>
+          <p data-i18n="case3_p">Search, summarize, and analyze case law, contracts, and compliance documents with AI that runs entirely within your secure environment.</p>
+        </div>
+        <div class="usecase-card">
+          <div class="card-label" data-i18n="case4_label">Large Enterprises</div>
+          <h3 data-i18n="case4_h">Internal Knowledge Base AI</h3>
+          <p data-i18n="case4_p">Give every employee instant access to company documentation, HR policies, technical manuals, and institutional knowledge via private AI.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 — PARTNERS & ENGINES -->
+  <section id="partners">
+    <div class="container">
+      <div class="section-num" data-i18n="partners_num">06 — Integrations</div>
+      <h2 class="section-title" data-i18n="partners_title">Supported AI Models &amp; Engines</h2>
+      <p class="section-subtitle" data-i18n="partners_sub">Seamlessly run proprietary models, local open weights, or external providers without touching your backend.</p>
+      <div class="partners-row">
+        <span class="partner-badge">OpenAI (GPT-4o, o1, o3)</span>
+        <span class="partner-badge">Anthropic Claude (3.5 Sonnet, Haiku)</span>
+        <span class="partner-badge">DeepSeek (V3 &amp; R1 On-Premise)</span>
+        <span class="partner-badge">xAI (Grok 2 &amp; Grok 3)</span>
+        <span class="partner-badge">Ollama (Llama 3.3, Mistral, Qwen)</span>
+        <span class="partner-badge">vLLM &amp; HuggingFace Local Serving</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 — PRICING -->
+  <section id="pricing">
+    <div class="container">
+      <div class="section-num" data-i18n="price_num">07 — Pricing</div>
+      <h2 class="section-title" data-i18n="price_title">Enterprise Deployment Options</h2>
+      <p class="section-subtitle" data-i18n="price_sub">Transparent self-hosted licensing and turnkey enterprise solutions designed for maximum sovereignty.</p>
+
+      <div class="pricing-grid--2">
+        <!-- License $199/year -->
+        <div class="price-card">
+          <div class="price-name" data-i18n="license">Self-Hosted License</div>
+          <div class="price-amount"><span data-i18n="license_price">$199</span><span data-i18n="license_period">/year</span></div>
+          <p class="price-desc" data-i18n="license_desc">Purchase a license key on our platform and run Swipies AI on your own infrastructure. You install, we power up.</p>
+          <ul class="price-features">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="license_f1">Self-hosted (Docker/k8s)</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="license_f2">Activate via License Key</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="license_f3">No ingestion or team limits</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="license_f4">GPU &amp; Vector acceleration</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="license_f5">Offline / Air-gapped mode</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="license_f6">Regular security updates</span></li>
+          </ul>
+          <a href="https://api.swipies.app/login" target="_blank" class="btn-secondary" style="display:inline-block;text-align:center" data-i18n="license_cta">Purchase Key</a>
+        </div>
+
+        <!-- Custom Enterprise -->
+        <div class="price-card featured">
+          <div class="price-badge-popular" data-i18n="turnkey_badge">TURNKEY SLA</div>
+          <div class="price-name" data-i18n="enterprise">Enterprise Custom</div>
+          <div class="price-amount"><span data-i18n="ent_price">Custom</span></div>
+          <p class="price-desc" data-i18n="ent_desc">Fully custom-scoped based on your infrastructure, data volume, and organizational requirements.</p>
+          <ul class="price-features">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="ent_f1">On-premise deployment in 1 business day</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="ent_f2">Custom LLM config &amp; local fine-tuning</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="ent_f3">Dedicated senior DevOps engineer</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="ent_f4">Full white-label OEM integration</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="ent_f5">Guaranteed SLA response times</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="ent_f6">100% Uzbekistan data sovereignty</span></li>
+          </ul>
+          <a href="#contact" class="btn-primary" style="display:inline-block;text-align:center" data-i18n="ent_cta">Get a Custom Quote</a>
+        </div>
+      </div>
+
+      <!-- Cross navigation pill to B2C -->
+      <div class="pricing-cloud-banner">
+        <div>
+          <h4 data-i18n="cloud_banner_box_h">Looking for Cloud SaaS with instant setup?</h4>
+          <p data-i18n="cloud_banner_box_p">Swipies Cloud lets you create chatbots in 2 minutes without managing hardware, starting from $20/mo.</p>
+        </div>
+        <a href="https://swipies.app/#pricing" class="btn-secondary" target="_blank" data-i18n="cloud_banner_box_btn">Explore Cloud Plans →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 — FAQ -->
+  <section id="faq">
+    <div class="container">
+      <div class="section-num" data-i18n="faq_num">08 — FAQ</div>
+      <h2 class="section-title" data-i18n="faq_title">Frequently Asked Questions</h2>
+      <p class="section-subtitle" data-i18n="faq_sub">Common questions about on-premise installation, legal compliance, and technical support.</p>
+
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span data-i18n="faq1_q">Does our data leave our servers?</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner" data-i18n="faq1_a">No, never. Swipies AI is deployed entirely on your own infrastructure. Your documents, databases, and queries stay within your environment. No data is sent to any external servers or third-party APIs.</div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span data-i18n="faq2_q">How long does deployment take?</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner" data-i18n="faq2_a">Turnkey deployment takes 1 business day from kick-off. This includes infrastructure audit, RAG pipeline setup, LLM configuration, testing, and going live with your team.</div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span data-i18n="faq3_q">Which LLMs do you support?</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner" data-i18n="faq3_a">We support OpenAI (GPT-4, GPT-4o), Anthropic (Claude 3.5), DeepSeek (R1, V3), xAI (Grok), and fully local open-weights models via Ollama and vLLM. You can switch models at any time without re-deploying the infrastructure.</div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span data-i18n="faq4_q">Do you offer white-label for our product?</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner" data-i18n="faq4_a">Yes. SaaS and ERP companies can embed Swipies AI under their own brand. Your clients interact with AI that feels native to your product — while all data stays on your servers.</div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span data-i18n="faq5_q">What is RAG and why does it matter?</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner" data-i18n="faq5_a">RAG (Retrieval-Augmented Generation) is a technique where AI retrieves relevant information from your specific data before generating an answer. Unlike generic AI, RAG ensures responses are grounded in your actual documents and knowledge — making it accurate, relevant, and trustworthy for enterprise use.</div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span data-i18n="faq6_q">How does the self-hosted license work?</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner" data-i18n="faq6_a">You can download our Docker Compose or Kubernetes Helm charts, install Swipies AI on your local servers, and enter the license key purchased on our platform in the web interface. This unlocks full platform capability, removes limits, and enables offline operation without external internet connection.</div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span data-i18n="faq7_q">Can we deploy AI models on servers in Uzbekistan?</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner" data-i18n="faq7_a">Yes, absolutely. We support deploying LLMs and RAG pipelines directly on servers located in Uzbekistan. This ensures 100% compliance with local data localization laws (such as Article 27.1 of the Law of the Republic of Uzbekistan 'On Personal Data'), keeping all sensitive data inside the national border.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 09 — CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <div class="section-num" data-i18n="contact_num">09 — Contact</div>
+      <h2 class="section-title" data-i18n="contact_title">Let's Talk About Your Deployment</h2>
+      <p class="section-subtitle" data-i18n="contact_sub">Our enterprise architects will prepare an infrastructure proposal and live demo tailored to your requirements.</p>
+
+      <div class="contact-grid">
+        <form class="contact-form" id="contactForm" onsubmit="return handleSubmit(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label data-i18n="form_company">Company Name</label>
+              <input type="text" id="f-company" required placeholder="e.g. Uzum, FinBank, or Acme Corp">
+            </div>
+            <div class="form-group">
+              <label data-i18n="form_name">Full Name</label>
+              <input type="text" id="f-name" required placeholder="e.g. Alex Johnson">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label data-i18n="form_email">Corporate Email</label>
+              <input type="email" id="f-email" required placeholder="alex@company.com">
+            </div>
+            <div class="form-group">
+              <label data-i18n="form_phone">Phone / WhatsApp</label>
+              <input type="tel" id="f-phone" placeholder="+998 (90) 625-3986">
+            </div>
+          </div>
+          <div class="form-group">
+            <label data-i18n="form_telegram">Telegram Username / Direct Contact (Optional)</label>
+            <input type="text" id="f-telegram" placeholder="@username or +998 (90) 625-3986">
+          </div>
+          <div class="form-group">
+            <label data-i18n="form_msg">Project &amp; Infrastructure Requirements</label>
+            <textarea id="f-msg" rows="4" placeholder="Describe your data volume, number of users, server environment, or compliance goals..."></textarea>
+          </div>
+          <button type="submit" class="btn-primary" data-i18n="form_submit">Request Enterprise Proposal</button>
+        </form>
+
+        <div class="contact-info">
+          <div class="contact-info-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 7L2 7"/></svg>
+            <div>
+              <div class="ci-label" data-i18n="ci_email">Email</div>
+              <div class="ci-value"><a href="mailto:info@swipies.app">info@swipies.app</a></div>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <div>
+              <div class="ci-label" data-i18n="ci_phone">Phone / WhatsApp</div>
+              <div class="ci-value"><a href="https://wa.me/998906253986" target="_blank">+998 (90) 625-3986</a></div>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2L2 10.5l6.5 2.5L20 5l-10 9.5v5l3.5-3.5 5.5 4L21.5 2z"/></svg>
+            <div>
+              <div class="ci-label" data-i18n="ci_telegram">Telegram</div>
+              <div class="ci-value"><a href="https://t.me/swipies_ai" target="_blank">@swipies_ai</a></div>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <div>
+              <div class="ci-label" data-i18n="ci_location">Location</div>
+              <div class="ci-value" data-i18n="ci_loc_val">Uzbekistan, Andijan</div>
+            </div>
+          </div>
+          <p class="contact-note" data-i18n="ci_note">
+            Dedicated enterprise account manager for every deployment. SLA guarantees included. Average response time: &lt; 2 hours.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="nav-logo">Swipies<span>AI</span> <span class="ent-badge-nav">Enterprise</span></div>
+          <p data-i18n="footer_desc">Enterprise on-premise AI platform. Deploy RAG pipelines on your own servers with complete data sovereignty.</p>
+          <p style="margin-top:0.5rem;font-size:var(--t-small);color:var(--text-dim)">Uzbekistan, Andijan · +998 (90) 625-3986</p>
+        </div>
+        <div class="footer-col">
+          <h4 data-i18n="footer_platform">Platform</h4>
+          <a href="#problem" data-i18n="nav_problem">The Problem</a>
+          <a href="#solution" data-i18n="nav_solution">Solution</a>
+          <a href="#how" data-i18n="nav_how">Deployment</a>
+          <a href="#selfhosted" data-i18n="nav_selfhosted">Self-Hosted</a>
+          <a href="#cases" data-i18n="nav_cases">Use Cases</a>
+          <a href="#pricing" data-i18n="nav_pricing">Pricing</a>
+        </div>
+        <div class="footer-col">
+          <h4 data-i18n="footer_b2c_title">Cloud &amp; Public</h4>
+          <a href="https://swipies.app" target="_blank" data-i18n="footer_b2c_home">Swipies Cloud Platform ↗</a>
+          <a href="https://swipies.app/#pricing" target="_blank" data-i18n="footer_b2c_plans">Cloud SaaS Plans ↗</a>
+          <a href="https://swipies.app/tutorials.html" target="_blank" data-i18n="footer_tutorials">Tutorials</a>
+          <a href="https://help.swipies.app/docs/dev/" target="_blank" data-i18n="footer_docs">Documentation</a>
+        </div>
+        <div class="footer-col">
+          <h4 data-i18n="footer_company">Company &amp; Legal</h4>
+          <a href="https://swipies.app/terms.html" target="_blank" data-i18n="footer_terms">Terms of Use</a>
+          <a href="https://swipies.app/privacy.html" target="_blank" data-i18n="footer_privacy">Privacy Policy</a>
+          <a href="mailto:info@swipies.app">Email</a>
+          <a href="https://t.me/swipies_ai" target="_blank">Telegram</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p data-i18n="footer_copy">© 2025 Swipies AI Enterprise. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Cookie Banner -->
+  <div id="cookieBanner" class="cookie-banner" role="dialog" aria-live="polite">
+    <div class="cookie-header">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--accent)">
+        <path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5z" />
+        <circle cx="8.5" cy="8.5" r="1.5" />
+        <circle cx="11.5" cy="14.5" r="1.5" />
+        <circle cx="15.5" cy="9.5" r="1.5" />
+      </svg>
+      <div class="cookie-title" data-i18n="cookie_title">Cookie &amp; Data Consent</div>
+    </div>
+    <div class="cookie-text">
+      <span data-i18n="cookie_msg">We use cookies and collect technical telemetry to optimize enterprise portal performance and security.</span>
+    </div>
+    <div class="cookie-actions">
+      <button type="button" class="cookie-btn cookie-btn-decline" onclick="handleCookieConsent('declined')" data-i18n="cookie_decline">Decline</button>
+      <button type="button" class="cookie-btn cookie-btn-accept" onclick="handleCookieConsent('accepted')" data-i18n="cookie_accept">Accept</button>
+    </div>
+  </div>
+
+  <script>
+    /* ===== SWIPIES AI ENTERPRISE — Translations ===== */
+    const T = {
+      en: {
+        nav_problem: "The Problem",
+        nav_solution: "Solution",
+        nav_how: "Deployment",
+        nav_selfhosted: "Self-Hosted",
+        nav_cases: "Use Cases",
+        nav_pricing: "Pricing",
+        nav_faq: "FAQ",
+        nav_cta: "Talk to Sales",
+        nav_b2c_backlink: "Cloud / Start Free →",
+        hero_badge_ent: "Enterprise On-Premise & Private RAG Infrastructure",
+        hero_h1_ent: "Deploy Enterprise AI Directly on Your Own Servers",
+        hero_sub_ent: "Complete data sovereignty for banking, government, legal, and high-security enterprise environments. Run state-of-the-art LLMs on local hardware with zero external data egress and turnkey deployment in 1 business day.",
+        hero_cta1_ent: "Talk to Sales",
+        hero_cta2_ent: "View Self-Hosted Specs",
+        hero_cloud_text: "Need instant cloud chatbots for your website?",
+        hero_cloud_link: "Explore Swipies Cloud SaaS →",
+        prob_num: "01 — The Problem",
+        prob_title: "Why Standard AI Fails Enterprise",
+        prob_sub: "Commercial cloud APIs create severe compliance risks and lack deep understanding of proprietary internal corporate knowledge.",
+        prob1_h: "Data Leaves Your Perimeter",
+        prob1_p: "Every API call to external AI providers sends your proprietary data to third-party servers — a compliance nightmare.",
+        prob2_h: "Generic AI, Zero Context",
+        prob2_p: "Public models don't understand your business data, documents, or internal knowledge. Answers are shallow and unreliable.",
+        prob3_h: "No Control Over Stack",
+        prob3_p: "You can't control the model version, uptime, infrastructure, or update cadence. Your AI is someone else's decision.",
+        sol_num: "02 — On-Premise Solution",
+        sol_title: "On-Premise RAG That Runs on Your Servers",
+        sol_sub: "Swipies AI deploys the full AI infrastructure inside your environment. Complete data sovereignty, zero external dependencies.",
+        sol1_h: "On-Premise RAG Deployment",
+        sol1_p: "Full RAG pipeline — document ingestion, vector indexing, retrieval, and generation — deployed directly on your servers. Built on battle-tested RAGFlow architecture.",
+        sol2_h: "Works With Your Data",
+        sol2_p: "Connect your existing documents, databases, CRM records, and internal tools. The knowledge base is built from your real data — not generic training sets.",
+        sol3_h: "Any LLM, Your Choice",
+        sol3_p: "Support for OpenAI, Anthropic Claude, xAI Grok, DeepSeek, and fully local models via Ollama. Switch models without changing infrastructure.",
+        sol4_h: "Full White-Label for SaaS",
+        sol4_p: "Embed Swipies AI into your own product under your brand. Offer AI-powered features to your clients — powered by their data, on your infrastructure.",
+        sol5_h: "Uzbekistan Local Deployment",
+        sol5_p: "Deploy AI models on secure high-performance servers physically located within the Republic of Uzbekistan, ensuring compliance with local data localization laws (Article 27.1).",
+        how_num: "03 — Enterprise Deployment",
+        how_title: "Deployed in 1 Business Day",
+        how_sub: "Our engineering team audits your architecture, delivers preconfigured container images, and guides your team to a seamless launch.",
+        how1_h: "Infrastructure Audit",
+        how1_p: "We audit your servers, data sources, and security requirements to design the optimal deployment architecture.",
+        how2_h: "Deploy RAG + LLM",
+        how2_p: "We deploy the full RAG pipeline and LLM of your choice directly on your infrastructure. Within 1 business day.",
+        how3_h: "Your Team Goes Live",
+        how3_p: "Your team and clients get enterprise-grade AI — fully private, fully controlled, fully yours. Data stays with you.",
+        selfhosted_num: "04 — Self-Hosted",
+        selfhosted_title: "Run Swipies AI on Your Own Hardware",
+        selfhosted_subtitle: "Execute a single command on your Linux server to automatically install and launch Swipies AI.",
+        copy_cmd: "Copy Command",
+        selfhosted_step1_h: "1. Pull and Run",
+        selfhosted_step1_p: "Deploy our containerized stack in minutes using Docker Compose or Kubernetes Helm charts.",
+        selfhosted_step2_h: "2. Insert License Key",
+        selfhosted_step2_p: "Purchase your license key on our platform and paste it into the web panel to activate GPU acceleration and remove ingestion limits.",
+        selfhosted_step3_h: "3. Complete Autonomy",
+        selfhosted_step3_p: "The server runs fully standalone. No telemetry, no external internet connection required for air-gapped networks.",
+        specs_heading: "Hardware & Server Requirements",
+        th_spec: "Component",
+        th_min: "Minimum (CPU Inference)",
+        th_rec: "Recommended (GPU Accelerated)",
+        cases_num: "05 — Use Cases",
+        cases_title: "Built for Industries That Can't Compromise on Data",
+        cases_sub: "From state-regulated banks to major enterprise ERP systems, Swipies AI safeguards institutional intelligence.",
+        case1_label: "SaaS / ERP Platforms",
+        case1_h: "Embed AI Into Your Product",
+        case1_p: "White-label Swipies AI and offer AI-powered features to your own clients. OEM model — your brand, your infrastructure, your clients' data stays private.",
+        case2_label: "Banks & Finance",
+        case2_h: "AI on Confidential Data",
+        case2_p: "Deploy AI over transaction records, client profiles, and financial documents. Full regulatory compliance — data never leaves your banking infrastructure.",
+        case3_label: "Legal & Compliance",
+        case3_h: "AI Over Case Files & Contracts",
+        case3_p: "Search, summarize, and analyze case law, contracts, and compliance documents with AI that runs entirely within your secure environment.",
+        case4_label: "Large Enterprises",
+        case4_h: "Internal Knowledge Base AI",
+        case4_p: "Give every employee instant access to company documentation, HR policies, technical manuals, and institutional knowledge via private AI.",
+        partners_num: "06 — Integrations",
+        partners_title: "Supported AI Models & Engines",
+        partners_sub: "Seamlessly run proprietary models, local open weights, or external providers without touching your backend.",
+        price_num: "07 — Pricing",
+        price_title: "Enterprise Deployment Options",
+        price_sub: "Transparent self-hosted licensing and turnkey enterprise solutions designed for maximum sovereignty.",
+        license: "Self-Hosted License",
+        license_price: "$199",
+        license_period: "/year",
+        license_desc: "Purchase a license key on our platform and run Swipies AI on your own infrastructure. You install, we power up.",
+        license_f1: "Self-hosted (Docker/k8s)",
+        license_f2: "Activate via License Key",
+        license_f3: "No ingestion or team limits",
+        license_f4: "GPU & Vector acceleration",
+        license_f5: "Offline / Air-gapped mode",
+        license_f6: "Regular security updates",
+        license_cta: "Purchase Key",
+        turnkey_badge: "TURNKEY SLA",
+        enterprise: "Enterprise Custom",
+        ent_price: "Custom",
+        ent_desc: "Fully custom-scoped based on your infrastructure, data volume, and organizational requirements.",
+        ent_f1: "On-premise deployment in 1 business day",
+        ent_f2: "Custom LLM config & local fine-tuning",
+        ent_f3: "Dedicated senior DevOps engineer",
+        ent_f4: "Full white-label OEM integration",
+        ent_f5: "Guaranteed SLA response times",
+        ent_f6: "100% Uzbekistan data sovereignty",
+        ent_cta: "Get a Custom Quote",
+        cloud_banner_box_h: "Looking for Cloud SaaS with instant setup?",
+        cloud_banner_box_p: "Swipies Cloud lets you create chatbots in 2 minutes without managing hardware, starting from $20/mo.",
+        cloud_banner_box_btn: "Explore Cloud Plans →",
+        faq_num: "08 — FAQ",
+        faq_title: "Frequently Asked Questions",
+        faq_sub: "Common questions about on-premise installation, legal compliance, and technical support.",
+        faq1_q: "Does our data leave our servers?",
+        faq1_a: "No, never. Swipies AI is deployed entirely on your own infrastructure. Your documents, databases, and queries stay within your environment. No data is sent to any external servers or third-party APIs.",
+        faq2_q: "How long does deployment take?",
+        faq2_a: "Turnkey deployment takes 1 business day from kick-off. This includes infrastructure audit, RAG pipeline setup, LLM configuration, testing, and going live with your team.",
+        faq3_q: "Which LLMs do you support?",
+        faq3_a: "We support OpenAI (GPT-4, GPT-4o), Anthropic (Claude 3.5), DeepSeek (R1, V3), xAI (Grok), and fully local open-weights models via Ollama and vLLM. You can switch models at any time without re-deploying the infrastructure.",
+        faq4_q: "Do you offer white-label for our product?",
+        faq4_a: "Yes. SaaS and ERP companies can embed Swipies AI under their own brand. Your clients interact with AI that feels native to your product — while all data stays on your servers.",
+        faq5_q: "What is RAG and why does it matter?",
+        faq5_a: "RAG (Retrieval-Augmented Generation) is a technique where AI retrieves relevant information from your specific data before generating an answer. Unlike generic AI, RAG ensures responses are grounded in your actual documents and knowledge — making it accurate, relevant, and trustworthy for enterprise use.",
+        faq6_q: "How does the self-hosted license work?",
+        faq6_a: "You can download our Docker Compose or Kubernetes Helm charts, install Swipies AI on your local servers, and enter the license key purchased on our platform in the web interface. This unlocks full platform capability, removes limits, and enables offline operation without external internet connection.",
+        faq7_q: "Can we deploy AI models on servers in Uzbekistan?",
+        faq7_a: "Yes, absolutely. We support deploying LLMs and RAG pipelines directly on servers located in Uzbekistan. This ensures 100% compliance with local data localization laws (such as Article 27.1 of the Law of the Republic of Uzbekistan 'On Personal Data'), keeping all sensitive data inside the national border.",
+        contact_num: "09 — Contact",
+        contact_title: "Let's Talk About Your Deployment",
+        contact_sub: "Our enterprise architects will prepare an infrastructure proposal and live demo tailored to your requirements.",
+        form_company: "Company Name",
+        form_name: "Full Name",
+        form_email: "Corporate Email",
+        form_phone: "Phone / WhatsApp",
+        form_telegram: "Telegram Username / Direct Contact (Optional)",
+        form_msg: "Project & Infrastructure Requirements",
+        form_submit: "Request Enterprise Proposal",
+        ci_email: "Email",
+        ci_phone: "Phone / WhatsApp",
+        ci_telegram: "Telegram",
+        ci_location: "Location",
+        ci_loc_val: "Uzbekistan, Andijan",
+        ci_note: "Dedicated enterprise account manager for every deployment. SLA guarantees included. Average response time: < 2 hours.",
+        footer_desc: "Enterprise on-premise AI platform. Deploy RAG pipelines on your own servers with complete data sovereignty.",
+        footer_platform: "Platform",
+        footer_b2c_title: "Cloud & Public",
+        footer_b2c_home: "Swipies Cloud Platform ↗",
+        footer_b2c_plans: "Cloud SaaS Plans ↗",
+        footer_company: "Company & Legal",
+        footer_tutorials: "Tutorials",
+        footer_terms: "Terms of Use",
+        footer_privacy: "Privacy Policy",
+        footer_docs: "Documentation",
+        footer_copy: "© 2025 Swipies AI Enterprise. All rights reserved.",
+        cookie_title: "Cookie & Data Consent",
+        cookie_msg: "We use cookies and collect technical telemetry to optimize enterprise portal performance and security.",
+        cookie_decline: "Decline",
+        cookie_accept: "Accept"
+      },
+      ru: {
+        nav_problem: "Проблема",
+        nav_solution: "Решение",
+        nav_how: "Внедрение",
+        nav_selfhosted: "Self-Hosted",
+        nav_cases: "Кейсы",
+        nav_pricing: "Цены",
+        nav_faq: "Вопросы",
+        nav_cta: "Связаться",
+        nav_b2c_backlink: "Cloud / Начать бесплатно →",
+        hero_badge_ent: "Корпоративная On-Premise & Приватная RAG Инфраструктура",
+        hero_h1_ent: "Разверните корпоративный AI на ваших собственных серверах",
+        hero_sub_ent: "Полный суверенитет данных для банков, госсектора, медицины и корпораций с высокими требованиями безопасности. Запуск передовых LLM на локальном оборудовании без утечки данных наружу с развертыванием за 1 рабочий день.",
+        hero_cta1_ent: "Связаться с отделом продаж",
+        hero_cta2_ent: "Требования к серверу",
+        hero_cloud_text: "Нужен быстрый облачный чат-бот для сайта?",
+        hero_cloud_link: "Перейти в Swipies Cloud SaaS →",
+        prob_num: "01 — Проблема",
+        prob_title: "Почему стандартный AI не подходит для бизнеса",
+        prob_sub: "Облачные публичные API несут критические риски безопасности и не понимают закрытую корпоративную специфику.",
+        prob1_h: "Данные покидают ваш периметр",
+        prob1_p: "Каждый API-запрос к внешним AI-провайдерам отправляет ваши данные на сторонние серверы — кошмар для комплаенса.",
+        prob2_h: "Универсальный AI без контекста",
+        prob2_p: "Публичные модели не понимают вашу бизнес-документацию и внутренние данные. Ответы поверхностные и ненадёжные.",
+        prob3_h: "Нет контроля над стеком",
+        prob3_p: "Вы не контролируете версию модели, аптайм, инфраструктуру или частоту обновлений. Ваш AI — чужое решение.",
+        sol_num: "02 — On-Premise Решение",
+        sol_title: "On-Premise RAG на ваших серверах",
+        sol_sub: "Swipies AI разворачивает полную AI-инфраструктуру внутри вашей среды. Полный суверенитет данных, ноль внешних зависимостей.",
+        sol1_h: "Развертывание RAG On-Premise",
+        sol1_p: "Полный RAG-пайплайн — загрузка документов, векторная индексация, поиск и генерация — разворачивается прямо на ваших серверах.",
+        sol2_h: "Работает с вашими данными",
+        sol2_p: "Подключите существующие документы, базы данных, CRM и внутренние инструменты. База знаний строится из ваших реальных данных.",
+        sol3_h: "Любая LLM, ваш выбор",
+        sol3_p: "Поддержка OpenAI, Anthropic Claude, xAI Grok, DeepSeek и локальных моделей через Ollama. Переключайте модели без изменения инфраструктуры.",
+        sol4_h: "Полный White-Label для SaaS",
+        sol4_p: "Встройте Swipies AI в свой продукт под своим брендом. Предлагайте AI-функции клиентам — на вашей инфраструктуре.",
+        sol5_h: "Локальные серверы в Узбекистане",
+        sol5_p: "Развертывание моделей ИИ на высокопроизводительных серверах, физически расположенных на территории Республики Узбекистан в соответствии со статьей 27.1 Закона «О персональных данных».",
+        how_num: "03 — Корпоративное развертывание",
+        how_title: "Развёртывание за 1 рабочий день",
+        how_sub: "Наша команда инженеров проводит аудит вашей архитектуры, передает готовые контейнеры и помогает вывести систему в прод.",
+        how1_h: "Аудит инфраструктуры",
+        how1_p: "Мы проводим аудит серверов, источников данных и требований безопасности для проектирования оптимальной архитектуры.",
+        how2_h: "Развёртывание RAG + LLM",
+        how2_p: "Мы разворачиваем полный RAG-пайплайн и выбранную LLM прямо на вашей инфраструктуре. В течение 1 рабочего дня.",
+        how3_h: "Ваша команда начинает работу",
+        how3_p: "Ваша команда и клиенты получают корпоративный AI — полностью приватный, полностью контролируемый. Данные остаются у вас.",
+        selfhosted_num: "04 — Установка (Self-Hosted)",
+        selfhosted_title: "Запускайте Swipies AI на собственном оборудовании",
+        selfhosted_subtitle: "Выполните одну команду на вашем Linux-сервере для автоматической установки и запуска Swipies AI.",
+        copy_cmd: "Скопировать команду",
+        selfhosted_step1_h: "1. Загрузите и запустите",
+        selfhosted_step1_p: "Разверните стек в контейнерах за считанные минуты с помощью Docker Compose или Helm-чартов Kubernetes.",
+        selfhosted_step2_h: "2. Введите лицензионный ключ",
+        selfhosted_step2_p: "Приобретите лицензионный ключ на нашей платформе и вставьте его в веб-панель управления, чтобы активировать ускорение GPU и снять лимиты.",
+        selfhosted_step3_h: "3. Полная автономия",
+        selfhosted_step3_p: "Сервер работает полностью автономно. Нет телеметрии, не требуется внешнее подключение к интернету для закрытых сетей.",
+        specs_heading: "Системные требования к серверу",
+        th_spec: "Компонент",
+        th_min: "Минимум (CPU Инференс)",
+        th_rec: "Рекомендуется (GPU Ускорение)",
+        cases_num: "05 — Кейсы",
+        cases_title: "Для отраслей, где данные — на первом месте",
+        cases_sub: "От строго регулируемых банков до крупных ERP-систем: Swipies AI надежно защищает данные компании.",
+        case1_label: "SaaS / ERP",
+        case1_h: "Встройте AI в свой продукт",
+        case1_p: "White-label решение для ваших клиентов. OEM-модель — ваш бренд, ваша инфраструктура, данные клиентов остаются приватными.",
+        case2_label: "Банки и финансы",
+        case2_h: "AI на конфиденциальных данных",
+        case2_p: "AI для транзакций, клиентских профилей и финансовых документов. Полное соответствие регуляторам.",
+        case3_label: "Юриспруденция",
+        case3_h: "AI для дел и договоров",
+        case3_p: "Поиск, анализ и обобщение судебной практики, договоров и документов комплаенса в вашей безопасной среде.",
+        case4_label: "Крупные предприятия",
+        case4_h: "Внутренняя база знаний AI",
+        case4_p: "Мгновенный доступ к корпоративной документации, политикам HR, техническим руководствам через приватный AI.",
+        partners_num: "06 — Интеграции",
+        partners_title: "Поддерживаемые AI-модели и движки",
+        partners_sub: "Подключайте проприетарные API, локальные открытые веса или приватные серверы инференса.",
+        price_num: "07 — Цены",
+        price_title: "Варианты корпоративного внедрения",
+        price_sub: "Прозрачное лицензирование для самостоятельного хостинга и решения под ключ.",
+        license: "Лицензия (Self-Hosted)",
+        license_price: "$199",
+        license_period: "/год",
+        license_desc: "Приобретите лицензионный ключ на нашей платформе и запустите Swipies AI на своей инфраструктуре. Самостоятельная установка.",
+        license_f1: "Self-hosted (Docker/k8s)",
+        license_f2: "Активация лицензионным ключом",
+        license_f3: "Без лимитов на данные и команду",
+        license_f4: "Ускорение GPU и векторов",
+        license_f5: "Работа offline (закрытый контур)",
+        license_f6: "Регулярные обновления",
+        license_cta: "Купить ключ",
+        turnkey_badge: "SLA ПОД КЛЮЧ",
+        enterprise: "Enterprise Custom",
+        ent_price: "По запросу",
+        ent_desc: "Индивидуальный расчет под ключ на основе вашей инфраструктуры, объема документов и SLA.",
+        ent_f1: "On-premise развертывание за 1 рабочий день",
+        ent_f2: "Индивидуальная настройка и дообучение LLM",
+        ent_f3: "Выделенный старший DevOps инженер",
+        ent_f4: "Полная интеграция White-label OEM",
+        ent_f5: "Гарантированное соглашение о сервисе (SLA)",
+        ent_f6: "100% суверенитет данных в Узбекистане",
+        ent_cta: "Получить предложение",
+        cloud_banner_box_h: "Ищете облачный сервис с быстрым стартом?",
+        cloud_banner_box_p: "Swipies Cloud позволяет создать умного бота за 2 минуты без серверов от $20/мес.",
+        cloud_banner_box_btn: "Облачные тарифы →",
+        faq_num: "08 — Вопросы",
+        faq_title: "Часто задаваемые вопросы",
+        faq_sub: "Ответы на вопросы по локальному развертыванию, закону о данных и технической поддержке.",
+        faq1_q: "Наши данные покидают серверы?",
+        faq1_a: "Нет, никогда. Swipies AI развёрнут полностью на вашей инфраструктуре. Документы, базы данных и запросы остаются в вашей среде.",
+        faq2_q: "Сколько времени занимает развертывание?",
+        faq2_a: "Развертывание под ключ занимает 1 рабочий день. Включает аудит инфраструктуры, настройку RAG, конфигурацию LLM, тестирование и запуск.",
+        faq3_q: "Какие LLM вы поддерживаете?",
+        faq3_a: "OpenAI (GPT-4, GPT-4o), Anthropic (Claude 3.5), DeepSeek (R1, V3), xAI (Grok) и локальные модели через Ollama и vLLM. Модели можно переключать в любой момент.",
+        faq4_q: "Предлагаете ли вы white-label?",
+        faq4_a: "Да. SaaS и ERP компании могут встроить Swipies AI под своим брендом. Клиенты работают с AI, нативным для вашего продукта.",
+        faq5_q: "Что такое RAG и почему это важно?",
+        faq5_a: "RAG (Retrieval-Augmented Generation) — технология, при которой AI извлекает релевантную информацию из ваших данных перед генерацией ответа. Ответы основаны на ваших документах — точные и достоверные.",
+        faq6_q: "Как работает лицензия self-hosted?",
+        faq6_a: "Вы загружаете наши Docker Compose или Kubernetes Helm-чарты, устанавливаете Swipies AI на собственные серверы и вводите приобретённый на нашей платформе лицензионный ключ в веб-интерфейсе. Это разблокирует все возможности платформы, снимает ограничения и позволяет работать локально без подключения к интернету.",
+        faq7_q: "Можно ли развернуть модели ИИ на серверах в Узбекистане?",
+        faq7_a: "Да, конечно. Мы поддерживаем развертывание языковых моделей (LLM) и RAG-систем на серверах, физически расположенных на территории Узбекистана. Это гарантирует 100% соответствие требованиям законодательства Республики Узбекистан (в частности, статье 27.1 Закона «О персональных данных»).",
+        contact_num: "09 — Контакты",
+        contact_title: "Обсудим ваше развертывание",
+        contact_sub: "Наши корпоративные архитекторы подготовят индивидуальное предложение и проведут демонстрацию решения.",
+        form_company: "Компания",
+        form_name: "ФИО",
+        form_email: "Корпоративный Email",
+        form_phone: "Телефон / WhatsApp",
+        form_telegram: "Telegram / Прямой контакт (Необязательно)",
+        form_msg: "Требования к проекту и серверу",
+        form_submit: "Запросить предложение",
+        ci_email: "Email",
+        ci_phone: "Телефон / WhatsApp",
+        ci_telegram: "Telegram",
+        ci_location: "Местоположение",
+        ci_loc_val: "Узбекистан, Андижан",
+        ci_note: "Персональный менеджер для каждого развертывания. Гарантии SLA. Среднее время ответа: < 2 часов.",
+        footer_desc: "Корпоративная on-premise AI-платформа. RAG-пайплайны на ваших серверах с полным суверенитетом данных.",
+        footer_platform: "Платформа",
+        footer_b2c_title: "Облако и сервисы",
+        footer_b2c_home: "Swipies Cloud Platform ↗",
+        footer_b2c_plans: "Облачные тарифы ↗",
+        footer_company: "Компания и документы",
+        footer_tutorials: "Обучение",
+        footer_terms: "Условия",
+        footer_privacy: "Политика конфиденциальности",
+        footer_docs: "Документация",
+        footer_copy: "© 2025 Swipies AI Enterprise. Все права защищены.",
+        cookie_title: "Согласие на обработку данных",
+        cookie_msg: "Мы используем файлы cookie и техническую телеметрию для оптимизации работы корпоративного портала.",
+        cookie_decline: "Отклонить",
+        cookie_accept: "Принять"
+      },
+      uz: {
+        nav_problem: "Muammo",
+        nav_solution: "Yechim",
+        nav_how: "O'rnatish",
+        nav_selfhosted: "Self-Hosted",
+        nav_cases: "Foydalanish",
+        nav_pricing: "Narxlar",
+        nav_faq: "Savollar",
+        nav_cta: "Bog'lanish",
+        nav_b2c_backlink: "Cloud / Bepul boshlash →",
+        hero_badge_ent: "Korporativ On-Premise va Shaxsiy RAG Infratuzilmasi",
+        hero_h1_ent: "Korporativ AI tizimini shaxsiy serverlaringizda ishga tushiring",
+        hero_sub_ent: "Banklar, davlat idoralari va maxfiylik talab qilinadigan korxonalar uchun to'liq ma'lumotlar suvereniteti. Tashqi tarmoqqa ma'lumot chiqmasdan eng so'nggi LLM modellarini lokal serverlarda 1 ish kunida o'rnatib beramiz.",
+        hero_cta1_ent: "Sotuv bo'limi bilan bog'lanish",
+        hero_cta2_ent: "Server talablari",
+        hero_cloud_text: "Saytingiz uchun tezkor bulutli chat-bot kerakmi?",
+        hero_cloud_link: "Swipies Cloud SaaS-ga o'tish →",
+        prob_num: "01 — Muammo",
+        prob_title: "Nima uchun standart AI korporativ sektorda ishlamaydi",
+        prob_sub: "Ommaviy bulutli API-lar xavfsizlik talablariga to'g'ri kelmaydi va kompaniyangizning ichki ma'lumotlarini tushunmaydi.",
+        prob1_h: "Ma'lumotlar tashqariga chiqadi",
+        prob1_p: "Tashqi AI provayderlariga har bir API so'rov sizning maxfiy ma'lumotlaringizni uchinchi tomon serverlariga yuboradi.",
+        prob2_h: "Umumiy AI, kontekstsiz",
+        prob2_p: "Ommaviy modellar sizning ma'lumotlaringizni tushunmaydi. Javoblar yuzaki va ishonchsiz.",
+        prob3_h: "Stek ustidan nazorat yo'q",
+        prob3_p: "Model versiyasi, uptime yoki yangilanishlarni nazorat qila olmaysiz. AI boshqa birovning qarori.",
+        sol_num: "02 — On-Premise Yechim",
+        sol_title: "Serverlaringizda ishlaydigan On-Premise RAG",
+        sol_sub: "Swipies AI to'liq AI infratuzilmasini sizning muhitingizga joylashtiradi. To'liq ma'lumotlar suvereniteti.",
+        sol1_h: "On-Premise RAG joylashtirish",
+        sol1_p: "To'liq RAG pipeline — hujjatlarni yuklash, vektor indeksatsiya, qidirish va generatsiya — to'g'ridan-to'g'ri serverlaringizda.",
+        sol2_h: "Ma'lumotlaringiz bilan ishlaydi",
+        sol2_p: "Mavjud hujjatlar, ma'lumotlar bazalari, CRM va ichki vositalarni ulang. Bilim bazasi haqiqiy ma'lumotlaringizdan quriladi.",
+        sol3_h: "Istalgan LLM, sizning tanlovingiz",
+        sol3_p: "OpenAI, Anthropic Claude, xAI Grok, DeepSeek va Ollama orqali lokal modellar qo'llab-quvvatlanadi.",
+        sol4_h: "SaaS uchun to'liq White-Label",
+        sol4_p: "Swipies AI'ni o'z brendingiz ostida mahsulotingizga joylashtiring. Mijozlaringizga AI imkoniyatlarini taklif qiling.",
+        sol5_h: "O'zbekistondagi lokal serverlar",
+        sol5_p: "AI modellarini O'zbekiston Respublikasi hududida joylashgan yuqori unumdorlikka ega serverlarda ishga tushiring va 'Shaxsiy ma'lumotlar to'g'risida'gi qonunning 27.1-moddasiga to'liq rioya qiling.",
+        how_num: "03 — Korporativ joylashtirish",
+        how_title: "1 ish kunida joylashtiriladi",
+        how_sub: "Bizning muhandislar jamoasi infratuzilmangizni tekshiradi, tayyor konteynerlarni o'rnatadi va tizimni ishga tushiradi.",
+        how1_h: "Infratuzilma auditi",
+        how1_p: "Serverlar, ma'lumot manbalari og'irligi va xavfsizlik talablarini tekshiramiz.",
+        how2_h: "RAG + LLM joylashtirish",
+        how2_p: "To'liq RAG pipeline va tanlangan LLM'ni infratuzilmangizga joylashtiramiz. 1 ish kuni ichida.",
+        how3_h: "Jamoangiz ishga tushadi",
+        how3_p: "Jamoangiz korporativ AI'dan foydalanishni boshlaydi — to'liq maxfiy, to'liq nazorat ostida.",
+        selfhosted_num: "04 — O'rnatish (Self-Hosted)",
+        selfhosted_title: "Swipies AI-ni o'z uskunangizda ishga tushiring",
+        selfhosted_subtitle: "Linux serveringizda bitta buyruqni bajarish orqali Swipies AI tizimini avtomatik o'rnating va ishga tushiring.",
+        copy_cmd: "Buyruqni nusxalash",
+        selfhosted_step1_h: "1. Yuklab oling va ishga tushiring",
+        selfhosted_step1_p: "Docker Compose yoki Kubernetes Helm-chartlari yordamida stekni bir necha daqiqada joylashtiring.",
+        selfhosted_step2_h: "2. Litsenziya kalitini kiriting",
+        selfhosted_step2_p: "Litsenziya kalitini platformamizda xarid qiling va GPU tezlashuvini faollashtirish hamda cheklovlarni olib tashlash uchun veb-panelga kiriting.",
+        selfhosted_step3_h: "3. To'liq avtonomiya",
+        selfhosted_step3_p: "Server to'liq mustaqil ishlaydi. Telemetriya yo'q, yopiq tarmoqlar uchun tashqi internet talab etilmaydi.",
+        specs_heading: "Serverga qo'yiladigan minimal va tavsiya etilgan talablar",
+        th_spec: "Qism",
+        th_min: "Minimal (CPU Inferensiya)",
+        th_rec: "Tavsiya etilgan (GPU Tezlanish)",
+        cases_num: "05 — Foydalanish",
+        cases_title: "Ma'lumotlar xavfsizligi muhim bo'lgan sohalar uchun",
+        cases_sub: "Banklar, davlat organlari va korporativ ERP tizimlari uchun Swipies AI maxfiy bilimlarni himoya qiladi.",
+        case1_label: "SaaS / ERP",
+        case1_h: "AI'ni mahsulotingizga joylashtiring",
+        case1_p: "White-label yechim. OEM modeli — sizning brendingiz, infratuzilmangiz, mijozlar ma'lumotlari maxfiy qoladi.",
+        case2_label: "Banklar va moliya",
+        case2_h: "Maxfiy ma'lumotlarda AI",
+        case2_p: "Tranzaksiyalar, mijoz profillari va moliyaviy hujjatlar ustida AI. To'liq regulyator muvofiqlik.",
+        case3_label: "Huquq va muvofiqlik",
+        case3_h: "Ish fayllari va shartnomalar uchun AI",
+        case3_p: "Sud amaliyoti, shartnomalar va muvofiqlik hujjatlarini qidirish va tahlil qilish.",
+        case4_label: "Yirik korxonalar",
+        case4_h: "Ichki bilim bazasi AI",
+        case4_p: "Har bir xodimga korporativ hujjatlar, HR siyosatlari va texnik qo'llanmalarga tezkor kirish.",
+        partners_num: "06 — Integratsiyalar",
+        partners_title: "Qo'llab-quvvatlanadigan AI modellar",
+        partners_sub: "Propriyetar modellarni yoki lokal ochiq modellarni o'z serveringizda uzluksiz boshqaring.",
+        price_num: "07 — Narxlar",
+        price_title: "Korporativ joylashtirish rejalari",
+        price_sub: "O'z serverlaringizda mustaqil ishlash uchun litsenziyalar va to'liq o'rnatish xizmatlari.",
+        license: "Self-Hosted Litsenziya",
+        license_price: "$199",
+        license_period: "/yil",
+        license_desc: "Litsenziya kalitini platformamizda xarid qiling va Swipies AI-ni o'z infratuzilmangizda ishga tushiring. Mustaqil o'rnatish.",
+        license_f1: "Self-hosted (Docker/k8s)",
+        license_f2: "Litsenziya kaliti orqali faollashtirish",
+        license_f3: "Cheksiz jamoa va ma'lumotlar",
+        license_f4: "GPU va Vektor tezlashuvi",
+        license_f5: "Offline / Yopiq rejim",
+        license_f6: "Muntazam yangilanishlar",
+        license_cta: "Kalitni sotib olish",
+        turnkey_badge: "TAYYOR SLA",
+        enterprise: "Enterprise Custom",
+        ent_price: "So'rovga ko'ra",
+        ent_desc: "Infratuzilma, ma'lumotlar hajmi va xizmat ko'rsatish talablariga muvofiq maxsus yechim.",
+        ent_f1: "1 ish kunida to'liq o'rnatish",
+        ent_f2: "Lokal LLM-ni sozlash va o'qitish",
+        ent_f3: "Alohida biriktirilgan katta DevOps muhandisi",
+        ent_f4: "To'liq White-label OEM integratsiyasi",
+        ent_f5: "Kafolatlangan SLA javob vaqtlari",
+        ent_f6: "O'zbekiston hududida 100% ma'lumotlar xavfsizligi",
+        ent_cta: "Taklif olish",
+        cloud_banner_box_h: "Tezkor bulutli chat-bot qidiryapsizmi?",
+        cloud_banner_box_p: "Swipies Cloud bilan serverlarsiz 2 daqiqada chat-bot yarating, $20/oydan.",
+        cloud_banner_box_btn: "Bulutli tariflar →",
+        faq_num: "08 — Savollar",
+        faq_title: "Ko'p beriladigan savollar",
+        faq_sub: "Lokal o'rnatish, ma'lumotlar qonunchiligi va texnik yordam bo'yicha javoblar.",
+        faq1_q: "Ma'lumotlarimiz serverlardan chiqadimi?",
+        faq1_a: "Yo'q, hech qachon. Swipies AI to'liq sizning infratuzilmangizda joylashtiriladi. Hujjatlar va so'rovlar muhitingizda qoladi.",
+        faq2_q: "Joylashtirish qancha vaqt oladi?",
+        faq2_a: "To'liq joylashtirish 1 ish kuni davom etadi. Audit, RAG sozlash, LLM konfiguratsiya, test va ishga tushirish.",
+        faq3_q: "Qaysi LLM'larni qo'llab-quvvatlaysiz?",
+        faq3_a: "OpenAI (GPT-4, GPT-4o), Anthropic (Claude 3.5), DeepSeek (R1, V3), xAI (Grok) va Ollama/vLLM orqali lokal modellar. Istalgan vaqtda almashtiriladi.",
+        faq4_q: "White-label taklif qilasizmi?",
+        faq4_a: "Ha. SaaS va ERP kompaniyalari Swipies AI'ni o'z brendi ostida joylashtirishi mumkin.",
+        faq5_q: "RAG nima va nima uchun muhim?",
+        faq5_a: "RAG — javob yaratishdan oldin AI sizning ma'lumotlaringizdan tegishli axborotni oladi. Javoblar haqiqiy hujjatlarga asoslangan — aniq va ishonchli.",
+        faq6_q: "Self-hosted litsenziya qanday ishlaydi?",
+        faq6_a: "Siz bizning Docker Compose yoki Kubernetes Helm-chartlarimizni yuklab olasiz, Swipies AI-ni o'z serverlaringizga o'rnatasiz va platformamizda xarid qilingan litsenziya kalitini veb-interfeysda kiritasiz. Bu platformaning barcha imkoniyatlarini ochadi, cheklovlarni olib tashlaydi va internetga ulanmasdan lokal ishlash imkonini beradi.",
+        faq7_q: "AI modellarini O'zbekistondagi serverlarga o'rnatish mumkinmi?",
+        faq7_a: "Albatta. Biz LLM va RAG tizimlarini to'g'ridan-to'g'ri O'zbekiston hududida joylashgan serverlarda ishga tushirishni to'liq qo'llab-quvvatlaymiz. Bu shaxsiy ma'lumotlarni saqlashga oid qonunchilik talablariga (xususan, 'Shaxsiy ma'lumotlar to'g'risida'gi qonunning 27.1-moddasiga) to'liq mos kelishini ta'minlaydi.",
+        contact_num: "09 — Aloqa",
+        contact_title: "Joylashtirishingizni muhokama qilaylik",
+        contact_sub: "Bizning arxitektorlar jamoamiz sizning talablaringizga mos maxsus taklif va jonli demo tayyorlaydi.",
+        form_company: "Kompaniya nomi",
+        form_name: "To'liq ism",
+        form_email: "Korporativ Email",
+        form_phone: "Telefon / WhatsApp",
+        form_telegram: "Telegram / Aloqa (Ixtiyoriy)",
+        form_msg: "Loyiha va server talablari",
+        form_submit: "Taklif so'rash",
+        ci_email: "Email",
+        ci_phone: "Telefon / WhatsApp",
+        ci_telegram: "Telegram",
+        ci_location: "Joylashuv",
+        ci_loc_val: "O'zbekiston, Andijon",
+        ci_note: "Har bir joylashtirish uchun shaxsiy korporativ menejer. SLA kafolatlari. O'rtacha javob vaqti: < 2 soat.",
+        footer_desc: "Korporativ on-premise AI platforma. Serverlaringizda RAG pipeline'lar, to'liq ma'lumotlar suvereniteti.",
+        footer_platform: "Platforma",
+        footer_b2c_title: "Bulut va Servislar",
+        footer_b2c_home: "Swipies Cloud Platformasi ↗",
+        footer_b2c_plans: "Bulutli Tariflar ↗",
+        footer_company: "Kompaniya va Hujjatlar",
+        footer_tutorials: "Qo'llanmalar",
+        footer_terms: "Foydalanish shartlari",
+        footer_privacy: "Maxfiylik siyosati",
+        footer_docs: "Hujjatlar",
+        footer_copy: "© 2025 Swipies AI Enterprise. Barcha huquqlar himoyalangan.",
+        cookie_title: "Ma'lumotlar va cookie roziligi",
+        cookie_msg: "Korporativ portal xavfsizligi va unumdorligini oshirish uchun cookie fayllari va telemetriyadan foydalanamiz.",
+        cookie_decline: "Rad etish",
+        cookie_accept: "Qabul qilish"
+      }
+    };
+
+    let currentLang = 'en';
+
+    function setLanguage(lang, activeClick = false) {
+      if (!T[lang]) return;
+      currentLang = lang;
+
+      // Update switcher buttons
+      document.querySelectorAll('#langSwitch button').forEach(btn => {
+        if (btn.getAttribute('data-lang') === lang) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+
+      // Update DOM
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (T[lang][key]) {
+          if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+            el.placeholder = T[lang][key];
+          } else {
+            const svg = el.querySelector('svg');
+            if (svg) {
+              const span = el.querySelector('span');
+              if (span) {
+                span.textContent = T[lang][key];
+              } else {
+                el.textContent = T[lang][key];
+                el.appendChild(svg);
+              }
+            } else {
+              el.textContent = T[lang][key];
+            }
+          }
+        }
+      });
+
+      localStorage.setItem('swipies_lang', lang);
+    }
+
+    function toggleMobileMenu() {
+      const drawer = document.getElementById('mobileDrawer');
+      drawer.classList.toggle('open');
+    }
+    document.getElementById('navHamburger').addEventListener('click', toggleMobileMenu);
+
+    function toggleFaq(btn) {
+      const item = btn.closest('.faq-item');
+      const ans = item.querySelector('.faq-answer');
+      const isActive = item.classList.contains('active');
+
+      document.querySelectorAll('.faq-item').forEach(el => {
+        el.classList.remove('active');
+        el.querySelector('.faq-answer').style.maxHeight = null;
+      });
+
+      if (!isActive) {
+        item.classList.add('active');
+        ans.style.maxHeight = ans.scrollHeight + 'px';
+      }
+    }
+
+    function copyInstallCmd() {
+      const cmd = document.getElementById('installCmd').textContent.trim();
+      navigator.clipboard.writeText(cmd).then(() => {
+        const btn = document.getElementById('copyBtn');
+        const origText = btn.innerHTML;
+        btn.innerHTML = '<span>Copied!</span>';
+        setTimeout(() => { btn.innerHTML = origText; }, 2000);
+      });
+    }
+
+    /* Contact Form Submission - Source: enterprise */
+    window.handleSubmit = function (event) {
+      event.preventDefault();
+
+      const company = document.getElementById('f-company');
+      const name = document.getElementById('f-name');
+      const email = document.getElementById('f-email');
+      const phone = document.getElementById('f-phone');
+      const telegram = document.getElementById('f-telegram');
+      const msg = document.getElementById('f-msg');
+
+      let isValid = true;
+      [company, name, email].forEach(input => {
+        if (!input.value.trim()) {
+          input.classList.add('error');
+          isValid = false;
+        } else {
+          input.classList.remove('error');
+        }
+      });
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email.value.trim())) {
+        email.classList.add('error');
+        isValid = false;
+      }
+
+      if (!isValid) return false;
+
+      const phoneVal = phone ? phone.value.trim() : '';
+      const tgVal = telegram ? telegram.value.trim() : '';
+      const combinedPhone = phoneVal + (tgVal ? (phoneVal ? ' | TG: ' + tgVal : 'TG: ' + tgVal) : '');
+      const refCodeSaved = localStorage.getItem('swipies_ref') || '';
+
+      const newSubmission = {
+        id: 'sub_ent_' + Date.now(),
+        company: company.value.trim(),
+        name: name.value.trim(),
+        email: email.value.trim(),
+        phone: combinedPhone,
+        message: msg.value.trim() || '',
+        referralCode: refCodeSaved,
+        source: 'enterprise',
+        date: new Date().toISOString(),
+        read: false
+      };
+
+      try {
+        const currentSubmissions = JSON.parse(localStorage.getItem('swipies_submissions') || '[]');
+        currentSubmissions.unshift(newSubmission);
+        localStorage.setItem('swipies_submissions', JSON.stringify(currentSubmissions));
+      } catch (err) {
+        console.error('Error saving enterprise submission locally:', err);
+      }
+
+      // POST to unified API endpoint with source: 'enterprise'
+      fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          company: company.value.trim(),
+          name: name.value.trim(),
+          email: email.value.trim(),
+          phone: combinedPhone,
+          message: msg.value.trim() || '',
+          referral_code: refCodeSaved,
+          source: 'enterprise'
+        })
+      }).then(res => res.json())
+        .then(res => {
+          if (res && res.code === 0) {
+            console.log('Enterprise lead registered:', res.data && res.data.id);
+          }
+        })
+        .catch(err => {
+          console.error('Error posting enterprise lead:', err);
+        });
+
+      const submitBtn = event.target.querySelector('button[type="submit"]');
+      submitBtn.disabled = true;
+      submitBtn.style.background = 'var(--green)';
+      submitBtn.textContent = currentLang === 'en' ? 'Success! Request Sent' : currentLang === 'ru' ? 'Заявка отправлена!' : 'So\'rov yuborildi!';
+
+      setTimeout(() => {
+        document.getElementById('contactForm').reset();
+        submitBtn.disabled = false;
+        submitBtn.style.background = 'var(--accent)';
+        setLanguage(currentLang);
+      }, 3500);
+
+      return false;
+    };
+
+    /* Cookie Consent */
+    function handleCookieConsent(choice) {
+      localStorage.setItem('swipies_cookie_consent', choice);
+      const banner = document.getElementById('cookieBanner');
+      if (banner) banner.style.display = 'none';
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      let defaultLang = localStorage.getItem('swipies_lang') || 'en';
+      setLanguage(defaultLang);
+
+      if (!localStorage.getItem('swipies_cookie_consent')) {
+        setTimeout(() => {
+          const banner = document.getElementById('cookieBanner');
+          if (banner) banner.style.display = 'block';
+        }, 1500);
+      }
+    });
+  </script>
+</body>
+</html>
