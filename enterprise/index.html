@@ -1240,6 +1240,89 @@
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
     }
 
+    /* National Currency Equivalent & Compliance Badges */
+    .price-equiv-row {
+      margin-top: -0.25rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .price-equiv-badge {
+      display: inline-flex;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--accent);
+      background: rgba(232, 168, 32, 0.08);
+      border: 1px solid rgba(232, 168, 32, 0.2);
+      border-radius: 4px;
+      padding: 3px 8px;
+      line-height: 1.3;
+    }
+
+    .pricing-compliance-banner {
+      background: var(--bg2);
+      border: 1px solid rgba(232, 168, 32, 0.25);
+      border-radius: var(--radius-md);
+      padding: 1.25rem 1.5rem;
+      margin: 0 auto 2.25rem;
+      max-width: 820px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    .pcb-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .pcb-badge svg {
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .pcb-desc {
+      font-size: var(--t-small);
+      color: var(--text-secondary);
+      line-height: 1.55;
+      margin: 0;
+    }
+
+    .pcb-desc strong {
+      color: var(--text);
+    }
+
+    .pcb-links {
+      display: flex;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+      margin-top: 0.25rem;
+    }
+
+    .pcb-link {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--accent);
+      transition: color 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .pcb-link:hover {
+      color: var(--text);
+      text-decoration: underline;
+    }
+
     .price-card .price-desc {
       font-size: var(--t-small);
       color: var(--text-secondary);
@@ -2740,6 +2823,21 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         </div>
       </div>
 
+      <!-- Atmos Compliance Banner & Public Offer notice -->
+      <div class="pricing-compliance-banner">
+        <div class="pcb-badge">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span data-i18n="pcb_title">Official Payment Gateway &amp; Currency Policy</span>
+        </div>
+        <p class="pcb-desc" data-i18n="pcb_text">
+          Prices are indicated in US Dollars ($) with guaranteed equivalent calculations in Uzbekistan Sum (UZS) at the official rate. All payments are processed securely via <strong>Atmos</strong> (Uzcard, Humo, Visa, Mastercard) on <strong>api.swipies.app</strong> under our legally binding Public Offer.
+        </p>
+        <div class="pcb-links">
+          <a href="/offer.html" class="pcb-link"><span data-i18n="pcb_offer_link">Read Public Offer (Оферта) →</span></a>
+          <a href="/terms.html" class="pcb-link"><span data-i18n="pcb_terms_link">Terms of Service →</span></a>
+        </div>
+      </div>
+
       <div class="pricing-grid pricing-grid--2">
         <!-- License $199/year or 1.99 mln sum -->
         <div class="price-card">
@@ -2750,6 +2848,10 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
               <span class="price-uzs" data-i18n="license_price_uzs" style="display:none">1.99 млн сум</span>
             </span>
             <span class="price-period" data-i18n="license_period">/year</span>
+          </div>
+          <div class="price-equiv-row">
+            <span class="price-equiv-badge price-equiv-usd" data-i18n="license_equiv_usd">≈ 1 990 000 сум (1.99 млн) / год</span>
+            <span class="price-equiv-badge price-equiv-uzs" data-i18n="license_equiv_uzs" style="display:none">≈ $199 / year</span>
           </div>
           <p class="price-desc" data-i18n="license_desc">Purchase a license key and run Swipies AI on your own infrastructure. You install, we power up.</p>
           <ul class="price-features">
@@ -2766,6 +2868,9 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         <div class="price-card featured">
           <div class="price-name" data-i18n="enterprise">Enterprise Custom</div>
           <div class="price-amount"><span data-i18n="ent_price">Custom</span></div>
+          <div class="price-equiv-row">
+            <span class="price-equiv-badge" data-i18n="ent_equiv">Custom contract / Agreement</span>
+          </div>
           <p class="price-desc" data-i18n="ent_desc">Fully custom-scoped based on your infrastructure, data volume, and organizational requirements.</p>
           <ul class="price-features">
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="ent_f1">On-premise deployment</span></li>
@@ -3015,6 +3120,7 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
           <h4 data-i18n="footer_company">Company</h4>
           <a href="/terms.html" data-i18n="footer_terms">Terms of Use</a>
           <a href="/privacy.html" data-i18n="footer_privacy">Privacy Policy</a>
+          <a href="/offer.html" data-i18n="footer_offer">Public Offer</a>
           <a href="https://help.swipies.app/docs/dev/" target="_blank" data-i18n="footer_docs">Documentation</a>
         </div>
         <div class="footer-col">
@@ -3191,6 +3297,13 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         license_period: "/year",
         curr_usd: "USD ($)",
         curr_uzs: "UZS (сум)",
+        pcb_title: "Official Payment Gateway & National Currency Equivalents",
+        pcb_text: "Prices are shown in USD ($) with fixed equivalent billing in Uzbekistan Sum (UZS) at the national rate. All online payments are securely processed via Atmos (Uzcard, Humo, Visa, Mastercard) on api.swipies.app in compliance with our Public Offer.",
+        pcb_offer_link: "Read Public Offer (Оферта) →",
+        pcb_terms_link: "Terms of Service →",
+        license_equiv_usd: "≈ 1 990 000 сум (1.99 млн) / год",
+        license_equiv_uzs: "≈ $199 / year",
+        ent_equiv: "Custom contract / Agreement",
         license_desc: "Purchase a license key on our platform and run Swipies AI on your own infrastructure. You install, we power up.",
         license_f1: "Self-hosted (Docker/k8s)",
         license_f2: "Activate via License Key",
@@ -3249,6 +3362,7 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         footer_tutorials: "Tutorials",
         footer_terms: "Terms of Use",
         footer_privacy: "Privacy Policy",
+        footer_offer: "Public Offer",
         footer_docs: "Documentation",
         footer_copy: "© 2026 Swipies AI. All rights reserved.",
         cookie_title: "Cookie & Data Consent",
@@ -3415,6 +3529,13 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         license_period: "/год",
         curr_usd: "USD ($)",
         curr_uzs: "UZS (сум)",
+        pcb_title: "Официальный платежный шлюз и эквивалент цен в национальной валюте",
+        pcb_text: "Цены на тарифы указаны в долларах США ($) с обязательным фиксированным эквивалентом в национальной валюте (узбекский сум, UZS). Все онлайн-платежи безопасно проводятся через платежный шлюз Atmos (Uzcard, Humo, Visa, Mastercard) на платформе api.swipies.app в соответствии с Публичной офертой.",
+        pcb_offer_link: "Публичная оферта →",
+        pcb_terms_link: "Условия использования →",
+        license_equiv_usd: "≈ 1 990 000 сум (1.99 млн) / год",
+        license_equiv_uzs: "≈ $199 / год",
+        ent_equiv: "По договоренности / Контракт",
         license_desc: "Приобретите лицензионный ключ на нашей платформе и запустите Swipies AI на своей инфраструктуре. Самостоятельная установка.",
         license_f1: "Self-hosted (Docker/k8s)",
         license_f2: "Активация лицензионным ключом",
@@ -3473,6 +3594,7 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         footer_tutorials: "Обучение",
         footer_terms: "Условия",
         footer_privacy: "Политика конфиденциальности",
+        footer_offer: "Публичная оферта",
         footer_docs: "Документация",
         footer_copy: "© 2026 Swipies AI. Все права защищены.",
         cookie_title: "Согласие на обработку данных",
@@ -3639,6 +3761,13 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         license_period: "/yil",
         curr_usd: "USD ($)",
         curr_uzs: "UZS (so'm)",
+        pcb_title: "Rasmiy to'lov shlyuzi va milliy valyutadagi narx ekvivalenti",
+        pcb_text: "Obuna narxlari AQSh dollarida ($) va O'zbekiston milliy valyutasidagi (so'm) rasmiy ekvivalenti bilan ko'rsatilgan. Barcha onlayn to'lovlar Atmos (Uzcard, Humo, Visa, Mastercard) shlyuzi orqali api.swipies.app platformasida Ommaviy oferta shartlariga muvofiq xavfsiz amalga oshiriladi.",
+        pcb_offer_link: "Ommaviy oferta →",
+        pcb_terms_link: "Foydalanish shartlari →",
+        license_equiv_usd: "≈ 1 990 000 so'm (1.99 mln) / yil",
+        license_equiv_uzs: "≈ $199 / yil",
+        ent_equiv: "Shartnoma asosida",
         license_desc: "Litsenziya kalitini platformamizda xarid qiling va Swipies AI-ni o'z infratuzilmangizda ishga tushiring. Mustaqil o'rnatish.",
         license_f1: "Self-hosted (Docker/k8s)",
         license_f2: "Litsenziya kaliti orqali faollashtirish",
@@ -3697,6 +3826,7 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         footer_tutorials: "Qo'llanmalar",
         footer_terms: "Foydalanish shartlari",
         footer_privacy: "Maxfiylik siyosati",
+        footer_offer: "Ommaviy oferta",
         footer_docs: "Hujjatlar",
         footer_copy: "© 2026 Swipies AI. Barcha huquqlar himoyalangan.",
         cookie_title: "Ma'lumotlar va cookie roziligi",
@@ -4397,6 +4527,12 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
       });
       document.querySelectorAll('.price-uzs').forEach(function(el) {
         el.style.display = isUzs ? 'inline' : 'none';
+      });
+      document.querySelectorAll('.price-equiv-usd').forEach(function(el) {
+        el.style.display = isUzs ? 'none' : 'inline-flex';
+      });
+      document.querySelectorAll('.price-equiv-uzs').forEach(function(el) {
+        el.style.display = isUzs ? 'inline-flex' : 'none';
       });
       document.querySelectorAll('.currency-btn').forEach(function(btn) {
         if (btn.getAttribute('data-currency') === currentPricingCurrency) {

@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n="offer_title_page">Публичная оферта — Swipies AI</title>
+  <meta name="description" content="Публичная оферта (Public Offer Agreement / Ommaviy oferta) сервиса Swipies AI, тарифы, эквиваленты цен в национальной валюте (UZS) и условия оплаты через Atmos.">
+  <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+  <link rel="manifest" href="/favicon/site.webmanifest" />
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .legal-container {
+      padding: 8rem 0 6rem;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .legal-box {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 3.5rem 3rem;
+      box-shadow: 0 20px 40px -15px rgba(0,0,0,0.5);
+    }
+    .legal-header {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 2rem;
+      margin-bottom: 2.5rem;
+    }
+    .legal-header h1 {
+      font-size: 2.25rem;
+      font-weight: 700;
+      letter-spacing: -1px;
+      margin-bottom: 0.5rem;
+    }
+    .legal-header .date {
+      font-family: var(--font-mono);
+      font-size: var(--t-label);
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .legal-notice-box {
+      background: rgba(232, 168, 32, 0.08);
+      border: 1px solid rgba(232, 168, 32, 0.25);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 2rem;
+      font-size: var(--t-small);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .legal-notice-box strong {
+      color: var(--accent);
+    }
+    .legal-body {
+      font-size: var(--t-body);
+      color: var(--text-secondary);
+      line-height: 1.75;
+    }
+    .legal-body h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-top: 2.5rem;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.3px;
+      border-left: 3px solid var(--accent);
+      padding-left: 0.75rem;
+    }
+    .legal-body h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .legal-body p {
+      margin-bottom: 1.25rem;
+    }
+    .legal-body ul, .legal-body ol {
+      padding-left: 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+    .legal-body li {
+      margin-bottom: 0.5rem;
+    }
+    .tariff-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0 2rem;
+      font-size: var(--t-small);
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .tariff-table th {
+      background: rgba(232, 168, 32, 0.1);
+      color: var(--accent);
+      padding: 12px 14px;
+      text-align: left;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid var(--border2);
+    }
+    .tariff-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-secondary);
+      vertical-align: top;
+    }
+    .tariff-table tr:last-child td {
+      border-bottom: none;
+    }
+    .tariff-table td strong {
+      color: var(--text);
+    }
+    .legal-footer {
+      margin-top: 3rem;
+      border-top: 1px solid var(--border);
+      padding-top: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .legal-footer-links {
+      display: flex;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+    }
+    .legal-footer a {
+      font-size: var(--t-small);
+      color: var(--text-muted);
+      transition: color 0.12s;
+    }
+    .legal-footer a:hover {
+      color: var(--accent);
+    }
+    @media (max-width: 600px) {
+      .legal-box {
+        padding: 2rem 1.25rem;
+      }
+      .tariff-table th, .tariff-table td {
+        padding: 8px 10px;
+        font-size: 11px;
+      }
+      .legal-header h1 {
+        font-size: 1.75rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav class="nav" id="navbar">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">Swipies<span>AI</span></a>
+    <div class="nav-right">
+      <div class="lang-switch" id="langSwitch">
+        <button data-lang="en">EN</button>
+        <button class="active" data-lang="ru">RU</button>
+        <button data-lang="uz">UZ</button>
+      </div>
+      <a href="https://api.swipies.app/login" class="btn-primary" data-i18n="nav_cta">Try Demo</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container legal-container">
+  <div class="legal-box">
+    <div class="legal-header">
+      <h1 data-i18n="offer_h1">Публичная оферта</h1>
+      <div class="date" data-i18n="offer_date">Дата вступления в силу: 1 января 2026 г. • Республика Узбекистан</div>
+    </div>
+    
+    <div class="legal-notice-box" id="legalNoticeBox">
+      <strong data-i18n="offer_notice_strong">Официальная публичная оферта для платежной системы Atmos.uz:</strong>
+      <span data-i18n="offer_notice_text">Настоящий документ является официальной публичной офертой на оказание услуг платформы Swipies AI (api.swipies.app). Все расчеты на территории Республики Узбекистан производятся в национальной валюте (UZS / сум) через лицензированную платежную организацию Atmos (atmos.uz). Цены на сайте указаны с обязательным эквивалентом в национальной валюте.</span>
+    </div>
+
+    <div class="legal-body" id="legalBody">
+      <!-- Injected via JavaScript based on selected language -->
+    </div>
+
+    <div class="legal-footer">
+      <div class="legal-footer-links">
+        <a href="/" data-i18n="footer_back">← На главную Swipies AI</a>
+        <a href="/terms.html" data-i18n="footer_terms">Условия использования</a>
+        <a href="/privacy.html" data-i18n="footer_privacy">Политика конфиденциальности</a>
+      </div>
+      <a href="https://api.swipies.app" target="_blank" rel="noopener" style="color:var(--accent);" data-i18n="footer_platform_link">Платформа: api.swipies.app ↗</a>
+    </div>
+  </div>
+</div>
+
+<script>
+const T = {
+  en: {
+    offer_title_page: "Public Offer Agreement — Swipies AI",
+    nav_cta: "Try Demo",
+    offer_h1: "Public Offer Agreement",
+    offer_date: "Effective Date: January 1, 2026 • Republic of Uzbekistan",
+    offer_notice_strong: "Official Public Offer (Atmos.uz Payment Gateway):",
+    offer_notice_text: "This document constitutes a public offer for services provided on the Swipies AI platform (api.swipies.app). All payments on the territory of the Republic of Uzbekistan are processed in the national currency (UZS / сум) through the licensed Atmos payment system (atmos.uz). All prices include equivalent in national currency.",
+    footer_back: "← Back to Swipies AI",
+    footer_terms: "Terms of Use",
+    footer_privacy: "Privacy Policy",
+    footer_platform_link: "Platform: api.swipies.app ↗"
+  },
+  ru: {
+    offer_title_page: "Публичная оферта — Swipies AI",
+    nav_cta: "Демо",
+    offer_h1: "Публичная оферта (Договор оказания услуг)",
+    offer_date: "Дата вступления в силу: 1 января 2026 г. • Республика Узбекистан",
+    offer_notice_strong: "Официальная публичная оферта для платежной системы Atmos.uz:",
+    offer_notice_text: "Настоящий документ является официальной публичной офертой на оказание услуг платформы Swipies AI (api.swipies.app). Все расчеты на территории Республики Узбекистан производятся в национальной валюте (UZS / сум) через лицензированную платежную организацию Atmos (atmos.uz). Цены на сайте указаны с обязательным эквивалентом в национальной валюте.",
+    footer_back: "← На главную Swipies AI",
+    footer_terms: "Условия использования",
+    footer_privacy: "Политика конфиденциальности",
+    footer_platform_link: "Платформа: api.swipies.app ↗"
+  },
+  uz: {
+    offer_title_page: "Ommaviy oferta shartnomasi — Swipies AI",
+    nav_cta: "Demoni sinash",
+    offer_h1: "Ommaviy oferta (Xizmatlar ko'rsatish shartnomasi)",
+    offer_date: "Kuchga kirish sanasi: 2026-yil 1-yanvar • O'zbekiston Respublikasi",
+    offer_notice_strong: "Atmos.uz to'lov tizimi uchun rasmiy ommaviy oferta:",
+    offer_notice_text: "Ushbu hujjat Swipies AI platformasi (api.swipies.app) xizmatlarini ko'rsatish bo'yicha rasmiy ommaviy oferta hisoblanadi. O'zbekiston Respublikasi hududida barcha hisob-kitoblar milliy valyutada (so'm / UZS) litsenziyalangan Atmos to'lov tashkiloti (atmos.uz) orqali amalga oshiriladi. Saytdagi narxlar milliy valyutadagi majburiy ekvivalenti bilan ko'rsatilgan.",
+    footer_back: "← Swipies AI asosiy sahifasiga",
+    footer_terms: "Foydalanish shartlari",
+    footer_privacy: "Maxfiylik siyosati",
+    footer_platform_link: "Platforma: api.swipies.app ↗"
+  }
+};
+
+const content = {
+  ru: `
+    <h2>1. Общие положения и правовые основания</h2>
+    <p>1.1. В соответствии со статьями 367 и 369 Гражданского кодекса Республики Узбекистан, а также Законом Республики Узбекистан «Об электронной коммерции», настоящий документ является официальным публичным предложением (Публичной офертой) <strong>Swipies AI</strong> («Исполнитель») заключить Договор оказания услуг и предоставления неисключительных программных лицензий с любым дееспособным физическим или юридическим лицом («Заказчик» или «Пользователь»).</p>
+    <p>1.2. Текст настоящей Публичной оферты размещен в открытом доступе в сети Интернет по адресам: <a href="https://swipies.app/offer.html" target="_blank" rel="noopener" style="color:var(--accent);">https://swipies.app/offer.html</a> и <a href="https://enterprise.swipies.app/offer.html" target="_blank" rel="noopener" style="color:var(--accent);">https://enterprise.swipies.app/offer.html</a>.</p>
+    <p>1.3. Сайты <strong>swipies.app</strong> и <strong>enterprise.swipies.app</strong> являются информационными витринами. Все финансовые транзакции, оформление подписок, покупка лицензий, генерация лицензионных ключей и управление аккаунтом производятся исключительно на основной платформе <a href="https://api.swipies.app" target="_blank" rel="noopener" style="color:var(--accent);">https://api.swipies.app</a>.</p>
+
+    <h2>2. Термины и определения</h2>
+    <ul>
+      <li><strong>Swipies AI (Исполнитель)</strong> — поставщик программного обеспечения, интеллектуальных AI-агентов, поисковых систем RAG (Retrieval-Augmented Generation) и локальных Docker-дистрибутивов.</li>
+      <li><strong>Платформа</strong> — программный комплекс Swipies AI, размещенный на защищенном домене <code>https://api.swipies.app</code>.</li>
+      <li><strong>Заказчик (Пользователь)</strong> — лицо, осуществившее акцепт настоящей Оферты.</li>
+      <li><strong>Акцепт оферты</strong> — полное и безоговорочное принятие условий оферты путем регистрации учетной записи на платформе api.swipies.app и/или оплаты выбранного тарифного плана через шлюз Atmos.</li>
+      <li><strong>Платежная система Atmos (atmos.uz)</strong> — официальный лицензированный платежный сервис (оператор ООО «SOLUTIONS LAB», г. Ташкент, Узбекистан), обеспечивающий прием и обработку платежей картами Uzcard, Humo, Visa и Mastercard.</li>
+      <li><strong>Тарифный план</strong> — перечень предоставляемых ресурсов (токены, датасеты, агенты, хранилище, лицензии) и их стоимость в национальной валюте Республики Узбекистан (сум / UZS) с эквивалентом в USD.</li>
+    </ul>
+
+    <h2>3. Предмет договора и порядок акцепта</h2>
+    <p>3.1. Исполнитель обязуется оказать Заказчику услуги по предоставлению доступа к облачной платформе Swipies AI и/или выдать неисключительную лицензию на запуск программного комплекса на серверах Заказчика, а Заказчик обязуется оплатить эти услуги по установленному тарифу.</p>
+    <p>3.2. Безусловным акцептом настоящей Оферты признается:</p>
+    <ul>
+      <li>Регистрация учетной записи на платформе <a href="https://api.swipies.app" target="_blank" rel="noopener" style="color:var(--accent);">https://api.swipies.app</a>;</li>
+      <li>Оплата выбранного тарифного плана через платежную систему Atmos;</li>
+      <li>Ввод и активация лицензионного ключа.</li>
+    </ul>
+    <p>3.3. Акцепт оферты равносилен заключению двухстороннего письменного договора в соответствии с Гражданским кодексом Республики Узбекистан.</p>
+
+    <h2>4. Тарифные планы и эквивалент цен в национальной валюте (сум / UZS)</h2>
+    <p>4.1. В соответствии со статьей 18 Закона Республики Узбекистан «О валютном регулировании» и Законом «О защите прав потребителей», расчеты на территории Республики Узбекистан осуществляются в <strong>национальной валюте (узбекский сум / UZS)</strong>. Цены в иностранной валюте (USD) носят справочный характер.</p>
+    <p>4.2. Официальная сетка тарифов и эквивалентов в национальной валюте:</p>
+
+    <table class="tariff-table">
+      <thead>
+        <tr>
+          <th>Тарифный план</th>
+          <th>Стоимость в национальной валюте (сум / UZS)</th>
+          <th>Эквивалент в USD</th>
+          <th>Состав услуг и квоты</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Basic</strong><br>(Облачная подписка)</td>
+          <td><strong style="color:var(--accent); font-size:1.05rem;">199 000 сум / месяц</strong></td>
+          <td>$20 / месяц</td>
+          <td>1 000 000 токенов в месяц, 5 GB облачного хранилища, 5 датасетов, 5 агентов, облачное размещение, стандартная поддержка.</td>
+        </tr>
+        <tr>
+          <td><strong>Pro</strong><br>(Облачная подписка)</td>
+          <td><strong style="color:var(--accent); font-size:1.05rem;">399 000 сум / месяц</strong></td>
+          <td>$40 / месяц</td>
+          <td>2 500 000 токенов в месяц, 10 GB хранилища, 10 датасетов, 12 агентов, доступ к Pro Console (подключение моделей по API), приоритетная поддержка.</td>
+        </tr>
+        <tr>
+          <td><strong>Self-Hosted License</strong><br>(Лицензия на 1 год)</td>
+          <td><strong style="color:var(--accent); font-size:1.05rem;">1 990 000 сум / год</strong><br>(1.99 млн сум)</td>
+          <td>$199 / год</td>
+          <td>Лицензионный ключ для локального Docker/Kubernetes развертывания на своих серверах, снятие лимитов на загрузку, GPU-ускорение, работа в изолированном контуре (air-gapped).</td>
+        </tr>
+        <tr>
+          <td><strong>Enterprise Custom</strong><br>(Корпоративный)</td>
+          <td><strong style="color:var(--accent); font-size:1.05rem;">Индивидуальный расчет</strong></td>
+          <td>По согласованию</td>
+          <td>Полная on-premise инфраструктура «под ключ», приватные LLM (70B+), SLA, брендирование (White-Label OEM), банковские стандарты безопасности.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>4.3. Оплата с карт банков Узбекистана (Uzcard, Humo) списывается строго в узбекских сумах (UZS) без скрытых комиссий и сборов.</p>
+
+    <h2>5. Условия оплаты через платежный шлюз Atmos (atmos.uz)</h2>
+    <p>5.1. Прием платежей осуществляется через лицензированный платежный сервис <strong>Atmos</strong> (<a href="https://atmos.uz" target="_blank" rel="noopener" style="color:var(--accent);">atmos.uz</a>), оператор ООО «SOLUTIONS LAB» (г. Ташкент, Узбекистан).</p>
+    <p>5.2. Принимаемые карты: <strong>Uzcard, Humo, Visa, Mastercard</strong>.</p>
+    <p>5.3. <strong>Безопасность по стандарту PCI DSS Level 1:</strong> Ввод реквизитов карты (номер карты, срок действия, CVC/CVV, 3D Secure / SMS-код подтверждения) происходит на защищенной шлюзовой странице Atmos. Платформа Swipies AI не имеет доступа к реквизитам банковских карт и не сохраняет их на своих серверах.</p>
+    <p>5.4. Зачисление и активация происходят мгновенно в автоматическом режиме после подтверждения платежной транзакции.</p>
+
+    <h2>6. Порядок оказания услуг в электронном виде</h2>
+    <p>6.1. Swipies AI предоставляет исключительно цифровые услуги и программные лицензии. Доставка материальных товаров не производится.</p>
+    <p>6.2. <strong>Мгновенная активация:</strong> Сразу после завершения оплаты через сервис Atmos доступ к ресурсам тарифного плана открывается в личном кабинете на <strong>https://api.swipies.app</strong> автоматически.</p>
+    <p>6.3. <strong>Выдача лицензионных ключей:</strong> Ключ активации для Self-Hosted лицензии генерируется моментально, отображается в разделе <a href="https://api.swipies.app/user-setting/license" target="_blank" rel="noopener" style="color:var(--accent);">api.swipies.app/user-setting/license</a> и отправляется на регистрационный email Заказчика.</p>
+
+    <h2>7. Автопродление подписки и порядок отмены</h2>
+    <p>7.1. Облачные тарифные планы (Basic, Pro) действуют по модели ежемесячной подписки. Подписка продлевается автоматически в конце расчетного периода с сохраненной карты через Atmos, если она не была заблаговременно отменена Заказчиком.</p>
+    <p>7.2. <strong>Отмена в любое время:</strong> Заказчик имеет право в любой момент отключить автопродление в личном кабинете на <strong>https://api.swipies.app/user-setting</strong> без штрафов и комиссий. Оплаченный период действует до своего завершения, последующие списания прекращаются.</p>
+
+    <h2>8. Политика возврата денежных средств (стандарты Atmos.uz)</h2>
+    <p>8.1. В соответствии с законодательством Республики Узбекистан о защите прав потребителей и регламентами платежного шлюза Atmos:</p>
+    <ul>
+      <li><strong>Срок подачи обращения:</strong> Заказчик вправе обратиться за возвратом средств в течение 14 (четырнадцати) календарных дней с момента совершения платежа при наличии технического сбоя, сделавшего невозможным использование сервиса, либо ошибочного дублирующего списания.</li>
+      <li><strong>Безналичный возврат на исходную карту:</strong> В соответствии с требованиями банковского законодательства РУз и правилами Atmos (<a href="https://atmos.uz" target="_blank" rel="noopener" style="color:var(--accent);">atmos.uz</a>), возврат денежных средств осуществляется <strong>строго и исключительно на ту же банковскую карту (Uzcard, Humo, Visa, Mastercard)</strong>, с которой был совершен платеж. Возврат наличными или на счета сторонних лиц не допускается.</li>
+      <li><strong>Сроки зачисления:</strong> Заявка обрабатывается службой поддержки Swipies AI в течение 24 часов, после чего распоряжение передается в систему Atmos. Срок поступления средств на карту Заказчика составляет от 3 до 10 рабочих дней в зависимости от банка Заказчика.</li>
+      <li><strong>Контакты для обращений:</strong> Письма направляются на <a href="mailto:support@swipies.app" style="color:var(--accent);">support@swipies.app</a> или <a href="mailto:legal@swipies.app" style="color:var(--accent);">legal@swipies.app</a> с указанием ID транзакции, даты и номера заказа.</li>
+    </ul>
+
+    <h2>9. Интеллектуальная собственность</h2>
+    <p>9.1. Все компоненты платформы Swipies AI, включая алгоритмы, программные коды, дизайн и товарные знаки, являются исключительной собственностью Swipies AI.</p>
+    <p>9.2. Заказчику предоставляется ограниченная неисключительная лицензия на использование сервиса в пределах оплаченного тарифа.</p>
+
+    <h2>10. Срок действия и порядок изменения оферты</h2>
+    <p>10.1. Настоящая Оферта вступает в силу с момента публикации в сети Интернет и действует бессрочно до момента ее отзыва Исполнителем.</p>
+    <p>10.2. Исполнитель вправе вносить изменения в условия Оферты. Актуальная редакция всегда публикуется на данной странице.</p>
+
+    <h2>11. Реквизиты и контакты Исполнителя</h2>
+    <p><strong>Наименование:</strong> Swipies AI<br>
+    <strong>Веб-сайты:</strong> <a href="https://swipies.app" target="_blank" rel="noopener" style="color:var(--accent);">https://swipies.app</a> | <a href="https://enterprise.swipies.app" target="_blank" rel="noopener" style="color:var(--accent);">https://enterprise.swipies.app</a><br>
+    <strong>Платформа оплаты и биллинг:</strong> <a href="https://api.swipies.app" target="_blank" rel="noopener" style="color:var(--accent);">https://api.swipies.app</a><br>
+    <strong>Служба поддержки:</strong> <a href="mailto:support@swipies.app" style="color:var(--accent);">support@swipies.app</a><br>
+    <strong>Юридический отдел:</strong> <a href="mailto:legal@swipies.app" style="color:var(--accent);">legal@swipies.app</a><br>
+    <strong>Телефон:</strong> +998-90-625-3986<br>
+    <strong>Платежный оператор:</strong> Atmos (<a href="https://atmos.uz" target="_blank" rel="noopener" style="color:var(--accent);">atmos.uz</a>, ООО «SOLUTIONS LAB», г. Ташкент, Узбекистан)</p>
+  `,
+  en: `
+    <h2>1. General Provisions & Legal Basis</h2>
+    <p>1.1. In accordance with Articles 367 and 369 of the Civil Code of the Republic of Uzbekistan and the Law of the Republic of Uzbekistan "On Electronic Commerce", this document constitutes an official public proposal (Public Offer) of <strong>Swipies AI</strong> ("Executor") to conclude a Service and License Agreement with any capable individual or legal entity ("Customer" or "User").</p>
+    <p>1.2. The full text of this Public Offer is permanently published and accessible on: <a href="https://swipies.app/offer.html" target="_blank" rel="noopener" style="color:var(--accent);">https://swipies.app/offer.html</a> and <a href="https://enterprise.swipies.app/offer.html" target="_blank" rel="noopener" style="color:var(--accent);">https://enterprise.swipies.app/offer.html</a>.</p>
+    <p>1.3. The showcase websites <strong>swipies.app</strong> and <strong>enterprise.swipies.app</strong> serve as informational platforms. All commercial transactions, subscription billings, software license key issuances, and user account management are conducted exclusively on the core platform at <a href="https://api.swipies.app" target="_blank" rel="noopener" style="color:var(--accent);">https://api.swipies.app</a>.</p>
+
+    <h2>2. Terms & Definitions</h2>
+    <ul>
+      <li><strong>Swipies AI (Executor)</strong> — provider of the software platform, autonomous AI agents, enterprise RAG search pipelines, and on-premise Docker deployment configurations.</li>
+      <li><strong>Platform</strong> — the software and hardware system accessible at <code>https://api.swipies.app</code>.</li>
+      <li><strong>Customer (User)</strong> — any capable individual or legal entity that has accepted this Offer.</li>
+      <li><strong>Acceptance</strong> — full and unconditional acceptance of this Offer by registering on the platform and/or completing payment through the Atmos payment gateway.</li>
+      <li><strong>Payment Gateway Atmos (atmos.uz)</strong> — the licensed payment system operator (LLC "SOLUTIONS LAB", Tashkent, Uzbekistan) authorized to process electronic card payments (Uzcard, Humo, Visa, Mastercard) on the platform.</li>
+      <li><strong>Tariff Plan</strong> — the package of services and software rights selected by the Customer, with pricing fixed in national currency (UZS) and USD equivalent.</li>
+    </ul>
+
+    <h2>3. Subject of Agreement & Acceptance Procedure</h2>
+    <p>3.1. The Executor undertakes to provide the Customer with access to the cloud SaaS platform Swipies AI and/or grant a non-exclusive license for on-premise deployment of the Swipies AI software stack, and the Customer undertakes to accept and pay for the services according to the chosen Tariff Plan.</p>
+    <p>3.2. Acceptance of this Offer occurs upon the Customer completing any of the following actions:</p>
+    <ul>
+      <li>Registration of an account on <a href="https://api.swipies.app" target="_blank" rel="noopener" style="color:var(--accent);">https://api.swipies.app</a>;</li>
+      <li>Selection of a Tariff Plan and successful completion of payment via Atmos;</li>
+      <li>Issuance and entry of a software license key.</li>
+    </ul>
+    <p>3.3. From the moment of payment confirmation by the Atmos system, this Agreement is considered concluded in writing electronically between the parties.</p>
+
+    <h2>4. Tariffs & National Currency (UZS) Equivalents</h2>
+    <p>4.1. In accordance with Article 18 of the Law of the Republic of Uzbekistan "On Currency Regulation" and the Law "On Consumer Rights Protection", all payments within Uzbekistan are settled strictly in the <strong>national currency — Uzbek Sum (UZS)</strong>.</p>
+    <p>4.2. Current subscription and license tariff plans with their fixed national currency values and USD equivalents:</p>
+
+    <table class="tariff-table">
+      <thead>
+        <tr>
+          <th>Tariff Plan</th>
+          <th>Price in UZS (National Currency)</th>
+          <th>USD Equivalent</th>
+          <th>Included Features & Quotas</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Basic</strong><br>(Cloud Subscription)</td>
+          <td><strong style="color:var(--accent); font-size:1.05rem;">199 000 UZS / month</strong></td>
+          <td>$20 / month</td>
+          <td>1,000,000 tokens/mo, 5 GB cloud storage, 5 datasets, 5 AI agents, cloud deployment, standard support.</td>
+        </tr>
+        <tr>
+          <td><strong>Pro</strong><br>(Cloud Subscription)</td>
+          <td><strong style="color:var(--accent); font-size:1.05rem;">399 000 UZS / month</strong></td>
+          <td>$40 / month</td>
+          <td>2,500,000 tokens/mo, 10 GB cloud storage, 10 datasets, 12 AI agents, Pro Console (custom API models), priority support.</td>
+        </tr>
+        <tr>
+          <td><strong>Self-Hosted License</strong><br>(Annual License)</td>
+          <td><strong style="color:var(--accent); font-size:1.05rem;">1 990 000 UZS / year</strong><br>(1.99M UZS)</td>
+          <td>$199 / year</td>
+          <td>Annual license key for Docker/k8s on-premise installation, unlimited ingestion/team, GPU vector acceleration, air-gapped offline support.</td>
+        </tr>
+        <tr>
+          <td><strong>Enterprise Custom</strong><br>(Turn-key solution)</td>
+          <td><strong style="color:var(--accent); font-size:1.05rem;">Custom quote</strong></td>
+          <td>Negotiated</td>
+          <td>Turn-key on-premise hardware deployment, air-gapped private LLMs, SLA guarantee, custom data connectors, white-label OEM.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>4.3. The prices specified in national currency (UZS) are final for residents of Uzbekistan paying with Uzcard or Humo cards. For international payments made with Visa/Mastercard, debiting occurs in USD or is converted by the Customer's issuing bank at its internal exchange rate.</p>
+
+    <h2>5. Payment Terms via Atmos (atmos.uz)</h2>
+    <p>5.1. Payments for subscriptions and licenses are processed via the official licensed payment organization <strong>Atmos</strong> (<a href="https://atmos.uz" target="_blank" rel="noopener" style="color:var(--accent);">atmos.uz</a>, LLC "SOLUTIONS LAB", Tashkent, Republic of Uzbekistan).</p>
+    <p>5.2. Accepted payment instruments: <strong>Uzcard, Humo, Visa, and Mastercard</strong>.</p>
+    <p>5.3. <strong>PCI DSS Level 1 Security:</strong> All card details (PAN, expiration, CVV/CVC, 3D Secure / SMS OTP confirmation) are entered directly on the certified Atmos payment gateway. Swipies AI does not store, collect, or process banking card credentials on its servers.</p>
+    <p>5.4. No hidden fees or unauthorized commissions are charged. The debit amount strictly matches the selected tariff plan.</p>
+
+    <h2>6. Electronic Fulfillment & Service Delivery</h2>
+    <p>6.1. Swipies AI delivers intangible digital software services. No physical shipment of goods is required.</p>
+    <p>6.2. <strong>Instant Activation:</strong> Immediately upon successful transaction confirmation by the Atmos gateway, the Customer's account on <strong>https://api.swipies.app</strong> is credited with the corresponding tokens, storage quotas, and agent capabilities.</p>
+    <p>6.3. <strong>License Delivery:</strong> Software license keys for on-premise Docker deployment are generated in real-time and displayed in the Customer Cabinet (<a href="https://api.swipies.app/user-setting/license" target="_blank" rel="noopener" style="color:var(--accent);">api.swipies.app/user-setting/license</a>) and sent to the Customer's registered email address.</p>
+
+    <h2>7. Recurring Subscriptions & Cancellation</h2>
+    <p>7.1. Subscription plans (Basic, Pro) operate on a recurring monthly billing cycle. Unless cancelled by the Customer, subscriptions renew automatically at the end of each billing cycle using the payment method saved through Atmos.</p>
+    <p>7.2. <strong>Cancellation at Any Time:</strong> The Customer has the right to disable auto-renewal at any time in the User Cabinet at <strong>https://api.swipies.app/user-setting</strong> without any fees or penalties. Access remains active until the end of the paid period, after which no further debits occur.</p>
+
+    <h2>8. Refund Policy (Atmos.uz Compliance)</h2>
+    <p>8.1. In accordance with the legislation of the Republic of Uzbekistan on consumer protection and the operational standards of Atmos:</p>
+    <ul>
+      <li><strong>Grounds for Refund:</strong> The Customer has the right to request a full refund within 14 (fourteen) calendar days from the date of payment if: (a) a verified technical defect of the platform prevented the provision of service or license activation, or (b) an accidental duplicate debit occurred.</li>
+      <li><strong>Mandatory Refund Method:</strong> In accordance with Central Bank regulations and payment system rules, all approved refunds are processed <strong>strictly and exclusively to the same bank card (Uzcard, Humo, Visa, Mastercard)</strong> from which the original payment was made through the Atmos gateway (<a href="https://atmos.uz" target="_blank" rel="noopener" style="color:var(--accent);">atmos.uz</a>). Cash refunds or refunds to third-party accounts are strictly prohibited.</li>
+      <li><strong>Processing Time:</strong> Once approved by Swipies AI, the refund order is transmitted to Atmos immediately. Funds are credited back to the Customer's card within 3 to 10 banking days, depending on the card-issuing bank.</li>
+      <li><strong>Filing a Claim:</strong> To initiate a refund, email <a href="mailto:support@swipies.app" style="color:var(--accent);">support@swipies.app</a> or <a href="mailto:legal@swipies.app" style="color:var(--accent);">legal@swipies.app</a> stating the transaction ID, order number, payment date, and account email.</li>
+    </ul>
+
+    <h2>9. Intellectual Property & License Grant</h2>
+    <p>9.1. All rights to the Swipies AI software platform, orchestrator code, vector indexing engines, designs, and brand marks belong exclusively to Swipies AI.</p>
+    <p>9.2. Upon payment, the Customer receives a non-exclusive, non-transferable license to utilize the platform or deploy the software package within their authorized computing environment.</p>
+
+    <h2>10. Dispute Resolution & Governing Law</h2>
+    <p>10.1. This Public Offer is governed by and construed in accordance with the laws of the Republic of Uzbekistan.</p>
+    <p>10.2. Any disputes arising from this Agreement shall be resolved through amicable negotiations within 15 days. If not resolved, disputes shall be submitted to the competent economic courts of Tashkent, Republic of Uzbekistan.</p>
+
+    <h2>11. Requisites & Contact Information</h2>
+    <p><strong>Platform:</strong> Swipies AI<br>
+    <strong>Website:</strong> <a href="https://swipies.app" target="_blank" rel="noopener" style="color:var(--accent);">https://swipies.app</a> | <a href="https://enterprise.swipies.app" target="_blank" rel="noopener" style="color:var(--accent);">https://enterprise.swipies.app</a><br>
+    <strong>Checkout & User Cabinet:</strong> <a href="https://api.swipies.app" target="_blank" rel="noopener" style="color:var(--accent);">https://api.swipies.app</a><br>
+    <strong>Email Support:</strong> <a href="mailto:support@swipies.app" style="color:var(--accent);">support@swipies.app</a><br>
+    <strong>Legal Inquiries:</strong> <a href="mailto:legal@swipies.app" style="color:var(--accent);">legal@swipies.app</a><br>
+    <strong>Phone:</strong> +998-90-625-3986<br>
+    <strong>Payment Operator:</strong> Atmos (<a href="https://atmos.uz" target="_blank" rel="noopener" style="color:var(--accent);">atmos.uz</a>, LLC "SOLUTIONS LAB", Tashkent, Uzbekistan)</p>
+  `,
+  uz: `
+    <h2>1. Umumiy qoidalar va huquqiy asoslar</h2>
+    <p>1.1. O'zbekiston Respublikasi Fuqarolik kodeksining 367 va 369-moddalariga hamda "Elektron tijorat to'g'risida"gi O'zbekiston Respublikasi Qonuniga muvofiq, ushbu hujjat <strong>Swipies AI</strong> ("Ijrochi") ning har qanday muomala layoqatiga ega jismoniy yoki yuridik shaxs ("Buyurtmachi" yoki "Foydalanuvchi") bilan Xizmatlar ko'rsatish va litsenziya shartnomasini tuzish bo'yicha rasmiy ommaviy taklifi (Ommaviy oferta) hisoblanadi.</p>
+    <p>1.2. Ushbu Ommaviy ofertaning to'liq matni quyidagi manzillarda internet tarmog'ida doimiy va ochiq joylashtirilgan: <a href="https://swipies.app/offer.html" target="_blank" rel="noopener" style="color:var(--accent);">https://swipies.app/offer.html</a> va <a href="https://enterprise.swipies.app/offer.html" target="_blank" rel="noopener" style="color:var(--accent);">https://enterprise.swipies.app/offer.html</a>.</p>
+    <p>1.3. <strong>swipies.app</strong> va <strong>enterprise.swipies.app</strong> saytlari axborot va mahsulot namoyishi portallari hisoblanadi. Barcha tijoriy hisob-kitoblar, obunalarni rasmiylashtirish, to'lovlar va litsenziya kalitlarini boshqarish faqat asosiy <a href="https://api.swipies.app" target="_blank" rel="noopener" style="color:var(--accent);">https://api.swipies.app</a> platformasida amalga oshiriladi.</p>
+
+    <h2>2. Atamalar va ta'riflar</h2>
+    <ul>
+      <li><strong>Swipies AI (Ijrochi)</strong> — bulutli AI platformasi, avtonom sun'iy intellekt agentlari, korporativ RAG qidiruv tizimlari va Docker paketlarini yetkazib beruvchi.</li>
+      <li><strong>Platforma</strong> — <code>https://api.swipies.app</code> manzilida joylashgan dasturiy-texnik majmua.</li>
+      <li><strong>Buyurtmachi (Foydalanuvchi)</strong> — ushbu Ofertani to'liq qabul qilgan har qanday jismoniy yoki yuridik shaxs.</li>
+      <li><strong>Ofertaning aksepti</strong> — ro'yxatdan o'tish va/yoki Atmos to'lov tizimi orqali to'lovni amalga oshirish orqali shartnoma shartlarini to'liq va so'zsiz qabul qilish.</li>
+      <li><strong>Atmos to'lov tizimi (atmos.uz)</strong> — Uzcard, Humo, Visa va Mastercard bank kartalari orqali to'lovlarni qabul qiluvchi litsenziyalangan to'lov tashkiloti ("SOLUTIONS LAB" MChJ, Toshkent, O'zbekiston).</li>
+      <li><strong>Tarif rejasi</strong> — Buyurtmachi tomonidan tanlangan xizmatlar to'plami va ularning milliy valyutadagi narxlari.</li>
+    </ul>
+
+    <h2>3. Shartnoma predmeti va aksept tartibi</h2>
+    <p>3.1. Ijrochi Buyurtmachiga Swipies AI bulutli SaaS xizmatlaridan foydalanish yoki lokal serverda o'rnatish uchun nomahsul litsenziyani taqdim etadi, Buyurtmachi esa tanlangan Tarif rejasiga muvofiq to'lovini amalga oshiradi.</p>
+    <p>3.2. Quyidagi harakatlardan birining amalga oshirilishi Ofertani to'liq aksept qilish hisoblanadi:</p>
+    <ul>
+      <li><a href="https://api.swipies.app" target="_blank" rel="noopener" style="color:var(--accent);">https://api.swipies.app</a> da ro'yxatdan o'tish;</li>
+      <li>Tarifni tanlash va Atmos to'lov tizimi orqali to'lovni amalga oshirish;</li>
+      <li>Litsenziya kalitini kiritish va faollashtirish.</li>
+    </ul>
+    <p>3.3. Atmos tizimi to'lovni tasdiqlagan paytdan boshlab ushbu Shartnoma elektron shaklda tuzilgan hisoblanadi.</p>
+
+    <h2>4. Tariflar va milliy valyutadagi narxlar ekvivalenti (so'm / UZS)</h2>
+    <p>4.1. O'zbekiston Respublikasining "Valyutani tartibga solish to'g'risida"gi Qonunining 18-moddasiga muvofiq, O'zbekiston hududida barcha hisob-kitoblar qat'iy ravishda <strong>milliy valyutada — O'zbekiston so'mida (UZS)</strong> qabul qilinadi.</p>
+    <p>4.2. Swipies AI platformasining milliy valyutadagi narxlari va ularning AQSh dollaridagi ekvivalenti:</p>
+
+    <table class="tariff-table">
+      <thead>
+        <tr>
+          <th>Tarif rejasi</th>
+          <th>Milliy valyutadagi narx (so'm / UZS)</th>
+          <th>USD ekvivalenti</th>
+          <th>Kiritilgan imkoniyatlar va limitlar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Basic</strong><br>(Bulutli obuna)</td>
+          <td><strong style="color:var(--accent); font-size:1.05rem;">oyiga 199 000 so'm</strong></td>
+          <td>oyiga $20</td>
+          <td>oyiga 1 000 000 token, 5 GB bulutli xotira, 5 ta ma'lumotlar to'plami, 5 ta AI agent, bulutli kirish, standart qo'llab-quvvatlash.</td>
+        </tr>
+        <tr>
+          <td><strong>Pro</strong><br>(Bulutli obuna)</td>
+          <td><strong style="color:var(--accent); font-size:1.05rem;">oyiga 399 000 so'm</strong></td>
+          <td>oyiga $40</td>
+          <td>oyiga 2 500 000 token, 10 GB xotira, 10 ta ma'lumotlar to'plami, 12 ta AI agent, Pro Console (tashqi modellarni API orqali ulash), ustuvor qo'llab-quvvatlash.</td>
+        </tr>
+        <tr>
+          <td><strong>Self-Hosted License</strong><br>(1 yillik litsenziya)</td>
+          <td><strong style="color:var(--accent); font-size:1.05rem;">yiliga 1 990 000 so'm</strong><br>(1.99 mln so'm)</td>
+          <td>yiliga $199</td>
+          <td>O'z serveringizga Docker/k8s o'rnatish uchun 1 yillik litsenziya kaliti, cheksiz hujjatlar hajmi, GPU va vektorli tezlashtirish, oflayn rejim.</td>
+        </tr>
+        <tr>
+          <td><strong>Enterprise Custom</strong><br>(Korporativ)</td>
+          <td><strong style="color:var(--accent); font-size:1.05rem;">Shartnoma asosida</strong></td>
+          <td>Kelishuv asosida</td>
+          <td>Kompaniyangiz serverlarida to'liq tayyor holda o'rnatish, maxsus ajratilgan LLM modellar (70B+), SLA kafolati, White-Label OEM.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>4.3. So'mdagi narxlar O'zbekiston bank kartalari (Uzcard, Humo) orqali to'lash uchun qat'iy belgilangan. Xalqaro Visa/Mastercard kartalari orqali to'langanda, mablag' ekvivalentda yoki kartani chiqargan bank kursi bo'yicha yechiladi.</p>
+
+    <h2>5. Atmos to'lov tizimi (atmos.uz) orqali hisob-kitoblar tartibi</h2>
+    <p>5.1. To'lovlarni qabul qilish O'zbekiston Respublikasida litsenziyalangan <strong>Atmos</strong> (<a href="https://atmos.uz" target="_blank" rel="noopener" style="color:var(--accent);">atmos.uz</a>, "SOLUTIONS LAB" MChJ, Toshkent shahri) to'lov tizimi orqali amalga oshiriladi.</p>
+    <p>5.2. Qabul qilinadigan bank kartalari: <strong>Uzcard, Humo, Visa va Mastercard</strong>.</p>
+    <p>5.3. <strong>PCI DSS Level 1 xavfsizlik standarti:</strong> Karta rekvizitlari faqat Atmos tizimining xalqaro PCI DSS Level 1 sertifikatiga ega himoyalangan sahifasida kiritiladi. Swipies AI o'z serverlarida bank kartasi rekvizitlarini saqlamaydi va qayta ishlamaydi.</p>
+    <p>5.4. Xaridordan hech qanday yashirin to'lovlar olinmaydi. Yechib olinadigan mablag' tanlangan tarif narxiga to'liq mos keladi.</p>
+
+    <h2>6. Xizmatlarni elektron ko'rsatish tartibi</h2>
+    <p>6.1. Swipies AI raqamli elektron xizmatlar va litsenziyalarni taqdim etadi. Jismoniy tovarlar yetkazib berilmaydi.</p>
+    <p>6.2. <strong>Tezkor avtomatik faollashtirish:</strong> Atmos tizimi orqali to'lov muvaffaqiyatli amalga oshirilishi bilanoq, <strong>https://api.swipies.app</strong> tizimidagi foydalanuvchi hisobi bir necha soniya ichida avtomatik faollashtiriladi.</p>
+    <p>6.3. <strong>Litsenziya kalitini olish:</strong> Lokal o'rnatish uchun litsenziya kaliti avtomatik yaratiladi, shaxsiy kabinetda (<a href="https://api.swipies.app/user-setting/license" target="_blank" rel="noopener" style="color:var(--accent);">https://api.swipies.app/user-setting/license</a>) ko'rsatiladi va Buyurtmachining elektron pochtasiga yuboriladi.</p>
+
+    <h2>7. Obunalar, avtomatik yangilanish va bekor qilish</h2>
+    <p>7.1. Tarif rejalari (Basic, Pro) oylik avtomatik obuna sifatida ishlaydi. Agar foydalanuvchi tomonidan bekor qilinmasa, har bir hisob davri oxirida Atmos tizimi orqali obuna avtomatik uzaytiriladi.</p>
+    <p>7.2. <strong>Istalgan vaqtda bekor qilish:</strong> Buyurtmachi istalgan vaqtda <strong>https://api.swipies.app/user-setting</strong> dagi shaxsiy kabinetida obunaning avtomatik yangilanishini hech qanday jarimalarsiz o'chirishi mumkin. To'langan davr oxirigacha xizmatlardan foydalanish davom etadi.</p>
+
+    <h2>8. Mablag'larni qaytarish siyosati (Atmos.uz qoidalariga muvofiq)</h2>
+    <p>8.1. O'zbekiston Respublikasining iste'molchilar huquqlarini himoya qilish to'g'risidagi qonunchiligi va Atmos to'lov tizimi talablariga muvofiq:</p>
+    <ul>
+      <li><strong>Qaytarish asoslari:</strong> Quyidagi hollarda to'lov amalga oshirilgan kundan boshlab 14 (o'n to'rt) kalendar kuni ichida mablag'ni qaytarish talab qilinishi mumkin: (a) platformadagi texnik xatolik tufayli xizmatdan yoki litsenziyadan foydalanish imkoni bo'lmaganida, yoki (b) adashib takroriy mablag' yechilganida.</li>
+      <li><strong>Qat'iy ravishda asl kartaga qaytarish:</strong> O'zbekiston Respublikasi bank qoidalariga ko'ra, tasdiqlangan mablag' <strong>faqat va qat'iy ravishda Atmos to'lov shlyuzi (<a href="https://atmos.uz" target="_blank" rel="noopener" style="color:var(--accent);">atmos.uz</a>) orqali to'lov amalga oshirilgan asl bank kartasiga (Uzcard, Humo, Visa, Mastercard)</strong> qaytariladi. Naqd pulda qaytarish yoki begona shaxslarning kartasiga pul o'tkazish qat'iyan man etiladi.</li>
+      <li><strong>Mablag' tushish muddati:</strong> Swipies AI arizani tasdiqlagach, so'rov darhol Atmos tizimiga uzatiladi. Mablag'lar emitent bankka qarab 3 dan 10 ish kuni ichida foydalanuvchi kartasiga qaytariladi.</li>
+      <li><strong>Ariza berish:</strong> Qaytarish uchun <a href="mailto:support@swipies.app" style="color:var(--accent);">support@swipies.app</a> yoki <a href="mailto:legal@swipies.app" style="color:var(--accent);">legal@swipies.app</a> manziliga tranzaksiya ID si, to'lov sanasi va akkaunt emailingizni yuboring.</li>
+    </ul>
+
+    <h2>9. Intellektual mulk va litsenziya</h2>
+    <p>9.1. Swipies AI platformasi, algoritmlari, dasturiy kodlari va dizayni Ijrochining intellektual mulki hisoblanadi.</p>
+    <p>9.2. Buyurtmachiga faqat to'langan tarif doirasida xizmatlardan foydalanish uchun cheklangan, o'tkazilmaydigan nomahsul huquq beriladi.</p>
+
+    <h2>10. Nizolarni hal qilish tartibi</h2>
+    <p>10.1. Shartnoma yuzasidan barcha nizolar muzokaralar yo'li bilan hal qilinadi. Da'volarni ko'rib chiqish muddati 15 kalendar kunini tashkil etadi.</p>
+    <p>10.2. Kelishuvga erishilmagan taqdirda, nizolar O'zbekiston Respublikasi qonunlariga muvofiq Toshkent shahridagi tegishli iqtisodiy sudda ko'rib chiqiladi.</p>
+
+    <h2>11. Ijrochining rekvizitlari va aloqa ma'lumotlari</h2>
+    <p><strong>Nomi:</strong> Swipies AI<br>
+    <strong>Veb-saytlar:</strong> <a href="https://swipies.app" target="_blank" rel="noopener" style="color:var(--accent);">https://swipies.app</a> | <a href="https://enterprise.swipies.app" target="_blank" rel="noopener" style="color:var(--accent);">https://enterprise.swipies.app</a><br>
+    <strong>To'lov va shaxsiy kabinet:</strong> <a href="https://api.swipies.app" target="_blank" rel="noopener" style="color:var(--accent);">https://api.swipies.app</a><br>
+    <strong>Qo'llab-quvvatlash xizmati:</strong> <a href="mailto:support@swipies.app" style="color:var(--accent);">support@swipies.app</a><br>
+    <strong>Yuridik bo'lim:</strong> <a href="mailto:legal@swipies.app" style="color:var(--accent);">legal@swipies.app</a><br>
+    <strong>Telefon:</strong> +998-90-625-3986<br>
+    <strong>To'lov operatori:</strong> Atmos (<a href="https://atmos.uz" target="_blank" rel="noopener" style="color:var(--accent);">atmos.uz</a>, "SOLUTIONS LAB" MChJ, Toshkent, O'zbekiston)</p>
+  `
+};
+
+let currentLang = 'ru';
+
+function setLanguage(lang) {
+  if (!T[lang]) return;
+  currentLang = lang;
+  
+  // Update buttons
+  document.querySelectorAll('#langSwitch button').forEach(btn => {
+    if (btn.getAttribute('data-lang') === lang) {
+      btn.classList.add('active');
+    } else {
+      btn.classList.remove('active');
+    }
+  });
+
+  // Update DOM translations
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (T[lang][key]) {
+      el.innerHTML = T[lang][key];
+    }
+  });
+
+  // Inject content
+  document.getElementById('legalBody').innerHTML = content[lang];
+
+  // Save selection
+  localStorage.setItem('swipies_lang', lang);
+}
+
+// Language Switch Event Listeners
+document.getElementById('langSwitch').addEventListener('click', (e) => {
+  const btn = e.target.closest('button');
+  if (btn) {
+    const lang = btn.getAttribute('data-lang');
+    setLanguage(lang);
+  }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  const savedLang = localStorage.getItem('swipies_lang') || 'ru';
+  setLanguage(savedLang);
+});
+</script>
+</body>
+</html>

@@ -160,7 +160,7 @@ server {{
     }}
 
     # --- Shared Legal & Styles fallback ---
-    location ~* ^/(terms(\\.html)?|privacy(\\.html)?|styles\\.css)$ {{
+    location ~* ^/(terms(\\.html)?|privacy(\\.html)?|offer(\\.html)?|styles\\.css)$ {{
         root /var/www/html;
         try_files $uri $uri.html =404;
     }}
