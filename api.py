@@ -114,7 +114,7 @@ def get_ip_geo(ip):
         }
     
     try:
-        url = f"http://ip-api.com/json/{ip}?fields=status,country,city,isp,org,mobile,proxy,hosting"
+        url = f"http://ip-api.com/json/{ip}?fields=status,country,countryCode,city,isp,org,mobile,proxy,hosting"
         req = urllib.request.Request(url, headers={'User-Agent': 'Swipies-GeoIP/1.0'})
         with urllib.request.urlopen(req, timeout=3) as resp:
             geo_data = json.loads(resp.read().decode('utf-8'))
@@ -122,6 +122,7 @@ def get_ip_geo(ip):
                 is_proxy_val = 'Yes' if (geo_data.get('proxy') or geo_data.get('hosting')) else 'No'
                 return {
                     'country': geo_data.get('country') or 'Unknown Country',
+                    'country_code': geo_data.get('countryCode') or '',
                     'city': geo_data.get('city') or 'Unknown City',
                     'isp': geo_data.get('isp') or geo_data.get('org') or 'Unknown ISP',
                     'is_proxy': is_proxy_val
@@ -131,6 +132,7 @@ def get_ip_geo(ip):
         
     return {
         'country': 'Unknown Country',
+        'country_code': '',
         'city': 'Unknown City',
         'isp': 'Unknown ISP',
         'is_proxy': 'No'
@@ -196,6 +198,30 @@ def send_telegram(text):
         urllib.request.urlopen(req, timeout=5)
     except Exception as e:
         print(f"[Telegram] Failed to send notification: {e}")
+
+
+@app.route('/api/geo', methods=['GET'])
+def get_geo():
+    """Returns detected visitor country and recommended currency."""
+    if request.headers.get('X-Forwarded-For'):
+        ip = request.headers.get('X-Forwarded-For').split(',')[0].strip()
+    elif request.headers.get('X-Real-IP'):
+        ip = request.headers.get('X-Real-IP').strip()
+    else:
+        ip = request.remote_addr or '127.0.0.1'
+
+    geo = get_ip_geo(ip)
+    country = geo.get('country', '')
+    country_code = (geo.get('country_code') or '').upper()
+    is_uz = (country.lower() in ('uzbekistan', 'uz') or country_code == 'UZ')
+    return jsonify({
+        "code": 0,
+        "ip": ip,
+        "country": country,
+        "country_code": "UZ" if is_uz else country_code,
+        "is_uz": is_uz,
+        "currency": "UZS" if is_uz else "USD"
+    })
 
 
 @app.route('/api/leads', methods=['POST'])

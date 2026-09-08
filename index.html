@@ -1164,12 +1164,71 @@
       font-weight: 700;
       letter-spacing: -0.5px;
       margin-bottom: 0.5rem;
+      display: flex;
+      align-items: baseline;
+      gap: 0.35rem;
     }
 
     .price-card .price-amount span {
       font-size: var(--t-body);
       font-weight: 400;
       color: var(--text-secondary);
+    }
+
+    .price-card .price-amount .price-value,
+    .price-card .price-amount .price-usd,
+    .price-card .price-amount .price-uzs {
+      font-size: 1.75rem !important;
+      font-weight: 700 !important;
+      color: var(--text) !important;
+      letter-spacing: -0.5px;
+    }
+
+    .price-card .price-amount .price-period {
+      font-size: var(--t-body);
+      font-weight: 400;
+      color: var(--text-secondary);
+    }
+
+    /* Currency Switcher */
+    .pricing-currency-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto 2.25rem;
+    }
+
+    .currency-toggle {
+      display: inline-flex;
+      background: var(--bg2);
+      border: 1px solid var(--border2);
+      border-radius: 20px;
+      padding: 3px;
+      gap: 2px;
+    }
+
+    .currency-btn {
+      background: transparent;
+      color: var(--text-secondary);
+      border: none;
+      border-radius: 16px;
+      padding: 6px 14px;
+      font-family: var(--font-mono);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .currency-btn:hover {
+      color: var(--text);
+    }
+
+    .currency-btn.active {
+      background: var(--accent);
+      color: #080c14;
+      font-weight: 700;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
     }
 
     .price-card .price-desc {
@@ -2218,22 +2277,31 @@
     <div class="container reveal">
       <div class="section-num" data-i18n="price_num">06 — Pricing</div>
       <h2 class="section-title" data-i18n="price_title">Flexible Deployment Options</h2>
-            <!-- Subscription sub-section -->
+
+      <!-- Currency Switcher -->
+      <div class="pricing-currency-wrap">
+        <div class="currency-toggle" role="group" aria-label="Currency Switcher">
+          <button type="button" class="currency-btn active" data-currency="usd" onclick="setPricingCurrency('usd', true)" data-i18n="curr_usd">USD ($)</button>
+          <button type="button" class="currency-btn" data-currency="uzs" onclick="setPricingCurrency('uzs', true)" data-i18n="curr_uzs">UZS (сум)</button>
+        </div>
+      </div>
+
+      <!-- Subscription sub-section -->
       <div class="pricing-subsection">
         <div class="pricing-sub-header">
           <span class="pricing-sub-label" data-i18n="sub_label">Subscription</span>
           <p class="pricing-sub-desc" data-i18n="sub_desc">Cloud-hosted plans for teams that want instant access without managing infrastructure.</p>
         </div>
         <div class="pricing-grid pricing-grid--2">
-          <!-- Basic $20 -->
+          <!-- Basic $20 / 199 000 sum -->
           <div class="price-card">
             <div class="price-name" data-i18n="basic">Basic</div>
             <div class="price-amount">
               <span class="price-value" id="price-basic">
-                <span class="price-usd">$20</span>
-                <span class="price-uzs" style="display:none">200 000 сум</span>
+                <span class="price-usd" data-i18n="basic_price_usd">$20</span>
+                <span class="price-uzs" data-i18n="basic_price_uzs" style="display:none">199 000 сум</span>
               </span>
-              <span data-i18n="basic_period">/month</span>
+              <span class="price-period" data-i18n="basic_period">/month</span>
             </div>
             <p class="price-desc" data-i18n="basic_desc">For individuals and small teams ready to start using AI on managed cloud infrastructure.</p>
             <ul class="price-features">
@@ -2246,16 +2314,16 @@
             </ul>
             <a href="login.html" class="btn-secondary" style="display:inline-block;text-align:center" data-i18n="basic_cta">Get Started</a>
           </div>
-          <!-- Pro $40 -->
+          <!-- Pro $40 / 399 000 sum -->
           <div class="price-card price-card--pro">
             <div class="price-badge-pro">POPULAR</div>
             <div class="price-name" data-i18n="starter">Pro</div>
             <div class="price-amount">
               <span class="price-value" id="price-pro">
-                <span class="price-usd">$40</span>
-                <span class="price-uzs" style="display:none">400 000 сум</span>
+                <span class="price-usd" data-i18n="starter_price_usd">$40</span>
+                <span class="price-uzs" data-i18n="starter_price_uzs" style="display:none">399 000 сум</span>
               </span>
-              <span data-i18n="starter_period">/month</span>
+              <span class="price-period" data-i18n="starter_period">/month</span>
             </div>
             <p class="price-desc" data-i18n="starter_desc">For teams &amp; companies. Full AI with Pro Console — add your own models via API and custom servers.</p>
             <ul class="price-features">
@@ -2279,10 +2347,16 @@
           <p class="pricing-sub-desc" data-i18n="ent_section_desc">Self-hosted license for developers or full turn-key on-premise infrastructure for organizations.</p>
         </div>
         <div class="pricing-grid pricing-grid--2">
-          <!-- License $199/year -->
+          <!-- License $199/year or 1.99 mln sum -->
           <div class="price-card">
             <div class="price-name" data-i18n="license">Self-Hosted License</div>
-            <div class="price-amount"><span data-i18n="license_price">$199</span><span data-i18n="license_period">/year</span></div>
+            <div class="price-amount">
+              <span class="price-value" id="price-license">
+                <span class="price-usd" data-i18n="license_price_usd">$199</span>
+                <span class="price-uzs" data-i18n="license_price_uzs" style="display:none">1.99 млн сум</span>
+              </span>
+              <span class="price-period" data-i18n="license_period">/year</span>
+            </div>
             <p class="price-desc" data-i18n="license_desc">Purchase a license key and run Swipies AI on your own infrastructure. You install, we power up.</p>
             <ul class="price-features">
               <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="license_f1">Self-hosted (Docker/k8s)</span></li>
@@ -2605,6 +2679,8 @@
         sub_desc: "Cloud-hosted plans for teams that want instant access without managing infrastructure.",
         starter: "Starter",
         starter_price: "$40",
+        starter_price_usd: "$40",
+        starter_price_uzs: "399,000 UZS",
         starter_period: "/month",
         starter_desc: "For small teams & companies. Full AI functionality running securely on Swipies managed cloud infrastructure.",
         starter_f1: "Cloud deployment",
@@ -2612,6 +2688,8 @@
         starter_cta: "Start Building",
         basic: "Basic",
         basic_price: "$20",
+        basic_price_usd: "$20",
+        basic_price_uzs: "199,000 UZS",
         basic_period: "/month",
         basic_desc: "For individuals and small teams. 1M tokens, 5 GB storage, 5 datasets, 5 agents on managed cloud.",
         basic_tokens: "1,000,000 tokens / mo",
@@ -2628,7 +2706,11 @@
         pro_console_feat: "Pro Console — connect custom models via API",
         license: "Self-Hosted License",
         license_price: "$199",
+        license_price_usd: "$199",
+        license_price_uzs: "1.99M UZS",
         license_period: "/year",
+        curr_usd: "USD ($)",
+        curr_uzs: "UZS (сум)",
         license_desc: "Purchase a license key on our platform and run Swipies AI on your own infrastructure. You install, we power up.",
         license_f1: "Self-hosted (Docker/k8s)",
         license_f2: "Activate via License Key",
@@ -2746,6 +2828,8 @@
         sub_desc: "Облачные планы для команд, которые хотят моментальный доступ без управления инфраструктурой.",
         starter: "Стартер",
         starter_price: "$40",
+        starter_price_usd: "$40",
+        starter_price_uzs: "399 000 сум",
         starter_period: "/мес",
         starter_desc: "Для небольших команд. Полный AI-функционал на управляемой облачной инфраструктуре Swipies.",
         starter_f1: "Облачное развертывание",
@@ -2753,6 +2837,8 @@
         starter_cta: "Начать работу",
         basic: "Basic",
         basic_price: "$20",
+        basic_price_usd: "$20",
+        basic_price_uzs: "199 000 сум",
         basic_period: "/мес",
         basic_desc: "Для частных лиц и небольших команд, начинающих работу с AI в облаке.",
         basic_tokens: "1 000 000 токенов / мес",
@@ -2769,7 +2855,11 @@
         pro_console_feat: "Pro Console — подключайте свои модели через API",
         license: "Лицензия (Self-Hosted)",
         license_price: "$199",
+        license_price_usd: "$199",
+        license_price_uzs: "1.99 млн сум",
         license_period: "/год",
+        curr_usd: "USD ($)",
+        curr_uzs: "UZS (сум)",
         license_desc: "Приобретите лицензионный ключ на нашей платформе и запустите Swipies AI на своей инфраструктуре. Самостоятельная установка.",
         license_f1: "Self-hosted (Docker/k8s)",
         license_f2: "Активация лицензионным ключом",
@@ -2887,6 +2977,8 @@
         sub_desc: "Infratuzilmani boshqarmasdan tezkor kirishni xohlaydigan jamoalar uchun bulut planlari.",
         starter: "Starter",
         starter_price: "$40",
+        starter_price_usd: "$40",
+        starter_price_uzs: "399 000 so'm",
         starter_period: "/oy",
         starter_desc: "Kichik jamoalar uchun. Swipies bulut infratuzilmasida xavfsiz AI funksionalligi.",
         starter_f1: "Bulut joylashtirish",
@@ -2894,6 +2986,8 @@
         starter_cta: "Boshlash",
         basic: "Basic",
         basic_price: "$20",
+        basic_price_usd: "$20",
+        basic_price_uzs: "199 000 so'm",
         basic_period: "/oy",
         basic_desc: "Jismoniy shaxslar va kichik jamoalar uchun bulut AI-dan boshlash.",
         basic_tokens: "1 000 000 token / oy",
@@ -2910,7 +3004,11 @@
         pro_console_feat: "Pro Console — o'z modellaringizni API orqali ulang",
         license: "Self-Hosted Litsenziya",
         license_price: "$199",
+        license_price_usd: "$199",
+        license_price_uzs: "1.99 mln so'm",
         license_period: "/yil",
+        curr_usd: "USD ($)",
+        curr_uzs: "UZS (so'm)",
         license_desc: "Litsenziya kalitini platformamizda xarid qiling va Swipies AI-ni o'z infratuzilmangizda ishga tushiring. Mustaqil o'rnatish.",
         license_f1: "Self-hosted (Docker/k8s)",
         license_f2: "Litsenziya kaliti orqali faollashtirish",
@@ -3032,6 +3130,9 @@
 
       // Save selection
       localStorage.setItem('swipies_lang', lang);
+      if (typeof updatePricingDisplay === 'function') {
+        updatePricingDisplay();
+      }
       updateAuthStatus();
     }
 
@@ -3661,18 +3762,92 @@
     </div>
   </div>
   <script>
-    /* ===== GEO PRICING: Show UZS for Uzbekistan visitors ===== */
-    (function() {
-      function applyUzsPricing() {
-        document.querySelectorAll('.price-usd').forEach(function(el) { el.style.display = 'none'; });
-        document.querySelectorAll('.price-uzs').forEach(function(el) { el.style.display = 'inline'; });
+    /* ===== GEO PRICING & CURRENCY SWITCHER ===== */
+    var currentPricingCurrency = 'usd';
+
+    function updatePricingDisplay() {
+      var isUzs = (currentPricingCurrency === 'uzs');
+      document.querySelectorAll('.price-usd').forEach(function(el) {
+        el.style.display = isUzs ? 'none' : 'inline';
+      });
+      document.querySelectorAll('.price-uzs').forEach(function(el) {
+        el.style.display = isUzs ? 'inline' : 'none';
+      });
+      document.querySelectorAll('.currency-btn').forEach(function(btn) {
+        if (btn.getAttribute('data-currency') === currentPricingCurrency) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+    }
+
+    function setPricingCurrency(curr, isManual) {
+      if (curr !== 'usd' && curr !== 'uzs') return;
+      currentPricingCurrency = curr;
+      if (isManual) {
+        try { localStorage.setItem('swipies_currency', curr); } catch (e) {}
       }
-      fetch('https://ip-api.com/json/?fields=countryCode')
+      updatePricingDisplay();
+    }
+
+    (function initGeoPricing() {
+      // 1. Check user manual preference first
+      try {
+        var saved = localStorage.getItem('swipies_currency');
+        if (saved === 'uzs' || saved === 'usd') {
+          setPricingCurrency(saved, false);
+          return;
+        }
+      } catch (e) {}
+
+      // 2. Immediate zero-latency heuristic based on timezone
+      try {
+        var tz = (Intl && Intl.DateTimeFormat) ? Intl.DateTimeFormat().resolvedOptions().timeZone : '';
+        if (tz === 'Asia/Tashkent' || tz === 'Asia/Samarkand') {
+          setPricingCurrency('uzs', false);
+        }
+      } catch (e) {}
+
+      // 3. Network verification
+      function applyCountry(countryCode) {
+        try {
+          if (localStorage.getItem('swipies_currency')) return;
+        } catch (e) {}
+        if (countryCode === 'UZ') {
+          setPricingCurrency('uzs', false);
+        } else if (countryCode) {
+          setPricingCurrency('usd', false);
+        }
+      }
+
+      // Check first-party /api/geo
+      fetch('/api/geo')
         .then(function(r) { return r.json(); })
         .then(function(data) {
-          if (data.countryCode === 'UZ') { applyUzsPricing(); }
+          if (data && (data.country_code === 'UZ' || data.is_uz)) {
+            applyCountry('UZ');
+          } else if (data && data.country_code) {
+            applyCountry(data.country_code);
+          }
         })
-        .catch(function() {});
+        .catch(function() {
+          // Fallback 1: https://ipwho.is/
+          fetch('https://ipwho.is/')
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+              if (data && data.country_code) applyCountry(data.country_code);
+            })
+            .catch(function() {
+              // Fallback 2: https://api.country.is/
+              fetch('https://api.country.is/')
+                .then(function(r) { return r.json(); })
+                .then(function(data) {
+                  if (data && data.country) applyCountry(data.country);
+                })
+                .catch(function() {});
+            });
+        });
     })();
   </script>
 </body>

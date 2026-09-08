@@ -1163,12 +1163,71 @@
       font-weight: 700;
       letter-spacing: -0.5px;
       margin-bottom: 0.5rem;
+      display: flex;
+      align-items: baseline;
+      gap: 0.35rem;
     }
 
     .price-card .price-amount span {
       font-size: var(--t-body);
       font-weight: 400;
       color: var(--text-secondary);
+    }
+
+    .price-card .price-amount .price-value,
+    .price-card .price-amount .price-usd,
+    .price-card .price-amount .price-uzs {
+      font-size: 1.75rem !important;
+      font-weight: 700 !important;
+      color: var(--text) !important;
+      letter-spacing: -0.5px;
+    }
+
+    .price-card .price-amount .price-period {
+      font-size: var(--t-body);
+      font-weight: 400;
+      color: var(--text-secondary);
+    }
+
+    /* Currency Switcher */
+    .pricing-currency-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto 2.25rem;
+    }
+
+    .currency-toggle {
+      display: inline-flex;
+      background: var(--bg2);
+      border: 1px solid var(--border2);
+      border-radius: 20px;
+      padding: 3px;
+      gap: 2px;
+    }
+
+    .currency-btn {
+      background: transparent;
+      color: var(--text-secondary);
+      border: none;
+      border-radius: 16px;
+      padding: 6px 14px;
+      font-family: var(--font-mono);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .currency-btn:hover {
+      color: var(--text);
+    }
+
+    .currency-btn.active {
+      background: var(--accent);
+      color: #080c14;
+      font-weight: 700;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
     }
 
     .price-card .price-desc {
@@ -2468,13 +2527,27 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
     <div class="container reveal">
       <div class="section-num" data-i18n="price_num">07 — Pricing</div>
       <h2 class="section-title" data-i18n="price_title">Enterprise Deployment Options</h2>
-      <p class="pricing-sub-desc" style="text-align:center; max-width: 680px; margin: 0.5rem auto 2.5rem;" data-i18n="ent_section_desc">Self-hosted and fully custom solutions for organizations that require complete data sovereignty.</p>
+      <p class="pricing-sub-desc" style="text-align:center; max-width: 680px; margin: 0.5rem auto 2rem;" data-i18n="ent_section_desc">Self-hosted and fully custom solutions for organizations that require complete data sovereignty.</p>
+
+      <!-- Currency Switcher -->
+      <div class="pricing-currency-wrap">
+        <div class="currency-toggle" role="group" aria-label="Currency Switcher">
+          <button type="button" class="currency-btn active" data-currency="usd" onclick="setPricingCurrency('usd', true)" data-i18n="curr_usd">USD ($)</button>
+          <button type="button" class="currency-btn" data-currency="uzs" onclick="setPricingCurrency('uzs', true)" data-i18n="curr_uzs">UZS (сум)</button>
+        </div>
+      </div>
 
       <div class="pricing-grid pricing-grid--2">
-        <!-- License $199/year -->
+        <!-- License $199/year or 1.99 mln sum -->
         <div class="price-card">
           <div class="price-name" data-i18n="license">Self-Hosted License</div>
-          <div class="price-amount"><span data-i18n="license_price">$199</span><span data-i18n="license_period">/year</span></div>
+          <div class="price-amount">
+            <span class="price-value" id="price-license">
+              <span class="price-usd" data-i18n="license_price_usd">$199</span>
+              <span class="price-uzs" data-i18n="license_price_uzs" style="display:none">1.99 млн сум</span>
+            </span>
+            <span class="price-period" data-i18n="license_period">/year</span>
+          </div>
           <p class="price-desc" data-i18n="license_desc">Purchase a license key and run Swipies AI on your own infrastructure. You install, we power up.</p>
           <ul class="price-features">
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="license_f1">Self-hosted (Docker/k8s)</span></li>
@@ -2507,7 +2580,7 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
       <div class="cloud-cross-card">
         <div class="cloud-cross-info">
           <h3 data-i18n="cloud_cross_title">Looking for self-serve Cloud SaaS?</h3>
-          <p data-i18n="cloud_cross_desc">Get instant access on managed cloud infrastructure from $20/month with zero server setup required.</p>
+          <p data-i18n="cloud_cross_desc">Get instant access on managed cloud infrastructure from <span class="price-usd">$20</span><span class="price-uzs" style="display:none">199 000 сум</span>/month with zero server setup required.</p>
         </div>
         <a href="https://swipies.app#pricing" class="btn-secondary" data-i18n="cloud_cross_btn">View Cloud Plans ↗</a>
       </div>
@@ -2871,6 +2944,8 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         price_title: "Flexible Deployment Options",
         starter: "Starter",
         starter_price: "$40",
+        starter_price_usd: "$40",
+        starter_price_uzs: "399,000 UZS",
         starter_period: "/month",
         starter_desc: "For small teams & companies. Full AI functionality running securely on Swipies managed cloud infrastructure.",
         starter_f1: "Cloud deployment",
@@ -2880,6 +2955,8 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         starter_cta: "Start Building",
         basic: "Basic",
         basic_price: "$20",
+        basic_price_usd: "$20",
+        basic_price_uzs: "199,000 UZS",
         basic_period: "/month",
         basic_desc: "For individuals and small teams. 1M tokens, 5 GB storage, 5 datasets, 5 agents on managed cloud.",
         basic_tokens: "1,000,000 tokens / mo",
@@ -2906,7 +2983,11 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         ent_section_desc: "Self-hosted and fully custom solutions for organizations that require complete data sovereignty.",
         license: "Self-Hosted License",
         license_price: "$199",
+        license_price_usd: "$199",
+        license_price_uzs: "1.99M UZS",
         license_period: "/year",
+        curr_usd: "USD ($)",
+        curr_uzs: "UZS (сум)",
         license_desc: "Purchase a license key on our platform and run Swipies AI on your own infrastructure. You install, we power up.",
         license_f1: "Self-hosted (Docker/k8s)",
         license_f2: "Activate via License Key",
@@ -3087,6 +3168,8 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         price_title: "Гибкие варианты развертывания",
         starter: "Стартер",
         starter_price: "$40",
+        starter_price_usd: "$40",
+        starter_price_uzs: "399 000 сум",
         starter_period: "/мес",
         starter_desc: "Для небольших команд. Полный AI-функционал на управляемой облачной инфраструктуре Swipies.",
         starter_f1: "Облачное развертывание",
@@ -3096,6 +3179,8 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         starter_cta: "Начать работу",
         basic: "Basic",
         basic_price: "$20",
+        basic_price_usd: "$20",
+        basic_price_uzs: "199 000 сум",
         basic_period: "/мес",
         basic_desc: "Для частных лиц и небольших команд, начинающих работу с AI в облаке.",
         basic_tokens: "1 000 000 токенов / мес",
@@ -3122,7 +3207,11 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         ent_section_desc: "Self-hosted и полностью кастомные решения для организаций, требующих полного суверенитета данных.",
         license: "Лицензия (Self-Hosted)",
         license_price: "$199",
+        license_price_usd: "$199",
+        license_price_uzs: "1.99 млн сум",
         license_period: "/год",
+        curr_usd: "USD ($)",
+        curr_uzs: "UZS (сум)",
         license_desc: "Приобретите лицензионный ключ на нашей платформе и запустите Swipies AI на своей инфраструктуре. Самостоятельная установка.",
         license_f1: "Self-hosted (Docker/k8s)",
         license_f2: "Активация лицензионным ключом",
@@ -3303,6 +3392,8 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         price_title: "Moslashuvchan joylashtirish variantlari",
         starter: "Starter",
         starter_price: "$40",
+        starter_price_usd: "$40",
+        starter_price_uzs: "399 000 so'm",
         starter_period: "/oy",
         starter_desc: "Kichik jamoalar uchun. Swipies bulut infratuzilmasida xavfsiz AI funksionalligi.",
         starter_f1: "Bulut joylashtirish",
@@ -3312,6 +3403,8 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         starter_cta: "Boshlash",
         basic: "Basic",
         basic_price: "$20",
+        basic_price_usd: "$20",
+        basic_price_uzs: "199 000 so'm",
         basic_period: "/oy",
         basic_desc: "Jismoniy shaxslar va kichik jamoalar uchun bulut AI-dan boshlash.",
         basic_tokens: "1 000 000 token / oy",
@@ -3338,7 +3431,11 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
         ent_section_desc: "To'liq ma'lumotlar suvereniteti talab qiladigan tashkilotlar uchun self-hosted va maxsus yechimlar.",
         license: "Self-Hosted Litsenziya",
         license_price: "$199",
+        license_price_usd: "$199",
+        license_price_uzs: "1.99 mln so'm",
         license_period: "/yil",
+        curr_usd: "USD ($)",
+        curr_uzs: "UZS (so'm)",
         license_desc: "Litsenziya kalitini platformamizda xarid qiling va Swipies AI-ni o'z infratuzilmangizda ishga tushiring. Mustaqil o'rnatish.",
         license_f1: "Self-hosted (Docker/k8s)",
         license_f2: "Litsenziya kaliti orqali faollashtirish",
@@ -3448,6 +3545,9 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
 
       // Save selection
       localStorage.setItem('swipies_lang', lang);
+      if (typeof updatePricingDisplay === 'function') {
+        updatePricingDisplay();
+      }
       updateAuthStatus();
     }
 
@@ -4084,18 +4184,92 @@ curl -fsSL https://raw.githubusercontent.com/Sardorr555/swipies__ai_/licence_v/i
     </div>
   </div>
   <script>
-    /* ===== GEO PRICING: Show UZS for Uzbekistan visitors ===== */
-    (function() {
-      function applyUzsPricing() {
-        document.querySelectorAll('.price-usd').forEach(function(el) { el.style.display = 'none'; });
-        document.querySelectorAll('.price-uzs').forEach(function(el) { el.style.display = 'inline'; });
+    /* ===== GEO PRICING & CURRENCY SWITCHER ===== */
+    var currentPricingCurrency = 'usd';
+
+    function updatePricingDisplay() {
+      var isUzs = (currentPricingCurrency === 'uzs');
+      document.querySelectorAll('.price-usd').forEach(function(el) {
+        el.style.display = isUzs ? 'none' : 'inline';
+      });
+      document.querySelectorAll('.price-uzs').forEach(function(el) {
+        el.style.display = isUzs ? 'inline' : 'none';
+      });
+      document.querySelectorAll('.currency-btn').forEach(function(btn) {
+        if (btn.getAttribute('data-currency') === currentPricingCurrency) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+    }
+
+    function setPricingCurrency(curr, isManual) {
+      if (curr !== 'usd' && curr !== 'uzs') return;
+      currentPricingCurrency = curr;
+      if (isManual) {
+        try { localStorage.setItem('swipies_currency', curr); } catch (e) {}
       }
-      fetch('https://ip-api.com/json/?fields=countryCode')
+      updatePricingDisplay();
+    }
+
+    (function initGeoPricing() {
+      // 1. Check user manual preference first
+      try {
+        var saved = localStorage.getItem('swipies_currency');
+        if (saved === 'uzs' || saved === 'usd') {
+          setPricingCurrency(saved, false);
+          return;
+        }
+      } catch (e) {}
+
+      // 2. Immediate zero-latency heuristic based on timezone
+      try {
+        var tz = (Intl && Intl.DateTimeFormat) ? Intl.DateTimeFormat().resolvedOptions().timeZone : '';
+        if (tz === 'Asia/Tashkent' || tz === 'Asia/Samarkand') {
+          setPricingCurrency('uzs', false);
+        }
+      } catch (e) {}
+
+      // 3. Network verification
+      function applyCountry(countryCode) {
+        try {
+          if (localStorage.getItem('swipies_currency')) return;
+        } catch (e) {}
+        if (countryCode === 'UZ') {
+          setPricingCurrency('uzs', false);
+        } else if (countryCode) {
+          setPricingCurrency('usd', false);
+        }
+      }
+
+      // Check first-party /api/geo
+      fetch('/api/geo')
         .then(function(r) { return r.json(); })
         .then(function(data) {
-          if (data.countryCode === 'UZ') { applyUzsPricing(); }
+          if (data && (data.country_code === 'UZ' || data.is_uz)) {
+            applyCountry('UZ');
+          } else if (data && data.country_code) {
+            applyCountry(data.country_code);
+          }
         })
-        .catch(function() {});
+        .catch(function() {
+          // Fallback 1: https://ipwho.is/
+          fetch('https://ipwho.is/')
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+              if (data && data.country_code) applyCountry(data.country_code);
+            })
+            .catch(function() {
+              // Fallback 2: https://api.country.is/
+              fetch('https://api.country.is/')
+                .then(function(r) { return r.json(); })
+                .then(function(data) {
+                  if (data && data.country) applyCountry(data.country);
+                })
+                .catch(function() {});
+            });
+        });
     })();
   </script>
 </body>
