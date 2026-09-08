@@ -72,11 +72,11 @@ class TestEnterpriseSite(unittest.TestCase):
         self.assertIn('"Ma\'lumotlar va cookie roziligi"', self.content)
 
     def test_favicon_links_present(self):
-        self.assertIn('/favicon/favicon-96x96.png', self.content)
-        self.assertIn('/favicon/favicon.svg', self.content)
-        self.assertIn('/favicon/favicon.ico', self.content)
-        self.assertIn('/favicon/apple-touch-icon.png', self.content)
-        self.assertIn('/favicon/site.webmanifest', self.content)
+        self.assertIn('/favicon1/favicon-96x96.png', self.content)
+        self.assertIn('/favicon1/favicon.svg', self.content)
+        self.assertIn('/favicon1/favicon.ico', self.content)
+        self.assertIn('/favicon1/apple-touch-icon.png', self.content)
+        self.assertIn('/favicon1/site.webmanifest', self.content)
 
 
 if __name__ == '__main__':
