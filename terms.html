@@ -156,69 +156,189 @@ const T = {
 const content = {
   en: `
     <h2>1. Acceptance of Terms</h2>
-    <p>By accessing or using the Swipies AI platform, websites, and associated services, you agree to comply with and be bound by these Terms of Use. If you do not agree to these terms, please do not access or use the platform.</p>
+    <p>By accessing or using the Swipies AI platform, websites, APIs, and associated services, you agree to comply with and be bound by these Terms of Use. If you do not agree to these terms, please do not access or use the platform.</p>
     
-    <h2>2. Platform Services & Licensing</h2>
-    <p>Swipies AI provides on-premise RAG (Retrieval-Augmented Generation) deployment packages, Docker configuration manifests, and managed cloud environments. Self-hosted deployments require a valid license key, which must be obtained and renewed in accordance with your subscription terms.</p>
+    <h2>2. Platform Services & Checkout on api.swipies.app</h2>
+    <p>Swipies AI provides on-premise RAG (Retrieval-Augmented Generation) deployment packages, Docker configuration manifests, cloud integrations, and enterprise AI tools. Our public websites (<strong>swipies.app</strong> and <strong>enterprise.swipies.app</strong>) serve as product showcase portals.</p>
+    <p><strong>All commercial transactions, user account management, subscription billing, and license provisioning occur exclusively on our core application platform at <a href="https://api.swipies.app" target="_blank" rel="noopener" style="color:var(--accent);">https://api.swipies.app</a>.</strong></p>
     
-    <h2>3. Intellectual Property Rights</h2>
-    <p>The Swipies AI platform, including its software, code structure, custom RAG orchestrations, designs, and brand identifiers, are the proprietary intellectual property of Swipies AI. You are granted a limited, non-exclusive, non-transferable, revocable license to run and manage the software instance strictly on your authorized hardware.</p>
-    
-    <h2>4. Data Sovereignty and Compliance</h2>
-    <p>For on-premise deployments, you retain full sovereignty and responsibility for the data ingested, indexed, and processed by Swipies AI. You agree to utilize the platform in strict compliance with applicable local and international data protection laws (such as GDPR, HIPAA, and national regulations).</p>
-    
-    <h2>5. Limitation of Liability</h2>
-    <p>In no event shall Swipies AI, its developers, or affiliates be liable for any direct, indirect, incidental, special, or consequential damages (including loss of data, security breaches caused by third-party LLM providers, or service disruptions) arising out of the use or inability to use the platform.</p>
-    
-    <h2>6. Term Changes</h2>
-    <p>We reserve the right to modify these Terms of Use at any time. Updates will be posted on this page with the modified date. Continued use of the platform constitutes agreement to the updated terms.</p>
-    
-    <h2>7. Contact Information</h2>
-    <p>For questions or support regarding these Terms of Use, please contact legal@swipies.app or info@swipies.app.</p>
+    <h2>3. Payment Processing via Atmos Gateway (atmos.uz)</h2>
+    <p>Payment processing for subscriptions and software licenses is handled through the authorized national payment operator <strong>Atmos</strong> (<a href="https://atmos.uz" target="_blank" rel="noopener" style="color:var(--accent);">atmos.uz</a>), operated by LLC "SOLUTIONS LAB" in the Republic of Uzbekistan:</p>
+    <ul>
+      <li><strong>Accepted Payment Methods:</strong> Uzcard, Humo, Visa, and Mastercard cards.</li>
+      <li><strong>Currencies & Pricing:</strong> Prices are displayed in Uzbek Soums (UZS) for cards issued in Uzbekistan (e.g. Basic: 199 000 UZS/mo, Pro: 399 000 UZS/mo, Enterprise License: 1.99 млн UZS) and in US Dollars (USD) for international payments ($20/mo, $40/mo, $199). Foreign currency conversions are handled by your issuing bank at the time of settlement.</li>
+      <li><strong>PCI DSS Level 1 Security:</strong> All cardholder credentials (card number, expiry, CVV/CVC, 3D Secure / SMS OTP confirmation) are handled exclusively within Atmos's encrypted PCI DSS Level 1 certified gateway. Swipies AI does not store or process raw bank card numbers or security CVV/CVC codes on its servers.</li>
+    </ul>
+
+    <h2>4. Digital Delivery & License Issuance</h2>
+    <p>Swipies AI provides digital SaaS subscriptions and downloadable on-premise software configurations. No physical goods are delivered:</p>
+    <ul>
+      <li><strong>Instant Electronic Delivery:</strong> Upon successful transaction authorization by Atmos, your subscription status on <strong>https://api.swipies.app</strong> is activated immediately.</li>
+      <li><strong>License Keys:</strong> Commercial license keys for on-premise Docker deployments are generated instantly upon payment confirmation, accessible inside your dashboard on api.swipies.app, and dispatched to your registered account email.</li>
+    </ul>
+
+    <h2>5. Subscriptions, Automatic Renewal & Cancellation</h2>
+    <p>Subscriptions (Basic, Pro) are billed on a recurring monthly or annual billing cycle:</p>
+    <ul>
+      <li><strong>Automatic Renewal:</strong> Unless cancelled prior to the renewal date, subscriptions renew automatically using the payment method on file via Atmos.</li>
+      <li><strong>Cancellation:</strong> You may cancel future automatic renewals at any time directly through your account dashboard on <strong>https://api.swipies.app</strong>. Upon cancellation, your access remains fully active until the conclusion of the current pre-paid billing term, after which no further charges will be billed.</li>
+    </ul>
+
+    <h2>6. Refund Policy (Atmos.uz Compliance)</h2>
+    <p>Because Swipies AI provides intangible, irrevocable digital goods and instant electronic licenses, all sales are considered final once activated, with the following exceptions in compliance with Atmos and consumer protection standards:</p>
+    <ul>
+      <li><strong>Eligibility for Refund:</strong> You may request a full or prorated refund within fourteen (14) calendar days of transaction date if: (a) a verified technical defect in the Swipies platform prevented activation of your paid license, or (b) an accidental duplicate transaction occurred.</li>
+      <li><strong>Refund Method via Atmos:</strong> In accordance with banking regulations in the Republic of Uzbekistan, approved refunds are processed <strong>strictly and exclusively back to the original bank card (Uzcard, Humo, Visa, Mastercard)</strong> that was used to make the purchase through the Atmos payment gateway (<a href="https://atmos.uz" target="_blank" rel="noopener" style="color:var(--accent);">atmos.uz</a>). Cash refunds or transfers to third-party bank accounts are strictly prohibited.</li>
+      <li><strong>Processing Time:</strong> Once approved by Swipies AI support, refund credits are transmitted to Atmos immediately. The funds typically reflect on the cardholder's bank account within 3 to 10 business days depending on the card issuer's clearing cycle.</li>
+      <li><strong>Refund Request Procedure:</strong> To submit a refund inquiry, email <a href="mailto:support@swipies.app" style="color:var(--accent);">support@swipies.app</a> or <a href="mailto:info@swipies.app" style="color:var(--accent);">info@swipies.app</a> with your transaction ID, Atmos payment reference, order date, and account email.</li>
+    </ul>
+
+    <h2>7. Intellectual Property Rights</h2>
+    <p>The Swipies AI platform, including its proprietary RAG orchestration algorithms, source code, container configurations, brand assets, and documentation, are the exclusive intellectual property of Swipies AI. You are granted a limited, non-exclusive, non-transferable, revocable license to execute the software instance strictly within your authorized enterprise environment.</p>
+
+    <h2>8. Data Sovereignty & Customer Responsibility</h2>
+    <p>For on-premise deployments, you retain full sovereignty and responsibility for all documents, queries, and databases processed by Swipies AI on your servers. You agree to utilize the platform in compliance with all applicable data protection and cybersecurity laws (including GDPR, HIPAA, and national laws of the Republic of Uzbekistan).</p>
+
+    <h2>9. Fraud Prevention & Account Security</h2>
+    <p>You are responsible for safeguarding your login credentials on api.swipies.app. Any fraudulent activities, unauthorized card usage, chargeback abuse, or attempts to compromise platform security will result in immediate termination of the account, revocation of all issued license keys, and reporting to law enforcement and payment network authorities.</p>
+
+    <h2>10. Limitation of Liability</h2>
+    <p>To the maximum extent permitted by applicable law, Swipies AI and its developers shall not be liable for any indirect, incidental, special, punitive, or consequential damages (including loss of business profits, data corruption, or service interruption) arising out of the use or inability to use the platform.</p>
+
+    <h2>11. Term Changes & Governing Law</h2>
+    <p>We reserve the right to amend these Terms of Use at any time. Updates will take effect upon posting to this page. These terms are governed by and construed in accordance with the laws of the Republic of Uzbekistan.</p>
+
+    <h2>12. Contact Information</h2>
+    <p>For inquiries regarding these Terms of Use, billing, or licensing, please contact:</p>
+    <p><strong>Email:</strong> <a href="mailto:legal@swipies.app" style="color:var(--accent);">legal@swipies.app</a> / <a href="mailto:info@swipies.app" style="color:var(--accent);">info@swipies.app</a><br>
+    <strong>Support:</strong> <a href="mailto:support@swipies.app" style="color:var(--accent);">support@swipies.app</a><br>
+    <strong>Phone:</strong> +998-90-625-3986<br>
+    <strong>Platform URL:</strong> <a href="https://api.swipies.app" target="_blank" rel="noopener" style="color:var(--accent);">https://api.swipies.app</a><br>
+    <strong>Payment Operator:</strong> Atmos (<a href="https://atmos.uz" target="_blank" rel="noopener" style="color:var(--accent);">atmos.uz</a>, LLC "SOLUTIONS LAB", Tashkent, Uzbekistan)</p>
   `,
   ru: `
     <h2>1. Согласие с условиями</h2>
-    <p>Получая доступ или используя платформу Swipies AI, её веб-сайты и связанные службы, вы соглашаетесь соблюдать эти Условия использования. Если вы не согласны с данными условиями, пожалуйста, воздержитесь от использования платформы.</p>
+    <p>Получая доступ или используя платформу Swipies AI, её веб-сайты, API и связанные службы, вы соглашаетесь соблюдать настоящие Условия использования. Если вы не согласны с данными условиями, пожалуйста, воздержитесь от использования платформы.</p>
     
-    <h2>2. Услуги и лицензирование</h2>
-    <p>Swipies AI предоставляет пакеты локального развертывания RAG (Retrieval-Augmented Generation), конфигурации Docker и управляемые облачные среды. Для локального развертывания требуется действующий лицензионный ключ, который должен быть приобретен и продлен в соответствии с условиями вашей подписки.</p>
+    <h2>2. Услуги платформы и проведение оплаты на api.swipies.app</h2>
+    <p>Swipies AI предоставляет пакеты локального развертывания RAG (Retrieval-Augmented Generation), конфигурации Docker и корпоративные AI-инструменты. Сайты <strong>swipies.app</strong> и <strong>enterprise.swipies.app</strong> являются информационными витринами.</p>
+    <p><strong>Все операции по покупке лицензий, оплате подписок, управлению учетными записями и выпуску лицензионных ключей осуществляются исключительно на основной платформе <a href="https://api.swipies.app" target="_blank" rel="noopener" style="color:var(--accent);">https://api.swipies.app</a>.</strong></p>
     
-    <h2>3. Интеллектуальная собственность</h2>
-    <p>Платформа Swipies AI, включая программное обеспечение, структуру кода, настройки оркестрации RAG, дизайн и товарные знаки, является собственностью Swipies AI. Вам предоставляется ограниченная, неисключительная, непередаваемая, отзывная лицензия на запуск ПО строго на вашем авторизованном оборудовании.</p>
-    
-    <h2>4. Суверенитет данных и соответствие требованиям</h2>
-    <p>При локальном (on-premise) развертывании вы сохраняете полный контроль и несете полную ответственность за данные, загружаемые, индексируемые и обрабатываемые с помощью Swipies AI. Вы соглашаетесь использовать платформу в строгом соответствии с применимыми законами о защите данных (GDPR и др.).</p>
-    
-    <h2>5. Ограничение ответственности</h2>
-    <p>Ни при каких обстоятельствах Swipies AI, её разработчики или аффилированные лица не несут ответственности за любые прямые, косвенные, случайные или особые убытки (включая потерю данных, утечки из-за внешних LLM-провайдеров или перебои в обслуживании), возникшие в результате использования ПО.</p>
-    
-    <h2>6. Изменение условий</h2>
-    <p>Мы оставляем за собой право изменять настоящие Условия использования в любое время. Изменения публикуются на этой странице. Продолжение использования платформы означает согласие с обновленными условиями.</p>
-    
-    <h2>7. Контакты</h2>
-    <p>По всем вопросам, связанным с настоящими Условиями использования, обращайтесь по адресу legal@swipies.app или info@swipies.app.</p>
+    <h2>3. Условия оплаты и платежный шлюз Atmos (atmos.uz)</h2>
+    <p>Прием и обработка платежей за подписки и программные лицензии осуществляются через официальный лицензированный платежный сервис <strong>Atmos</strong> (<a href="https://atmos.uz" target="_blank" rel="noopener" style="color:var(--accent);">atmos.uz</a>), оператором которого является ООО «SOLUTIONS LAB» (Республика Узбекистан):</p>
+    <ul>
+      <li><strong>Поддерживаемые способы оплаты:</strong> банковские карты Uzcard, Humo, Visa и Mastercard.</li>
+      <li><strong>Цены и валюта расчетов:</strong> стоимость услуг выражается в узбекских сумах (UZS) для банковских карт Республики Узбекистан (Basic: 199 000 сум/мес, Pro: 399 000 сум/мес, Enterprise лицензия: 1.99 млн сум) и в долларах США (USD) для международных карт ($20/мес, $40/мес, $199). Конвертация валют осуществляется банком-эмитентом покупателя по его внутреннему курсу.</li>
+      <li><strong>Безопасность по стандарту PCI DSS Level 1:</strong> ввод реквизитов карты (номер, срок действия, CVC/CVV-код, коды SMS-подтверждения 3D Secure) осуществляется на защищенной платежной странице Atmos. Swipies AI не собирает, не обрабатывает и не хранит данные банковских карт и CVC-коды на своих серверах.</li>
+    </ul>
+
+    <h2>4. Электронное предоставление услуг и выдача лицензий</h2>
+    <p>Swipies AI предоставляет цифровые услуги и программное обеспечение в электронном виде. Доставка материальных товаров не осуществляется:</p>
+    <ul>
+      <li><strong>Мгновенное подключение:</strong> сразу после подтверждения транзакции платежной системой Atmos тарифный план в личном кабинете на <strong>https://api.swipies.app</strong> активируется автоматически.</li>
+      <li><strong>Выдача лицензионных ключей:</strong> ключи для on-premise развертывания генерируются сразу после оплаты и становятся доступны в личном кабинете на api.swipies.app, а также отправляются на email пользователя.</li>
+    </ul>
+
+    <h2>5. Подписки, автопродление и отмена</h2>
+    <p>Тарифные планы (Basic, Pro) действуют по модели ежемесячной или ежегодной регулярной подписки:</p>
+    <ul>
+      <li><strong>Автоматическое продление:</strong> подписка продлевается автоматически в конце каждого расчетного периода с помощью сохраненного метода оплаты через сервис Atmos, если она не была отменена пользователем.</li>
+      <li><strong>Отмена подписки:</strong> пользователь может в любой момент отключить автопродление в личном кабинете на <strong>https://api.swipies.app</strong>. При отмене доступ к оплаченному тарифу сохраняется до окончания текущего расчетного периода, после чего списания прекращаются.</li>
+    </ul>
+
+    <h2>6. Политика возврата средств (в соответствии с Atmos.uz)</h2>
+    <p>Поскольку Swipies AI предоставляет нематериальные цифровые услуги и моментальную активацию программного обеспечения, возврат средств регулируется следующими правилами в соответствии со стандартами Atmos и законодательством о защите прав потребителей:</p>
+    <ul>
+      <li><strong>Основания для возврата:</strong> пользователь вправе запросить возврат денежных средств в течение 14 (четырнадцати) календарных дней с момента оплаты в случае: (а) подтвержденного технического сбоя платформы, сделавшего невозможным активацию лицензии, или (б) ошибочного повторного списания средств.</li>
+      <li><strong>Способ возврата через Atmos:</strong> в соответствии с правилами платежных систем и банковскими регламентами Республики Узбекистан, одобренный возврат денежных средств производится <strong>строго и исключительно на ту же банковскую карту (Uzcard, Humo, Visa, Mastercard)</strong>, с которой был совершен платеж через шлюз Atmos (<a href="https://atmos.uz" target="_blank" rel="noopener" style="color:var(--accent);">atmos.uz</a>). Возврат наличными средствами или на карты третьих лиц не допускается.</li>
+      <li><strong>Сроки зачисления:</strong> после одобрения возврата службой поддержки Swipies AI распоряжение направляется в систему Atmos немедленно. Срок зачисления средств на карту составляет от 3 до 10 рабочих дней в зависимости от банка-эмитента карты.</li>
+      <li><strong>Порядок подачи заявления:</strong> для оформления возврата направьте письмо на <a href="mailto:support@swipies.app" style="color:var(--accent);">support@swipies.app</a> или <a href="mailto:info@swipies.app" style="color:var(--accent);">info@swipies.app</a> с указанием ID транзакции, номера заказа, даты платежа и адреса учетной записи.</li>
+    </ul>
+
+    <h2>7. Интеллектуальная собственность</h2>
+    <p>Платформа Swipies AI, включая алгоритмы оркестрации RAG, программный код, образы контейнеров, дизайн и товарные знаки, является интеллектуальной собственностью Swipies AI. Пользователю предоставляется ограниченная, неисключительная, непередаваемая лицензия на использование программного обеспечения строго в авторизованной рабочей среде.</p>
+
+    <h2>8. Суверенитет данных и ответственность клиента</h2>
+    <p>При локальном (on-premise) развертывании клиент сохраняет полный суверенитет и несет полную ответственность за данные и документы, обрабатываемые в его локальном контуре. Клиент обязуется использовать платформу в строгом соответствии с применимым законодательством о защите персональных данных.</p>
+
+    <h2>9. Предотвращение фрода и безопасность аккаунта</h2>
+    <p>Пользователь обязан сохранять конфиденциальность учетных данных на api.swipies.app. Любые попытки использования краденых банковских карт, мошеннические транзакции, необоснованные чарджбэки приведут к немедленной блокировке аккаунта, аннулированию всех выданных лицензий и передаче материалов в правоохранительные органы.</p>
+
+    <h2>10. Ограничение ответственности</h2>
+    <p>В максимальной степени, разрешенной законом, Swipies AI и ее разработчики не несут ответственности за любые косвенные, случайные или штрафные убытки (включая упущенную выгоду, потерю данных или перебои в бизнесе), возникшие в результате использования или невозможности использования платформы.</p>
+
+    <h2>11. Изменение условий и применимое право</h2>
+    <p>Мы оставляем за собой право изменять настоящие Условия использования в любое время. Изменения вступают в силу с момента публикации на этой странице. Настоящие условия регулируются законодательством Республики Узбекистан.</p>
+
+    <h2>12. Контактная информация</h2>
+    <p>По вопросам условий использования, тарифов, лицензирования и возврата средств обращайтесь:</p>
+    <p><strong>Электронная почта:</strong> <a href="mailto:legal@swipies.app" style="color:var(--accent);">legal@swipies.app</a> / <a href="mailto:info@swipies.app" style="color:var(--accent);">info@swipies.app</a><br>
+    <strong>Служба поддержки:</strong> <a href="mailto:support@swipies.app" style="color:var(--accent);">support@swipies.app</a><br>
+    <strong>Телефон:</strong> +998-90-625-3986<br>
+    <strong>Платформа:</strong> <a href="https://api.swipies.app" target="_blank" rel="noopener" style="color:var(--accent);">https://api.swipies.app</a><br>
+    <strong>Платежный оператор:</strong> Atmos (<a href="https://atmos.uz" target="_blank" rel="noopener" style="color:var(--accent);">atmos.uz</a>, ООО «SOLUTIONS LAB», Ташкент, Узбекистан)</p>
   `,
   uz: `
     <h2>1. Shartlarni qabul qilish</h2>
-    <p>Swipies AI platformasiga, uning veb-saytlariga va bog'liq xizmatlariga kirish yoki ulardan foydalanish orqali siz ushbu Foydalanish shartlariga rioya qilishga rozilik bildirasiz. Agar siz ushbu shartlarga rozi bo'lmasangiz, platformadan foydalanmang.</p>
+    <p>Swipies AI platformasiga, uning veb-saytlariga, API xizmatlariga va bog'liq servislarga kirish yoki ulardan foydalanish orqali siz ushbu Foydalanish shartlariga rioya qilishga rozilik bildirasiz. Agar siz ushbu shartlarga rozi bo'lmasangiz, platformadan foydalanmang.</p>
     
-    <h2>2. Xizmatlar va litsenziyalash</h2>
-    <p>Swipies AI lokal RAG (Retrieval-Augmented Generation) paketlarini, Docker konfiguratsiyalarini va boshqariladigan bulut tizimlarini taqdim etadi. Lokal o'rnatishlar uchun haqiqiy litsenziya kaliti talab qilinadi, u obuna shartlariga muvofiq sotib olinishi va yangilanishi kerak.</p>
+    <h2>2. Platforma xizmatlari va api.swipies.app orqali to'lovlar</h2>
+    <p>Swipies AI korporativ lokal RAG (Retrieval-Augmented Generation) paketlarini, Docker konfiguratsiyalarini va sun'iy intellekt vositalarini taqdim etadi. Ommaviy saytlar (<strong>swipies.app</strong> va <strong>enterprise.swipies.app</strong>) axborot va mahsulot namoyishi portallari hisoblanadi.</p>
+    <p><strong>Barcha tijoriy to'lovlar, hisob qaydnomasini boshqarish, obunalarni rasmiylashtirish va litsenziya kalitlarini berish faqat <a href="https://api.swipies.app" target="_blank" rel="noopener" style="color:var(--accent);">https://api.swipies.app</a> asosiy platformasida amalga oshiriladi.</strong></p>
     
-    <h2>3. Intellektual mulk</h2>
-    <p>Swipies AI platformasi, jumladan uning dasturiy ta'minoti, kod tuzilishi, maxsus RAG tizimlari, dizaynlari va brend identifikatorlari Swipies AI ning xususiy mulkidir. Sizga dasturni faqat ruxsat etilgan uskunangizda ishga tushirish uchun cheklangan va qaytarib olinadigan litsenziya beriladi.</p>
-    
-    <h2>4. Ma'lumotlar suvereniteti va qonun muvofiqligi</h2>
-    <p>Lokal joylashtirishda siz Swipies AI tomonidan qayta ishlanadigan va indekslanadigan ma'lumotlar ustidan to'liq huquq va mas'uliyatni saqlab qolasiz. Siz platformani ma'lumotlarni muhofaza qilish qonunlariga (GDPR va milliy tartibga solishlar) muvofiq ishlatishga rozilik bildirasiz.</p>
-    
-    <h2>5. Javobgarlikni cheklash</h2>
-    <p>Hech qanday holatda Swipies AI, uning ishlab chiquvchilari yoki hamkorlari platformadan foydalanish yoki foydalana olmaslik natijasida kelib chiqadigan har qanday bevosita yoki bilvosita zararlar (ma'lumotlar yo'qolishi, uchinchi tomon LLM provayderlari sababli xavfsizlik buzilishi) uchun javobgar bo'lmaydi.</p>
-    
-    <h2>6. Shartlarning o'zgarishi</h2>
-    <p>Biz ushbu Foydalanish shartlarini istalgan vaqtda o'zgartirish huquqini saqlab qolamiz. Yangilanishlar ushbu sahifada e'lon qilinadi. Platformadan foydalanishda davom etish yangilangan shartlarga rozilikni bildiradi.</p>
-    
-    <h2>7. Aloqa ma'lumotlari</h2>
-    <p>Ushbu shartlar yuzasidan savollar bo'lsa, legal@swipies.app yoki info@swipies.app manziliga murojaat qiling.</p>
+    <h2>3. To'lov shartlari va Atmos to'lov tizimi (atmos.uz)</h2>
+    <p>Obunalar va dasturiy ta'minot litsenziyalari uchun to'lovlarni qabul qilish O'zbekiston Respublikasida litsenziyalangan rasmiy <strong>Atmos</strong> (<a href="https://atmos.uz" target="_blank" rel="noopener" style="color:var(--accent);">atmos.uz</a>, "SOLUTIONS LAB" MChJ) to'lov operatori orqali amalga oshiriladi:</p>
+    <ul>
+      <li><strong>Qabul qilinadigan to'lov turlari:</strong> Uzcard, Humo, Visa va Mastercard bank kartalari.</li>
+      <li><strong>Narxlar va hisob-kitob valyutasi:</strong> Narxlar O'zbekiston bank kartalari uchun milliy valyutada — O'zbekiston so'mida (Basic: oyiga 199 000 so'm, Pro: oyiga 399 000 so'm, Enterprise litsenziya: 1.99 mln so'm) va xalqaro to'lovlar uchun AQSh dollarida ($20/oy, $40/oy, $199) ko'rsatilgan. Valyuta konvertatsiyasi to'lovchining banki tomonidan amalga oshiriladi.</li>
+      <li><strong>PCI DSS Level 1 xavfsizligi:</strong> Karta ma'lumotlari (karta raqami, amal qilish muddati, CVC/CVV kodi, 3D Secure / SMS tasdiqlash kodi) bevosita Atmos tizimining xalqaro PCI DSS Level 1 sertifikatiga ega himoyalangan to'lov shlyuzida qayta ishlanadi. Swipies AI o'z serverlarida bank kartasi rekvizitlarini va CVC kodlarini saqlamaydi va qayta ishlamaydi.</li>
+    </ul>
+
+    <h2>4. Raqamli xizmatlarni taqdim etish va litsenziyalarni berish</h2>
+    <p>Swipies AI raqamli dasturiy xizmatlar va litsenziyalarni elektron shaklda taqdim etadi. Jismoniy tovarlar yetkazib berilmaydi:</p>
+    <ul>
+      <li><strong>Tezkor elektron faollashtirish:</strong> Atmos to'lov tizimi orqali to'lov tasdiqlanishi bilanoq <strong>https://api.swipies.app</strong> tizimidagi foydalanuvchi hisobi darhol faollashtiriladi.</li>
+      <li><strong>Litsenziya kalitlari:</strong> On-premise Docker o'rnatishlari uchun litsenziya kalitlari to'lovdan so'ng darhol yaratiladi, api.swipies.app dagi shaxsiy kabinetda ko'rinadi va foydalanuvchining elektron pochtasiga yuboriladi.</li>
+    </ul>
+
+    <h2>5. Obunalar, avtomatik yangilash va bekor qilish</h2>
+    <p>Tarif rejalari (Basic, Pro) oylik yoki yillik avtomatik obuna asosida ishlaydi:</p>
+    <ul>
+      <li><strong>Avtomatik yangilanish:</strong> Agar foydalanuvchi tomonidan bekor qilinmasa, har bir hisob-kitob davri oxirida Atmos orqali ulangan karta yordamida obuna avtomatik ravishda uzaytiriladi.</li>
+      <li><strong>Obunani bekor qilish:</strong> Foydalanuvchi istalgan vaqtda <strong>https://api.swipies.app</strong> dagi shaxsiy kabinetida avtomatik yangilanishni hech qanday jarimalarsiz o'chirishi mumkin. Obuna bekor qilinganda xizmatlar joriy to'langan davr oxirigacha faol qoladi va keyingi to'lovlar olinmaydi.</li>
+    </ul>
+
+    <h2>6. Mablag'larni qaytarish siyosati (Atmos.uz talablari asosida)</h2>
+    <p>Swipies AI raqamli elektron xizmatlar va tezkor litsenziyalarni taqdim etganligi sababli, xaridlar yakuniy hisoblanadi, ammo Atmos va iste'molchilar huquqlarini himoya qilish qoidalariga muvofiq quyidagi hollarda mablag'lar qaytarilishi mumkin:</p>
+    <ul>
+      <li><strong>Qaytarish asoslari:</strong> Foydalanuvchi to'lov amalga oshirilgan kundan boshlab 14 (o'n to'rt) kalendar kuni ichida quyidagi hollarda to'lovni qaytarishni so'rashi mumkin: (a) platformadagi texnik nosozlik sababli litsenziyani faollashtirishning imkoni bo'lmasa, yoki (b) mablag'lar adashib takroriy yechib olingan bo'lsa.</li>
+      <li><strong>Atmos orqali qaytarish tartibi:</strong> O'zbekiston Respublikasi bank qoidalari va to'lov tizimi talablariga muvofiq, tasdiqlangan mablag'lar <strong>faqat va qat'iy ravishda Atmos to'lov shlyuzi (<a href="https://atmos.uz" target="_blank" rel="noopener" style="color:var(--accent);">atmos.uz</a>) orqali to'lov amalga oshirilgan asl bank kartasiga (Uzcard, Humo, Visa, Mastercard)</strong> qaytariladi. Naqd pulda yoki boshqa shaxslarning kartalariga pul qaytarish taqiqlanadi.</li>
+      <li><strong>Mablag' tushish muddati:</strong> Swipies AI arizani tasdiqlagach, so'rov Atmos tizimiga darhol uzatiladi. Mablag'lar emitent bankka qarab 3 dan 10 ish kuni ichida foydalanuvchi kartasiga qaytariladi.</li>
+      <li><strong>Murojaat qilish:</strong> Mablag'ni qaytarish uchun <a href="mailto:support@swipies.app" style="color:var(--accent);">support@swipies.app</a> yoki <a href="mailto:info@swipies.app" style="color:var(--accent);">info@swipies.app</a> manziliga tranzaksiya ID si, buyurtma raqami va hisob emailingizni yuborishingiz kerak.</li>
+    </ul>
+
+    <h2>7. Intellektual mulk</h2>
+    <p>Swipies AI platformasi, jumladan RAG orkestratsiya algoritmlari, dasturiy kodlar, konteynerlar, dizayn va savdo belgilari Swipies AI ning xususiy mulkidir. Foydalanuvchiga dasturdan faqat ruxsat etilgan korporativ infratuzilmada foydalanish uchun cheklangan, o'tkazilmaydigan litsenziya beriladi.</p>
+
+    <h2>8. Ma'lumotlar suvereniteti va mijoz mas'uliyati</h2>
+    <p>Lokal (on-premise) o'rnatishlarda mijoz o'z serverlarida qayta ishlanadigan barcha ma'lumotlar va hujjatlar ustidan to'liq nazorat va javobgarlikni saqlab qoladi. Mijoz platformadan qonunchilikka (shaxsiy ma'lumotlarni himoya qilish to'g'risidagi qonunlarga) qat'iy muvofiq ravishda foydalanish majburiyatini oladi.</p>
+
+    <h2>9. Firibgarlikning oldini olish va hisob xavfsizligi</h2>
+    <p>Foydalanuvchi api.swipies.app dagi hisob qaydnomasi maxfiyligini saqlashga mas'uldir. Begona kartalardan foydalanish, noqonuniy to'lovlar, asossiz chargeback (mablag'ni qaytarib olish) urinishlari hisobning darhol bloklanishiga, barcha litsenziyalarning bekor qilinishiga va huquqni muhofaza qilish organlariga xabar berilishiga olib keladi.</p>
+
+    <h2>10. Javobgarlikni cheklash</h2>
+    <p>Qonunda ruxsat etilgan maksimal darajada, Swipies AI va uning ishlab chiquvchilari platformadan foydalanish yoki foydalana olmaslik oqibatida yuzaga keladigan har qanday bilvosita yoki tasodifiy zararlar (foyda yo'qotilishi, ma'lumotlarning buzilishi) uchun javobgar bo'lmaydi.</p>
+
+    <h2>11. Shartlarning o'zgarishi va qo'llaniladigan qonun</h2>
+    <p>Biz ushbu Foydalanish shartlarini istalgan vaqtda o'zgartirish huquqini saqlab qolamiz. Yangilanishlar sahifada e'lon qilingan paytdan boshlab kuchga kiradi. Ushbu shartlar O'zbekiston Respublikasi qonunlariga muvofiq tartibga solinadi.</p>
+
+    <h2>12. Aloqa ma'lumotlari</h2>
+    <p>Foydalanish shartlari, to'lovlar va litsenziyalash bo'yicha savollar yuzasidan quyidagi manzillarga murojaat qiling:</p>
+    <p><strong>Email:</strong> <a href="mailto:legal@swipies.app" style="color:var(--accent);">legal@swipies.app</a> / <a href="mailto:info@swipies.app" style="color:var(--accent);">info@swipies.app</a><br>
+    <strong>Texnik yordam:</strong> <a href="mailto:support@swipies.app" style="color:var(--accent);">support@swipies.app</a><br>
+    <strong>Telefon:</strong> +998-90-625-3986<br>
+    <strong>Platforma:</strong> <a href="https://api.swipies.app" target="_blank" rel="noopener" style="color:var(--accent);">https://api.swipies.app</a><br>
+    <strong>To'lov operatori:</strong> Atmos (<a href="https://atmos.uz" target="_blank" rel="noopener" style="color:var(--accent);">atmos.uz</a>, "SOLUTIONS LAB" MChJ, Toshkent, O'zbekiston)</p>
   `
 };
 

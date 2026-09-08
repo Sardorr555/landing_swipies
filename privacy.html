@@ -156,87 +156,135 @@ const T = {
 const content = {
   en: `
     <h2>1. Information We Collect</h2>
-    <p>We collect information you provide directly to us, such as when you submit a sales contact form, subscribe to our newsletter, request support, or purchase a self-hosted license. This information may include your name, email address, company name, phone number, and message content.</p>
+    <p>We collect information you provide directly to us, such as when you register an account, purchase a subscription or self-hosted license, submit a contact form, or request customer support. This information may include your full name, email address, company name, phone number, and billing contact details.</p>
     
-    <h2>2. On-Premise Data Processing (Data Sovereignty)</h2>
-    <p>Swipies AI is designed as a self-hosted platform. For local (on-premise) deployments, we do NOT collect, transmit, store, or have access to any business documents, databases, user queries, vector embeddings, or generated LLM responses processed inside your server instance. All data remains strictly within your self-contained perimeter.</p>
+    <h2>2. On-Premise Data Sovereignty</h2>
+    <p>Swipies AI is architected as an on-premise, privacy-first AI platform. For local (self-hosted) deployments, we do NOT collect, transmit, inspect, or store any enterprise documents, internal databases, user prompts, vector embeddings, or generated LLM responses. All corporate data remains strictly confined within your infrastructure.</p>
     
-    <h2>3. How We Use Information</h2>
-    <p>We use the contact information we collect to:</p>
+    <h2>3. Payment Processing & Atmos Gateway (atmos.uz)</h2>
+    <p>All financial checkouts, subscription billing (Basic, Pro), and software license purchases take place securely on our core application platform at <strong><a href="https://api.swipies.app" target="_blank" rel="noopener" style="color:var(--accent);">https://api.swipies.app</a></strong>. The public showcase websites (swipies.app and enterprise.swipies.app) serve as product catalog interfaces and route transactions to api.swipies.app.</p>
+    <p>Online payment processing is facilitated through the authorized national payment operator <strong>Atmos</strong> (<a href="https://atmos.uz" target="_blank" rel="noopener" style="color:var(--accent);">atmos.uz</a>), operated by LLC "SOLUTIONS LAB" in the Republic of Uzbekistan:</p>
     <ul>
-      <li>Respond to your requests, queries, and support questions.</li>
-      <li>Validate, manage, and verify license keys for self-hosted software instances.</li>
-      <li>Provide software updates and security alerts related to your deployment.</li>
-      <li>Analyze website performance and user interactions via Google Analytics 4 (if opted-in).</li>
+      <li><strong>Supported Payment Methods:</strong> Uzcard, Humo, Visa, and Mastercard cards.</li>
+      <li><strong>PCI DSS Compliance & Card Security:</strong> All cardholder credentials (card number, expiration date, CVV/CVC, 3D Secure / SMS one-time confirmation codes) are entered and processed directly within Atmos's PCI DSS Level 1 compliant secure payment gateway. Swipies AI never collects, receives, logs, or stores full bank card numbers or secret security codes on its servers.</li>
+      <li><strong>Retained Transaction Data:</strong> To fulfill digital orders, issue electronic receipts, manage subscriptions, and prevent fraud, Swipies AI records only non-sensitive transaction tokens received from Atmos (transaction ID, payment status, timestamp, payment amount, currency, and masked card identifiers such as <code>8600 **** **** 1234</code>).</li>
     </ul>
-    
-    <h2>4. Data Storage and Retention</h2>
-    <p>Any sales queries submitted through our contact forms are stored securely. We retain contact details only for as long as necessary to fulfill the purposes outlined in this policy or to comply with legally mandated storage periods.</p>
-    
-    <h2>5. Cookies and Web Analytics</h2>
-    <p>We utilize essential cookies for platform settings (such as language preferences). In addition, we use Google Analytics 4 (GA4) to track aggregated, anonymous traffic patterns on our public landing page to improve the user experience. You can opt out of analytical tracking at any time by configuring your browser's privacy settings.</p>
-    
-    <h2>6. Sharing of Information</h2>
-    <p>We do not sell, trade, or otherwise transfer your personal contact information to third parties. We may only disclose information when required by law or to protect our legal rights.</p>
-    
-    <h2>7. Contact Us</h2>
-    <p>If you have any questions about this Privacy Policy or data security, please contact legal@swipies.app or info@swipies.app.</p>
+
+    <h2>4. Cookies, Local Storage & Security Telemetry</h2>
+    <p>We use cookies and local browser storage to provide reliable, secure services:</p>
+    <ul>
+      <li><strong>Essential & Functional Storage:</strong> We use local storage keys (such as <code>swipies_lang</code>, <code>swipies_currency</code>, and <code>swipies_cookie_consent</code>) to remember your chosen language, currency display preferences (USD vs UZS), and cookie consent settings across visits.</li>
+      <li><strong>Payment & Session Authentication Cookies:</strong> When you access <strong>api.swipies.app</strong> to manage your account or execute checkout via Atmos, secure HTTP-only cookies and cryptographic tokens are utilized to authenticate your active session, prevent Cross-Site Request Forgery (CSRF), and maintain end-to-end transaction integrity.</li>
+      <li><strong>Anti-Fraud & Security Verification:</strong> During checkout on api.swipies.app, temporary network telemetry (such as IP address, user agent, and timestamp) is evaluated strictly to detect suspicious activities, comply with anti-fraud banking requirements, and prevent unauthorized card utilization.</li>
+      <li><strong>Performance & Analytics:</strong> We use Google Analytics 4 (GA4) with IP anonymization on our public website to evaluate aggregate, non-personally identifiable traffic patterns. You may accept or decline analytical tracking via the cookie consent banner or your browser controls.</li>
+    </ul>
+
+    <h2>5. How We Use Information</h2>
+    <p>We use your information exclusively to:</p>
+    <ul>
+      <li>Process digital orders and provide instant electronic fulfillment of software licenses and subscriptions on api.swipies.app.</li>
+      <li>Provide technical support, respond to inquiries, and dispatch critical security updates.</li>
+      <li>Validate license authenticity and verify account status.</li>
+      <li>Ensure payment integrity and prevent fraudulent transactions in coordination with Atmos.</li>
+    </ul>
+
+    <h2>6. Data Retention & Sharing</h2>
+    <p>We do not sell, rent, or trade your personal data to third parties. Data is retained only for the duration necessary to deliver the purchased services, satisfy legal accounting regulations, or resolve commercial disputes. Information may only be shared with authorized financial institutions (such as Atmos / LLC "SOLUTIONS LAB" and acquiring banks) for payment clearance or when mandated by applicable law.</p>
+
+    <h2>7. Your Rights & Contacts</h2>
+    <p>You have the right to access, rectify, or request deletion of your personal account data stored on api.swipies.app, subject to statutory retention obligations. For any questions regarding this Privacy Policy, payment security, or cookie management, please contact:</p>
+    <p><strong>Email:</strong> <a href="mailto:legal@swipies.app" style="color:var(--accent);">legal@swipies.app</a> / <a href="mailto:info@swipies.app" style="color:var(--accent);">info@swipies.app</a><br>
+    <strong>Phone:</strong> +998-90-625-3986<br>
+    <strong>Platform URL:</strong> <a href="https://api.swipies.app" target="_blank" rel="noopener" style="color:var(--accent);">https://api.swipies.app</a><br>
+    <strong>Payment Operator:</strong> Atmos (<a href="https://atmos.uz" target="_blank" rel="noopener" style="color:var(--accent);">atmos.uz</a>, LLC "SOLUTIONS LAB", Tashkent, Uzbekistan)</p>
   `,
   ru: `
     <h2>1. Информация, которую мы собираем</h2>
-    <p>Мы собираем информацию, которую вы предоставляете непосредственно нам: при заполнении контактной формы, запросе поддержки или покупке лицензии. Это может быть ваше имя, адрес электронной почты, название компании, номер телефона и текст сообщения.</p>
+    <p>Мы собираем информацию, которую вы предоставляете непосредственно нам при регистрации учетной записи, оформлении подписки, покупке локальной (on-premise) лицензии, заполнении контактных форм или обращении в службу технической поддержки. Эти данные могут включать имя, адрес электронной почты, название компании, контактный телефон и платежные реквизиты юридического лица.</p>
     
     <h2>2. Локальная обработка данных (суверенитет данных)</h2>
-    <p>Платформа Swipies AI разработана для локального (on-premise) развертывания. Мы НЕ собираем, НЕ передаем, НЕ храним и НЕ имеем доступа к вашим документам, базам данных, запросам пользователей или ответам LLM, обрабатываемым внутри вашего локального сервера.</p>
+    <p>Swipies AI спроектирован как изолированная on-premise платформа. При локальном развертывании мы НЕ собираем, НЕ передаем, НЕ просматриваем и НЕ храним корпоративные документы, внутренние базы данных, поисковые запросы, векторные эмбеддинги или ответы языковых моделей. Все данные строго остаются внутри вашего защищенного периметра.</p>
     
-    <h2>3. Как мы используем информацию</h2>
-    <p>Мы используем собранные данные для:</p>
+    <h2>3. Обработка платежей через платежный сервис Atmos (atmos.uz)</h2>
+    <p>Все операции по оплате подписок (Basic, Pro) и покупке лицензий осуществляются исключительно на защищенной платформе <strong><a href="https://api.swipies.app" target="_blank" rel="noopener" style="color:var(--accent);">https://api.swipies.app</a></strong>. Публичные сайты (swipies.app и enterprise.swipies.app) являются информационными витринами и перенаправляют пользователей для авторизованной оплаты на api.swipies.app.</p>
+    <p>Прием и обработка онлайн-платежей производятся через лицензированный платежный сервис <strong>Atmos</strong> (<a href="https://atmos.uz" target="_blank" rel="noopener" style="color:var(--accent);">atmos.uz</a>), оператором которого является ООО «SOLUTIONS LAB» (Республика Узбекистан):</p>
     <ul>
-      <li>Ответа на ваши запросы и оказания технической поддержки.</li>
-      <li>Управления лицензионными ключами и верификации подписок.</li>
-      <li>Доставки обновлений и уведомлений безопасности.</li>
-      <li>Анализа работы сайта и улучшения пользовательского опыта (через Google Analytics 4).</li>
+      <li><strong>Поддерживаемые способы оплаты:</strong> банковские карты Uzcard, Humo, Visa и Mastercard.</li>
+      <li><strong>Безопасность данных и стандарт PCI DSS:</strong> ввод и обработка данных банковских карт (номер карты, срок действия, CVC/CVV-код, коды одноразового SMS-подтверждения 3D Secure) производятся непосредственно на защищенном платежном шлюзе Atmos, сертифицированном по международному стандарту безопасности PCI DSS Level 1. Swipies AI никогда не собирает, не получает, не обрабатывает и не сохраняет полные номера банковских карт и секретные CVC/CVV-коды на своих серверах.</li>
+      <li><strong>Сохраняемые данные о транзакциях:</strong> для исполнения обязательств, автоматической выдачи лицензий, бухгалтерского учета и предотвращения мошенничества Swipies AI фиксирует только неконфиденциальные параметры транзакции от шлюза Atmos (идентификатор платежа, статус оплаты, сумму, валюту, дату и время, маскированный номер карты вида <code>8600 **** **** 1234</code>).</li>
     </ul>
-    
-    <h2>4. Безопасность и хранение данных</h2>
-    <p>Все запросы через форму обратной связи хранятся в безопасности. Мы храним контактные данные только в течение срока, необходимого для целей, изложенных в настоящей политике, или установленного законом.</p>
-    
-    <h2>5. Cookies и аналитика</h2>
-    <p>Мы используем файлы cookie для сохранения настроек платформы (например, выбранного языка). Также мы используем Google Analytics 4 (GA4) для сбора анонимной статистики о посещаемости нашего лендинга. Вы можете заблокировать cookies в настройках вашего браузера.</p>
-    
-    <h2>6. Предоставление информации третьим лицам</h2>
-    <p>Мы не продаем, не передаем и не раскрываем ваши контактные данные третьим лицам, за исключением случаев, предусмотренных законом.</p>
-    
-    <h2>7. Контакты</h2>
-    <p>По всем вопросам касательно политики конфиденциальности или безопасности данных обращайтесь на legal@swipies.app или info@swipies.app.</p>
+
+    <h2>4. Файлы cookie, локальное хранилище и безопасность платежей</h2>
+    <p>Мы используем файлы cookie и локальное хранилище браузера (Local Storage) для обеспечения стабильности и безопасности работы сервиса:</p>
+    <ul>
+      <li><strong>Обязательные и функциональные данные:</strong> мы сохраняем технические параметры (ключи <code>swipies_lang</code>, <code>swipies_currency</code>, <code>swipies_cookie_consent</code>) для запоминания выбранного языка интерфейса, отображаемой валюты (доллары США или узбекские сумы) и статуса согласия с политикой cookies.</li>
+      <li><strong>Сессионные куки авторизации и безопасности оплаты:</strong> при входе в личный кабинет, управлении подпиской и переходе к оплате через Atmos на платформе <strong>api.swipies.app</strong> используются зашифрованные защищенные сессионные токены (HTTP-only) и токены защиты от межсайтовой подделки запросов (CSRF), гарантирующие безопасность сеанса и неизменность суммы платежа.</li>
+      <li><strong>Предотвращение мошенничества (Anti-Fraud):</strong> в процессе инициации платежа на api.swipies.app система фиксирует технические параметры сессии (IP-адрес, тип браузера, временную метку) исключительно для защиты от несанкционированного списания средств, противодействия фроду и соответствия банковским регламентам.</li>
+      <li><strong>Аналитические cookies:</strong> на публичном лендинге используется сервис Google Analytics 4 (GA4) с анонимизацией IP-адресов для агрегированного анализа посещаемости. Вы можете принять или отклонить аналитические куки в баннере согласия или в настройках браузера.</li>
+    </ul>
+
+    <h2>5. Цели использования информации</h2>
+    <p>Собранные данные используются исключительно для:</p>
+    <ul>
+      <li>Обеспечения бесперебойного доступа к платформе api.swipies.app и мгновенной электронной выдачи лицензионных ключей и подписок после подтверждения оплаты шлюзом Atmos.</li>
+      <li>Оказания технической поддержки и доставки критических уведомлений об обновлениях ПО.</li>
+      <li>Проверки валидности лицензий и соблюдения условий тарифных планов.</li>
+      <li>Предотвращения подозрительных или мошеннических финансовых операций в партнерстве с Atmos.</li>
+    </ul>
+
+    <h2>6. Хранение данных и передача третьим лицам</h2>
+    <p>Мы не продаем, не передаем и не сдаем в аренду персональные данные третьим лицам. Данные хранятся в течение срока действия учетной записи или периода, установленного применимым законодательством о бухгалтерском учете. Передача данных осуществляется исключительно лицензированным расчетно-платежным организациям (Atmos / ООО «SOLUTIONS LAB» и банкам-эквайерам) для проведения платежей, либо в случаях, прямо предусмотренных законодательством Республики Узбекистан.</p>
+
+    <h2>7. Права пользователей и контакты</h2>
+    <p>Пользователи имеют право на доступ, изменение или удаление своих учетных данных на платформе api.swipies.app с учетом требований законодательства о хранении финансовых записей. По всем вопросам касательно политики конфиденциальности, безопасности платежей или работы с cookies обращайтесь:</p>
+    <p><strong>Электронная почта:</strong> <a href="mailto:legal@swipies.app" style="color:var(--accent);">legal@swipies.app</a> / <a href="mailto:info@swipies.app" style="color:var(--accent);">info@swipies.app</a><br>
+    <strong>Телефон:</strong> +998-90-625-3986<br>
+    <strong>Платформа:</strong> <a href="https://api.swipies.app" target="_blank" rel="noopener" style="color:var(--accent);">https://api.swipies.app</a><br>
+    <strong>Платежный оператор:</strong> Atmos (<a href="https://atmos.uz" target="_blank" rel="noopener" style="color:var(--accent);">atmos.uz</a>, ООО «SOLUTIONS LAB», Ташкент, Узбекистан)</p>
   `,
   uz: `
     <h2>1. Biz to'playdigan ma'lumotlar</h2>
-    <p>Biz siz to'g'ridan-to'g'ri taqdim etgan ma'lumotlarni yig'amiz (aloqa formasini to'ldirganda, litsenziya sotib olganda yoki qo'llab-quvvatlash so'raganda). Bunga ism, kompaniya nomi, email, telefon raqami va xabar matni kirishi mumkin.</p>
+    <p>Biz hisob qaydnomasini yaratishda, obunani rasmiylashtirishda, litsenziyani xarid qilishda, aloqa formasini to'ldirishda yoki mijozlarni qo'llab-quvvatlash xizmatiga murojaat qilishda taqdim etgan ma'lumotlaringizni to'playmiz. Bu ma'lumotlar ism, elektron pochta manzili, kompaniya nomi, telefon raqami va hisob-kitob ma'lumotlarini o'z ichiga olishi mumkin.</p>
     
     <h2>2. Lokal qayta ishlash (ma'lumotlar suvereniteti)</h2>
-    <p>Swipies AI lokal (on-premise) ishlashga mo'ljallangan platformadir. Biz sizning serveringizda ishlanadigan hujjatlar, ma'lumotlar bazalari, so'rovlar yoki AI javoblarini to'plamaymiz, uzatmaymiz va ularga kirish huquqiga ega emasmiz. Ma'lumotlar to'liq o'z konturingizda qoladi.</p>
+    <p>Swipies AI to'liq avtonom va maxfiy on-premise arxitekturaga asoslangan. Lokal (self-hosted) o'rnatishlarda biz sizning serveringizdagi biznes hujjatlari, ichki ma'lumotlar bazalari, qidiruv so'rovlari yoki AI javoblarini to'plamaymiz, uzatmaymiz va ularga kirish imkoniyatiga ega emasmiz. Ma'lumotlar to'liq o'z serverlaringiz doirasida qoladi.</p>
     
-    <h2>3. Ma'lumotlardan qanday foydalanamiz</h2>
-    <p>Biz to'plangan ma'lumotlardan quyidagilar uchun foydalanamiz:</p>
+    <h2>3. To'lovlarni qayta ishlash va Atmos tizimi (atmos.uz)</h2>
+    <p>Barcha to'lovlar, obunalarni sotib olish (Basic, Pro) va dasturiy ta'minot litsenziyalari xaridi xavfsiz tarzda asosiy platformamiz <strong><a href="https://api.swipies.app" target="_blank" rel="noopener" style="color:var(--accent);">https://api.swipies.app</a></strong> manzilida amalga oshiriladi. Ommaviy veb-saytlar (swipies.app va enterprise.swipies.app) mahsulot katalogi hisoblanadi va to'lov jarayoni uchun api.swipies.app ga yo'naltiradi.</p>
+    <p>Onlayn to'lovlarni qabul qilish va qayta ishlash O'zbekiston Respublikasida litsenziyalangan <strong>Atmos</strong> (<a href="https://atmos.uz" target="_blank" rel="noopener" style="color:var(--accent);">atmos.uz</a>, "SOLUTIONS LAB" MChJ) to'lov xizmati orqali amalga oshiriladi:</p>
     <ul>
-      <li>Sizning so'rovlaringizga va qo'llab-quvvatlash savollaringizga javob berish.</li>
-      <li>Self-hosted litsenziya kalitlarini boshqarish va tekshirish.</li>
-      <li>Tizim yangilanishlari va xavfsizlik ogohlantirishlarini yuborish.</li>
-      <li>Google Analytics 4 yordamida sayt faoliyatini tahlil qilish.</li>
+      <li><strong>Qabul qilinadigan to'lov usullari:</strong> Uzcard, Humo, Visa va Mastercard bank kartalari.</li>
+      <li><strong>PCI DSS standarti va karta xavfsizligi:</strong> Bank kartasi ma'lumotlari (karta raqami, amal qilish muddati, CVC/CVV kodi, 3D Secure / SMS bir martalik tasdiqlash kodlari) to'liq Atmos to'lov tizimining PCI DSS Level 1 xalqaro xavfsizlik standartiga muvofiq himoyalangan sahifasida kiritiladi va qayta ishlanadi. Swipies AI o'z serverlarida to'liq karta ma'lumotlarini yoki maxfiy kodlarni hech qachon to'plamaydi, qabul qilmaydi va saqlamaydi.</li>
+      <li><strong>Saqlanadigan tranzaksiya ma'lumotlari:</strong> Xizmatlarni ko'rsatish, litsenziya kalitlarini avtomatik chiqarish, buxgalteriya hisobi va xavfsizlikni ta'minlash maqsadida Swipies AI faqat Atmos orqali keluvchi maxfiy bo'lmagan parametrlarni (to'lov identifikatori, to'lov holati, summa, valyuta, sana va <code>8600 **** **** 1234</code> ko'rinishidagi niqoblangan karta raqami) saqlaydi.</li>
     </ul>
-    
-    <h2>4. Ma'lumotlarni saqlash</h2>
-    <p>Biz yuborilgan so'rovlarni xavfsiz saqlaymiz va ularni faqat ushbu siyosatda belgilangan maqsadlar yoki qonun talablari uchun zarur bo'lgan muddat davomida saqlab turamiz.</p>
-    
-    <h2>5. Cookies va veb-tahlil</h2>
-    <p>Biz platforma sozlamalarini (til kabi) saqlash uchun cookies fayllaridan foydalanamiz. Shuningdek, landing sahifamiz ishlashini yaxshilash maqsadida Google Analytics 4 (GA4) orqali anonim tashrif buyuruvchilar statistikasini yig'amiz. Buni brauzeringiz sozlamalarida cheklashingiz mumkin.</p>
-    
-    <h2>6. Ma'lumotlarni baham ko'rish</h2>
-    <p>Biz shaxsiy ma'lumotlarni uchinchi shaxslarga sotmaymiz yoki bermaymiz. Ma'lumotlar faqat qonun talab qilgan holatlarda yoki huquqlarimizni himoya qilish uchun oshkor qilinishi mumkin.</p>
-    
-    <h2>7. Aloqa</h2>
-    <p>Maxfiylik siyosati bo'yicha savollaringiz bo'lsa, legal@swipies.app yoki info@swipies.app manziliga murojaat qiling.</p>
+
+    <h2>4. Cookie fayllari, lokal xotira va to'lovlar xavfsizligi</h2>
+    <p>Biz platformaning barqaror va xavfsiz ishlashini ta'minlash uchun cookie fayllari va brauzerning lokal xotirasidan foydalanamiz:</p>
+    <ul>
+      <li><strong>Zaruriy va funksional ma'lumotlar:</strong> Saytda tanlangan til (<code>swipies_lang</code>), narxlar ko'rsatiladigan valyuta (<code>swipies_currency</code>) va cookie roziligi holatini (<code>swipies_cookie_consent</code>) saqlash uchun texnik parametrlardan foydalaniladi.</li>
+      <li><strong>Avtorizatsiya va xavfsiz to'lov sessiyasi cookielari:</strong> <strong>api.swipies.app</strong> tizimiga kirish, obunani boshqarish va Atmos orqali to'lovni amalga oshirish jarayonida shaxsiy hisobingiz xavfsizligini ta'minlash, CSRF hujumlarining oldini olish va tranzaksiya yaxlitligini kafolatlash uchun xavfsiz HTTP-only sessiya tokenlaridan foydalaniladi.</li>
+      <li><strong>Firibgarlikning oldini olish (Anti-Fraud):</strong> api.swipies.app da to'lov boshlanganda ruxsatsiz to'lov operatsiyalari va firibgarlikning oldini olish maqsadida texnik sessiya ko'rsatkichlari (IP manzil, brauzer ma'lumotlari, vaqt) tekshiriladi.</li>
+      <li><strong>Analitik cookie fayllari:</strong> Asosiy sahifada tashrif buyuruvchilarning umumiy oqimini o'rganish uchun anonimlashtirilgan Google Analytics 4 (GA4) xizmatidan foydalaniladi. Siz cookie banneri yoki brauzer sozlamalari orqali ushbu tahlilni boshqarishingiz mumkin.</li>
+    </ul>
+
+    <h2>5. Ma'lumotlardan qanday foydalanamiz</h2>
+    <p>To'plangan ma'lumotlar faqat quyidagi maqsadlarda ishlatiladi:</p>
+    <ul>
+      <li>api.swipies.app tizimida xizmatlarni taqdim etish va Atmos to'lovi tasdiqlangach darhol litsenziya kalitlarini yetkazib berish.</li>
+      <li>Mijozlarga texnik yordam ko'rsatish va tizim yangilanishlari haqida xabar berish.</li>
+      <li>Litsenziyalarning haqiqiyligini tekshirish.</li>
+      <li>Atmos bilan hamkorlikda to'lovlar xavfsizligini ta'minlash va noqonuniy operatsiyalarning oldini olish.</li>
+    </ul>
+
+    <h2>6. Ma'lumotlarni saqlash va uchinchi shaxslarga berish</h2>
+    <p>Biz shaxsiy ma'lumotlarni uchinchi shaxslarga sotmaymiz yoki bermaymiz. Ma'lumotlar faqat to'lovlarni amalga oshirish uchun vakolatli moliya muassasalariga (Atmos / "SOLUTIONS LAB" MChJ va xizmat ko'rsatuvchi banklarga) hamda O'zbekiston Respublikasi qonunchiligida belgilangan hollarda taqdim etilishi mumkin.</p>
+
+    <h2>7. Foydalanuvchi huquqlari va aloqa</h2>
+    <p>Foydalanuvchilar o'zlarining api.swipies.app tizimidagi ma'lumotlarini ko'rish, o'zgartirish yoki o'chirishni talab qilish huquqiga ega. Maxfiylik siyosati, to'lovlar xavfsizligi yoki cookie fayllari bo'yicha savollar bo'lsa, quyidagi ma'lumotlar orqali bog'lanishingiz mumkin:</p>
+    <p><strong>Email:</strong> <a href="mailto:legal@swipies.app" style="color:var(--accent);">legal@swipies.app</a> / <a href="mailto:info@swipies.app" style="color:var(--accent);">info@swipies.app</a><br>
+    <strong>Telefon:</strong> +998-90-625-3986<br>
+    <strong>Platforma:</strong> <a href="https://api.swipies.app" target="_blank" rel="noopener" style="color:var(--accent);">https://api.swipies.app</a><br>
+    <strong>To'lov operatori:</strong> Atmos (<a href="https://atmos.uz" target="_blank" rel="noopener" style="color:var(--accent);">atmos.uz</a>, "SOLUTIONS LAB" MChJ, Toshkent, O'zbekiston)</p>
   `
 };
 

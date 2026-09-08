@@ -159,6 +159,12 @@ server {{
         }}
     }}
 
+    # --- Shared Legal & Styles fallback ---
+    location ~* ^/(terms(\\.html)?|privacy(\\.html)?|styles\\.css)$ {{
+        root /var/www/html;
+        try_files $uri $uri.html =404;
+    }}
+
     # --- Static files ---
     location / {{
         try_files $uri $uri/ $uri.html =404;
